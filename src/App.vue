@@ -1,19 +1,16 @@
 <template>
   <div>
     <HeaderWrapper></HeaderWrapper>
-    <Search></Search>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import Header from 'components/header/header';
-  import Search from 'components/search/search';
 
   export default {
     components: {
-      'HeaderWrapper': Header,
-      'Search': Search
+      'HeaderWrapper': Header
     }
   };
 </script>

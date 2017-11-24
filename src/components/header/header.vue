@@ -34,7 +34,7 @@
     flex-wrap: nowrap;
 
     width: 100%;
-    height: 44px;
+    height: px2rem(88px);
     background: url("../../common/image/headerBg.jpg");
   }
   ul{
@@ -48,9 +48,9 @@
     flex: 1;
     flex-basis: 20%;
 
-    line-height: 44px;
+    line-height: px2rem(88px);
 
-    height: 44px;
+    height: px2rem(88px);
     span{
       display: block;
 

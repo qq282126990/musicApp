@@ -11,16 +11,17 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "better-scroll": "^1.4.2",
-    "vuex": "^3.0.1",
-    "axios": "^0.17.1",
-    "vue-lazyload": "^1.1.4",
     "fastclick": "^1.0.6",
-    "amfe-flexible": "^2.2.1",
+    "jsonp": "^0.2.1",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-lazyload": "^1.1.4",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

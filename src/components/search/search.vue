@@ -15,33 +15,35 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import "../../common/sass/fontColor";
+  @import "../../common/sass/remAdaptive";
 
   .search-wrapper{
     width: 100%;
-    height: 33px;
+    height: px2rem(66px);
 
     background: url("../../common/image/headerBg.jpg");
   }
   .search{
-    padding: 0 5px;
+    padding: 0 px2rem(10px);
     box-sizing: content-box;
   }
   .search-input{
     display: block;
 
     text-align: center;
-    line-height: 25px;
-    font-size: 13px;
+    line-height: px2rem(50px);
+    @include font-dpr(13px);
 
     width: 100%;
-    height: 25px;
+    height: px2rem(50px);
 
     border: none;
-    border-radius: 3px;
+    border-radius: px2rem(6px);
     background: rgba(0,0,0,.2);
     color: $search-font-color;
   }
   .search-icon{
-    margin-left: -5px;
+    margin-left: px2rem(-10px);
+    @include font-dpr(13px);
   }
 </style>
