@@ -1,4 +1,4 @@
-# my-project
+# musicapp
 
 > A Vue.js project
 

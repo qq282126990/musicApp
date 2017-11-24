@@ -1,23 +1,23 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div>
+    <HeaderWrapper></HeaderWrapper>
+    <Search></Search>
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import Header from 'components/header/header';
+  import Search from 'components/search/search';
+
+  export default {
+    components: {
+      'HeaderWrapper': Header,
+      'Search': Search
+    }
+  };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

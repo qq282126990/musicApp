@@ -1,15 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Musician from 'components/musician/musician';
+import 'common/font/iconfont.css';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Musician',
+      component: Musician
     }
   ]
-})
+});
