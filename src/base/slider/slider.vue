@@ -3,6 +3,9 @@
     <div class="slider-group" ref="sliderGroup">
       <slot></slot>
     </div>
+    <div class="ui-slider-dots">
+      <span class="dots" v-for="(item,index) in dots" :class="{active: currentPageIndex === index}"></span>
+    </div>
   </div>
 </template>
 
@@ -17,7 +20,7 @@
         dots: [],
         // 当前的轮播图数量
         currentPageIndex: 0
-      }
+      };
     },
     props: {
       // 是否循环播放
@@ -33,18 +36,46 @@
       // 切换时间
       interval: {
         type: Number,
-        default: 100
+        default: 1500
       }
     },
     mounted() {
       setTimeout(() => {
         this._setSliderWidth();
         this._initSlider();
+        this._initDots();
+
+        // 开启自动轮播
+        if (this.autoPlay) {
+          this._play();
+        }
       }, 20);
+
+      // 自适应大小
+      window.addEventListener('resize', () => {
+        if (!this.slider) {
+          return;
+        }
+        this._setSliderWidth(true);
+        this.slider.refresh();
+      });
+    },
+    // 切换路由时也开启轮播
+    activated() {
+      // 开启自动轮播
+      if (this.autoPlay) {
+        this._play();
+      }
+    },
+    deactivated() {
+      clearTimeout(this.timer);
+    },
+    beforeDestroy() {
+      clearTimeout(this.timer);
     },
     methods: {
       // 设置滚动的宽度
-      _setSliderWidth() {
+      _setSliderWidth(isResize) {
         // 获取所有图片
         this.children = this.$refs.sliderGroup.children;
 
@@ -66,7 +97,7 @@
         }
 
         // 判断如果开启了轮播在当前容器的宽度上 *2 + 轮播图宽度
-        if (this.loop) {
+        if (this.loop && !isResize) {
           width += 2 * sliderWidth;
         }
 
@@ -90,19 +121,23 @@
         // 滑动结束触发的事件
         this.slider.on('scrollEnd', () => {
           // 获取页面的数量
-          let pageIndex = this.slider.getCurrentPage.pageX;
+          let pageIndex = this.slider.getCurrentPage().pageX;
+
           if (this.loop) {
-            pageIndex -= 1
+            pageIndex -= 1;
           }
           // 当前的页面的数量
           this.currentPageIndex = pageIndex;
 
           // 重复轮播
-          if(this.autoPlay) {
+          if (this.autoPlay) {
             clearTimeout(this.timer);
-            this._play()
+            this._play();
           }
-        })
+        });
+      },
+      _initDots() {
+        this.dots = this.$refs.sliderGroup.children.length - 2;
       },
       // 自动轮播
       _play() {
@@ -110,21 +145,27 @@
 
         // 开启轮播
         if (this.loop) {
-          pageIndex += 1
+          pageIndex += 1;
         }
 
         // 轮播动画时间
         this.timer = setTimeout(() => {
-          this.slider.goToPage(pageIndex, 0, 400)
-        }, this.interval)
+          this.slider.goToPage(pageIndex, 0, 400);
+        }, this.interval);
       }
+    },
+    destroyed() {
+      clearTimeout(this.timer);
     }
   };
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  @import "../../common/sass/fontColor";
+  @import "../../common/sass/remAdaptive";
+
   .slider {
-    min-height: 1px;
+    min-height: px2rem(2px);
     .slider-group {
       position: relative;
       overflow: hidden;
@@ -143,6 +184,26 @@
         img {
           display: block;
           width: 100%;
+        }
+      }
+    }
+    .ui-slider-dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: px2rem(18px);
+      padding: 0 px2rem(18px);
+      text-align: center;
+      line-height: px2rem(36px);
+      .dots {
+        display: inline-block;
+        margin: 0 px2rem(8px) px2rem(10px) px2rem(8px);
+        width: px2rem(16px);
+        height: px2rem(16px);
+        border-radius: 50%;
+        background: $dotsBgColor;
+        &.active {
+          background: $dotActiveBgColor-color;
         }
       }
     }
