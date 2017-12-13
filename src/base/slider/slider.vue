@@ -36,7 +36,7 @@
       // 切换时间
       interval: {
         type: Number,
-        default: 1500
+        default: 2000
       }
     },
     mounted() {
@@ -161,7 +161,7 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  @import "../../common/sass/fontColor";
+  @import "../../common/sass/variables";
   @import "../../common/sass/remAdaptive";
 
   .slider {

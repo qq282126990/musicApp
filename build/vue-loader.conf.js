@@ -1,23 +1,21 @@
-'use strict'
-const utils = require('./utils')
-const config = require('../config')
-const isProduction = process.env.NODE_ENV === 'production'
-const sourceMapEnabled = isProduction
-  ? config.build.productionSourceMap
-  : config.dev.cssSourceMap
+/**
+ * @file vue-loader 配置文件
+ * @author jianzhongmin(282126990@qq.com)
+ */
 
+'use strict';
+
+const utils = require('./utils');
+const config = require('../config');
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  loaders: utils.cssLoaders({
-    sourceMap: sourceMapEnabled,
-    extract: isProduction
-  }),
-  cssSourceMap: sourceMapEnabled,
-  cacheBusting: config.dev.cacheBusting, 
-  transformToRequire: {
-    video: 'src',
-    source: 'src',
-    img: 'src',
-    image: 'xlink:href'
-  }
-}
+    loaders: utils.cssLoaders({
+        sourceMap: isProduction
+            ? config.build.productionSourceMap
+            : config.dev.cssSourceMap,
+
+        // extract: isProduction
+        extract: true
+    })
+};
