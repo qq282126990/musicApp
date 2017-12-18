@@ -3,8 +3,8 @@
         <header class="app-header-wrapper" v-show="show">
             <div class="app-header-left">
                 <!--右侧菜单-->
-                <div  v-if="showMenu"
-                      @click="handleClick('menu')" class="app-header-icon">
+                <div v-if="showMenu"
+                     @click="handleClick('menu')" class="app-header-icon">
                     <i class="iconfont icon-zhankai"></i>
                 </div>
                 <!--返回上一页-->
@@ -25,28 +25,28 @@
                     <router-link to="/find" tag="li" class="header-li">
                         <span class="find">发现</span>
                     </router-link>
-                    <li class="header-li">
-                        <i class="iconfont icon-sousuo2 search"></i>
-                    </li>
                 </ul>
                 <!--有title时显示-->
                 <slot name="title" v-if="title">
                     {{ title }}
                 </slot>
             </div>
+            <li class="header-li">
+                <i class="iconfont icon-sousuo2 search"></i>
+            </li>
             <!--<div class="app-header-right">-->
-                <!--<slot name="actions"-->
-                      <!--v-for="(action, actionIdx) in actions"-->
-                      <!--:icon="action.icon"-->
-                      <!--:route="action.route">-->
-                    <!--<v-btn-->
-                            <!--icon-->
-                            <!--dark-->
-                            <!--@click.native="handleClick('action', {actionIdx, route: action.route})">-->
-                        <!--<icon v-if="action.svg" :name="action.svg" class="app-header-icon"></icon>-->
-                        <!--<v-icon v-else-if="action.icon" class="app-header-icon">{{ action.icon }}</v-icon>-->
-                    <!--</v-btn>-->
-                <!--</slot>-->
+            <!--<slot name="actions"-->
+            <!--v-for="(action, actionIdx) in actions"-->
+            <!--:icon="action.icon"-->
+            <!--:route="action.route">-->
+            <!--<v-btn-->
+            <!--icon-->
+            <!--dark-->
+            <!--@click.native="handleClick('action', {actionIdx, route: action.route})">-->
+            <!--<icon v-if="action.svg" :name="action.svg" class="app-header-icon"></icon>-->
+            <!--<v-icon v-else-if="action.icon" class="app-header-icon">{{ action.icon }}</v-icon>-->
+            <!--</v-btn>-->
+            <!--</slot>-->
             <!--</div>-->
         </header>
         <search></search>
@@ -56,7 +56,7 @@
 <script>
     import {mapState} from 'vuex';
     import EventBus from '@/event-bus';
-    import Search from './Search';
+    import Search from './search/search';
 
     export default {
         name: 'appHeader',
@@ -77,7 +77,7 @@
             /**
              * 处理按钮点击事件
              *
-             * @param {string} source 点击事件源名称 menu/logo/action
+             * @param {string} source 点击事件源名称 list-menu/logo/action
              * @param {Object} data 随点击事件附带的数据对象
              */
             handleClick(source, {actionIdx, route} = {}) {
@@ -115,9 +115,9 @@
     @import "../common/sass/remAdaptive";
     @import "../common/sass/variables";
 
-    .router-link-active{
+    .router-link-active {
         line-height: px2rem($app-header-height);
-        span{
+        span {
             color: $btn-color;
         }
     }
@@ -134,6 +134,10 @@
             display: flex;
             align-items: center;
         }
+        .app-header-left{
+            flex: 1;
+            flex-basis: 20%;
+        }
         .app-header-middle {
             display: flex;
             flex-wrap: nowrap;
@@ -141,9 +145,10 @@
             li:last-child {
                 text-align: right;
                 line-height: px2rem($app-header-height);
-                @include font-dpr(16px);
+                font-size: px2rem(32px);
             }
             ul {
+                padding-left: px2rem(10px);
                 display: flex;
                 width: 100%;
                 height: px2rem($app-header-height);
@@ -160,12 +165,11 @@
             .search {
                 padding-right: px2rem(30px);
                 float: right;
-                line-height: 1.17333rem;
+                line-height: px2rem($app-header-height);
                 color: $btn-color;
             }
         }
     }
-
 
     // 改变 icon 大小
     .app-header-icon {
@@ -173,9 +177,13 @@
         color: $btn-color;
         width: px2rem($app-header-height);
         height: px2rem($app-header-height);
-        i{
+        i {
             display: block;
         }
+    }
+
+    .iconfont {
+        font-size: px2rem(32px);
     }
 
     .header-li {
@@ -183,14 +191,17 @@
         flex-basis: 20%;
 
         line-height: px2rem(88px);
-
         height: px2rem(88px);
-        color: rgba(235,249,242,0.95);
+        color: rgba(240, 239, 245, 0.95);
         span {
             display: block;
 
             text-align: center;
-            @include font-dpr(16px);
+            font-size: px2rem(32px);
+        }
+        i{
+            padding: 0;
+            display: block;
         }
     }
 </style>

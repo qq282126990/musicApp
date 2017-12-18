@@ -26,6 +26,10 @@ module.exports = {
     'semi': ['error', 'always'],
     'indent': 0,
     'space-before-function-paren': 0,
-    'no-tabs': "off"
+    'no-tabs': "off",
+    'padded-blocks': 0,
+    'no-multiple-empty-lines': [2, {'max': 2}], // 不允许多个空行
+    'brace-style': [2, 'stroustrup',{'allowSingleLine': true}],
+    'operator-linebreak': [2, 'before', {'overrides': {'?':'before', ':': 'before'}}]
   }
 }

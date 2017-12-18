@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Musician from 'components/musician/musician';
-import 'common/font/iconfont.css';
+import 'common/font/iconfont.scss';
 
 Vue.use(Router);
 

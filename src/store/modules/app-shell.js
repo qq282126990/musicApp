@@ -205,13 +205,13 @@ export default {
                         sublistTitle: 'Sublist1',
                         list: [
                             {
-                                text: 'Detail Page 1',
+                                text: 'Detail Page 1'
                             },
                             {
-                                text: 'Detail Page 2',
+                                text: 'Detail Page 2'
                             },
                             {
-                                text: 'Detail Page 3',
+                                text: 'Detail Page 3'
                             }
                         ]
                     }
@@ -242,7 +242,7 @@ export default {
                     state.show = sidebarVisibility;
                 }
             }
-        },
+        }
 
         /**
          * app shell 底部导航栏的数据

@@ -1,14 +1,11 @@
 <template>
     <div class="tab-Router">
-        <ul>
-            <li class="teb-li">
-                <div class="tab" v-for="item in tebLi">
-                    <i class="iconfont" :class="item.iconfont"></i>
-                    <span class="name">{{item.name}}</span>
-                </div>
-            </li>
-            <li class="teb-li"></li>
-        </ul>
+        <div class="teb-li" v-for="item in tebLi">
+            <div class="tab" v-for="item in item.tab">
+                <i class="iconfont" :class="item.iconfont"></i>
+                <span class="name">{{item.name}}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -16,16 +13,16 @@
     export default {
         data() {
             return {
-                tebLi: [
-                    {'name': '歌手',
-                        'iconfont': 'icon-morengeshoutu'},
-                    {"name": "排行",
-                        'iconfont': 'icon-zhuanjiguangpan'},
-                    {"name": "电台",
-                        'iconfont': 'icon-ziyuan'}]
-            }
+                tebLi: [{
+                    tab: [{'name': '歌手', 'iconfont': 'icon-maikefeng'},
+                        {'name': '排行', 'iconfont': 'icon-paixingbang1'},
+                        {'name': '主播电台', 'iconfont': 'icon-erji3'},
+                        {'name': '数字专辑', 'iconfont': 'icon-zhuanjiguangpan'}
+                    ]
+                }]
+            };
         }
-    }
+    };
 </script>
 
 <style lang="scss" scoped>
@@ -33,38 +30,41 @@
     @import "../../common/sass/variables";
 
     .tab-Router {
-        position: relative;
-        ul {
-            padding: 0;
-            width: 100%;
-        }
+        height: px2rem(160px);
+        background: rgba(20, 22, 34, 0.95);
     }
 
     .teb-li {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
+        overflow: hidden;
+        justify-content: center;
         width: 100%;
-        height: px2rem(80px);
+        height: px2rem(160px);
+        background: rgba(20, 22, 34, 0.95);
     }
 
     .tab {
         flex: 1;
         display: flex;
-        justify-content: center;
         text-align: center;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        align-items: flex-end;
         line-height: px2rem(80px);
         height: 100%;
-        i{
-            float: left;
-            font-size: 25px;
-            color: rgba(49,194,124,0.95);
+        i {
+            position: relative;
+            top: 10px;
+            font-size: px2rem(50px);
+            width: 100%;
+            color: $IconColor;
         }
-        .name{
+        .name {
+            flex: 1;
             text-align: center;
-            margin-left: 10px;
             font-weight: normal;
-            @include font-dpr(16px);
+            font-size: px2rem(30px);
+            color: $textColor;
         }
     }
 </style>

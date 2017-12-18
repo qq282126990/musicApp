@@ -97,7 +97,7 @@
 
 <style lang="stylus">
 
-    @import './assets/styles/global'
+    /*@import './assets/styles/global'*/
 
     #app
         position static
@@ -122,6 +122,7 @@
         display: flex;
         flex-direction: column;
         transform: translate3d(0, 0, 0);
+        background: rgba(13, 12, 18, 1);
     }
 
     .app-shell-header {
