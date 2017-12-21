@@ -197,7 +197,7 @@
     }
 
     .list-data {
-        padding: 0 5px;
+        padding: 0 px2rem(40px);
         display: flex;
         flex-wrap: wrap;
         min-height: px2rem(330px);
@@ -208,11 +208,11 @@
             .cover {
                 border-radius: 50%;
                 width: 100%;
-                height: px2rem(244px);
+                height: px2rem(215px);
             }
             .title {
                 position: relative;
-                padding: 0 5px;
+                padding: px2rem(20px) px2rem(10px) 0 px2rem(10px);
                 text-align: center;
                 line-height: px2rem(32px);
                 font-size: px2rem(24px);
@@ -231,6 +231,6 @@
 
 
     li:nth-child(3n + 2) {
-        margin: 0 px2rem(10px);
+        margin: 0 px2rem(20px);
     }
 </style>
