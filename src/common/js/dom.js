@@ -17,3 +17,9 @@ export function hasClass(el, className) {
   let reg = new RegExp('(^|\\s)' + className + '(\\s|$)');
   return reg.test(el.className);
 }
+
+// 获取范围值的随机数
+export function getRandomNum (min, max) {
+    let range = max - min;
+    return (min + Math.floor(Math.random() * range));
+}
