@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="my-wrapper">
         我的
     </div>
 </template>
@@ -8,4 +8,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .my-wrapper{
+        width: 100%;
+        height: 500px;
+        background: rgba(255,208,17,0.95);
+    }
 </style>

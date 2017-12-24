@@ -7,14 +7,21 @@
                         <h1 class="name">{{recommend.name}}</h1>
                         <i class="iconfont icon-prev_arrow-copy"></i>
                     </div>
-                    <ul class="list-data">
-                        <li v-for="(data, index) in recommend.data" :key="index">
+                    <ul class="list-data" v-show="recommend.data.length">
+                        <li v-for="(data, index) in recommend.data" :key="index" @click="selectItem(data)">
                             <img class="mark" :src="data.edge_mark" v-show="data.edge_mark"/>
                             <img class="cover" v-lazy="data.cover" v-show="data.cover"/>
                             <div class="title">
-                                <span class="bigTitle" v-show="data.status" >{{bigTitle[index]}}</span>
+                                <span class="bigTitle" v-show="data.status">{{bigTitle[index]}}</span>
                                 <span>{{data.title}}</span>
                             </div>
+                        </li>
+                    </ul>
+                    <!--加载图-->
+                    <ul class="list-data" v-show="!recommend.data.length">
+                        <li v-for="item in loadingImg">
+                            <img class="cover" src="../../common/image/default.jpg"/>
+                            <div class="title"></div>
                         </li>
                     </ul>
                 </li>
@@ -25,11 +32,23 @@
 
 <script type="text/ecmascript-6">
     export default {
-        props: ['List'],
+        props: {
+            List: {
+                type: Array,
+                default: null
+            }
+        },
         data() {
             return {
+                loadingImg: [0, 1, 2, 3, 4, 5],
                 bigTitle: ['新歌', '数字专辑', '新碟']
             };
+        },
+        methods: {
+            // 派发点击事件
+            selectItem(item) {
+                this.$emit('select', item);
+            }
         }
     };
 </script>
@@ -64,7 +83,8 @@
         flex-wrap: wrap;
         min-height: px2rem(330px);
     }
-    .list-data{
+
+    .list-data {
         padding: 0 5px;
     }
 
@@ -94,15 +114,16 @@
         font-size: px2rem(24px);
         color: $list-title;
         height: px2rem(80px);
-        span{
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-box-orient:vertical;
-            -webkit-line-clamp:2;
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
         }
     }
-    .bigTitle{
+
+    .bigTitle {
         position: absolute;
         left: 0;
         right: 0;
@@ -112,6 +133,7 @@
         font-size: 20px;
         font-weight: bold;
     }
+
     li:nth-child(3n + 2) {
         margin: 0 px2rem(10px);
     }

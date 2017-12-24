@@ -16,9 +16,6 @@ export default {
     methods: {
         ...mapActions('appShell/appHeader', [
             'setAppHeader'
-        ]),
-        ...mapActions('appShell/appBottomNavigator', [
-            'hideBottomNav'
         ])
     },
     activated() {
@@ -30,7 +27,6 @@ export default {
             showLogo: false,
             actions: []
         });
-        this.hideBottomNav();
     }
 };
 </script>

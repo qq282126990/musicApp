@@ -12,4 +12,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .find-wrapper{
+        width: 100%;
+        height: 500px;
+        background: rgba(248,157,138,0.95);
+    }
 </style>

@@ -9,6 +9,7 @@ import * as types from './store/mutation-types';
 
 // 定义切割点，异步加载路由组件
 let Home = () => import('@/pages/Home/Home.vue');
+let HomeSongList = () => import('@/pages/Home/Home-Song-List.vue');
 let Find = () => import('@/pages/Find/Find.vue');
 let My = () => import('@/pages/My/My.vue');
 let NotFound = () => import('@/pages/NotFound.vue');
@@ -26,16 +27,19 @@ export function createRouter() {
             },
             {
                 path: '/home',
-                name: 'home',
-                component: Home
+                component: Home,
+                children: [{
+                    path: ':id',
+                    component: HomeSongList
+                }]
             },
             {
-                path: '/Find',
+                path: '/find',
                 name: 'find',
                 component: Find
             },
             {
-                path: '/My',
+                path: '/my',
                 name: 'my',
                 component: My
             },
@@ -86,7 +90,7 @@ export function createRouter() {
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_BACK_PAGE = ['my'];
+const ALWAYS_BACK_PAGE = ['my', 'home'];
 
 
 /**
@@ -103,8 +107,7 @@ const ALWAYS_FORWARD_PAGE = ['find'];
  * @type {Array.<string>}
  * @const
  */
-const HISTORY_STACK = [];
-
+const HISTORY_STACK = ['/home'];
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
  *
@@ -121,7 +124,6 @@ function isForward(to, from) {
         HISTORY_STACK.length = 0;
         return false;
     }
-
     if (from.name && ALWAYS_BACK_PAGE.indexOf(from.name) !== -1) {
 
         // 如果是从 ALWAYS_BACK_PAGE 过来的，那么永远都是前进

@@ -19,8 +19,7 @@
                 // 原点数量
                 dots: [],
                 // 当前的轮播图数量
-                currentPageIndex: 0,
-                counter: 50
+                currentPageIndex: 0
             };
         },
         props: {
@@ -37,44 +36,106 @@
             // 切换时间
             interval: {
                 type: Number,
-                default: 50000
+                default: 1000
+            },
+            click: {
+                type: Boolean,
+                default: true
             }
         },
         mounted() {
-            setTimeout(() => {
-                this._setSliderWidth();
-                this._initSlider();
-                this._initDots();
-
-                // 开启自动轮播
-                if (this.autoPlay) {
-                    this._play();
-                }
-            }, 20);
+            // 确保dom已经渲染了 初始化代码
+            this.update();
 
             // 自适应大小
             window.addEventListener('resize', () => {
-                if (!this.slider) {
+                if (!this.slider || !this.slider.enabled) {
                     return;
                 }
-                this._setSliderWidth(true);
-                this.slider.refresh();
+                clearTimeout(this.resizeTimer);
+
+                // 改变窗口时大小执行
+                this.resizeTimer = setTimeout(() => {
+                    // 判断当前 scroll 是否处于滚动动画过程中。
+                    if (this.slider.isInTransition) {
+                        this._onScrollEnd();
+                    }
+                    else {
+                        if (this.autoPlay) {
+                            this._play();
+                        }
+                    }
+                    // 刷新轮播
+                    this.refresh();
+                }, 60);
+//                this._setSliderWidth(true);
+//                this.slider.refresh();
             });
         },
         // 切换路由时也开启轮播
         activated() {
-            // 开启自动轮播
+            if (!this.slider) {
+                return;
+            }
+            // 启用 better-scroll, 默认 开启
+            this.slider.enable();
+
+            // 获取当前页面的信息。
+            let pageIndex = this.slider.getCurrentPage().pageX;
+
+            // 调用 goToPage 方法 滚动到指定的页面
+            this.slider.goToPage(pageIndex, 0, 0);
+
+            // 设置当前的页数 = pageIndex
+            this.currentPageIndex = pageIndex;
+
+            // 开启轮播
             if (this.autoPlay) {
                 this._play();
             }
         },
         deactivated() {
+            // 禁用 better-scroll
+            this.slider.disable();
             clearTimeout(this.timer);
         },
         beforeDestroy() {
+            this.slider.disable();
             clearTimeout(this.timer);
         },
         methods: {
+            update() {
+                if (this.slider) {
+                    // 销毁 better-scroll，解绑事件
+                    this.slider.destroy();
+                }
+                this.$nextTick(() => {
+                    // 初始化 better-scroll
+                    this.init();
+                });
+            },
+            // 刷新轮播
+            refresh() {
+                this._setSliderWidth(true);
+                this.slider.refresh();
+            },
+            // 滚动到下一个页面
+            next() {
+                this.slider.next();
+            },
+            // 初始化方法
+            init() {
+                clearTimeout(this.timer); // 清除定时器
+                this.currentPageIndex = 0; // 设置当前页数为0
+
+                this._setSliderWidth(); // 设置滚动的宽度
+                this._initDots(); // 初始化轮播点
+                this._initSlider(); // 初始化滑块
+
+                if (this.autoPlay) {
+                    this._play();
+                }
+            },
             // 设置滚动的宽度
             _setSliderWidth(isResize) {
                 // 获取所有图片
@@ -109,54 +170,59 @@
             _initSlider() {
                 this.slider = new BScroll(this.$refs.slider, {
                     scrollX: true,
-                    scrollY: false,
                     momentum: false,
-                    click: true,
                     snap: {
                         loop: this.loop,
                         threshold: 0.3,
                         speed: 400
-                    }
+                    },
+                    click: this.click
                 });
 
                 // 滑动结束触发的事件
-                this.slider.on('scrollEnd', () => {
-                    // 获取页面的数量
-                    let pageIndex = this.slider.getCurrentPage().pageX;
+                this.slider.on('scrollEnd', this._onScrollEnd);
 
-                    if (this.loop) {
-                        pageIndex -= 1;
-                    }
-                    // 当前的页面的数量
-                    this.currentPageIndex = pageIndex;
-
-                    // 重复轮播
+                // 手指离开 事件
+                this.slider.on('touchend', () => {
                     if (this.autoPlay) {
-                        clearTimeout(this.timer);
                         this._play();
                     }
                 });
+
+                // 滚动开始之前 事件
+                this.slider.on('beforeScrollStart', () => {
+                    if (this.autoPlay) {
+                        clearTimeout(this.timer);
+                    }
+                });
             },
+            // 滑动结束事件
+            _onScrollEnd() {
+                // 获取页面的数量
+                let pageIndex = this.slider.getCurrentPage().pageX;
+
+                if (this.loop) {
+                    pageIndex -= 1;
+                }
+                // 当前的页面的数量
+                this.currentPageIndex = pageIndex;
+
+                if (this.autoPlay) {
+                    this._play();
+                }
+            },
+            // 初始化轮播点
             _initDots() {
-                this.dots = this.$refs.sliderGroup.children.length - 2;
+                this.dots = this.$refs.sliderGroup.children.length;
             },
             // 自动轮播
             _play() {
-                let pageIndex = this.currentPageIndex + 1;
-
-                // 开启轮播
-                if (this.loop) {
-                    pageIndex += 1;
-                }
-
+                clearTimeout(this.timer);
                 // 轮播动画时间
                 this.timer = setTimeout(() => {
-                    this.slider.goToPage(pageIndex, 0, 400);
+                    this.slider.next();
                 }, this.interval);
             }
-        },
-        destroyed() {
-            clearTimeout(this.timer);
         }
     };
 </script>

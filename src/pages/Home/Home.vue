@@ -1,42 +1,48 @@
 <template>
-    <scroll :data="recommend">
-        <div>
-            <!--轮播图-->
-            <div class="silder-wrapper">
-                <div v-if="slider.length">
-                    <Silder>
-                        <div v-for="item in slider">
-                            <a :href="item.linkUrl">
-                                <img :src="item.picUrl">
-                            </a>
-                        </div>
-                    </Silder>
-                </div>
-            </div>
-            <!--主页导航-->
-            <tab-router></tab-router>
-            <div class="content-wrapper">
-                <list-menu :List="List"></list-menu>
-                <div class="featuredRadio-wrapper">
-                    <div class="list-title">
-                        <h1 class="name">精选电台</h1>
-                        <i class="iconfont icon-prev_arrow-copy"></i>
-                    </div>
-                    <ul class="list-data">
-                        <li v-for="(item, index) in featuredRadio" :key="index">
-                            <img class="cover" v-lazy="item.radioImg"/>
-                            <div class="title">
-                                <span>{{item.radioName}}</span>
+    <div>
+        <scroll class="scroll" :data="recommend" ref="scroll">
+            <div>
+                <!--轮播图-->
+                <div class="silder-wrapper">
+                    <div v-if="slider.length">
+                        <Silder>
+                            <div v-for="item in slider">
+                                <a :href="item.linkUrl">
+                                    <img :src="item.picUrl">
+                                </a>
                             </div>
-                        </li>
-                    </ul>
+                        </Silder>
+                    </div>
+                </div>
+                <!--主页导航-->
+                <tab-router></tab-router>
+                <div class="content-wrapper">
+                    <!--其他导航列表-->
+                    <list-menu :List="List" @select="selectSinger"></list-menu>
+                    <!--精选电台-->
+                    <div class="featuredRadio-wrapper">
+                        <div class="list-title">
+                            <h1 class="name">精选电台</h1>
+                            <i class="iconfont icon-prev_arrow-copy"></i>
+                        </div>
+                        <ul class="list-data">
+                            <li v-for="(item, index) in featuredRadio" :key="index">
+                                <img class="cover" v-lazy="item.radioImg"/>
+                                <div class="title">
+                                    <span>{{item.radioName}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </scroll>
+        </scroll>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
     import {ERR_OK} from 'api/config';
     import Song from 'common/js/newSong';
@@ -62,15 +68,35 @@
             this._getfeaturedRadio();
         },
         computed: {
+            // 热门推荐数据
+            _recommend () {
+                return this.recommend;
+            },
+            // 新歌速递数据
+            _newSong () {
+                return this.newSong;
+            },
+            // 列表数据
             List () {
                 this.list = [
-                    {recommend: [{'name': '热门推荐', 'data': this.recommend}]},
-                    {recommend: [{'name': '新歌速递', 'data': this.newSong}]}
+                    {recommend: [{'name': '热门推荐', 'data': this._recommend}]},
+                    {recommend: [{'name': '新歌速递', 'data': this._newSong}]}
                 ];
                 return this.list;
             }
         },
         methods: {
+            // 选择列表 中的模块 跳转页面
+            selectSinger(singer) {
+                // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
+                if (singer.rcmdtemplate) {
+                    this.$router.push({
+                        path: `/home/${singer.content_id}`
+                    });
+                    this.homeSonglist(singer);
+                    console.log(singer);
+                }
+            },
             // 请求轮播图
             _getSlider() {
                 getSlider().then((res) => {
@@ -92,7 +118,6 @@
                 getfeaturedRadio().then((res) => {
                     if (res.code === ERR_OK) {
                         this.featuredRadio = res.data.data.groupList[0].radioList.slice(0, 3);
-                        console.log(this.featuredRadio);
                     }
                 });
             },
@@ -104,6 +129,8 @@
                         this.recommend = res.recomPlaylist.data.v_hot.slice(0, 6);
                         this.newSong[0] = this._newSonger(res.new_song.data.song_list.slice(0, 1));
                         this.newSong[2] = this._newSonger([res.new_album.data.album_list[1]]);
+
+                        this.$refs.scroll.refresh();
                     }
                 });
             },
@@ -147,7 +174,18 @@
                     }
                 });
                 return items;
-            }
+            },
+            ...mapActions('appStore', [
+                'homeSonglist'
+            ])
+        },
+        // 监听错误
+        errorCaptured (err, vm, info) {
+            console.log(err);
+            console.log(err === true);
+            console.log(vm);
+            console.log(info);
+            this._getMusicuMessage();
         },
         components: {
             Silder,
@@ -161,6 +199,11 @@
 <style lang="scss" scoped>
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
+
+    .scroll {
+        height: 100%;
+        overflow: hidden;
+    }
 
     .silder-wrapper {
         position: relative;
@@ -228,7 +271,6 @@
             }
         }
     }
-
 
     li:nth-child(3n + 2) {
         margin: 0 px2rem(20px);

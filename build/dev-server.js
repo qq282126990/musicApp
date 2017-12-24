@@ -23,6 +23,7 @@ const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
+const axios = require('axios');
 const webpackConfig = require('./webpack.dev.conf');
 
 // 默认调试服务器端口
@@ -40,7 +41,8 @@ let devMiddleware = require('webpack-dev-middleware')(compiler, {
 });
 
 let hotMiddleware = require('webpack-hot-middleware')(compiler, {
-    log: function () {}
+    log: function () {
+    }
 });
 
 // 当 html-webpack-plugin 的模版文件更新的时候，强制重新刷新调试页面
@@ -55,6 +57,34 @@ compiler.plugin('compilation', function (compilation) {
 
 // 指定需要代理的请求列表
 let proxyTable = config.dev.proxyTable;
+
+// 代理请求
+const apiRoutes = express.Router();
+
+apiRoutes.get('/getSongList', function (req, res) {
+    var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
+    axios.get(url, {
+        headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+app.use('/api', apiRoutes)
 
 // 代理请求
 Object.keys(proxyTable).forEach(function (context) {

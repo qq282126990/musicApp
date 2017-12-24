@@ -46,7 +46,9 @@ let actions = {
     enablePageTransition({commit}) {
         commit(types.ENABLE_PAGE_TRANSITION, true);
     },
-
+    homeSonglist({commit}, homeSonglist) {
+        commit(types.SET_HOME_SONG_LIST, homeSonglist);
+    },
     /**
      * 关闭页面切换动画
      *
@@ -243,104 +245,5 @@ export default {
                 }
             }
         }
-
-        /**
-         * app shell 底部导航栏的数据
-         *
-         * @type {Object}
-         */
-        // appBottomNavigator: {
-        //     namespaced: true,
-        //     state: {
-        //
-        //         /**
-        //          * 是否展示底部导航栏
-        //          *
-        //          * @type {boolean}
-        //          */
-        //         show: true,
-        //
-        //         /**
-        //          * 导航按钮列表
-        //          *
-        //          * @type {Array.<Object>}
-        //          */
-        //         navs: [
-        //             {
-        //                 // 按钮的名字
-        //                 name: 'home',
-        //
-        //                 // 显示的 icon
-        //                 icon: 'home',
-        //
-        //                 // 显示的文字
-        //                 text: '主页',
-        //
-        //                 // 是否是当前激活的
-        //                 active: true,
-        //
-        //                 // 路由
-        //                 route: {
-        //                     name: 'home',
-        //                     path: '/'
-        //                 }
-        //             },
-        //             {
-        //                 // 按钮的名字
-        //                 name: 'user',
-        //
-        //                 // 显示的 icon
-        //                 icon: 'person',
-        //
-        //                 // 显示的文字
-        //                 text: '个人中心',
-        //
-        //                 // 路由信息
-        //                 route: '/user'
-        //             }
-        //         ]
-        //     },
-        //     actions: {
-        //
-        //         /**
-        //          * 隐藏底部导航
-        //          *
-        //          * @param {Function} commit commit
-        //          */
-        //         hideBottomNav({commit}) {
-        //             commit(types.SET_APP_BOTTOM_NAV, {show: false});
-        //         },
-        //
-        //         /**
-        //          * 显示底部导航
-        //          *
-        //          * @param {Function} commit commit
-        //          */
-        //         showBottomNav({commit}) {
-        //             commit(types.SET_APP_BOTTOM_NAV, {show: true});
-        //         },
-        //
-        //         /**
-        //          * 激活底部导航
-        //          *
-        //          * @param {Function} commit commit
-        //          * @param {string} name name
-        //          */
-        //         activateBottomNav({commit}, name) {
-        //             commit(types.ACTIVATE_APP_BOTTOM_NAV, name);
-        //         }
-        //     },
-        //     mutations: {
-        //         [types.ACTIVATE_APP_BOTTOM_NAV](state, name) {
-        //             state.navs = state.navs.map(nav => {
-        //                 nav.active = nav.name === name;
-        //                 return nav;
-        //             });
-        //         },
-        //         [types.SET_APP_BOTTOM_NAV](state, appBottomNavigator) {
-        //             state = Object.assign(state, appBottomNavigator);
-        //         }
-        //     }
-        // }
     }
 };

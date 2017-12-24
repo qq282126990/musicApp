@@ -5,7 +5,8 @@
                 <app-header
                         class="app-shell-header"
                         @click-menu="handleClickHeaderMenu"
-                        @click-back="handleClickHeaderBack">
+                        @click-back="handleClickHeaderBack"
+                >
                 </app-header>
                 <app-sidebar
                         @hide-sidebar="handleHideSidebar"
@@ -100,7 +101,6 @@
     /*@import './assets/styles/global'*/
 
     #app
-        position static
         font-family 'Avenir', Helvetica, Arial, sans-serif
         -webkit-font-smoothing antialiased
         -moz-osx-font-smoothing grayscale
@@ -130,7 +130,7 @@
         top: 0;
         left: 0;
         right: 0;
-        z-index: 100;
+        z-index: 50;
     }
 
     .app-view-wrapper {
@@ -150,7 +150,6 @@
         overflow-y: auto;
         transition: transform 0.4s cubic-bezier(.55, 0, .1, 1);
         -webkit-overflow-scrolling: touch;
-
         // 隐藏掉scrollbar
         &::-webkit-scrollbar {
             width: 0px;

@@ -1,56 +1,44 @@
 <template>
-    <div name="slide-down">
-        <header class="app-header-wrapper" v-show="show">
-            <div class="app-header-left">
-                <!--右侧菜单-->
-                <div v-if="showMenu"
-                     @click="handleClick('menu')" class="app-header-icon">
-                    <i class="iconfont icon-zhankai"></i>
+    <transition name="slide">
+        <div name="slide-down" v-show="show">
+            <header class="app-header-wrapper">
+                <div class="app-header-left">
+                    <!--右侧菜单-->
+                    <div v-if="showMenu"
+                         @click="handleClick('menu')" class="app-header-icon">
+                        <i class="iconfont icon-zhankai"></i>
+                    </div>
+                    <!--返回上一页-->
+                    <div v-if="showBack"
+                         @click="handleClick('back')" class="app-header-icon">
+                        <i class="iconfont icon-fanhui1-copy"></i>
+                    </div>
                 </div>
-                <!--返回上一页-->
-                <div v-if="showBack"
-                     @click="handleClick('back')" class="app-header-icon">
-                    <i class="iconfont icon-fanhui1-copy"></i>
+                <div class="app-header-middle" v-cloak>
+                    <!--没有title时显示-->
+                    <ul v-if="!title">
+                        <router-link to="/my" tag="li" class="header-li">
+                            <span class="myIndex">我的</span>
+                        </router-link>
+                        <router-link to="/home" tag="li" class="header-li">
+                            <span class="musician">音乐馆</span>
+                        </router-link>
+                        <router-link to="/find" tag="li" class="header-li">
+                            <span class="find">发现</span>
+                        </router-link>
+                    </ul>
+                    <!--有title时显示-->
+                    <slot name="title" v-if="title">
+                        {{ title }}
+                    </slot>
                 </div>
-            </div>
-            <div class="app-header-middle" v-cloak>
-                <!--没有title时显示-->
-                <ul v-if="!title">
-                    <router-link to="/my" tag="li" class="header-li">
-                        <span class="myIndex">我的</span>
-                    </router-link>
-                    <router-link to="/home" tag="li" class="header-li">
-                        <span class="musician">音乐馆</span>
-                    </router-link>
-                    <router-link to="/find" tag="li" class="header-li">
-                        <span class="find">发现</span>
-                    </router-link>
-                </ul>
-                <!--有title时显示-->
-                <slot name="title" v-if="title">
-                    {{ title }}
-                </slot>
-            </div>
-            <li class="header-li">
-                <i class="iconfont icon-sousuo2 search"></i>
-            </li>
-            <!--<div class="app-header-right">-->
-            <!--<slot name="actions"-->
-            <!--v-for="(action, actionIdx) in actions"-->
-            <!--:icon="action.icon"-->
-            <!--:route="action.route">-->
-            <!--<v-btn-->
-            <!--icon-->
-            <!--dark-->
-            <!--@click.native="handleClick('action', {actionIdx, route: action.route})">-->
-            <!--<icon v-if="action.svg" :name="action.svg" class="app-header-icon"></icon>-->
-            <!--<v-icon v-else-if="action.icon" class="app-header-icon">{{ action.icon }}</v-icon>-->
-            <!--</v-btn>-->
-            <!--</slot>-->
-            <!--</div>-->
-        </header>
-        <search></search>
-    </div>
+                <li class="header-li">
+                    <i class="iconfont icon-sousuo2 search"></i>
+                </li>
+            </header>
+            <search></search>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -114,6 +102,17 @@
 <style lang="scss" scoped>
     @import "../common/sass/remAdaptive";
     @import "../common/sass/variables";
+
+    .slide-enter-active, .slide-leave-active {
+        transition: transform 0.4s cubic-bezier(.55, 0, .1, 1);
+    }
+
+    .slide-enter {
+        transform: translate3d(-100%, 0, 0)
+    }
+    .slide-leave-active {
+        transform: translate3d(-100%, 0, 0)
+    }
 
     .router-link-active {
         line-height: px2rem($app-header-height);
