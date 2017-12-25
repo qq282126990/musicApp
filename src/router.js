@@ -27,11 +27,16 @@ export function createRouter() {
             },
             {
                 path: '/home',
-                component: Home,
-                children: [{
-                    path: ':id',
-                    component: HomeSongList
-                }]
+                component: Home
+                // children: [{
+                //     path: ':id',
+                //     component: HomeSongList
+                // }]
+            },
+            {
+                path: '/songlist/:id',
+                component: HomeSongList,
+                alias: '/home/:id'
             },
             {
                 path: '/find',

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
-    import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
+    import {mapActions, mapState} from 'vuex';
+    import {getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
     import {ERR_OK} from 'api/config';
     import Song from 'common/js/newSong';
 
@@ -55,19 +55,26 @@
     export default {
         data() {
             return {
-                slider: [], // 轮播图
+                // slider: [], // 轮播图
                 recommend: [], // 热门推荐数据
                 newSong: [], // 新歌速递数据
                 featuredRadio: [] // 精选电台
             };
         },
+        async asyncData({store}) {
+            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
+            await store.dispatch('home/getSlider');
+        },
         created() {
-            this._getSlider();
+            // 异步操作挪到了 vuex actions 中完成
+            // this._getSlider();
             this._getMusicuMessage();
             this._getDigitalAlbum();
             this._getfeaturedRadio();
         },
         computed: {
+            // 从 store 中获取 home/slider
+            ...mapState('home', ['slider']),
             // 热门推荐数据
             _recommend () {
                 return this.recommend;
@@ -98,13 +105,13 @@
                 }
             },
             // 请求轮播图
-            _getSlider() {
-                getSlider().then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.slider = res.data.slider;
-                    }
-                });
-            },
+            // _getSlider() {
+            //     getSlider().then((res) => {
+            //         if (res.code === ERR_OK) {
+            //             this.slider = res.data.slider;
+            //         }
+            //     });
+            // },
             // 请求数字专辑
             _getDigitalAlbum() {
                 getDigitalAlbum().then((res) => {

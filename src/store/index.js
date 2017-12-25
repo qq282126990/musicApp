@@ -7,6 +7,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import appShell from './modules/app-shell';
 import appStore from './modules/app-store';
+import home from './modules/home';
 
 import createLogger from 'vuex/dist/logger';
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     modules: {
         appShell,
         appStore,
+        home,
         strict: debug,
         plugins: debug ? [createLogger()] : []
     }
