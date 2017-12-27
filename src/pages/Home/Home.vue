@@ -37,50 +37,32 @@
                 </div>
             </div>
         </scroll>
-        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
-    import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
-    import {ERR_OK} from 'api/config';
-    import Song from 'common/js/newSong';
-
+    import {mapActions, mapState} from 'vuex';
     import Silder from 'base/slider/slider';
     import ListMenu from 'base/list-menu/list-menu';
     import Scroll from 'base/scroll/scroll';
     import TabRouter from 'components/tabRouter/tabRouter';
 
     export default {
-        data() {
-            return {
-                slider: [], // 轮播图
-                recommend: [], // 热门推荐数据
-                newSong: [], // 新歌速递数据
-                featuredRadio: [] // 精选电台
-            };
-        },
-        created() {
-            this._getSlider();
-            this._getMusicuMessage();
-            this._getDigitalAlbum();
-            this._getfeaturedRadio();
+        async asyncData({store}) {
+            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
+            await store.dispatch('asyncAjax/getSlider');
+            await store.dispatch('asyncAjax/getMusicuMessage');
+            await store.dispatch('asyncAjax/getfeaturedRadio');
+            await store.dispatch('asyncAjax/getDigitalAlbum');
         },
         computed: {
-            // 热门推荐数据
-            _recommend () {
-                return this.recommend;
-            },
-            // 新歌速递数据
-            _newSong () {
-                return this.newSong;
-            },
+            // 获取请求接口对应的数据
+            ...mapState('asyncAjax', ['slider', 'recommend', 'newSong', 'featuredRadio']),
             // 列表数据
             List () {
                 this.list = [
-                    {recommend: [{'name': '热门推荐', 'data': this._recommend}]},
-                    {recommend: [{'name': '新歌速递', 'data': this._newSong}]}
+                    {recommend: [{'name': '热门推荐', 'data': this.recommend}]},
+                    {recommend: [{'name': '新歌速递', 'data': this.newSong}]}
                 ];
                 return this.list;
             }
@@ -89,103 +71,23 @@
             // 选择列表 中的模块 跳转页面
             selectSinger(singer) {
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
-                if (singer.rcmdtemplate) {
+                if (singer.content_id) {
                     this.$router.push({
                         path: `/home/${singer.content_id}`
                     });
                     this.homeSonglist(singer);
-                    console.log(singer);
                 }
-            },
-            // 请求轮播图
-            _getSlider() {
-                getSlider().then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.slider = res.data.slider;
-                    }
-                });
-            },
-            // 请求数字专辑
-            _getDigitalAlbum() {
-                getDigitalAlbum().then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.newSong[1] = this._newSonger([res.data.content[0].albumlist[1]]);
-                    }
-                });
-            },
-            // 请求精选电台
-            _getfeaturedRadio() {
-                getfeaturedRadio().then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.featuredRadio = res.data.data.groupList[0].radioList.slice(0, 3);
-                    }
-                });
-            },
-            // 请求主页信息
-            _getMusicuMessage() {
-                getMusicuMessage().then((res) => {
-                    if (res.code === ERR_OK) {
-                        // 传到 菜单组件的数据
-                        this.recommend = res.recomPlaylist.data.v_hot.slice(0, 6);
-                        this.newSong[0] = this._newSonger(res.new_song.data.song_list.slice(0, 1));
-                        this.newSong[2] = this._newSonger([res.new_album.data.album_list[1]]);
-
-                        this.$refs.scroll.refresh();
-                    }
-                });
-            },
-            _newSonger(list) {
-                let items = {};
-
-                list.forEach((item) => {
-                    let id = item.album_mid;
-                    let name = item.album_name;
-                    let singerName = item.singer_name;
-
-                    items = (new Song({
-                        id: id,
-                        albumName: name,
-                        singerName: singerName
-                    }));
-
-                    if (item.singer) {
-                        let id = item.album.mid;
-                        let name = item.album.name;
-                        let singerName = item.singer[0].name;
-
-                        items = (new Song({
-                            id: id,
-                            albumName: name,
-                            singerName: singerName,
-                            edge_mark: null
-                        }));
-                    }
-
-                    if (item.author) {
-                        let id = item.album.mid;
-                        let name = item.album.name;
-                        let singerName = item.author[0].name;
-
-                        items = (new Song({
-                            id: id,
-                            albumName: name,
-                            singerName: singerName
-                        }));
-                    }
-                });
-                return items;
             },
             ...mapActions('appStore', [
                 'homeSonglist'
+            ]),
+            ...mapActions('asyncAjax', [
+                'getMusicuMessage'
             ])
         },
         // 监听错误
-        errorCaptured (err, vm, info) {
+        errorCaptured (err) {
             console.log(err);
-            console.log(err === true);
-            console.log(vm);
-            console.log(info);
-            this._getMusicuMessage();
         },
         components: {
             Silder,

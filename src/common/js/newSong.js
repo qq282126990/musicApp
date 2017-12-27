@@ -8,3 +8,45 @@ export default class Song {
         this.title = this.albumName + ' - ' + this.singerName;
     }
 };
+
+export function createNewSong(list) {
+    let items = {};
+
+    list.forEach((item) => {
+        let id = item.album_mid;
+        let name = item.album_name;
+        let singerName = item.singer_name;
+
+        items = (new Song({
+            id: id,
+            albumName: name,
+            singerName: singerName
+        }));
+
+        if (item.singer) {
+            let id = item.album.mid;
+            let name = item.album.name;
+            let singerName = item.singer[0].name;
+
+            items = (new Song({
+                id: id,
+                albumName: name,
+                singerName: singerName,
+                edge_mark: null
+            }));
+        }
+
+        if (item.author) {
+            let id = item.album.mid;
+            let name = item.album.name;
+            let singerName = item.author[0].name;
+
+            items = (new Song({
+                id: id,
+                albumName: name,
+                singerName: singerName
+            }));
+        }
+    });
+    return items;
+}

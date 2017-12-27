@@ -91,3 +91,11 @@ body {
   -webkit-text-size-adjust: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+/*设置 v-list样式*/
+.list__tile{
+  padding: 0 !important;
+}
+
+.list__tile--link:hover, .list__tile--highlighted {
+  background: none !important;
+}

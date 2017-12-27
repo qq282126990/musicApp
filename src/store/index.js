@@ -7,6 +7,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import appShell from './modules/app-shell';
 import appStore from './modules/app-store';
+import asyncAjax from './modules/async-ajax';
 
 import createLogger from 'vuex/dist/logger';
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     modules: {
         appShell,
         appStore,
+        asyncAjax,
         strict: debug,
         plugins: debug ? [createLogger()] : []
     }

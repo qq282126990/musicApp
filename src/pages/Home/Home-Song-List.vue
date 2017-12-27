@@ -7,6 +7,7 @@
                         :albumName="albumName"
                         :authorAvatar="authorAvatar"
                         :authorName="authorName"
+                        :desc="desc"
                         :songs="songs"></music-list>
         </transition>
     </div>
@@ -27,7 +28,9 @@
                 // 歌曲列表
                 songs: [],
                 // 作者头像
-                authorAvatar: ''
+                authorAvatar: '',
+                // 简介
+                desc: ''
             };
         },
         created () {
@@ -67,17 +70,17 @@
         },
         methods: {
             getSongList () {
+                console.log(this.homeSonglist);
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.content_id) {
-                    this.$router.back();
+                    this.$router.go(-1);
                 }
                 getSongList(this.homeSonglist.content_id).then((res) => {
                     if (res.code === ERR_OK) {
                         this.data = res.cdlist[0];
                         this.songs = this._normalizeSongs(this.data.songlist);
+                        this.desc = '简介:' + this.data.desc;
                         this.authorAvatar = this.data.headurl;
-                        console.log(this.songs);
-                        console.log(this.data.songlist);
                     }
                 });
             },
@@ -85,7 +88,6 @@
             _normalizeSongs(list) {
                 let ret = [];
                 list.forEach((musicData) => {
-                    console.log(musicData);
                     if (musicData) {
                         ret.push(createSong(musicData));
                     }

@@ -9,32 +9,53 @@
                 <!--滚动的标题-->
                 <span v-if="carouselStart" :class="{carousel: carouselStart}" ref="carousel">{{carousel}}</span>
             </div>
-            <div class="list-wrapper">
-                <div class="bg-style">
-                    <div class="background">
-                        <img width="100%" height="100%" :src="coverImage">
+        </div>
+        <div class="list-wrapper">
+            <div class="bg-style">
+                <!--背景图-->
+                <div class="background">
+                    <img width="100%" height="100%" :src="coverImage">
+                </div>
+                <!--专辑信息-->
+                <div class="album">
+                    <div class="cover">
+                        <img :src="coverImage"
+                             onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
                     </div>
-                    <div class="album">
-                        <div class="cover">
-                            <img :src="coverImage"
+                    <div class="message">
+                        <h1 class="album-name">{{albumName}}</h1>
+                        <div class="author">
+                            <img class="author-avatar" :src="authorAvatar"
                                  onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
-                        </div>
-                        <div class="message">
-                            <h1 class="album-name">{{albumName}}</h1>
-                            <div class="author">
-                                <img class="author-avatar" :src="authorAvatar"
-                                     onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
-                                <div class="author-name">
-                                    <span>{{authorName}}</span>
-                                </div>
+                            <div class="author-name">
+                                <span>{{authorName}}</span>
                             </div>
                         </div>
+                        <div class="desc" v-show="desc">
+                            <p v-html="desc"></p>
+                        </div>
                     </div>
-                    <div class="filter"></div>
                 </div>
-                <div class="list">
+                <!--选项 信息-->
+                <div class="itemMessage">
+                    <ul>
+                        <li class="like">
 
+                        </li>
+                        <li class="comment"></li>
+                        <li class="share"></li>
+                    </ul>
                 </div>
+                <!--背景滤镜效果-->
+                <div class="filter"></div>
+            </div>
+            <!--歌曲列表-->
+            <div class="list">
+                <v-list>
+                    <v-list-tile ripple @click="">
+                        <v-icon>favorite_border</v-icon>
+                    </v-list-tile>
+                </v-list>
             </div>
         </div>
     </div>
@@ -75,6 +96,11 @@
                 type: String,
                 default: ''
             },
+            // 简介
+            desc: {
+                type: String,
+                default: ''
+            },
             // 歌曲列表
             songs: {
                 type: Array,
@@ -103,6 +129,7 @@
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
 
+    /*外层*/
     .music-list {
         position: fixed;
         top: 0;
@@ -112,10 +139,23 @@
         z-index: 110;
         background: rgba(19, 21, 33, 1);
     }
-
+    /*头部*/
     .header {
         width: 100%;
         height: px2rem(84px);
+        /*返回按钮*/
+        .back {
+            position: absolute;
+            top: 0;
+            z-index: 50;
+            .icon-fanhui1-copy {
+                display: block;
+                padding: px2rem(20px);
+                font-size: px2rem(44px);
+                color: $icon-fanhui1-copy;
+            }
+        }
+        /*标题*/
         .title {
             position: absolute;
             top: 0;
@@ -131,6 +171,7 @@
             color: #fff;
             z-index: 40;
         }
+        /*滚动标题*/
         .carousel {
             position: relative;
             display: block;
@@ -138,25 +179,14 @@
         }
     }
 
-    .back {
-        position: absolute;
-        top: 0;
-        z-index: 50;
-        .icon-fanhui1-copy {
-            display: block;
-            padding: px2rem(20px);
-            font-size: px2rem(44px);
-            color: $icon-fanhui1-copy;
-        }
-    }
-
+    /*音乐列表外层*/
     .list-wrapper {
         position: fixed;
         top: 0;
         bottom: 0;
         width: 100%;
     }
-
+    /*过滤层*/
     .filter {
         position: absolute;
         top: 0;
@@ -165,10 +195,12 @@
         height: 100%;
         opacity: .6;
         object-fit: cover;
-        filter: blur(36px);
+        filter: blur(px2rem(72px));
         background: rgba(0, 0, 0, 1);
+        z-index: -1;
     }
 
+    /*专辑背景*/
     .bg-style {
         position: relative;
         width: 100%;
@@ -184,25 +216,27 @@
             height: 100%;
             z-index: -1;
             opacity: 0.6;
-            filter: blur(20px);
+            filter: blur(px2rem(40px));
         }
     }
 
+    /*专辑信息*/
     .album {
         display: flex;
         position: absolute;
         top: px2rem(118px);
-        padding: 0 16px;
+        padding: 0 px2rem(32px);
         box-sizing: border-box;
         overflow: hidden;
         width: 100%;
         z-index: 50;
+        /*专辑头像*/
         .cover {
             display: block;
             position: relative;
-            width: 125px;
-            height: 125px;
-            margin-right: 10px;
+            width: px2rem(250px);
+            height: px2rem(250px);
+            margin-right: px2rem(20px);
             overflow: hidden;
             img {
                 position: absolute;
@@ -214,56 +248,108 @@
                 object-fit: cover;
             }
         }
+        /*专辑信息*/
         .message {
             display: block;
+            padding: px2rem(20px) 0;
             flex: 1;
             position: relative;
+            color: $name-color;
+            /*专辑名字*/
             .album-name {
                 margin: 0;
-                max-height: 47px;
+                max-height: px2rem(94px);
                 text-align: left;
                 line-height: 1.3;
-                font-size: 18px;
+                font-size: px2rem(36px);
                 font-weight: 300;
                 overflow: hidden;
-                color: $name-color;
             }
+            /*专辑作者外层*/
             .author {
                 display: flex;
-                margin-top: 8px;
+                margin-top: px2rem(16px);
                 overflow: hidden;
                 text-align: left;
+                /*专辑作者头像*/
                 .author-avatar {
                     display: block;
-                    width: 24px;
-                    height: 24px;
-                    margin-right: 8px;
-                    border-radius: 24px;
+                    width: px2rem(48px);
+                    height: px2rem(48px);
+                    margin-right: px2rem(16px);
+                    border-radius: px2rem(48px);
                 }
+                /*专辑作者名字*/
                 .author-name {
                     flex: 1;
                     span {
                         display: block;
                         width: 100%;
-                        line-height: 24px;
+                        line-height: px2rem(48px);
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
-                        font-size: 14px;
-                        color: $name-color;
+                        font-size: px2rem(28px);
                     }
                 }
+            }
+            /*专辑简介*/
+            .desc {
+                position: relative;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                text-align: left;
+                text-overflow: ellipsis;
+                margin-top: px2rem(16px);
+                height: px2rem(36px);
+                line-height: px2rem(36px);
+                font-size: px2rem(24px);
+                p{
+                    padding-right: px2rem(12px);
+                }
+            }
+            .desc:after{
+                content:"";
+                position: absolute;
+                top: px2rem(10px);
+                right: px2rem(4px);
+                width: px2rem(12px);
+                height: px2rem(12px);
+                border-top: px2rem(4px) solid #ffffff;
+                border-right: px2rem(4px) solid #ffffff;
+                transform: rotate(45deg);
             }
         }
     }
 
+    /*选项信息  收藏评论 分享*/
+    .itemMessage{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box;
+        height: px2rem(160px);
+        padding: 0 px2rem(32px);
+        ul{
+            display: flex;
+            width: 100%;
+        }
+        li{
+            flex: 1;
+        }
+    }
+    /*歌曲列表外层*/
     .list {
         position: relative;
+        padding: 0;
         height: 100%;
         background: #fff;
         z-index: 100;
     }
 
+    /*滚动条 animation*/
     @keyframes carousel {
         0% {
             transform: translate3d(105%, 0, 0);
