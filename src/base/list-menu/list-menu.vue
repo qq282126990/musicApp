@@ -8,7 +8,8 @@
                         <i class="iconfont icon-prev_arrow-copy"></i>
                     </div>
                     <ul class="list-data" v-if="recommend.data.length">
-                        <li v-for="(data, index) in recommend.data" :key="index" @click="selectItem(data)">
+                        <li v-for="(data, index) in recommend.data" :key="index"
+                            @click="selectItem(data)">
                             <img class="mark" :src="data.edge_mark" v-show="data.edge_mark"/>
                             <img class="cover" v-lazy="data.cover"/>
                             <div class="title">
@@ -30,10 +31,14 @@
                 </li>
             </ul>
         </div>
+        <mask-layer></mask-layer>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapActions} from 'vuex';
+    import maskLayer from '../mask-layer/mask-layer';
+
     export default {
         props: {
             List: {
@@ -43,17 +48,19 @@
         },
         data() {
             return {
-                showLondImg: false, // 是否显示加载图
+                showLondImg: false, // 是否显示图片 loading
                 loadingImg: [0, 1, 2, 3, 4, 5], // 加载图数量
                 bigTitle: ['新歌', '数字专辑', '新碟'] // 新歌速递组件 大标题
             };
         },
+        created () {
+            // 初始化时隐藏遮罩层
+            this.maskLayer(false);
+        },
         computed: {
+            // 判断显示 图片 loading
             _showLondImg() {
-                if (!this.List[0].recommend[0].data.length) {
-                    this.showLondImg = true;
-                }
-                else if (!this.List[0].recommend[0].data[0].edge_mark) {
+                if (!this.List[0].recommend[0].data.length || !this.List[0].recommend[0].data[0].edge_mark) {
                     this.showLondImg = true;
                 }
                 else {
@@ -65,8 +72,25 @@
         methods: {
             // 派发点击事件
             selectItem(item) {
-                this.$emit('select', item);
-            }
+                if (this.List) {
+                    this.$emit('select', item);
+                    this.maskLayer(true);
+                }
+            },
+            ...mapActions('appStore', [
+                'maskLayer'
+            ])
+        },
+        // 组件激活时隐藏遮罩层
+        activated () {
+            this.maskLayer(false);
+        },
+        // 组件销毁时显示遮罩层
+        destroyed () {
+            this.maskLayer(true);
+        },
+        components: {
+            maskLayer
         }
     };
 </script>

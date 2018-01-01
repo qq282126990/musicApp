@@ -52,7 +52,7 @@
             // 确保dom已经渲染了 初始化代码
             setTimeout(() => {
                 this._initScroll();
-            });
+            }, 20);
         },
         methods: {
             _initScroll() {

@@ -1,22 +1,43 @@
-// 头部样式
-$btn-color: #fff;
-$app-header-height: 88px;
+// AppHeader.vue
+$btn-color: #fff; // 头部按钮颜色
+$app-header-height: 88px; // 头部导航的高度
+$app-header-bgcolor: rgba(49, 194, 124, 0.95); // 头部背景颜色
+$header-li-color: rgba(240, 239, 245, 0.95); // 头部文字颜色
 
-// 搜索框样式
-$search-font-color: #fff;
+// search.vue
+$search-font-color: #fff; // 搜索框字体颜色
 
-// 轮播图样式
-$dotsBgColor: rgba(144, 144, 144, .8);
-$dotActiveBgColor-color: #fff;
+// slider.vue
+$dotsBgColor: rgba(20, 23, 35, 0.95); // 轮播点背景颜色
+$dotActiveBgColor-color: rgba(54, 183, 120, 0.95); // 轮播点激活时的颜色
 
-// tabRouter
-$IconColor: rgba(49, 194, 124, 0.95);
-$textColor: #fff;
+// tabRouter.vue
+$textColor: #fff; // icon标题颜色
+$IconColor: rgba(49, 194, 124, 0.95); // icon 颜色
 
-// 菜单列表颜色
-$list-title: #fff;
+// home.vue
+$list-title: #fff; // 菜单列表标题颜色
+$content-bgcolor: rgba(13, 12, 18, 0.95); // 内容背景颜色
 
-$icon-fanhui1-copy: #fff;
+// 图标默认颜色
+$icon-color: #fff;
 
-// 歌曲列表颜色
-$name-color: #fff;
+// mask-layer.vue    遮罩层背景色
+$mask-layer-bgcolor: rgba(0, 0, 0, .5);
+
+// music-list.vue
+$name-color: #fff; // 歌曲列表颜色
+$icon-fanhui1-copy: #fff; // 返回键颜色
+$title-color: #fff; // 标题颜色
+$list-bgcolor: #fff; // 歌曲列表背景颜色
+$error: rgba(246,246,246,0.95); // 没有数据的时候文字显示的颜色
+$music-list-bgcolor: rgba(19, 21, 33, 1); // 外层背景颜色
+$filter-bgcolor: rgba(0, 0, 0, 1); // 模糊效果背景颜色
+$play-number-bgcolor: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0, 0, 0, 0.4) 100%); // 播放量背景样式
+
+// song-list.vue
+$total-number-color: grey; // 总歌曲数量的字体颜色
+$play-color: #31c27c; // 播放按钮颜色
+$content-title-color: #000; // 内容标题颜色
+$content-text-color: grey; // 内容文字颜色
+$more-color: #b6b6b6; // 更多 icon颜色

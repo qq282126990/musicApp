@@ -17,26 +17,27 @@
                 <div class="app-header-middle" v-cloak>
                     <!--没有title时显示-->
                     <ul v-if="!title">
-                        <router-link to="/my" tag="li" class="header-li">
-                            <span class="myIndex">我的</span>
-                        </router-link>
+                        <li class="header-li">
+                            <router-link to="/my" tag="span" class="myIndex">我的</router-link>
+                        </li>
                         <router-link to="/home" tag="li" class="header-li">
                             <span class="musician">音乐馆</span>
                         </router-link>
-                        <router-link to="/find" tag="li" class="header-li">
-                            <span class="find">发现</span>
-                        </router-link>
+                        <li class="header-li">
+                            <router-link to="/find" tag="span" class="find">发现</router-link>
+                        </li>
                     </ul>
                     <!--有title时显示-->
                     <slot name="title" v-if="title">
                         {{ title }}
                     </slot>
                 </div>
-                <li class="header-li">
+                <div class="search">
                     <i class="iconfont icon-sousuo2 search"></i>
-                </li>
+                </div>
             </header>
             <search></search>
+            <div class="mask-layer" v-show="maskLayer"></div>
         </div>
     </transition>
 </template>
@@ -58,6 +59,9 @@
             ]),
             ...mapState('appShell', [
                 'isPageSwitching'
+            ]),
+            ...mapState('appStore', [
+                'maskLayer'
             ])
         },
         methods: {
@@ -108,10 +112,13 @@
     }
 
     .slide-enter {
-        transform: translate3d(-100%, 0, 0)
+        transform: translate3d(-100%, 0, 0);
+        z-index: -1;
     }
+
     .slide-leave-active {
-        transform: translate3d(-100%, 0, 0)
+        transform: translate3d(-100%, 0, 0);
+        z-index: -1;
     }
 
     .router-link-active {
@@ -125,7 +132,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: rgba(49, 194, 124, 0.95);
+        background: $app-header-bgcolor;
         color: $btn-color;
         padding: 0;
         transition: transform 0.3s ease-out;
@@ -133,7 +140,7 @@
             display: flex;
             align-items: center;
         }
-        .app-header-left{
+        .app-header-left {
             flex: 1;
             flex-basis: 20%;
         }
@@ -191,16 +198,41 @@
 
         line-height: px2rem(88px);
         height: px2rem(88px);
-        color: rgba(240, 239, 245, 0.95);
+        color: $header-li-color;
         span {
             display: block;
 
             text-align: center;
             font-size: px2rem(32px);
         }
-        i{
+        i {
             padding: 0;
             display: block;
         }
+    }
+
+    .search {
+        padding: 0;
+        flex: 1;
+        flex-basis: 20%;
+
+        line-height: px2rem(88px);
+        height: px2rem(88px);
+        color: $btn-color;
+        i {
+            padding: 0;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    .mask-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: px2rem(154px);
+        background: rgba(0, 0, 0, .5);
     }
 </style>

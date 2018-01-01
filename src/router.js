@@ -28,10 +28,6 @@ export function createRouter() {
             {
                 path: '/home',
                 component: Home
-                // children: [{
-                //     path: ':id',
-                //     component: HomeSongList
-                // }]
             },
             {
                 path: '/songlist/:id',

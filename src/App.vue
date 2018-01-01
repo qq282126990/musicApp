@@ -4,6 +4,7 @@
             <div class="app-shell">
                 <app-header
                         class="app-shell-header"
+                        :class="{'app-shell-header-zIndex': !maskLayer}"
                         @click-menu="handleClickHeaderMenu"
                         @click-back="handleClickHeaderBack"
                 >
@@ -64,6 +65,10 @@
             ...mapState('appShell', [
                 'appHeader',
                 'pageTransitionName'
+            ]),
+            ...mapState('appStore', [
+                // 获取遮罩层状态
+                'maskLayer'
             ])
         },
         methods: {
@@ -80,6 +85,7 @@
             handleAfterEnter(el) {
                 this.setPageSwitching(false);
             },
+            // 返回按钮
             handleClickHeaderBack() {
                 this.$router.go(-1);
             },
@@ -128,6 +134,8 @@
         top: 0;
         left: 0;
         right: 0;
+    }
+    .app-shell-header-zIndex {
         z-index: 50;
     }
 

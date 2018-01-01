@@ -50,15 +50,15 @@
     export default {
         async asyncData({store}) {
             // 调用 vuex action，在异步操作完成之前有顶部进度条提示
-            await store.dispatch('asyncAjax/getSlider');
-            await store.dispatch('asyncAjax/getMusicuMessage');
-            await store.dispatch('asyncAjax/getfeaturedRadio');
-            await store.dispatch('asyncAjax/getDigitalAlbum');
+            await store.dispatch('asyncAjax/getSlider'); // 轮播图请求
+            await store.dispatch('asyncAjax/getMusicuMessage'); // 音乐数据接口请求
+            await store.dispatch('asyncAjax/getfeaturedRadio'); // 精选电台接口请求
+            await store.dispatch('asyncAjax/getDigitalAlbum'); // 数字专辑接口请求
         },
         computed: {
             // 获取请求接口对应的数据
             ...mapState('asyncAjax', ['slider', 'recommend', 'newSong', 'featuredRadio']),
-            // 列表数据
+            // 主页类别  模块 数据
             List () {
                 this.list = [
                     {recommend: [{'name': '热门推荐', 'data': this.recommend}]},
@@ -72,16 +72,26 @@
             selectSinger(singer) {
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.content_id) {
+                    // 把选中的专辑的数据存入 homeSonglist
+                    this.homeSonglist(singer);
+                    // 跳转到专辑页面
                     this.$router.push({
                         path: `/home/${singer.content_id}`
                     });
-                    this.homeSonglist(singer);
                 }
             },
             ...mapActions('appStore', [
+                /*
+                * 主页选中的专辑数据
+                * type {Object}
+                */
                 'homeSonglist'
             ]),
             ...mapActions('asyncAjax', [
+                /*
+                 * 主页请求的音乐模块的 数据
+                 * type {Array}
+                 */
                 'getMusicuMessage'
             ])
         },
@@ -118,7 +128,7 @@
 
     .content-wrapper {
         overflow: hidden;
-        background: rgba(13, 12, 18, 0.95);
+        background: $content-bgcolor;
     }
 
     .list-title {

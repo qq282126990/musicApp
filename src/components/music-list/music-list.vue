@@ -1,5 +1,5 @@
 <template>
-    <div class="music-list">
+    <div class="music-list-wrapper">
         <div class="header">
             <div class="back" @click="back">
                 <i class="iconfont icon-fanhui1-copy"></i>
@@ -10,28 +10,43 @@
                 <span v-if="carouselStart" :class="{carousel: carouselStart}" ref="carousel">{{carousel}}</span>
             </div>
         </div>
-        <div class="list-wrapper">
-            <div class="bg-style">
-                <!--背景图-->
+        <div class="music-list">
+            <!--背景图-->
+            <div class="bg-style" ref="bgImage">
                 <div class="background">
                     <img width="100%" height="100%" :src="coverImage">
                 </div>
                 <!--专辑信息-->
                 <div class="album">
+                    <!--专辑头像-->
                     <div class="cover">
                         <img :src="coverImage"
                              onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
+                        <!--播放量-->
+                        <div class="play-number-wrapper">
+                            <div class="play-number">
+                                <i class="iconfont icon-erji"></i>
+                                <span class="number">{{playNumber}}</span>
+                            </div>
+                        </div>
                     </div>
+                    <!--专辑信息-->
                     <div class="message">
-                        <h1 class="album-name">{{albumName}}</h1>
+                        <!--专辑名称-->
+                        <h1 class="album-name" :class="{error: !albumName}">{{albumName}}</h1>
+                        <!--作者头像-->
                         <div class="author">
+                            <!--作者小头像-->
+                            <img class="small-avatar" :src="smallAvatar"/>
+                            <!--作者大头像-->
                             <img class="author-avatar" :src="authorAvatar"
                                  onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
-                            <div class="author-name">
+                            <!--作者名字-->
+                            <div class="author-name" :class="{error: !authorName}">
                                 <span>{{authorName}}</span>
                             </div>
                         </div>
-                        <div class="desc" v-show="desc">
+                        <div class="desc" :class="{error: !desc}">
                             <p v-html="desc"></p>
                         </div>
                     </div>
@@ -40,29 +55,39 @@
                 <div class="itemMessage">
                     <ul>
                         <li class="like">
-
+                            <v-icon>favorite_border</v-icon>
+                            <span>{{collection}}</span>
                         </li>
-                        <li class="comment"></li>
-                        <li class="share"></li>
+                        <li class="comment">
+                            <v-icon>chat</v-icon>
+                            <span>0</span>
+                        </li>
+                        <li class="share">
+                            <v-icon>open_in_new</v-icon>
+                            <span>分享</span>
+                        </li>
                     </ul>
                 </div>
                 <!--背景滤镜效果-->
                 <div class="filter"></div>
             </div>
             <!--歌曲列表-->
-            <div class="list">
-                <v-list>
-                    <v-list-tile ripple @click="">
-                        <v-icon>favorite_border</v-icon>
-                    </v-list-tile>
-                </v-list>
-            </div>
+            <scroll :data="songs"
+                    :listen-scroll="listenScroll"
+                    :probe-type="probeType"
+                    @scroll="scroll"
+                    class="song-list"
+                    ref="SongList">
+                <song-list :songs="songs"></song-list>
+            </scroll>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     //    import BScroll from 'better-scroll';
+    import Scroll from 'base/scroll/scroll';
+    import SongList from 'base/song-list/song-list';
 
     export default {
         props: {
@@ -91,6 +116,11 @@
                 type: String,
                 default: ''
             },
+            // 作者头像下面的小图标
+            smallAvatar: {
+                type: String,
+                default: ''
+            },
             // 作者名字
             authorName: {
                 type: String,
@@ -104,23 +134,56 @@
             // 歌曲列表
             songs: {
                 type: Array,
-                default: []
+                default: null
+            },
+            // 专辑收藏数量
+            collection: {
+                type: Number,
+                default: 0
+            },
+            // 播放量
+            playNumber: {
+                type: String,
+                default: '0'
             }
         },
         data () {
             return {
                 // 开启标题滚动
-                carouselStart: false
+                carouselStart: false,
+                // 获取滚动Y轴坐标
+                scrollY: 0,
+                // scroll 组件 状态设置为3
+                probeType: 3,
+                // scroll 组件 开启滚动监听
+                listenScroll: true
             };
         },
-        computed: {},
+        mounted () {
+            // 获取专辑图片的高度
+            this.imageHeight = this.$refs.bgImage.clientHeight;
+            // 设置歌曲列表的位置
+            this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
+        },
         methods: {
             back() {
                 this.$router.back();
+            },
+            scroll(pos) {
+                this.scrollY = pos.y;
             }
         },
         activated () {
             this.carouselStart = false;
+        },
+        watch: {
+            scrollY(newVal) {
+                console.log(newVal);
+            }
+        },
+        components: {
+            SongList,
+            Scroll
         }
     };
 </script>
@@ -129,16 +192,29 @@
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
 
+    // 没有数据是显示的样式+
+    .error {
+        background: $error;
+    }
+
+    .texterror {
+        display: inline-block;
+        width: 50px;
+        height: px2rem(20px);
+        background: $error;
+    }
+
     /*外层*/
-    .music-list {
+    .music-list-wrapper {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         z-index: 110;
-        background: rgba(19, 21, 33, 1);
+        background: $music-list-bgcolor;
     }
+
     /*头部*/
     .header {
         width: 100%;
@@ -168,7 +244,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            color: #fff;
+            color: $title-color;
             z-index: 40;
         }
         /*滚动标题*/
@@ -180,12 +256,13 @@
     }
 
     /*音乐列表外层*/
-    .list-wrapper {
+    .music-list {
         position: fixed;
         top: 0;
         bottom: 0;
         width: 100%;
     }
+
     /*过滤层*/
     .filter {
         position: absolute;
@@ -196,7 +273,7 @@
         opacity: .6;
         object-fit: cover;
         filter: blur(px2rem(72px));
-        background: rgba(0, 0, 0, 1);
+        background: $filter-bgcolor;
         z-index: -1;
     }
 
@@ -225,7 +302,7 @@
         display: flex;
         position: absolute;
         top: px2rem(118px);
-        padding: 0 px2rem(32px);
+        padding: 0 px2rem(40px);
         box-sizing: border-box;
         overflow: hidden;
         width: 100%;
@@ -247,10 +324,35 @@
                 height: 100%;
                 object-fit: cover;
             }
+            .play-number-wrapper {
+                display: flex;
+                align-items: flex-end;
+                position: relative;
+                width: 100%;
+                height: 100%;
+                color: $title-color;
+                background: $play-number-bgcolor;
+                z-index: 2;
+                .play-number {
+                    display: flex;
+                    padding-left: px2rem(16px);
+                    height: px2rem(50px);
+                    line-height: px2rem(50px);
+                }
+                .number {
+                    padding-left: px2rem(15px);
+                    line-height: px2rem(54px);
+                    font-size: px2rem(24px);
+                }
+                .icon-erji {
+                    font-size: px2rem(24px);
+                }
+            }
         }
         /*专辑信息*/
         .message {
             display: block;
+            overflow: hidden;
             padding: px2rem(20px) 0;
             flex: 1;
             position: relative;
@@ -258,7 +360,7 @@
             /*专辑名字*/
             .album-name {
                 margin: 0;
-                max-height: px2rem(94px);
+                min-height: px2rem(94px);
                 text-align: left;
                 line-height: 1.3;
                 font-size: px2rem(36px);
@@ -278,6 +380,12 @@
                     height: px2rem(48px);
                     margin-right: px2rem(16px);
                     border-radius: px2rem(48px);
+                }
+                /*专辑作者头像下面的小图标*/
+                .small-avatar {
+                    position: absolute;
+                    padding: 15px;
+                    width: 10px;
                 }
                 /*专辑作者名字*/
                 .author-name {
@@ -306,12 +414,12 @@
                 height: px2rem(36px);
                 line-height: px2rem(36px);
                 font-size: px2rem(24px);
-                p{
+                p {
                     padding-right: px2rem(12px);
                 }
             }
-            .desc:after{
-                content:"";
+            .desc:after {
+                content: "";
                 position: absolute;
                 top: px2rem(10px);
                 right: px2rem(4px);
@@ -325,28 +433,51 @@
     }
 
     /*选项信息  收藏评论 分享*/
-    .itemMessage{
+    .itemMessage {
         position: absolute;
         bottom: 0;
         width: 100%;
         box-sizing: border-box;
         height: px2rem(160px);
-        padding: 0 px2rem(32px);
-        ul{
+        padding: 0 px2rem(40px);
+        ul {
             display: flex;
             width: 100%;
+            height: px2rem(160px);
         }
-        li{
+        li {
             flex: 1;
+            color: $icon-color;
+            line-height: px2rem(160px);
+            i {
+                font-size: px2rem(52px);
+            }
+        }
+        .like {
+            text-align: left;
+            font-size: px2rem(28px);
+            i:first-child {
+                position: relative;
+                top: -1px;
+            }
+        }
+        .comment {
+            text-align: center;
+            font-size: px2rem(28px);
+        }
+        .share {
+            text-align: right;
+            font-size: px2rem(28px);
         }
     }
+
     /*歌曲列表外层*/
-    .list {
-        position: relative;
+    .song-list {
         padding: 0;
-        height: 100%;
-        background: #fff;
-        z-index: 100;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 100%;
     }
 
     /*滚动条 animation*/

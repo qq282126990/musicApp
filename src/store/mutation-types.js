@@ -18,3 +18,5 @@ export const SET_SLIDER = 'SET_SLIDER'; // 轮播图数据
 export const SET_DIGITAL_ALBUM = 'SET_DIGITAL_ALBUM'; // 数字专辑数据
 export const SET_FEATERED_RADIO = 'SET_FEATERED_RADIO'; // 精选电台数据
 export const SET_RECOMMEND = 'SET_RECOMMEND'; // 精选电台数据
+
+export const SET_MASKLAYER = 'SET_MASKLAYER'; // 设置遮罩层显示隐藏

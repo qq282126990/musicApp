@@ -44,3 +44,13 @@ export function filterSinger (singer) {
     return ret.join('/');
 };
 
+// 对歌曲列表list数据做处理
+export function normalizeSongs(list) {
+    let ret = [];
+    list.forEach((musicData) => {
+        if (musicData) {
+            ret.push(createSong(musicData));
+        }
+    });
+    return ret;
+}

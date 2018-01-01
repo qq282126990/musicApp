@@ -3,7 +3,7 @@
         <div class="slider-group" ref="sliderGroup">
             <slot></slot>
         </div>
-        <div class="ui-slider-dots">
+        <div class="slider-dots">
             <span class="dots" v-for="(item,index) in dots" :class="{active: currentPageIndex === index}"></span>
         </div>
     </div>
@@ -36,7 +36,7 @@
             // 切换时间
             interval: {
                 type: Number,
-                default: 1000
+                default: 2000
             },
             click: {
                 type: Boolean,
@@ -255,7 +255,7 @@
                 }
             }
         }
-        .ui-slider-dots {
+        .slider-dots {
             position: absolute;
             left: 0;
             right: 0;
@@ -269,9 +269,9 @@
                 width: px2rem(10px);
                 height: px2rem(10px);
                 border-radius: 50%;
-                background: rgba(20, 23, 35, 0.95);
+                background: $dotsBgColor;
                 &.active {
-                    background: rgba(54, 183, 120, 0.95);
+                    background: $dotActiveBgColor-color;
                 }
             }
         }

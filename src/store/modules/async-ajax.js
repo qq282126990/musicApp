@@ -4,7 +4,7 @@ import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'ap
 import {createNewSong} from 'common/js/newSong';
 
 /**
- * 默认数据
+ * 新歌速递组件默认数据
  *
  * @type {Object}
  */
@@ -42,7 +42,7 @@ let actions = {
     /**
      * 获取轮播图
      *
-     * @param {[type]} options.commit [description]
+     * @param {Function} commit
      */
     async getSlider({commit}) {
         let res = await getSlider();
@@ -56,7 +56,7 @@ let actions = {
     /**
      * 获取数字专辑
      *
-     * @param {[type]} options.commit [description]
+     * @param {Function} commit
      */
     async getDigitalAlbum({commit}) {
         let res = await getDigitalAlbum();
@@ -74,7 +74,7 @@ let actions = {
     /**
      * 获取精选电台
      *
-     * @param {[type]} options.commit [description]
+     * @param {Function} commit
      */
     async getfeaturedRadio({commit}) {
         let res = await getfeaturedRadio();
@@ -88,7 +88,7 @@ let actions = {
     /**
      * 获取主页信息
      *
-     * @param {[type]} options.commit [description]
+     * @param {Function} commit
      */
     async getMusicuMessage({commit}) {
         let res = await getMusicuMessage();

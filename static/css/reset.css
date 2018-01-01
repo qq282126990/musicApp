@@ -93,6 +93,7 @@ body {
 }
 /*设置 v-list样式*/
 .list__tile{
+  height: auto !important;
   padding: 0 !important;
 }
 

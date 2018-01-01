@@ -2,16 +2,8 @@ import Vue from 'vue';
 import {
     Vuetify,
     VBtn,
-    VApp,
     VList,
-    VIcon,
-    VProgressCircular,
-    VDivider,
-    VBottomNav,
-    VGrid,
-    VAvatar,
-    vCard,
-    vToolbar
+    VIcon
 } from 'vuetify';
 import {createRouter} from './router';
 import store from './store';
@@ -21,25 +13,20 @@ import Icon from 'vue-awesome/components/Icon.vue';
 
 import './common/font/iconfont.scss';
 
+// 图标库
 Vue.component('icon', Icon);
+// ui组件库
 Vue.use(Vuetify, {
     components: {
-        VApp,
         VBtn,
         VList,
-        VIcon,
-        VProgressCircular,
-        VDivider,
-        VBottomNav,
-        VGrid,
-        VAvatar,
-        vCard,
-        vToolbar
+        VIcon
     }
 });
 
 Vue.config.productionTip = false;
 
+// 懒加载图片
 Vue.use(VueLazyload, {
     error: require('common/image/default.jpg'),
     loading: require('common/image/default.jpg')
