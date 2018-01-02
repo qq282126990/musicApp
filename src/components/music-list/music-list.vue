@@ -168,6 +168,24 @@
             this.imageHeight = this.$refs.background.clientHeight;
             // 设置歌曲列表的位置
             this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
+
+            // 自适应大小
+            window.addEventListener('resize', () => {
+                if (!this.songs) {
+                    return;
+                }
+
+                // 初始化时清除定时器
+                clearTimeout(this.resizeTimer);
+
+                // 改变窗口时大小执行
+                this.resizeTimer = setTimeout(() => {
+                    // 获取图片背景的高度
+                    this.imageHeight = this.$refs.background.clientHeight;
+                    // 设置歌曲列表的位置
+                    this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
+                }, 60);
+            });
         },
         methods: {
             back() {

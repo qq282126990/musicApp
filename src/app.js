@@ -3,7 +3,8 @@ import {
     Vuetify,
     VBtn,
     VList,
-    VIcon
+    VIcon,
+    VProgressCircular
 } from 'vuetify';
 import {createRouter} from './router';
 import store from './store';
@@ -20,7 +21,8 @@ Vue.use(Vuetify, {
     components: {
         VBtn,
         VList,
-        VIcon
+        VIcon,
+        VProgressCircular
     }
 });
 

@@ -19,7 +19,7 @@
             </div>
         </div>
         <!--歌曲列表-->
-        <v-list class="list-content">
+        <v-list class="list-content" v-show="songs">
             <v-list-tile ripple v-for="item in songs" @click="" :key="item.mid">
                 <!--选中列表实出现-->
                 <div class="selected">
@@ -40,10 +40,15 @@
                 </div>
             </v-list-tile>
         </v-list>
+        <div class="loading-container" v-show="!songs.length">
+            <loading></loading>
+        </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+    import Loading from 'base/loading/loading';
+
     export default {
         props: {
             songs: {
@@ -55,6 +60,9 @@
             return {
                 select: false
             };
+        },
+        components: {
+            Loading
         }
     };
 </script>
@@ -72,7 +80,7 @@
         z-index: 100;
     }
 
-    // 列表头部
+    /* 列表头部*/
     .list-header {
         display: flex;
         padding: 0 px2rem(32px);
@@ -80,7 +88,7 @@
         height: px2rem(108px);
     }
 
-    // 播放全部
+     /*播放全部*/
     .play-all-wrapper {
         flex: 1;
         position: relative;
@@ -110,7 +118,7 @@
         }
     }
 
-    // 下载
+    /*下载*/
     .download {
         display: -webkit-box;
         -webkit-box-align: center;
@@ -127,7 +135,7 @@
         }
     }
 
-    // 多选
+    /*多选*/
     .multiple-select {
         display: -webkit-box;
         -webkit-box-align: center;
@@ -143,7 +151,7 @@
         }
     }
 
-    // 列表内容
+    /*列表内容*/
     .list-content {
         padding: 0;
         min-height: 100%;
@@ -152,7 +160,7 @@
             display: flex;
             height: px2rem(124px);
         }
-        // 选中
+        /*选中*/
         .selected {
             flex: 0 0 px2rem(32px);
             padding: px2rem(20px) 0;
@@ -166,7 +174,7 @@
                 background: #30c17b;
             }
         }
-        // 外层
+        /*外层*/
         .content-wrapper {
             flex: 1;
             display: flex;
@@ -176,7 +184,7 @@
             height: px2rem(124px);
             border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
         }
-        // 内容
+        /*内容*/
         .content {
             flex: 1;
             display: flex;
@@ -188,7 +196,7 @@
             overflow: hidden;
             height: px2rem(124px);
             color: $content-text-color;
-            // 标题
+            /*标题*/
             .title {
                 display: -webkit-box;
                 -webkit-box-align: center;
@@ -209,7 +217,7 @@
                     line-height: normal;
                 }
             }
-            // 文本
+            /*文本*/
             .text {
                 display: -webkit-box;
                 -webkit-box-align: center;
@@ -225,11 +233,18 @@
                 }
             }
         }
-        // 更多 icon
+        /*更多 icon*/
         .more {
             padding-right: px2rem(32px);
             font-size: px2rem(42px);
             color: $more-color;
         }
+    }
+    /*loading*/
+    .loading-container {
+        position: absolute;
+        width: 100%;
+        top: px2rem(208px);
+        transform: translateY(-50%)
     }
 </style>
