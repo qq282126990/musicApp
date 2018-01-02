@@ -12,10 +12,13 @@
         </div>
         <div class="music-list">
             <!--背景图-->
-            <div class="bg-style" ref="bgImage">
-                <div class="background">
-                    <img width="100%" height="100%" :src="coverImage">
-                </div>
+            <div class="background" ref="background">
+                <img width="100%" height="100%" :src="coverImage">
+            </div>
+            <!--背景滤镜效果-->
+            <div class="filter"></div>
+            <!--专辑-->
+            <div class="album-wrapper" ref="bgImage">
                 <!--专辑信息-->
                 <div class="album">
                     <!--专辑头像-->
@@ -68,13 +71,12 @@
                         </li>
                     </ul>
                 </div>
-                <!--背景滤镜效果-->
-                <div class="filter"></div>
             </div>
             <!--歌曲列表-->
             <scroll :data="songs"
                     :listen-scroll="listenScroll"
                     :probe-type="probeType"
+                    :bounce="bounce"
                     @scroll="scroll"
                     class="song-list"
                     ref="SongList">
@@ -147,8 +149,10 @@
                 default: '0'
             }
         },
-        data () {
+        data() {
             return {
+                // 开启回弹效果
+                bounce: true,
                 // 开启标题滚动
                 carouselStart: false,
                 // 获取滚动Y轴坐标
@@ -159,9 +163,9 @@
                 listenScroll: true
             };
         },
-        mounted () {
-            // 获取专辑图片的高度
-            this.imageHeight = this.$refs.bgImage.clientHeight;
+        mounted() {
+            // 获取图片背景的高度
+            this.imageHeight = this.$refs.background.clientHeight;
             // 设置歌曲列表的位置
             this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
         },
@@ -173,12 +177,13 @@
                 this.scrollY = pos.y;
             }
         },
-        activated () {
+        activated() {
             this.carouselStart = false;
         },
         watch: {
             scrollY(newVal) {
                 console.log(newVal);
+                this.$refs.bgImage.style.transform = `translate3d(0,${newVal}px,0)`;
             }
         },
         components: {
@@ -268,33 +273,40 @@
         position: absolute;
         top: 0;
         left: 0;
+        padding-top: 70%;
         width: 100%;
-        height: 100%;
+        height: 0;
         opacity: .6;
         object-fit: cover;
         filter: blur(px2rem(72px));
         background: $filter-bgcolor;
-        z-index: -1;
+        z-index: 0;
     }
 
-    /*专辑背景*/
-    .bg-style {
-        position: relative;
+    /*背景图*/
+    .background {
+        position: absolute;
+        padding-top: 70%;
         width: 100%;
         height: 0;
-        padding-top: 70%;
-        background-size: cover;
-        .background {
+        opacity: 0.6;
+        filter: blur(px2rem(40px));
+        z-index: 0;
+        img {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 3;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-            filter: blur(px2rem(40px));
+            height: auto;
         }
+    }
+
+    /*专辑背景*/
+    .album-wrapper {
+        position: relative;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        padding-top: 70%;
     }
 
     /*专辑信息*/
@@ -440,6 +452,7 @@
         box-sizing: border-box;
         height: px2rem(160px);
         padding: 0 px2rem(40px);
+        z-index: 4;
         ul {
             display: flex;
             width: 100%;

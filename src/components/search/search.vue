@@ -21,7 +21,7 @@
         width: 100%;
         height: px2rem(66px);
 
-        background: rgba(49, 194, 124, 0.95);
+        background: $search-wrapper-bgcolor;
     }
 
     .search {

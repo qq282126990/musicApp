@@ -149,12 +149,12 @@
         min-height: 100%;
         overflow: hidden;
         li {
-            /*padding: 0 px2rem(32px);*/
-            display: block;
+            display: flex;
             height: px2rem(124px);
         }
         // 选中
         .selected {
+            flex: 0 0 px2rem(32px);
             padding: px2rem(20px) 0;
             box-sizing: border-box;
             width: px2rem(32px);
@@ -168,9 +168,11 @@
         }
         // 外层
         .content-wrapper {
+            flex: 1;
             display: flex;
             box-sizing: border-box;
             width: 100%;
+            overflow: hidden;
             height: px2rem(124px);
             border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
         }
@@ -183,6 +185,7 @@
             padding: px2rem(20px) 0;
             box-sizing: border-box;
             text-align: left;
+            overflow: hidden;
             height: px2rem(124px);
             color: $content-text-color;
             // 标题

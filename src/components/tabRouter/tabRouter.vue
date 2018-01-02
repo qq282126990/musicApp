@@ -31,7 +31,7 @@
 
     .tab-Router {
         height: px2rem(160px);
-        background: rgba(20, 22, 34, 0.95);
+        background: $tab-router-bgcolor;
     }
 
     .teb-li {
@@ -40,7 +40,6 @@
         justify-content: center;
         width: 100%;
         height: px2rem(160px);
-        background: rgba(20, 22, 34, 0.95);
     }
 
     .tab {

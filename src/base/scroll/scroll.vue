@@ -46,6 +46,11 @@
             refreshDelay: {
                 type: Number,
                 default: 20
+            },
+            // 是否开启回弹效果
+            bounce: {
+                type: Boolean,
+                default: true
             }
         },
         mounted () {
@@ -64,7 +69,8 @@
                 // 设置滚动
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
                     probeType: this.probeType,
-                    click: this.click
+                    click: this.click,
+                    bounce: this.bounce // 是否开始回弹效果 boolean
                 });
 
                 // 如果监听了scroll 就派发scroll滚动事件
