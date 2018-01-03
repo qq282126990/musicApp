@@ -226,7 +226,7 @@
         watch: {
             // 监听歌曲列表页数的变化
             songBegin(newSongBegin) {
-                if (this.songs.length || this.songs.length >= 15 || newSongBegin !== this.total_song_num) {
+                if (newSongBegin >= 15 || newSongBegin !== this.totalSongNum) {
                     this.getSongListMore(newSongBegin);
                 }
             }

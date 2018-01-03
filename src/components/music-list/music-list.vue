@@ -261,7 +261,6 @@
         activated() {
             // 把滚动位置重置为顶部
             this.$refs.SongListScroll.scrollTo(0, 0);
-            console.log(this.$refs.SongListWrapper.$el.scrollHeight);
 
             // 把图片位置重置
             this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
