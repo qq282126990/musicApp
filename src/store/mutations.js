@@ -12,6 +12,10 @@ const mutations = {
     // 设置遮罩层显示隐藏
     [types.SET_MASKLAYER](state, maskLayer) {
         state.maskLayer = maskLayer;
+    },
+    // 歌曲列表接口一次请求的页数 一次 +15
+    [types.SET_SONG_BEGIN](state, songBegin) {
+        state.songBegin = songBegin;
     }
 };
 

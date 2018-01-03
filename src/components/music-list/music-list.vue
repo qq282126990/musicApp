@@ -1,6 +1,6 @@
 <template>
     <div class="music-list-wrapper">
-        <div class="header">
+        <div class="header" :class="{'header-bgcolor' : headerBg}" ref="header">
             <div class="back" @click="back">
                 <i class="iconfont icon-fanhui1-copy"></i>
             </div>
@@ -73,21 +73,28 @@
                 </div>
             </div>
             <!--歌曲列表-->
-            <scroll :data="songs"
-                    :listen-scroll="listenScroll"
-                    :probe-type="probeType"
-                    :bounce="bounce"
-                    @scroll="scroll"
-                    class="song-list"
-                    ref="SongList">
-                <song-list :songs="songs"></song-list>
+            <scroll
+                :data="songs"
+                :listen-scroll="listenScroll"
+                :probe-type="probeType"
+                :bounce="bounce"
+                :pullup="pullup"
+                @scroll="scroll"
+                @scrollToEnd="loadMore"
+                class="song-list"
+                ref="SongList">
+                <song-list
+                    :songs="songs"
+                    :totalSongNum="totalSongNum"
+                    :hasMore="hasMore"
+                ></song-list>
             </scroll>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    //    import BScroll from 'better-scroll';
+    import {mapActions} from 'vuex';
     import Scroll from 'base/scroll/scroll';
     import SongList from 'base/song-list/song-list';
 
@@ -147,20 +154,38 @@
             playNumber: {
                 type: String,
                 default: '0'
+            },
+            // 歌曲列表总数
+            totalSongNum: {
+                type: Number,
+                default: 0
+            },
+            // 设置是否能够加载更多
+            hasMore: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
+                // 是否设置头部背景效果
+                headerBg: false,
                 // 开启回弹效果
                 bounce: true,
                 // 开启标题滚动
                 carouselStart: false,
+                // scroll 组件 开启滚动监听
+                listenScroll: true,
+                // 开启滚动底部刷新
+                pullup: true,
                 // 获取滚动Y轴坐标
                 scrollY: 0,
                 // scroll 组件 状态设置为3
                 probeType: 3,
-                // scroll 组件 开启滚动监听
-                listenScroll: true
+                // 歌曲列表显示页数 默认15 一次 *2
+                songBegin: 0,
+                // 获取图片背景的高度
+                imageHeight: null
             };
         },
         mounted() {
@@ -188,20 +213,52 @@
             });
         },
         methods: {
+            // 返回按钮
             back() {
                 this.$router.back();
             },
+            // 监听滚动
             scroll(pos) {
                 this.scrollY = pos.y;
-            }
+            },
+            // 刷新滚动列表
+            refresh() {
+                this.$refs.SongList.refresh();
+            },
+            // 上拉加载方法
+            loadMore() {
+                // 页数小于 歌曲列表总数就执行
+                if (this.songBegin <= this.totalSongNum) {
+                    // 每次加15
+                    this.songBegin = this.songBegin + 15;
+                    this.setSongBegin(this.songBegin);
+                }
+            },
+            ...mapActions('appStore', {
+                setSongBegin: 'songBegin'
+            })
         },
         activated() {
+            // 吧滚动位置重置为顶部
+            this.$refs.SongList.scrollTo(0, 0);
+            // 组件激活时调用
             this.carouselStart = false;
         },
         watch: {
-            scrollY(newVal) {
-                console.log(newVal);
-                this.$refs.bgImage.style.transform = `translate3d(0,${newVal}px,0)`;
+            // 监听歌曲列表Y轴滚动
+            scrollY(newScrollY) {
+                // 计算背景图片移动的位置
+                this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
+
+                this.header = this.$refs.header.clientHeight;
+
+                // 判断显示头部背景
+                if (Math.abs(newScrollY) > this.imageHeight - this.header) {
+                    this.headerBg = true;
+                }
+                else {
+                    this.headerBg = false;
+                }
             }
         },
         components: {
@@ -240,8 +297,10 @@
 
     /*头部*/
     .header {
+        position: relative;
         width: 100%;
         height: px2rem(84px);
+        z-index: 100;
         /*返回按钮*/
         .back {
             position: absolute;
@@ -278,6 +337,11 @@
         }
     }
 
+    /*头部背景颜色*/
+    .header-bgcolor {
+        background: red;
+    }
+
     /*音乐列表外层*/
     .music-list {
         position: fixed;
@@ -300,6 +364,7 @@
         background: $filter-bgcolor;
         z-index: 0;
     }
+
 
     /*背景图*/
     .background {

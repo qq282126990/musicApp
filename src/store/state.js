@@ -13,7 +13,13 @@ const state = {
      *
      * @type {Boolean}
      */
-    maskLayer: false
+    maskLayer: false,
+    /**
+     * 歌曲列表接口一次请求的页数 一次 +15
+     *
+     * @type {Number}
+     */
+    songBegin: 0
 };
 
 export default state;

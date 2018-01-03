@@ -1,7 +1,7 @@
 import {commonParams} from 'api/config';
 import axios from 'axios';
 
-export function getSongList(disstid) {
+export function getSongList(disstid, songBegin) {
     const url = '/api/getSongList';
 
     const data = Object.assign({}, commonParams, {
@@ -9,11 +9,15 @@ export function getSongList(disstid) {
         type: 1,
         json: 1,
         utf8: 1,
+        nosign: 1,
+        notice: 0,
         onlysong: 0,
         hostUin: 0,
         platform: 'yqq',
         format: 'json',
+        pic: 500,
         needNewCode: 0,
+        song_begin: songBegin, // 最大条数
         song_num: 15 // 一次加载15条数据
     });
 

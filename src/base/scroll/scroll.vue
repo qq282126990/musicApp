@@ -32,7 +32,7 @@
                 type: Boolean,
                 default: false
             },
-            // 是否开启下拉刷新
+            // 是否开启滚动到到底部刷新
             pullup: {
                 type: Boolean,
                 default: false
@@ -53,7 +53,7 @@
                 default: true
             }
         },
-        mounted () {
+        mounted() {
             // 确保dom已经渲染了 初始化代码
             setTimeout(() => {
                 this._initScroll();
@@ -70,7 +70,8 @@
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
                     probeType: this.probeType,
                     click: this.click,
-                    bounce: this.bounce // 是否开始回弹效果 boolean
+                    bounce: this.bounce, // 是否开始回弹效果 boolean
+                    pullUpLoad: this.pullUpLoad // 是否开启下拉刷新
                 });
 
                 // 如果监听了scroll 就派发scroll滚动事件
@@ -82,7 +83,7 @@
                     });
                 }
 
-                // 监听是否下拉刷新
+                // 监听是否开启滚动到到底部刷新
                 if (this.pullup) {
                     this.scroll.on('scrollEnd', () => {
                         // 如果当前滚动距离 小于等于  最大滚动距离，就向外部发送刷新事件

@@ -20,3 +20,4 @@ export const SET_FEATERED_RADIO = 'SET_FEATERED_RADIO'; // 精选电台数据
 export const SET_RECOMMEND = 'SET_RECOMMEND'; // 精选电台数据
 
 export const SET_MASKLAYER = 'SET_MASKLAYER'; // 设置遮罩层显示隐藏
+export const SET_SONG_BEGIN = 'SET_SONG_BEGIN'; // 歌曲列表接口一次请求的页数 一次 +15

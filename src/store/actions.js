@@ -20,3 +20,14 @@ export const homeSonglist = function ({commit}, homeSonglist) {
 export const maskLayer = function ({commit}, maskLayer) {
     commit(types.SET_MASKLAYER, maskLayer);
 };
+
+
+/**
+ * 歌曲列表接口一次请求的页数 一次 +15
+ *
+ * @param {Function} commit
+ * @param {Number} songBegin
+ */
+export const songBegin = function ({commit}, songBegin) {
+    commit(types.SET_SONG_BEGIN, songBegin);
+};
