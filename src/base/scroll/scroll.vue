@@ -51,16 +51,26 @@
             bounce: {
                 type: Boolean,
                 default: true
+            },
+            // 是否开启Y轴滚动
+            setScrollY: {
+                type: Boolean,
+                default: true
+            },
+            // 设置回弹动画事件
+            bounceTime: {
+                type: Number,
+                default: 700
             }
         },
         mounted() {
             // 确保dom已经渲染了 初始化代码
             setTimeout(() => {
-                this._initScroll();
+                this._initScroll(true);
             }, 20);
         },
         methods: {
-            _initScroll() {
+            _initScroll(newsetScrollY) {
                 // 判断有没有内容   没有就不执行
                 if (!this.$refs.scrollWrapper) {
                     return;
@@ -68,6 +78,7 @@
 
                 // 设置滚动
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
+                    bounceTime: this.bounceTime, // 设置回弹时间
                     probeType: this.probeType,
                     click: this.click,
                     bounce: this.bounce, // 是否开始回弹效果 boolean
@@ -99,10 +110,6 @@
                         this.$emit('beforeScroll');
                     });
                 }
-            },
-            // 启用 better-scroll
-            enable() {
-                this.scroll && this.scroll.enable();
             },
             // 禁用 better-scroll
             disable() {

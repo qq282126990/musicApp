@@ -82,16 +82,16 @@
             // 获取音乐列表
             ...mapGetters('appStore', [
                 /*
-                * 选择的的歌曲列表数据
-                * @param {Object}
-                *
-                * */
+                 * 选择的的歌曲列表数据
+                 * @param {Object}
+                 *
+                 * */
                 'homeSonglist',
                 /*
-                * 歌曲列表显示页数 默认是0  请求一次 + 15
-                * @param {Number}
-                *
-                * */
+                 * 歌曲列表显示页数 默认是0  请求一次 + 15
+                 * @param {Number}
+                 *
+                 * */
                 'songBegin'
             ])
         },
@@ -226,7 +226,7 @@
         watch: {
             // 监听歌曲列表页数的变化
             songBegin(newSongBegin) {
-                if (newSongBegin >= 15) {
+                if (this.songs.length || this.songs.length >= 15 || newSongBegin !== this.total_song_num) {
                     this.getSongListMore(newSongBegin);
                 }
             }

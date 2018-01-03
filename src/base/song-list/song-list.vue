@@ -1,67 +1,42 @@
 <template>
-    <scroll :data="songs"
-            :listen-scroll="listenScroll"
-            :probe-type="probeType"
-            :bounce="bounce"
-            :pullup="pullup"
-            ref="SongList">
-        <div class="list-wrapper">
-            <div class="list-header">
-                <!--播放全部-->
-                <div class="play-all-wrapper">
-                    <v-icon class="play">play_circle_outline</v-icon>
-                    <h3 class="title">全部播放</h3>
-                    <span class="total-number">共{{totalSongNum}}首</span>
+    <div class="list-wrapper">
+        <!--歌曲列表-->
+        <v-list class="list-content" v-show="songs">
+            <v-list-tile ripple v-for="item in songs" @click="" :key="item.mid">
+                <!--选中列表实出现-->
+                <div class="selected">
+                    <div class="bg-color" v-show="select"></div>
                 </div>
-                <!--下载-->
-                <div class="download">
-                    <i class="iconfont icon-xiazai"></i>
-                    <span class="title">下载</span>
-                </div>
-                <!--多选-->
-                <div class="multiple-select">
-                    <i class="iconfont icon-pingtaitubiao_duoxuan icon"></i>
-                    <span class="title">多选</span>
-                </div>
-            </div>
-            <!--歌曲列表-->
-            <v-list class="list-content" v-show="songs">
-                <v-list-tile ripple v-for="item in songs" @click="" :key="item.mid">
-                    <!--选中列表实出现-->
-                    <div class="selected">
-                        <div class="bg-color" v-show="select"></div>
+                <!--内容-->
+                <div class="content-wrapper">
+                    <div class="content">
+                        <h3 class="title">
+                            <span>{{item.name}}</span>
+                        </h3>
+                        <p class="text">
+                            <span>{{item.singer}} · {{item.album}}</span>
+                        </p>
                     </div>
-                    <!--内容-->
-                    <div class="content-wrapper">
-                        <div class="content">
-                            <h3 class="title">
-                                <span>{{item.name}}</span>
-                            </h3>
-                            <p class="text">
-                                <span>{{item.singer}} · {{item.album}}</span>
-                            </p>
-                        </div>
-                        <!--更多-->
-                        <v-icon class="more">more_vert</v-icon>
-                    </div>
-                </v-list-tile>
-                <!--下拉加载时显示的Loading效果-->
-                <div class="has-more" v-show="hasMore && songs.length">
-                    <loading></loading>
+                    <!--更多-->
+                    <v-icon class="more">more_vert</v-icon>
                 </div>
-
-                <!--没有更多了-->
-                <div class="none-more" v-show="!hasMore && songs.length">
-                    <v-icon class="icon">sentiment_dissatisfied</v-icon>
-                    <span class="title">没有更多了</span>
-                </div>
-            </v-list>
-            <!--加载中显示的效果-->
-            <div class="loading-container" v-show="!songs.length">
+            </v-list-tile>
+            <!--下拉加载时显示的Loading效果-->
+            <div class="has-more" v-show="hasMore && songs.length">
                 <loading></loading>
             </div>
+
+            <!--没有更多了-->
+            <div class="none-more" v-show="!hasMore && songs.length">
+                <v-icon class="icon">sentiment_dissatisfied</v-icon>
+                <span class="title">没有更多了</span>
+            </div>
+        </v-list>
+        <!--加载中显示的效果-->
+        <div class="loading-container" v-show="!songs.length">
+            <loading></loading>
         </div>
-    </scroll>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -88,33 +63,10 @@
         },
         data() {
             return {
-                select: false,
-                // 是否设置头部背景效果
-                headerBg: false,
-                // 开启回弹效果
-                bounce: true,
-                // 开启标题滚动
-                carouselStart: false,
-                // scroll 组件 开启滚动监听
-                listenScroll: true,
-                // 开启滚动底部刷新
-                pullup: true,
-                // 获取滚动Y轴坐标
-                scrollY: 0,
-                // scroll 组件 状态设置为3
-                probeType: 3,
-                // 歌曲列表显示页数 默认15 一次 *2
-                songBegin: 0,
-                // 获取图片背景的高度
-                imageHeight: null
+                select: false
             };
         },
-        mounted: {
-            // 刷新滚动列表
-            refresh() {
-                this.$refs.SongList.refresh();
-            }
-        },
+        methos: {},
         components: {
             Loading,
             Scroll
@@ -240,7 +192,6 @@
             border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
         }
         .content-wrapper:last-child {
-            border-bottom: none;
         }
         /*内容*/
         .content {

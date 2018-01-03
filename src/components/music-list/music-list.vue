@@ -72,21 +72,41 @@
                     </ul>
                 </div>
             </div>
+            <!--歌曲列表播放全部模块-->
+            <div class="list-header" ref="ListHeader">
+                <!--播放全部-->
+                <div class="play-all-wrapper">
+                    <v-icon class="play">play_circle_outline</v-icon>
+                    <h3 class="title">全部播放</h3>
+                    <span class="total-number">共{{totalSongNum}}首</span>
+                </div>
+                <!--下载-->
+                <div class="download">
+                    <i class="iconfont icon-xiazai"></i>
+                    <span class="title">下载</span>
+                </div>
+                <!--多选-->
+                <div class="multiple-select">
+                    <i class="iconfont icon-pingtaitubiao_duoxuan icon"></i>
+                    <span class="title">多选</span>
+                </div>
+            </div>
             <!--歌曲列表-->
             <scroll
-                :data="songs"
-                :listen-scroll="listenScroll"
-                :probe-type="probeType"
-                :bounce="bounce"
-                :pullup="pullup"
-                @scroll="scroll"
-                @scrollToEnd="loadMore"
-                class="song-list"
-                ref="SongList">
+                    :data="songs"
+                    :listen-scroll="listenScroll"
+                    :probe-type="probeType"
+                    :bounce="bounce"
+                    :pullup="pullup"
+                    @scroll="scroll"
+                    @scrollToEnd="loadMore"
+                    class="song-list"
+                    ref="SongListScroll">
                 <song-list
-                    :songs="songs"
-                    :totalSongNum="totalSongNum"
-                    :hasMore="hasMore"
+                        :songs="songs"
+                        :totalSongNum="totalSongNum"
+                        :hasMore="hasMore"
+                        ref="SongListWrapper"
                 ></song-list>
             </scroll>
         </div>
@@ -192,7 +212,7 @@
             // 获取图片背景的高度
             this.imageHeight = this.$refs.background.clientHeight;
             // 设置歌曲列表的位置
-            this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
+            this.$refs.SongListScroll.$el.style.top = `${this.imageHeight}px`;
 
             // 自适应大小
             window.addEventListener('resize', () => {
@@ -208,7 +228,7 @@
                     // 获取图片背景的高度
                     this.imageHeight = this.$refs.background.clientHeight;
                     // 设置歌曲列表的位置
-                    this.$refs.SongList.$el.style.top = `${this.imageHeight}px`;
+                    this.$refs.SongListScroll.$el.style.top = `${this.imageHeight}px`;
                 }, 60);
             });
         },
@@ -223,7 +243,7 @@
             },
             // 刷新滚动列表
             refresh() {
-                this.$refs.SongList.refresh();
+                this.$refs.SongListScroll.refresh();
             },
             // 上拉加载方法
             loadMore() {
@@ -239,25 +259,53 @@
             })
         },
         activated() {
-            // 吧滚动位置重置为顶部
-            this.$refs.SongList.scrollTo(0, 0);
+            // 把滚动位置重置为顶部
+            this.$refs.SongListScroll.scrollTo(0, 0);
+            console.log(this.$refs.SongListWrapper.$el.scrollHeight);
+
+            // 把图片位置重置
+            this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
+            // 把播放全部模块位置重置
+            this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
             // 组件激活时调用
             this.carouselStart = false;
         },
         watch: {
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
-                // 计算背景图片移动的位置
-                this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
 
-                this.header = this.$refs.header.clientHeight;
+                // 如果有头部就获取头部高度
+                if (this.$refs.header) {
+                    this.header = this.$refs.header.clientHeight;
+                }
+
+                // 如果滚动距离小于1就设置为0 大于1就开始计算
+                if (newScrollY > -1) {
+                    // 设置背景图片位置为初始值
+                    this.$refs.bgImage.style.transform = `translate3d(0,0px,0)`;
+                    // 设置播放全部模块位置为初始值
+                    this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
+                }
+                else {
+                    // 计算背景图片移动的位置
+                    this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
+
+                    // 计算播放全部模块移动的位置
+                    this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                }
 
                 // 判断显示头部背景
                 if (Math.abs(newScrollY) > this.imageHeight - this.header) {
+                    // 显示背景
                     this.headerBg = true;
+
+                    // 设置播放全部模块应该移动到的位置
+                    this.$refs.ListHeader.style.transform = `translate3d(0,-${this.imageHeight - this.header}px,0)`;
                 }
                 else {
+                    // 取消背景
                     this.headerBg = false;
+                    this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
                 }
             }
         },
@@ -365,7 +413,6 @@
         z-index: 0;
     }
 
-
     /*背景图*/
     .background {
         position: absolute;
@@ -388,7 +435,7 @@
         position: relative;
         width: 100%;
         height: 0;
-        overflow: hidden;
+        /*overflow: hidden;*/
         padding-top: 70%;
     }
 
@@ -567,8 +614,85 @@
         }
     }
 
+    /* 歌曲列表头部*/
+    .list-header {
+        position: relative;
+        //bottom: px2rem(-108px);
+        background: $list-bgcolor;
+        box-sizing: border-box;
+        z-index: 100;
+        display: flex;
+        padding: 0 px2rem(32px);
+        border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
+        height: px2rem(108px);
+        width: 100%;
+        /*播放全部*/
+        .play-all-wrapper {
+            flex: 1;
+            position: relative;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            line-height: px2rem(108px);
+            height: px2rem(108px);
+            // 播放按钮
+            .play {
+                display: block;
+                margin-right: px2rem(30px);
+                font-size: px2rem(52px);
+                color: $play-color;
+            }
+            .title {
+                display: block;
+                font-size: px2rem(28px);
+            }
+            // 歌曲总数
+            .total-number {
+                display: block;
+                position: relative;
+                top: px2rem(4px);
+                margin-left: px2rem(20px);
+                font-size: px2rem(24px);
+                color: $total-number-color;
+            }
+        }
+
+        /*下载*/
+        .download {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            margin-right: px2rem(40px);
+            .icon-xiazai {
+                display: block;
+                font-size: px2rem(44px);
+                color: $play-color;
+            }
+            .title {
+                margin-left: px2rem(10px);
+                display: block;
+                font-size: px2rem(28px);
+            }
+        }
+
+        /*多选*/
+        .multiple-select {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            .icon {
+                display: block;
+                font-size: px2rem(44px);
+                color: $play-color;
+            }
+            .title {
+                margin-left: px2rem(10px);
+                display: block;
+                font-size: px2rem(28px);
+            }
+        }
+    }
+
     /*歌曲列表外层*/
     .song-list {
+        margin-top: px2rem(106px);
         padding: 0;
         position: fixed;
         top: 0;
