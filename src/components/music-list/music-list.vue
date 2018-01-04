@@ -93,20 +93,16 @@
             </div>
             <!--歌曲列表-->
             <scroll
-                    :data="songs"
-                    :listen-scroll="listenScroll"
-                    :probe-type="probeType"
-                    :bounce="bounce"
-                    :pullup="pullup"
-                    @scroll="scroll"
-                    @scrollToEnd="loadMore"
-                    class="song-list"
-                    ref="SongListScroll">
+                @scroll="scroll"
+                @scrollToEnd="loadMore"
+                class="song-list"
+                ref="SongListScroll">
                 <song-list
-                        :songs="songs"
-                        :totalSongNum="totalSongNum"
-                        :hasMore="hasMore"
-                        ref="SongListWrapper"
+                    :songs="songs"
+                    :totalSongNum="totalSongNum"
+                    :hasMore="hasMore"
+                    @select="select"
+                    ref="SongListWrapper"
                 ></song-list>
             </scroll>
         </div>
@@ -191,7 +187,7 @@
                 // 是否设置头部背景效果
                 headerBg: false,
                 // 开启回弹效果
-                bounce: true,
+                bounce: false,
                 // 开启标题滚动
                 carouselStart: false,
                 // scroll 组件 开启滚动监听
@@ -245,17 +241,43 @@
             refresh() {
                 this.$refs.SongListScroll.refresh();
             },
+//            // 禁用 better-scroll
+//            disable() {
+//                this.$refs.SongListScroll.disable();
+//            },
+//            // 开启 better-scroll
+//            enable() {
+//                this.$refs.SongListScroll.enable();
+//            },
             // 上拉加载方法
             loadMore() {
+                console.log(this.hasMore);
                 // 页数小于 歌曲列表总数就执行
-                if (this.songBegin <= this.totalSongNum) {
+                if (this.hasMore || this.songBegin <= this.totalSongNum) {
+                    console.log('123456');
                     // 每次加15
                     this.songBegin = this.songBegin + 15;
                     this.setSongBegin(this.songBegin);
                 }
             },
+            // 选择歌曲列表
+            select(event) {
+                console.log(event);
+                // 禁用 better-scroll
+                // this.disable();
+
+                // 开启 better-scroll
+                setTimeout(() => {
+                    // this.enable();
+                }, 100);
+            },
             ...mapActions('appStore', {
-                setSongBegin: 'songBegin'
+                setSongBegin: 'songBegin',
+                setData: 'data',
+                setListenScroll: 'listenScroll',
+                setProbeType: 'probeType',
+                setBounce: 'bounce',
+                setPullup: 'pullup'
             })
         },
         activated() {
@@ -264,14 +286,31 @@
 
             // 把图片位置重置
             this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
+
             // 把播放全部模块位置重置
             this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
+
             // 组件激活时调用
             this.carouselStart = false;
+
+            // 重置上拉加载的页数
+            this.songBegin = 0;
+
+            // 设置滚动组件状态
+            this.setData(this.data);
+            this.setListenScroll(this.listenScroll);
+            this.setProbeType(this.probeType);
+            this.setBounce(this.bounce);
+            this.setPullup(this.pullup);
+
+            // 初始化头部背景状态
+            this.headerBg = false;
         },
         watch: {
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
+
+                console.log(newScrollY);
 
                 // 如果有头部就获取头部高度
                 if (this.$refs.header) {
@@ -282,29 +321,31 @@
                 if (newScrollY > -1) {
                     // 设置背景图片位置为初始值
                     this.$refs.bgImage.style.transform = `translate3d(0,0px,0)`;
+
                     // 设置播放全部模块位置为初始值
-                    this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
+                    this.$refs.ListHeader.style.transform = `translate3d(0,0px,0)`;
                 }
                 else {
                     // 计算背景图片移动的位置
                     this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
 
                     // 计算播放全部模块移动的位置
-                    this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                    if (newScrollY < 0 && Math.abs(newScrollY) < this.imageHeight - this.header) {
+                        this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                    }
                 }
 
                 // 判断显示头部背景
                 if (Math.abs(newScrollY) > this.imageHeight - this.header) {
-                    // 显示背景
+                    // 显示头部背景状态
                     this.headerBg = true;
 
                     // 设置播放全部模块应该移动到的位置
                     this.$refs.ListHeader.style.transform = `translate3d(0,-${this.imageHeight - this.header}px,0)`;
                 }
                 else {
-                    // 取消背景
+                    // 取消头部背景状态
                     this.headerBg = false;
-                    this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
                 }
             }
         },

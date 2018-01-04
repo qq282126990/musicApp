@@ -95,11 +95,16 @@
                 'songBegin'
             ])
         },
+        mounted () {
+            // 初始化歌曲列表
+            this.songs = [];
+        },
         methods: {
             /**
              *  获取歌曲列表
              */
             getSongList() {
+
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.content_id) {
                     // 返回主页
@@ -211,10 +216,17 @@
                 show: false
             });
 
-            // 组件激活的时候调用接口 不应该放在created 或者mounted钩子里，
-            // 如果放在created 或者mounted钩子里只会执行一次
-            // 获取歌曲列表
-            this.getSongList();
+            // 初始化歌曲列表
+            this.songs = [];
+
+            if (this.songs.length === 0) {
+                // 组件激活的时候调用接口 不应该放在created 或者mounted钩子里，
+                // 如果放在created 或者mounted钩子里只会执行一次
+                // 获取歌曲列表
+                this.getSongList();
+            }
+
+
         },
         // 当组件停用时执行
         deactivated() {
@@ -226,9 +238,11 @@
         watch: {
             // 监听歌曲列表页数的变化
             songBegin(newSongBegin) {
-                if (newSongBegin >= 15 || newSongBegin !== this.totalSongNum) {
+                console.log(newSongBegin);
+                if (newSongBegin >= 15) {
                     this.getSongListMore(newSongBegin);
                 }
+
             }
         },
         components: {

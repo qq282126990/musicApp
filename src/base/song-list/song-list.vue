@@ -2,7 +2,7 @@
     <div class="list-wrapper">
         <!--歌曲列表-->
         <v-list class="list-content" v-show="songs">
-            <v-list-tile ripple v-for="item in songs" @click="" :key="item.mid">
+            <v-list-tile ripple v-for="item in songs" @click="selectItem(item)" :key="item.mid">
                 <!--选中列表实出现-->
                 <div class="selected">
                     <div class="bg-color" v-show="select"></div>
@@ -41,7 +41,6 @@
 
 <script type="text/ecmascript-6">
     import Loading from 'base/loading/loading';
-    import Scroll from 'base/scroll/scroll';
 
     export default {
         props: {
@@ -66,10 +65,13 @@
                 select: false
             };
         },
-        methos: {},
+        methods: {
+            selectItem (item) {
+                this.$emit('select', item);
+            }
+        },
         components: {
-            Loading,
-            Scroll
+            Loading
         }
     };
 </script>

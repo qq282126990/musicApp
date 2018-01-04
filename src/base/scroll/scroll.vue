@@ -6,6 +6,7 @@
 
 <script type="text/ecmascript-6">
     import BScroll from 'better-scroll';
+    import {mapState} from 'vuex';
 
     export default {
         props: {
@@ -13,55 +14,67 @@
             // 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
             // 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
             // 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
-            probeType: {
-                type: Number,
-                default: 1
-            },
-            // 分发点击事件
-            click: {
-                type: Boolean,
-                default: true
-            },
-            // 外部传入的数据
-            data: {
-                type: Array,
-                default: null
-            },
-            // scroll 要不要监听滚动事件
-            listenScroll: {
-                type: Boolean,
-                default: false
-            },
-            // 是否开启滚动到到底部刷新
-            pullup: {
-                type: Boolean,
-                default: false
-            },
-            // 开始滚动
-            beforeScroll: {
-                type: Boolean,
-                default: false
-            },
-            // 刷新延迟
-            refreshDelay: {
-                type: Number,
-                default: 20
-            },
-            // 是否开启回弹效果
-            bounce: {
-                type: Boolean,
-                default: true
-            },
-            // 是否开启Y轴滚动
-            setScrollY: {
-                type: Boolean,
-                default: true
-            },
-            // 设置回弹动画事件
-            bounceTime: {
-                type: Number,
-                default: 700
-            }
+//            probeType: {
+//                type: Number,
+//                default: 1
+//            },
+//            // 分发点击事件
+//            click: {
+//                type: Boolean,
+//                default: true
+//            },
+//            // 外部传入的数据
+//            data: {
+//                type: Array,
+//                default: null
+//            },
+//            // scroll 要不要监听滚动事件
+//            listenScroll: {
+//                type: Boolean,
+//                default: false
+//            },
+//            // 是否开启滚动到到底部刷新
+//            pullup: {
+//                type: Boolean,
+//                default: false
+//            },
+//            // 开始滚动
+//            beforeScroll: {
+//                type: Boolean,
+//                default: false
+//            },
+//            // 刷新延迟
+//            refreshDelay: {
+//                type: Number,
+//                default: 20
+//            },
+//            // 是否开启回弹效果
+//            bounce: {
+//                type: Boolean,
+//                default: true
+//            },
+//            // 是否开启Y轴滚动
+//            setScrollY: {
+//                type: Boolean,
+//                default: true
+//            },
+//            // 设置回弹动画事件
+//            bounceTime: {
+//                type: Number,
+//                default: 700
+//            }
+        },
+        computed: {
+            ...mapState('appStore', [
+                'probeType',
+                'click',
+                'data',
+                'listenScroll',
+                'pullup',
+                'beforeScroll',
+                'refreshDelay',
+                'bounce'
+            ])
         },
         mounted() {
             // 确保dom已经渲染了 初始化代码
@@ -70,7 +83,7 @@
             }, 20);
         },
         methods: {
-            _initScroll(newsetScrollY) {
+            _initScroll() {
                 // 判断有没有内容   没有就不执行
                 if (!this.$refs.scrollWrapper) {
                     return;
@@ -80,7 +93,7 @@
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
                     bounceTime: this.bounceTime, // 设置回弹时间
                     probeType: this.probeType,
-                    click: this.click,
+                    click: this.click, // 设置可以点击
                     bounce: this.bounce, // 是否开始回弹效果 boolean
                     pullUpLoad: this.pullUpLoad // 是否开启下拉刷新
                 });
@@ -97,6 +110,7 @@
                 // 监听是否开启滚动到到底部刷新
                 if (this.pullup) {
                     this.scroll.on('scrollEnd', () => {
+                        console.log('触发了');
                         // 如果当前滚动距离 小于等于  最大滚动距离，就向外部发送刷新事件
                         if (this.scroll.y <= this.scroll.maxScrollY + 50) {
                             this.$emit('scrollToEnd');
@@ -114,6 +128,14 @@
             // 禁用 better-scroll
             disable() {
                 this.scroll && this.scroll.disable();
+            },
+            // 销毁 better-scroll，解绑事件。
+            destroy () {
+                this.scroll && this.scroll.destroy();
+            },
+            // 启用 better-scroll, 默认 开启。
+            enable() {
+                this.scroll && this.scroll.enable();
             },
             // 重新计算高度
             refresh() {

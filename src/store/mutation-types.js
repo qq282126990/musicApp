@@ -21,3 +21,14 @@ export const SET_RECOMMEND = 'SET_RECOMMEND'; // 精选电台数据
 
 export const SET_MASKLAYER = 'SET_MASKLAYER'; // 设置遮罩层显示隐藏
 export const SET_SONG_BEGIN = 'SET_SONG_BEGIN'; // 歌曲列表接口一次请求的页数 一次 +15
+
+// 滚动组件状态
+export const SET_PROBETYPE = 'SET_PROBETYPE'; // 分发点击事件
+export const SET_CLICK = 'SET_CLICK'; // 分发点击事件
+export const SET_DATA = 'SET_DATA'; // 外部传入的数据
+export const SET_LISTEN_SCROLL = 'SET_LISTEN_SCROLL'; // scroll 要不要监听滚动事件
+export const SET_PULLUP = 'SET_PULLUP'; // 是否开启滚动到到底部刷新
+export const SET_BEFORE_SCROLL = 'SET_BEFORE_SCROLL'; // 是否开启滚动
+export const SET_REFRESH_DELAY = 'SET_REFRESH_DELAY'; // 刷新延迟
+export const SET_BOUNCE = 'SET_BOUNCE'; // 是否开启回弹效果
+
