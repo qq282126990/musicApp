@@ -31,4 +31,8 @@ export const SET_PULLUP = 'SET_PULLUP'; // 是否开启滚动到到底部刷新
 export const SET_BEFORE_SCROLL = 'SET_BEFORE_SCROLL'; // 是否开启滚动
 export const SET_REFRESH_DELAY = 'SET_REFRESH_DELAY'; // 刷新延迟
 export const SET_BOUNCE = 'SET_BOUNCE'; // 是否开启回弹效果
+export const SET_BOUNCE_TIME = 'SET_BOUNCE_TIME'; // 回弹时间
 
+// 歌曲列表状态
+export const SET_SONG_LIST_MESSAGE = 'SET_SONG_LIST_MESSAGE'; // 获取歌曲列表信息
+export const SET_SONG_LIST = 'SET_SONG_LIST'; // 获取歌曲列表

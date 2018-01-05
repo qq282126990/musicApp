@@ -69,7 +69,27 @@ const state = {
      *
      * @type {Boolean}
      */
-    bounce: true
+    bounce: true,
+    /**
+     * 回弹时间
+     *
+     * @type {Number}
+     */
+    bounceTime: 300,
+    /**
+     * 歌曲列表信息
+     *
+     *
+     * @type {Object}
+     */
+    songListMessage: {},
+    /**
+     * 歌曲列表
+     *
+     *
+     * @type {Array}
+     */
+    songList: []
 };
 
 export default state;

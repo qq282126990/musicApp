@@ -111,3 +111,30 @@ export const refreshDelay = function ({commit}, refreshDelay) {
 export const bounce = function ({commit}, bounce) {
     commit(types.SET_BOUNCE, bounce);
 };
+
+/**
+ * 回弹时间
+ *
+ * @type {Boolean}
+ */
+export const bounceTime = function ({commit}, bounceTime) {
+    commit(types.SET_BOUNCE_TIME, bounceTime);
+};
+
+/**
+ * 歌曲列表信息
+ *
+ * @type {Object}
+ */
+export const songListMessage = function ({commit}, songListMessage) {
+    commit(types.SET_SONG_LIST_MESSAGE, songListMessage);
+};
+
+/**
+ * 歌曲列表
+ *
+ * @type {Array}
+ */
+export const songList = function ({commit}, SET_SONG_LIST) {
+    commit(types.SET_SONG_LIST, SET_SONG_LIST);
+};

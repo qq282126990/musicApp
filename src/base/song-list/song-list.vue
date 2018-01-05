@@ -2,7 +2,7 @@
     <div class="list-wrapper">
         <!--歌曲列表-->
         <v-list class="list-content" v-show="songs">
-            <v-list-tile ripple v-for="item in songs" @click="selectItem(item)" :key="item.mid">
+            <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
                     <div class="bg-color" v-show="select"></div>
@@ -41,19 +41,15 @@
 
 <script type="text/ecmascript-6">
     import Loading from 'base/loading/loading';
+    import {mapGetters} from 'vuex';
 
     export default {
         props: {
             // 歌曲列表
-            songs: {
-                type: Array,
-                default: null
-            },
-            // 歌曲列表总数
-            totalSongNum: {
-                type: Number,
-                default: 0
-            },
+//            songs: {
+//                type: Array,
+//                default: null
+//            },
             // 设置是否能够加载更多
             hasMore: {
                 type: Boolean,
@@ -65,8 +61,18 @@
                 select: false
             };
         },
+        computed: {
+            ...mapGetters('appStore', {
+                /*
+                 * 歌曲列表
+                 * @param {Array}
+                 *
+                 * */
+                songs: 'songList'
+            })
+        },
         methods: {
-            selectItem (item) {
+            selectItem(item) {
                 this.$emit('select', item);
             }
         },

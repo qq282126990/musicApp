@@ -18,32 +18,32 @@
 //                type: Number,
 //                default: 1
 //            },
-//            // 分发点击事件
+            // 分发点击事件
 //            click: {
 //                type: Boolean,
 //                default: true
 //            },
-//            // 外部传入的数据
+            // 外部传入的数据
 //            data: {
 //                type: Array,
 //                default: null
 //            },
-//            // scroll 要不要监听滚动事件
+            // scroll 要不要监听滚动事件
 //            listenScroll: {
 //                type: Boolean,
 //                default: false
 //            },
-//            // 是否开启滚动到到底部刷新
+            // 是否开启滚动到到底部刷新
 //            pullup: {
 //                type: Boolean,
 //                default: false
 //            },
-//            // 开始滚动
+            // 开始滚动
 //            beforeScroll: {
 //                type: Boolean,
 //                default: false
 //            },
-//            // 刷新延迟
+            // 刷新延迟
 //            refreshDelay: {
 //                type: Number,
 //                default: 20
@@ -53,15 +53,10 @@
 //                type: Boolean,
 //                default: true
 //            },
-//            // 是否开启Y轴滚动
-//            setScrollY: {
-//                type: Boolean,
-//                default: true
-//            },
-//            // 设置回弹动画事件
+            // 设置回弹动画事件
 //            bounceTime: {
 //                type: Number,
-//                default: 700
+//                default: 400
 //            }
         },
         computed: {
@@ -73,7 +68,8 @@
                 'pullup',
                 'beforeScroll',
                 'refreshDelay',
-                'bounce'
+                'bounce',
+                'bounceTime'
             ])
         },
         mounted() {
@@ -95,7 +91,7 @@
                     probeType: this.probeType,
                     click: this.click, // 设置可以点击
                     bounce: this.bounce, // 是否开始回弹效果 boolean
-                    pullUpLoad: this.pullUpLoad // 是否开启下拉刷新
+                    HWCompositing: true // 硬件加速
                 });
 
                 // 如果监听了scroll 就派发scroll滚动事件
@@ -110,7 +106,6 @@
                 // 监听是否开启滚动到到底部刷新
                 if (this.pullup) {
                     this.scroll.on('scrollEnd', () => {
-                        console.log('触发了');
                         // 如果当前滚动距离 小于等于  最大滚动距离，就向外部发送刷新事件
                         if (this.scroll.y <= this.scroll.maxScrollY + 50) {
                             this.$emit('scrollToEnd');
@@ -130,7 +125,7 @@
                 this.scroll && this.scroll.disable();
             },
             // 销毁 better-scroll，解绑事件。
-            destroy () {
+            destroy() {
                 this.scroll && this.scroll.destroy();
             },
             // 启用 better-scroll, 默认 开启。

@@ -5,16 +5,28 @@ import * as types from './mutation-types';
 
 const mutations = {
     // state 获取当前状态设置的state  其他=参数
-    // 主页 选择的的歌曲列表
-    [types.SET_HOME_SONG_LIST](state, homeSonglist) {
+    /**
+     * 主页 选择的的歌曲列表
+     *
+     * @type {Object}
+     */
+        [types.SET_HOME_SONG_LIST](state, homeSonglist) {
         state.homeSonglist = homeSonglist;
     },
-    // 设置遮罩层显示隐藏
-    [types.SET_MASKLAYER](state, maskLayer) {
+    /**
+     * 设置遮罩层显示隐藏
+     *
+     * @type {Boolean}
+     */
+        [types.SET_MASKLAYER](state, maskLayer) {
         state.maskLayer = maskLayer;
     },
-    // 歌曲列表接口一次请求的页数 一次 +15
-    [types.SET_SONG_BEGIN](state, songBegin) {
+    /**
+     * 歌曲列表接口一次请求的页数 一次 +15
+     *
+     * @type {Number}
+     */
+        [types.SET_SONG_BEGIN](state, songBegin) {
         state.songBegin = songBegin;
     },
     //             滚动组件的状态
@@ -25,7 +37,7 @@ const mutations = {
      * 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
      * @type {Number}
      */
-    [types.SET_PROBETYPE](state, probeType) {
+        [types.SET_PROBETYPE](state, probeType) {
         state.probeType = probeType;
     },
     /**
@@ -33,7 +45,7 @@ const mutations = {
      *
      * @type {Boolean}
      */
-    [types.SET_CLICK](state, click) {
+        [types.SET_CLICK](state, click) {
         state.click = click;
     },
     /**
@@ -41,7 +53,7 @@ const mutations = {
      *
      * @type {Array}
      */
-    [types.SET_DATA](state, data) {
+        [types.SET_DATA](state, data) {
         state.data = data;
     },
     /**
@@ -49,7 +61,7 @@ const mutations = {
      *
      * @type {Boolean}
      */
-    [types.SET_LISTEN_SCROLL](state, listenScroll) {
+        [types.SET_LISTEN_SCROLL](state, listenScroll) {
         state.listenScroll = listenScroll;
     },
     /**
@@ -57,7 +69,7 @@ const mutations = {
      *
      * @type {Boolean}
      */
-    [types.SET_PULLUP](state, pullup) {
+        [types.SET_PULLUP](state, pullup) {
         state.pullup = pullup;
     },
     /**
@@ -65,7 +77,7 @@ const mutations = {
      *
      * @type {Boolean}
      */
-    [types.SET_BEFORE_SCROLL](state, beforeScroll) {
+        [types.SET_BEFORE_SCROLL](state, beforeScroll) {
         state.beforeScroll = beforeScroll;
     },
     /**
@@ -73,7 +85,7 @@ const mutations = {
      *
      * @type {Number}
      */
-    [types.SET_REFRESH_DELAY](state, refreshDelay) {
+        [types.SET_REFRESH_DELAY](state, refreshDelay) {
         state.refreshDelay = refreshDelay;
     },
     /**
@@ -81,8 +93,32 @@ const mutations = {
      *
      * @type {Boolean}
      */
-    [types.SET_BOUNCE](state, bounce) {
+        [types.SET_BOUNCE](state, bounce) {
         state.bounce = bounce;
+    },
+    /**
+     * 回弹时间
+     *
+     * @type {Number}
+     */
+        [types.SET_BOUNCE_TIME](state, bounceTime) {
+        state.bounceTime = bounceTime;
+    },
+    /**
+     * 歌曲列表信息
+     *
+     * @type {Object}
+     */
+        [types.SET_SONG_LIST_MESSAGE](state, songListMessage) {
+        state.songListMessage = songListMessage;
+    },
+    /**
+     * 歌曲列表
+     *
+     * @type {Array}
+     */
+        [types.SET_SONG_LIST](state, songList) {
+        state.songList = songList;
     }
 };
 

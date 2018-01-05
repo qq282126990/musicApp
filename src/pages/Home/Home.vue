@@ -59,7 +59,7 @@
             // 获取请求接口对应的数据
             ...mapState('asyncAjax', ['slider', 'recommend', 'newSong', 'featuredRadio']),
             // 主页类别  模块 数据
-            List () {
+            List() {
                 this.list = [
                     {recommend: [{'name': '热门推荐', 'data': this.recommend}]},
                     {recommend: [{'name': '新歌速递', 'data': this.newSong}]}
@@ -85,7 +85,27 @@
                 * 主页选中的专辑数据
                 * type {Object}
                 */
-                'homeSonglist'
+                'homeSonglist',
+                /**
+                 * 歌曲列表接口一次请求的页数 一次 +15
+                 *
+                 * @type {Number}
+                 */
+                'songBegin',
+                /**
+                 * 歌曲列表信息
+                 *
+                 *
+                 * @type {Object}
+                 */
+                'songListMessage',
+                /**
+                 * 歌曲列表
+                 *
+                 *
+                 * @type {Array}
+                 */
+                'songList'
             ]),
             ...mapActions('asyncAjax', [
                 /*
@@ -95,8 +115,16 @@
                 'getMusicuMessage'
             ])
         },
+        activated() {
+            setTimeout(() => {
+                // 初始化歌曲列表全部数据
+                this.songBegin(0);
+                this.songListMessage({});
+                this.songList([]);
+            }, 400);
+        },
         // 监听错误
-        errorCaptured (err) {
+        errorCaptured(err) {
             console.log(err);
         },
         components: {

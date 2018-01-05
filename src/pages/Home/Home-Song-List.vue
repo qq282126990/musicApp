@@ -1,19 +1,10 @@
 <template>
     <div>
         <transition name="slide">
-            <music-list :title="title"
-                        :carousel="carousel"
-                        :coverImage="coverImage"
-                        :albumName="albumName"
-                        :authorAvatar="authorAvatar"
-                        :smallAvatar="smallAvatar"
-                        :authorName="authorName"
-                        :desc="desc"
-                        :songs="songs"
+            <music-list
                         :collection="collection"
-                        :playNumber="computedPlayNumber"
-                        :totalSongNum="totalSongNum"
                         :hasMore="hasMore"
+                        :ajax_ok="ajax_ok"
             ></music-list>
         </transition>
     </div>
@@ -31,54 +22,18 @@
         data() {
             return {
                 // 歌曲数据
-                data: [],
+                data: {},
                 // 歌曲列表
                 songs: [],
                 // 设置是否有更多歌曲列表
                 hasMore: false,
-                // 作者头像
-                authorAvatar: '',
-                // 作者头像下的小图标
-                smallAvatar: '',
-                // 简介
-                desc: '',
+                // 判断请求是否完成
+                ajax_ok: false,
                 // 专辑收藏量
-                collection: 0,
-                // 播放量
-                playNumber: '0',
-                // 歌曲列表总数
-                totalSongNum: 0
+                collection: 0
             };
         },
         computed: {
-            // 标题
-            title() {
-                return this.homeSonglist.rcmdtemplate;
-            },
-            // 滚动标题
-            carousel() {
-                return this.homeSonglist.title;
-            },
-            // 头部背景图片
-            coverImage() {
-                return this.homeSonglist.cover;
-            },
-            // 专辑名称
-            albumName() {
-                return this.homeSonglist.title;
-            },
-            // 作者名字
-            authorName() {
-                return this.homeSonglist.username;
-            },
-            // 计算播放量
-            computedPlayNumber() {
-                // 如果当前播放量是1万才进行计算
-                if (this.playNumber > 1e4) {
-                    this.playNumber = (this.playNumber / 1e4).toFixed(1) + '万';
-                }
-                return this.playNumber;
-            },
             // 获取音乐列表
             ...mapGetters('appStore', [
                 /*
@@ -95,7 +50,7 @@
                 'songBegin'
             ])
         },
-        mounted () {
+        mounted() {
             // 初始化歌曲列表
             this.songs = [];
         },
@@ -104,6 +59,8 @@
              *  获取歌曲列表
              */
             getSongList() {
+                // 初始化设置还没有请求
+                this.ajax_ok = false;
 
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.content_id) {
@@ -120,22 +77,35 @@
                     // 获取歌曲列表接口
                     getSongList(this.homeSonglist.content_id, this.songBegin).then((res) => {
                         if (res.code === ERR_OK) {
-                            this.data = res.cdlist[0];
+                            // this.data = res.cdlist[0];
+
                             // 歌曲
-                            this.songs = this._genResult(this.data.songlist);
+                            this.songs = this._genResult(res.cdlist[0].songlist);
+
+                            // 把歌曲列表存入vuex
+                            this.setSongList(this.songs);
+
+                            //  ---------------歌曲列表的信息---------------------- //
                             // 简介
-                            this.desc = '简介:' + this.data.desc;
+                            this.data.desc = '简介:' + res.cdlist[0].desc;
                             // 专辑头像
-                            this.authorAvatar = this.data.headurl;
+                            this.data.authorAvatar = res.cdlist[0].headurl;
                             // 专辑的小头像
-                            this.smallAvatar = this.data.ifpicurl;
+                            this.data.smallAvatar = res.cdlist[0].ifpicurl;
                             // 播放量
-                            this.playNumber = this.data.visitnum;
+                            this.data.playNumber = this.computedPlayNumber(res.cdlist[0].visitnum);
                             // 歌曲列表总数
-                            this.totalSongNum = this.data.total_song_num;
+                            this.data.totalSongNum = res.cdlist[0].total_song_num;
+
+                            // ------------------------------------------------- //
+                            // 存入vuex的 songListMessage
+                            this.setSongListMessage(this.data);
 
                             // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
-                            this._checkMore(this.data, this.songBegin);
+                            this._checkMore(res.cdlist[0], this.songBegin);
+
+                            // 设置请求完成
+                            this.ajax_ok = true;
                         }
                     });
 
@@ -152,6 +122,9 @@
              *  @param {number} newSongBegin
              */
             getSongListMore(newSongBegin) {
+                // 初始化设置还没有请求
+                this.ajax_ok = false;
+
                 // 如果没有更多就不执行
                 if (!this.hasMore) {
                     return;
@@ -160,12 +133,19 @@
                 // 获取歌曲列表接口
                 getSongList(this.homeSonglist.content_id, newSongBegin).then((res) => {
                     if (res.code === ERR_OK) {
-                        this.data = res.cdlist[0];
+                        // this.data = res.cdlist[0];
+
                         // 拼接更多歌曲列表
-                        this.songs = this.songs.concat(this._genResult(this.data.songlist));
+                        this.songs = this.songs.concat(this._genResult(res.cdlist[0].songlist));
+
+                        // 把歌曲列表存入vuex
+                        this.setSongList(this.songs);
 
                         // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
-                        this._checkMore(this.data, newSongBegin);
+                        this._checkMore(res.cdlist[0], newSongBegin);
+
+                        // 设置请求完成
+                        this.ajax_ok = true;
                     }
                 });
             },
@@ -202,11 +182,42 @@
                 }
                 return ret;
             },
+            /**
+             * 计算播放量
+             *
+             * @type {String}  playNumber
+             */
+            computedPlayNumber(playNumber) {
+                // 如果当前播放量是1万才进行计算
+                if (playNumber > 1e4) {
+                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+                }
+                return playNumber;
+            },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),
             ...mapActions('appStore', {
-                setSongBegin: 'songBegin'
+                /**
+                 * 歌曲列表接口一次请求的页数 一次 +15
+                 *
+                 * @type {Number}
+                 */
+                setSongBegin: 'songBegin',
+                /**
+                 * 歌曲列表信息
+                 *
+                 *
+                 * @type {Object}
+                 */
+                setSongListMessage: 'songListMessage',
+                /**
+                 * 歌曲列表
+                 *
+                 *
+                 * @type {Array}
+                 */
+                setSongList: 'songList'
             })
         },
         // 当组件激活的调用
@@ -223,7 +234,9 @@
                 // 组件激活的时候调用接口 不应该放在created 或者mounted钩子里，
                 // 如果放在created 或者mounted钩子里只会执行一次
                 // 获取歌曲列表
-                this.getSongList();
+                setTimeout(() => {
+                    this.getSongList();
+                }, 400);
             }
 
 
@@ -238,7 +251,9 @@
         watch: {
             // 监听歌曲列表页数的变化
             songBegin(newSongBegin) {
-                console.log(newSongBegin);
+                if (this.songs.length === this.data.totalSongNum) {
+                    return;
+                }
                 if (newSongBegin >= 15) {
                     this.getSongListMore(newSongBegin);
                 }

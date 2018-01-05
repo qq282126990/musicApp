@@ -5,52 +5,53 @@
                 <i class="iconfont icon-fanhui1-copy"></i>
             </div>
             <div class="title">
-                <span>{{title}}</span>
+                <span>{{this.homeSonglist.rcmdtemplate}}</span>
                 <!--滚动的标题-->
-                <span v-if="carouselStart" :class="{carousel: carouselStart}" ref="carousel">{{carousel}}</span>
+                <span v-if="carouselStart" :class="{carousel: carouselStart}"
+                      ref="carousel">{{this.homeSonglist.title}}</span>
             </div>
         </div>
         <div class="music-list">
             <!--背景图-->
             <div class="background" ref="background">
-                <img width="100%" height="100%" :src="coverImage">
+                <img width="100%" height="100%" :src="this.homeSonglist.cover">
             </div>
             <!--背景滤镜效果-->
             <div class="filter"></div>
             <!--专辑-->
             <div class="album-wrapper" ref="bgImage">
                 <!--专辑信息-->
-                <div class="album">
+                <div class="album" :style="{opacity: transparent}">
                     <!--专辑头像-->
                     <div class="cover">
-                        <img :src="coverImage"
-                             onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
+                        <img :src="this.homeSonglist.cover ? this.homeSonglist.cover : this.default_avater"/>
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <div class="play-number">
                                 <i class="iconfont icon-erji"></i>
-                                <span class="number">{{playNumber}}</span>
+                                <span class="number">{{data.playNumber}}</span>
                             </div>
                         </div>
                     </div>
                     <!--专辑信息-->
                     <div class="message">
                         <!--专辑名称-->
-                        <h1 class="album-name" :class="{error: !albumName}">{{albumName}}</h1>
+                        <h1 class="album-name" :class="{error: !this.homeSonglist.title}">
+                            {{this.homeSonglist.title}}</h1>
                         <!--作者头像-->
                         <div class="author">
                             <!--作者小头像-->
-                            <img class="small-avatar" :src="smallAvatar"/>
+                            <img class="small-avatar" :src="data.smallAvatar"/>
                             <!--作者大头像-->
-                            <img class="author-avatar" :src="authorAvatar"
-                                 onerror="this.src='../../../static/img/default_avater.png';this.onerror=null;"/>
+                            <img class="author-avatar"
+                                 :src="data.authorAvatar ? data.authorAvatar : this.default_avater"/>
                             <!--作者名字-->
-                            <div class="author-name" :class="{error: !authorName}">
-                                <span>{{authorName}}</span>
+                            <div class="author-name" :class="{error: !this.homeSonglist.username}">
+                                <span>{{this.homeSonglist.username}}</span>
                             </div>
                         </div>
-                        <div class="desc" :class="{error: !desc}">
-                            <p v-html="desc"></p>
+                        <div class="desc" :class="{error: !data.desc}">
+                            <p v-html="data.desc"></p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +79,7 @@
                 <div class="play-all-wrapper">
                     <v-icon class="play">play_circle_outline</v-icon>
                     <h3 class="title">全部播放</h3>
-                    <span class="total-number">共{{totalSongNum}}首</span>
+                    <span class="total-number">共{{data.totalSongNum}}首</span>
                 </div>
                 <!--下载-->
                 <div class="download">
@@ -91,6 +92,7 @@
                     <span class="title">多选</span>
                 </div>
             </div>
+            <div class="bg-layer" ref="layer"></div>
             <!--歌曲列表-->
             <scroll
                 @scroll="scroll"
@@ -98,8 +100,6 @@
                 class="song-list"
                 ref="SongListScroll">
                 <song-list
-                    :songs="songs"
-                    :totalSongNum="totalSongNum"
                     :hasMore="hasMore"
                     @select="select"
                     ref="SongListWrapper"
@@ -110,69 +110,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import Scroll from 'base/scroll/scroll';
     import SongList from 'base/song-list/song-list';
 
     export default {
         props: {
-            // 标题
-            title: {
-                type: String,
-                default: ''
-            },
-            // 滚动的文字
-            carousel: {
-                type: String,
-                default: ''
-            },
-            // 头像图片
-            coverImage: {
-                type: String,
-                default: ''
-            },
-            // 专辑名字
-            albumName: {
-                type: String,
-                default: ''
-            },
-            // 作者头像
-            authorAvatar: {
-                type: String,
-                default: ''
-            },
-            // 作者头像下面的小图标
-            smallAvatar: {
-                type: String,
-                default: ''
-            },
-            // 作者名字
-            authorName: {
-                type: String,
-                default: ''
-            },
-            // 简介
-            desc: {
-                type: String,
-                default: ''
-            },
-            // 歌曲列表
-            songs: {
-                type: Array,
-                default: null
-            },
             // 专辑收藏数量
             collection: {
-                type: Number,
-                default: 0
-            },
-            // 播放量
-            playNumber: {
-                type: String,
-                default: '0'
-            },
-            // 歌曲列表总数
-            totalSongNum: {
                 type: Number,
                 default: 0
             },
@@ -180,35 +125,53 @@
             hasMore: {
                 type: Boolean,
                 default: false
+            },
+            // 获取请求是否完成了
+            ajax_ok: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
+                // 图片丢失的路径
+                default_avater: '../../../static/img/default_avater.png',
                 // 是否设置头部背景效果
                 headerBg: false,
-                // 开启回弹效果
-                bounce: false,
                 // 开启标题滚动
                 carouselStart: false,
+                // ---------设置滚动组件的状态------- //
+                // 开启回弹效果
+                bounce: true,
                 // scroll 组件 开启滚动监听
                 listenScroll: true,
                 // 开启滚动底部刷新
                 pullup: true,
-                // 获取滚动Y轴坐标
-                scrollY: 0,
                 // scroll 组件 状态设置为3
                 probeType: 3,
-                // 歌曲列表显示页数 默认15 一次 *2
+                // -------------------------------- //
+                // 获取滚动的时候Y轴坐标
+                scrollY: 0,
+                // 歌曲列表显示页数 默认15 一次 *2 需要存入vuex songBegin
                 songBegin: 0,
                 // 获取图片背景的高度
-                imageHeight: null
+                imageHeight: null,
+                // 专辑内容的透明度
+                transparent: 1
             };
         },
         mounted() {
             // 获取图片背景的高度
             this.imageHeight = this.$refs.background.clientHeight;
+
             // 设置歌曲列表的位置
             this.$refs.SongListScroll.$el.style.top = `${this.imageHeight}px`;
+
+            // 获取头部高度
+            this.header = this.$refs.header.clientHeight;
+
+            // 设置最小移动数 minTransalteY
+            this.minTransalteY = -this.imageHeight + this.header;
 
             // 自适应大小
             window.addEventListener('resize', () => {
@@ -228,6 +191,28 @@
                 }, 60);
             });
         },
+        computed: {
+            ...mapGetters('appStore', {
+                /*
+                 * 歌曲列表信息
+                 * @param {Object}
+                 *
+                 * */
+                data: 'songListMessage',
+                /*
+                 * 歌曲列表
+                 * @param {Array}
+                 *
+                 * */
+                songs: 'songList',
+                /*
+                 * 选择的的歌曲列表数据
+                 * @param {Object}
+                 *
+                 * */
+                homeSonglist: 'homeSonglist'
+            })
+        },
         methods: {
             // 返回按钮
             back() {
@@ -241,24 +226,31 @@
             refresh() {
                 this.$refs.SongListScroll.refresh();
             },
-//            // 禁用 better-scroll
-//            disable() {
-//                this.$refs.SongListScroll.disable();
-//            },
-//            // 开启 better-scroll
-//            enable() {
-//                this.$refs.SongListScroll.enable();
-//            },
+            // 禁用 better-scroll
+            disable() {
+                this.$refs.SongListScroll.disable();
+            },
+            // 开启 better-scroll
+            enable() {
+                this.$refs.SongListScroll.enable();
+            },
             // 上拉加载方法
             loadMore() {
-                console.log(this.hasMore);
-                // 页数小于 歌曲列表总数就执行
-                if (this.hasMore || this.songBegin <= this.totalSongNum) {
-                    console.log('123456');
-                    // 每次加15
-                    this.songBegin = this.songBegin + 15;
-                    this.setSongBegin(this.songBegin);
+                if (!this.hasMore) {
+                    return;
                 }
+
+                // 请求完成时才执行上拉加载
+                if (this.ajax_ok) {
+                    // 页数小于 歌曲列表总数就执行
+                    if (this.hasMore || this.songBegin <= this.data.totalSongNum) {
+
+                        // 每次加15
+                        this.songBegin = this.songBegin + 15;
+                        this.setSongBegin(this.songBegin);
+                    }
+                }
+
             },
             // 选择歌曲列表
             select(event) {
@@ -271,6 +263,38 @@
                     // this.enable();
                 }, 100);
             },
+            // 初始化操作
+            _initDom() {
+                // 把滚动位置重置为顶部
+                this.$refs.SongListScroll.scrollTo(0, 0);
+
+                // 设置专辑区块的style
+                this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
+
+                // 把播放全部模块位置重置
+                this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
+
+                // 初始化  layer
+                this.$refs.layer.style.transform = `translate3d(0,0,0)`;
+
+                // 组件激活时调用
+                this.carouselStart = false;
+
+
+                // 重置上拉加载的页数
+                this.songBegin = 0;
+
+                // 设置滚动组件状态
+                this.setData(this.data);
+                this.setListenScroll(this.listenScroll);
+                this.setProbeType(this.probeType);
+                this.setBounce(this.bounce);
+                this.setPullup(this.pullup);
+
+                // 初始化头部背景状态
+                this.headerBg = false;
+
+            },
             ...mapActions('appStore', {
                 setSongBegin: 'songBegin',
                 setData: 'data',
@@ -281,69 +305,65 @@
             })
         },
         activated() {
-            // 把滚动位置重置为顶部
-            this.$refs.SongListScroll.scrollTo(0, 0);
-
-            // 把图片位置重置
-            this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
-
-            // 把播放全部模块位置重置
-            this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
-
-            // 组件激活时调用
-            this.carouselStart = false;
-
-            // 重置上拉加载的页数
-            this.songBegin = 0;
-
-            // 设置滚动组件状态
-            this.setData(this.data);
-            this.setListenScroll(this.listenScroll);
-            this.setProbeType(this.probeType);
-            this.setBounce(this.bounce);
-            this.setPullup(this.pullup);
-
-            // 初始化头部背景状态
-            this.headerBg = false;
+            // 初始化操作
+            this._initDom();
         },
         watch: {
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
+                console.log(newScrollY + '滚动了');
 
-                console.log(newScrollY);
+//                const offsetWidth = Math.min(0, Math.max(window.innerHeight, window.innerHeight + newScrollY));
 
-                // 如果有头部就获取头部高度
-                if (this.$refs.header) {
-                    this.header = this.$refs.header.clientHeight;
-                }
+                console.log(Math.max(window.innerHeight, window.innerHeight + newScrollY));
 
-                // 如果滚动距离小于1就设置为0 大于1就开始计算
-                if (newScrollY > -1) {
-                    // 设置背景图片位置为初始值
-                    this.$refs.bgImage.style.transform = `translate3d(0,0px,0)`;
+
+//                const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
+//                const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
+//                this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
+//                this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+//                this.$refs.lyricList.$el.style[transitionDuration] = 0
+//                this.$refs.middleL.style.opacity = 1 - this.touch.percent
+//                this.$refs.middleL.style[transitionDuration] = 0
+
+                let translateY = Math.max(this.minTransalteY, newScrollY);
+                // 设置播放全部的位置
+                this.$refs.ListHeader.style.transform = `translate3d(0,${translateY}px,0)`;
+
+
+                // 如果滚动距离小于this.minTransalteY就设置为0 大于this.minTransalteY就开始计算
+                if (newScrollY < this.minTransalteY) {
+
+                    // 设置专辑区块的style
+                    this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
+                    this.$refs.bgImage.style.overflow = 'hidden';
+                    this.$refs.bgImage.style.paddingTop = '0';
 
                     // 设置播放全部模块位置为初始值
-                    this.$refs.ListHeader.style.transform = `translate3d(0,0px,0)`;
-                }
-                else {
-                    // 计算背景图片移动的位置
-                    this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                    this.$refs.ListHeader.style.transform = `translate3d(0,40px,0)`;
 
-                    // 计算播放全部模块移动的位置
-                    if (newScrollY < 0 && Math.abs(newScrollY) < this.imageHeight - this.header) {
-                        this.$refs.ListHeader.style.transform = `translate3d(0,${newScrollY}px,0)`;
-                    }
-                }
+                    // 重置layer块的位置
+                    this.$refs.layer.style.transform = `translate3d(0,0,0)`;
 
-                // 判断显示头部背景
-                if (Math.abs(newScrollY) > this.imageHeight - this.header) {
+                    // 初始化专辑内容的透明度
+                    this.transparent = 1;
+
                     // 显示头部背景状态
                     this.headerBg = true;
 
-                    // 设置播放全部模块应该移动到的位置
-                    this.$refs.ListHeader.style.transform = `translate3d(0,-${this.imageHeight - this.header}px,0)`;
                 }
                 else {
+                    // 设置专辑区块的style
+                    this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                    this.$refs.bgImage.style.overflow = 'visible';
+                    this.$refs.bgImage.style.paddingTop = '70%';
+
+                    // 设置 layer块的位置
+                    this.$refs.layer.style.transform = `translate3d(0,${newScrollY}px,0)`;
+
+                    // 设置专辑内容的透明度
+                    this.transparent = 1;
+
                     // 取消头部背景状态
                     this.headerBg = false;
                 }
@@ -474,9 +494,10 @@
     .album-wrapper {
         position: relative;
         width: 100%;
-        height: 0;
+        /*height: 0;*/
         /*overflow: hidden;*/
         padding-top: 70%;
+        z-index: 100;
     }
 
     /*专辑信息*/
@@ -728,6 +749,12 @@
                 font-size: px2rem(28px);
             }
         }
+    }
+
+    .bg-layer {
+        position: relative;
+        height: 100%;
+        background: #fff;
     }
 
     /*歌曲列表外层*/
