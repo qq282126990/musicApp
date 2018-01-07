@@ -21,6 +21,21 @@ const state = {
      */
     songBegin: 0,
     /**
+     * 歌曲列表信息
+     *
+     *
+     * @type {Object}
+     */
+    songListMessage: {},
+    /**
+     * 歌曲列表
+     *
+     *
+     * @type {Array}
+     */
+    songList: [],
+    /** *****************滚动组件状态****************** **/
+    /**
      * 滚动的状态
      * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
      * 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
@@ -76,20 +91,30 @@ const state = {
      * @type {Number}
      */
     bounceTime: 300,
+    /*********************************************/
+    /** *****************播放组件状态************************** **/
     /**
-     * 歌曲列表信息
+     * 控制歌曲播放
      *
      *
-     * @type {Object}
+     * @type {Boolean}
      */
-    songListMessage: {},
+    playing: false,
     /**
-     * 歌曲列表
+     * 播放列表
      *
      *
      * @type {Array}
      */
-    songList: []
+    playList: [],
+    /**
+     * 当前播放索引
+     *
+     *
+     * @type {Number}
+     */
+    currentIndex: -1
+    /****************************************/
 };
 
 export default state;

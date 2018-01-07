@@ -88,10 +88,38 @@ apiRoutes.get('/getSongList', function (req, res) {
 // 获取收藏量
 apiRoutes.get('/getCollection', function (req, res) {
     var url = 'https://c.y.qq.com/3gmusic/fcgi-bin/3g_dir_order_uinlist';
+    console.log(req.query);
+
     axios.get(url, {
         headers: {
             referer: 'https://c.y.qq.com/',
             host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+// 获取歌曲播放地址
+apiRoutes.post('/getSongPlayingUrl', function (req, res) {
+    console.log('123456789');
+    console.log(req.methods);
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+    axios.post(url, {
+        headers: {
+            referer: 'https://u.y.qq.com/',
+            host: 'u.y.qq.com'
         },
         params: req.query
     }).then((response) => {

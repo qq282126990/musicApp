@@ -2,9 +2,9 @@
     <div>
         <transition name="slide">
             <music-list
-                        :collection="collection"
-                        :hasMore="hasMore"
-                        :ajax_ok="ajax_ok"
+                    :collection="collection"
+                    :hasMore="hasMore"
+                    :ajax_ok="ajax_ok"
             ></music-list>
         </transition>
     </div>
@@ -13,8 +13,10 @@
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
     import {getSongList, getCollection} from 'api/musicSongList';
+    import {getMusicuMessage} from 'api/songPlayingUrl';
     import {ERR_OK} from 'api/config';
     import {createSong} from 'common/js/song';
+    import {crackedPlayingAjax} from 'common/js/cracked_ajax';
     import musicList from '../../components/music-list/music-list.vue';
 
 
@@ -72,10 +74,11 @@
                     this.setSongBegin(0);
 
                     // 设置加载更多
-                    this.hasMore = true;
+                    this.hasMore = false;
 
                     // 获取歌曲列表接口
-                    getSongList(this.homeSonglist.content_id, this.songBegin).then((res) => {
+                    // 下拉加载时传入的参数    this.songBegin
+                    getSongList(this.homeSonglist.content_id).then((res) => {
                         if (res.code === ERR_OK) {
                             // this.data = res.cdlist[0];
 
@@ -102,10 +105,13 @@
                             this.setSongListMessage(this.data);
 
                             // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
-                            this._checkMore(res.cdlist[0], this.songBegin);
+                            // this._checkMore(res.cdlist[0], this.songBegin);
 
                             // 设置请求完成
                             this.ajax_ok = true;
+
+                            // 获取歌曲播放MP4地址
+                            this.getMusicuMessage(res.cdlist[0].songlist);
                         }
                     });
 
@@ -117,45 +123,65 @@
                     });
                 }
             },
+            // 歌曲播放mp4 地址
+            getMusicuMessage (data) {
+                getMusicuMessage(this._Song_Playing_Mp4_Url(data)).then((res) => {
+                    if (res.code === ERR_OK) {
+                        console.log(res.data);
+                    }
+                });
+            },
+            _Song_Playing_Mp4_Url(list) {
+                let songmid = [];
+                let songtype = [];
+                list.forEach((data) => {
+                    if (data) {
+                        songmid.push(data.songmid);
+                        songtype.push(0);
+                    }
+                });
+
+                return crackedPlayingAjax(songmid, songtype);
+            },
             /**
              *  获取更多歌曲列表
              *  @param {number} newSongBegin
              */
-            getSongListMore(newSongBegin) {
-                // 初始化设置还没有请求
-                this.ajax_ok = false;
-
-                // 如果没有更多就不执行
-                if (!this.hasMore) {
-                    return;
-                }
-
-                // 获取歌曲列表接口
-                getSongList(this.homeSonglist.content_id, newSongBegin).then((res) => {
-                    if (res.code === ERR_OK) {
-                        // this.data = res.cdlist[0];
-
-                        // 拼接更多歌曲列表
-                        this.songs = this.songs.concat(this._genResult(res.cdlist[0].songlist));
-
-                        // 把歌曲列表存入vuex
-                        this.setSongList(this.songs);
-
-                        // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
-                        this._checkMore(res.cdlist[0], newSongBegin);
-
-                        // 设置请求完成
-                        this.ajax_ok = true;
-                    }
-                });
-            },
+//            getSongListMore(newSongBegin) {
+//                // 初始化设置还没有请求
+//                this.ajax_ok = false;
+//
+//                // 如果没有更多就不执行
+//                if (!this.hasMore) {
+//                    return;
+//                }
+//
+//                // 获取歌曲列表接口
+//                getSongList(this.homeSonglist.content_id, newSongBegin).then((res) => {
+//                    if (res.code === ERR_OK) {
+//                        // this.data = res.cdlist[0];
+//
+//                        // 拼接更多歌曲列表
+//                        this.songs = this.songs.concat(this._genResult(res.cdlist[0].songlist));
+//
+//                        // 把歌曲列表存入vuex
+//                        this.setSongList(this.songs);
+//
+//                        // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
+//                        this._checkMore(res.cdlist[0], newSongBegin);
+//
+//                        // 设置请求完成
+//                        this.ajax_ok = true;
+//                    }
+//                });
+//            },
             // 检查是否能够加载更多
-            _checkMore(data, newSongBegin) {
-                // 有歌曲列表，歌曲列表长度小于15，页数 等于歌曲列表总页数  就设置未不能加载更多
-                if (!data.songlist.length || data.songlist.length < 15 || newSongBegin === data.total_song_num) {
-                    this.hasMore = false;
-                }
-            },
+//            _checkMore(data, newSongBegin) {
+//                // 有歌曲列表，歌曲列表长度小于15，页数 等于歌曲列表总页数  就设置未不能加载更多
+//                if (!data.songlist.length || data.songlist.length < 15 || newSongBegin === data.total_song_num) {
+//                    this.hasMore = false;
+//                }
+//            },
             /**
              * 对list数据做处理
              *
@@ -250,15 +276,15 @@
         },
         watch: {
             // 监听歌曲列表页数的变化
-            songBegin(newSongBegin) {
-                if (this.songs.length === this.data.totalSongNum) {
-                    return;
-                }
-                if (newSongBegin >= 15) {
-                    this.getSongListMore(newSongBegin);
-                }
-
-            }
+//            songBegin(newSongBegin) {
+//                if (this.songs.length === this.data.totalSongNum) {
+//                    return;
+//                }
+//                if (newSongBegin >= 15) {
+//                    this.getSongListMore(newSongBegin);
+//                }
+//
+//            }
         },
         components: {
             musicList

@@ -1,24 +1,30 @@
 import {commonParams} from 'api/config';
 import axios from 'axios';
 
-export function getSongList(disstid, songBegin) {
+/*
+ * 该接口下拉加载时传入的参数
+ * songBegin
+ * song_begin: songBegin, // 最大条数
+ * song_num: 15 // 一次加载15条数据
+ * pic: 500
+ * */
+export function getSongList(disstid) {
     const url = '/api/getSongList';
 
     const data = Object.assign({}, commonParams, {
         disstid,
+        g_tk: 1866868671,
         type: 1,
         json: 1,
         utf8: 1,
         nosign: 1,
         notice: 0,
         onlysong: 0,
+        loginUin: 0,
         hostUin: 0,
         platform: 'yqq',
         format: 'json',
-        pic: 500,
-        needNewCode: 0,
-        song_begin: songBegin, // 最大条数
-        song_num: 15 // 一次加载15条数据
+        needNewCode: 0
     });
 
     return axios.get(url, {

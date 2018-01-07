@@ -31,13 +31,8 @@ export const maskLayer = function ({commit}, maskLayer) {
 export const songBegin = function ({commit}, songBegin) {
     commit(types.SET_SONG_BEGIN, songBegin);
 };
+/** *****************滚动组件的状态*********************** **/
 
-/**
- * 滚动组件的状态
- *
- * @param {Function} commit
- *
- */
 /**
  * 滚动的状态
  * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
@@ -120,6 +115,7 @@ export const bounce = function ({commit}, bounce) {
 export const bounceTime = function ({commit}, bounceTime) {
     commit(types.SET_BOUNCE_TIME, bounceTime);
 };
+/********************************************/
 
 /**
  * 歌曲列表信息
@@ -138,3 +134,33 @@ export const songListMessage = function ({commit}, songListMessage) {
 export const songList = function ({commit}, SET_SONG_LIST) {
     commit(types.SET_SONG_LIST, SET_SONG_LIST);
 };
+
+/** *************** 播放组件状态 ***************** **/
+/**
+ * 选择播放
+ *
+ * @type {Object}
+ * list {Array}
+ * index {Number}
+ * SET_PLAYING_STATE {Boolean}
+ *
+ */
+export const selectPlay = function ({commit, state}, {list, index}) {
+    // 设置当前的播放列表
+    commit(types.SET_PLAYLIST, list);
+    // 当前播放索引
+    commit(types.SET_CURRENT_INDEX, index);
+    // 控制播放
+    commit(types.SET_PLAYING_STATE, true);
+};
+
+/**
+ * 控制歌曲播放
+ *
+ * @type {Boolean}
+ */
+export const playing = function ({commit}, flag) {
+    commit(types.SET_PLAYING_STATE, flag);
+};
+
+/************************************/

@@ -1,23 +1,29 @@
 <template>
     <div class="music-list-wrapper">
-        <div class="header" :class="{'header-bgcolor' : headerBg}" ref="header">
+        <div class="header" ref="header">
             <div class="back" @click="back">
                 <i class="iconfont icon-fanhui1-copy"></i>
             </div>
             <div class="title">
-                <span>{{this.homeSonglist.rcmdtemplate}}</span>
+                <transition name="fade">
+                    <span v-if="!carouselStart">{{this.homeSonglist.rcmdtemplate}}</span>
+                </transition>
                 <!--滚动的标题-->
-                <span v-if="carouselStart" :class="{carousel: carouselStart}"
-                      ref="carousel">{{this.homeSonglist.title}}</span>
+                <transition name="fade">
+                    <span :class="{carousel: carouselStart}"
+                          v-if="carouselStart"
+                          ref="carousel"
+                    >{{this.homeSonglist.title}}</span>
+                </transition>
             </div>
         </div>
         <div class="music-list">
             <!--背景图-->
-            <div class="background" ref="background">
+            <div :class="headerBg ? 'background-header-bgcolor' : 'background'" ref="background">
                 <img width="100%" height="100%" :src="this.homeSonglist.cover">
             </div>
             <!--背景滤镜效果-->
-            <div class="filter"></div>
+            <div :class="headerBg ? 'filter-header-bgcolor' : 'filter'"></div>
             <!--专辑-->
             <div class="album-wrapper" ref="bgImage">
                 <!--专辑信息-->
@@ -56,7 +62,7 @@
                     </div>
                 </div>
                 <!--选项 信息-->
-                <div class="itemMessage">
+                <div class="itemMessage" :style="{opacity: transparent}">
                     <ul>
                         <li class="like">
                             <v-icon>favorite_border</v-icon>
@@ -95,14 +101,14 @@
             <div class="bg-layer" ref="layer"></div>
             <!--歌曲列表-->
             <scroll
-                @scroll="scroll"
-                @scrollToEnd="loadMore"
-                class="song-list"
-                ref="SongListScroll">
+                    @scroll="scroll"
+                    @scrollToEnd="loadMore"
+                    class="song-list"
+                    ref="SongListScroll">
                 <song-list
-                    :hasMore="hasMore"
-                    @select="select"
-                    ref="SongListWrapper"
+                        :hasMore="hasMore"
+                        @select="select"
+                        ref="SongListWrapper"
                 ></song-list>
             </scroll>
         </div>
@@ -134,7 +140,7 @@
         },
         data() {
             return {
-                // 图片丢失的路径
+                // 图片丢失的路径 img error
                 default_avater: '../../../static/img/default_avater.png',
                 // 是否设置头部背景效果
                 headerBg: false,
@@ -236,25 +242,27 @@
             },
             // 上拉加载方法
             loadMore() {
-                if (!this.hasMore) {
-                    return;
-                }
+//                if (!this.hasMore) {
+//                    return;
+//                }
 
                 // 请求完成时才执行上拉加载
-                if (this.ajax_ok) {
-                    // 页数小于 歌曲列表总数就执行
-                    if (this.hasMore || this.songBegin <= this.data.totalSongNum) {
-
-                        // 每次加15
-                        this.songBegin = this.songBegin + 15;
-                        this.setSongBegin(this.songBegin);
-                    }
-                }
-
+//                if (this.ajax_ok) {
+//                    // 页数小于页数小于 歌曲列表总数就执行
+//                    if (this.hasMore || this.songBegin <= this.data.totalSongNum) {
+//
+//                        // 每次加15
+//                        this.songBegin = this.songBegin + 15;
+//                        this.setSongBegin(this.songBegin);
+//                    }
+//                }
             },
             // 选择歌曲列表
-            select(event) {
-                console.log(event);
+            select(item, index) {
+                this.setSelectPlay({
+                    list: this.songs,
+                    index
+                });
                 // 禁用 better-scroll
                 // this.disable();
 
@@ -268,8 +276,10 @@
                 // 把滚动位置重置为顶部
                 this.$refs.SongListScroll.scrollTo(0, 0);
 
-                // 设置专辑区块的style
+                // 初始化专辑区块的style
                 this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
+                this.$refs.bgImage.style.overflow = 'visible';
+                this.$refs.bgImage.style.paddingTop = '70%';
 
                 // 把播放全部模块位置重置
                 this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
@@ -279,7 +289,6 @@
 
                 // 组件激活时调用
                 this.carouselStart = false;
-
 
                 // 重置上拉加载的页数
                 this.songBegin = 0;
@@ -296,12 +305,50 @@
 
             },
             ...mapActions('appStore', {
+                /**
+                 * 歌曲列表接口一次请求的页数 一次 +15
+                 *
+                 * @type {Number}
+                 */
                 setSongBegin: 'songBegin',
+                /**
+                 * 外部传入的数据
+                 *
+                 * @type {Array}
+                 */
                 setData: 'data',
+                /**
+                 * scroll 要不要监听滚动事件
+                 *
+                 * @type {Boolean}
+                 */
                 setListenScroll: 'listenScroll',
+                /**
+                 * 滚动的状态
+                 * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
+                 * 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
+                 * 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
+                 * @type {Number}
+                 */
                 setProbeType: 'probeType',
+                /**
+                 * 是否开启回弹效果
+                 *
+                 * @type {Boolean}
+                 */
                 setBounce: 'bounce',
-                setPullup: 'pullup'
+                /**
+                 * 是否开启滚动到到底部刷新
+                 *
+                 * @type {Boolean}
+                 */
+                setPullup: 'pullup',
+                /**
+                 * 选择播放的歌曲
+                 *
+                 * @type {Boolean}
+                 */
+                setSelectPlay: 'selectPlay'
             })
         },
         activated() {
@@ -311,25 +358,13 @@
         watch: {
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
-                console.log(newScrollY + '滚动了');
 
-//                const offsetWidth = Math.min(0, Math.max(window.innerHeight, window.innerHeight + newScrollY));
-
-                console.log(Math.max(window.innerHeight, window.innerHeight + newScrollY));
-
-
-//                const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
-//                const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
-//                this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
-//                this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
-//                this.$refs.lyricList.$el.style[transitionDuration] = 0
-//                this.$refs.middleL.style.opacity = 1 - this.touch.percent
-//                this.$refs.middleL.style[transitionDuration] = 0
-
-                let translateY = Math.max(this.minTransalteY, newScrollY);
                 // 设置播放全部的位置
+                let translateY = Math.max(this.minTransalteY, newScrollY);
                 this.$refs.ListHeader.style.transform = `translate3d(0,${translateY}px,0)`;
 
+                // 设置想上滚专辑信息区块的透明度
+                const percent = Math.abs(newScrollY / this.imageHeight);
 
                 // 如果滚动距离小于this.minTransalteY就设置为0 大于this.minTransalteY就开始计算
                 if (newScrollY < this.minTransalteY) {
@@ -351,6 +386,8 @@
                     // 显示头部背景状态
                     this.headerBg = true;
 
+                    // 头部字体滚动
+                    this.carouselStart = true;
                 }
                 else {
                     // 设置专辑区块的style
@@ -362,10 +399,13 @@
                     this.$refs.layer.style.transform = `translate3d(0,${newScrollY}px,0)`;
 
                     // 设置专辑内容的透明度
-                    this.transparent = 1;
+                    this.transparent = Math.min(1, 1 - percent);
 
                     // 取消头部背景状态
                     this.headerBg = false;
+
+                    // 头部字体滚动
+                    this.carouselStart = false;
                 }
             }
         },
@@ -379,6 +419,18 @@
 <style lang="scss" scoped>
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
+
+    // 头部文字渐变显示效果
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+        position: absolute !important;
+        left: 0;
+        right: 0;
+    }
 
     // 没有数据是显示的样式+
     .error {
@@ -445,17 +497,28 @@
         }
     }
 
-    /*头部背景颜色*/
-    .header-bgcolor {
-        background: red;
-    }
-
     /*音乐列表外层*/
     .music-list {
         position: fixed;
         top: 0;
         bottom: 0;
         width: 100%;
+    }
+
+    /*过滤层头部背景颜色*/
+    .filter-header-bgcolor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 0;
+        width: 100%;
+        height: px2rem(84px);
+        overflow: hidden;
+        opacity: 0.6;
+        object-fit: cover;
+        filter: blur(0);
+        background: $filter-bgcolor;
+        z-index: 15;
     }
 
     /*过滤层*/
@@ -473,13 +536,31 @@
         z-index: 0;
     }
 
+    /*背景图头部背景颜色*/
+    .background-header-bgcolor {
+        position: absolute;
+        padding-top: 0;
+        width: 100%;
+        height: px2rem(84px);
+        overflow: hidden;
+        opacity: 1;
+        filter: blur(0);
+        z-index: 15;
+        img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: auto;
+        }
+    }
+
     /*背景图*/
     .background {
         position: absolute;
         padding-top: 70%;
         width: 100%;
         height: 0;
-        opacity: 0.6;
+        opacity: 0.65;
         filter: blur(px2rem(40px));
         z-index: 0;
         img {

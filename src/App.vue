@@ -42,6 +42,7 @@
                             }"></router-view>
                     </transition>
                 </div>
+                <player></player>
             </div>
         </div>
     </div>
@@ -51,12 +52,14 @@
     import {mapState, mapActions} from 'vuex';
     import AppHeader from '@/components/AppHeader';
     import AppSidebar from '@/components/AppSidebar';
+    import Player from 'components/player/player';
 
     export default {
         name: 'app',
         components: {
             AppHeader,
-            AppSidebar
+            AppSidebar,
+            Player
         },
         data() {
             return {};

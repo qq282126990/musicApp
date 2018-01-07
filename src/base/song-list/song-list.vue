@@ -2,7 +2,7 @@
     <div class="list-wrapper">
         <!--歌曲列表-->
         <v-list class="list-content" v-show="songs">
-            <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item)" :key="index">
+            <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item, index)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
                     <div class="bg-color" v-show="select"></div>
@@ -72,8 +72,8 @@
             })
         },
         methods: {
-            selectItem(item) {
-                this.$emit('select', item);
+            selectItem(item, index) {
+                this.$emit('select', item, index);
             }
         },
         components: {

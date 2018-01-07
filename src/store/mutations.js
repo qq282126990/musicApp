@@ -29,7 +29,23 @@ const mutations = {
         [types.SET_SONG_BEGIN](state, songBegin) {
         state.songBegin = songBegin;
     },
-    //             滚动组件的状态
+    /**
+     * 歌曲列表信息
+     *
+     * @type {Object}
+     */
+        [types.SET_SONG_LIST_MESSAGE](state, songListMessage) {
+        state.songListMessage = songListMessage;
+    },
+    /**
+     * 歌曲列表
+     *
+     * @type {Array}
+     */
+        [types.SET_SONG_LIST](state, songList) {
+        state.songList = songList;
+    },
+    /** *************滚动组件的状态********************** **/
     /**
      * 滚动的状态
      * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
@@ -104,21 +120,31 @@ const mutations = {
         [types.SET_BOUNCE_TIME](state, bounceTime) {
         state.bounceTime = bounceTime;
     },
+    /*********************************************************/
+    /** ********************播放组件状态********************** **/
     /**
-     * 歌曲列表信息
+     * 控制歌曲播放
+     *
+     * @type {Boolean}
+     */
+        [types.SET_PLAYING_STATE](state, flag) {
+        state.playing = flag;
+    },
+    /**
+     * 获取播放列表
      *
      * @type {Object}
      */
-        [types.SET_SONG_LIST_MESSAGE](state, songListMessage) {
-        state.songListMessage = songListMessage;
+        [types.SET_PLAYLIST](state, list) {
+        state.playList = list;
     },
     /**
-     * 歌曲列表
+     * 当前播放索引
      *
-     * @type {Array}
+     * @type {Number}
      */
-        [types.SET_SONG_LIST](state, songList) {
-        state.songList = songList;
+        [types.SET_CURRENT_INDEX](state, index) {
+        state.currentIndex = index;
     }
 };
 
