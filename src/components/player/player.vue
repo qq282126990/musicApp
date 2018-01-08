@@ -26,12 +26,14 @@
             <v-icon class="queue_music">queue_music</v-icon>
         </div>
         <!--播放器-->
-        <audio ref="audio" :src="currentSong.url" @play="ready" @error="error"></audio>
+        <audio ref="audio" :src="playUrl" @play="ready" @error="error"></audio>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
+    import {getSinglePlayingUrl} from 'api/songPlayingUrl';
+    import {ERR_OK} from 'api/config';
 
     export default {
         data() {
@@ -40,7 +42,18 @@
                  * 判断歌曲是否准备好播放了
                  * type {Boolean}
                  * */
-                songReady: false
+                songReady: false,
+                /**
+                 * 播放歌曲Url接口 filename
+                 * type {String}
+                 * */
+                filename: '',
+                /**
+                 * 播放歌曲Url接口 vkey
+                 * type {String}
+                 * */
+                vkey: '',
+                playUrl: null
             };
         },
         computed: {
@@ -69,6 +82,20 @@
             ])
         },
         methods: {
+            _getSinglePlayingUrl (songmid) {
+                getSinglePlayingUrl(songmid).then((res) => {
+                    if (res.code === ERR_OK) {
+                        console.log(res);
+                        this.filename = res.data.items[0].filename;
+                        this.vkey = res.data.items[0].vkey;
+
+                        // 歌曲播放地址
+                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&guid=7026557876&fromtag=66`;
+
+                        console.log(this.playUrl);
+                    }
+                });
+            },
             // 控制播放
             togglePlaying() {
                 // 判断是否准备好播放
@@ -105,6 +132,7 @@
                 });
             },
             currentSong (newCurrentSong) {
+                this._getSinglePlayingUrl(newCurrentSong.mid);
                 console.log(newCurrentSong);
             }
         }

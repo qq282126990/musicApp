@@ -9,11 +9,11 @@ export function getSongPlayingUrl(data) {
     });
 }
 
-export function getabcefom() {
-    const url = '/api/getAFB';
+export function getSinglePlayingUrl(songmid) {
+    const url = '/api/getSinglePlayingUrl';
 
     const data = Object.assign({}, {
-        g_tk: 108516887,
+        g_tk: 102741871,
         inCharset: 'utf-8',
         outCharset: 'utf-8',
         notice: 0,
@@ -23,10 +23,9 @@ export function getabcefom() {
         hostUin: 0,
         needNewCode: 0,
         uin: 0,
-        songmid: '0004wL3529o6IZ',
-        filename: 'C4001004wL3529o6IZ.m4a',
-        guid: 960229400,
-        callback: 'jp1'
+        songmid: songmid,
+        filename: `C400${songmid}.m4a`,
+        guid: 7026557876
     });
 
     return axios.get(url, {
@@ -36,3 +35,19 @@ export function getabcefom() {
     });
 
 }
+
+// jsonpCallback:MusicJsonCallback8534093002856151
+// loginUin:0
+// hostUin:0
+// format:json
+// inCharset:utf8
+// outCharset:utf-8
+// notice:0
+// platform:yqq
+// needNewCode:0
+// cid:205361747
+// callback:MusicJsonCallback8534093002856151
+// uin:282126990
+// songmid:002B0TG44SrLlF
+// filename:C400000Df0wU2RlVq6.m4a
+// guid:7026557876

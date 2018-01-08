@@ -17,7 +17,7 @@ export function crackedPlayingAjax(songmid, songtype) {
             "module": "vkey.GetVkeyServer",
             "method": "CgiGetVkey",
             "param": {
-                "guid": "8523866568",
+                "guid": "7026557876",
                 "songmid": songmid,
                 "songtype": songtype,
                 "uin": "0",

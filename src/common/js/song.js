@@ -27,7 +27,8 @@ export function createSong(musicData, playingUrl, index) {
         // 专辑图片
         image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
         // 音乐链接
-        url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}`
+        url: `isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`
+        // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
     });
 };
 

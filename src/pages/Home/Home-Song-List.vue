@@ -13,7 +13,7 @@
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
     import {getSongList, getCollection} from 'api/musicSongList';
-    import {getSongPlayingUrl, getabcefom} from 'api/songPlayingUrl';
+    import {getSongPlayingUrl} from 'api/songPlayingUrl';
     import {ERR_OK} from 'api/config';
     import {createSong} from 'common/js/song';
     import {crackedPlayingAjax} from 'common/js/cracked_ajax';
@@ -87,6 +87,7 @@
              *  获取歌曲列表
              */
             getSongList() {
+
                 // 初始化设置还没有请求
                 this.ajax_ok = false;
 
@@ -146,7 +147,7 @@
              *
              */
             getSongPlayingUrl(data) {
-
+                console.log(this._Song_Playing_Mp4_Url(data));
                 // 对数据进行转换
                 getSongPlayingUrl(this._Song_Playing_Mp4_Url(data)).then((res) => {
                     if (res.code === ERR_OK) {
@@ -157,13 +158,6 @@
 
                         // 把歌曲列表存入vuex
                         this.setSongList(this.songs);
-                    }
-                });
-
-
-                getabcefom().then((res) => {
-                    if (res.code === ERR_OK) {
-                        console.log(res);
                     }
                 });
             },

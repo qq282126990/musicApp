@@ -137,8 +137,8 @@ apiRoutes.post('/getSongPlayingUrl', function (req, res) {
     });
 });
 
-
-apiRoutes.get('/getAFB', function (req, res) {
+// 获取歌曲列表的单个播放地址
+apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
 
     var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
 
@@ -162,8 +162,6 @@ apiRoutes.get('/getAFB', function (req, res) {
         console.log(e);
     });
 });
-
-
 
 app.use('/api', apiRoutes);
 
