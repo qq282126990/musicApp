@@ -88,7 +88,6 @@ apiRoutes.get('/getSongList', function (req, res) {
 // 获取收藏量
 apiRoutes.get('/getCollection', function (req, res) {
     var url = 'https://c.y.qq.com/3gmusic/fcgi-bin/3g_dir_order_uinlist';
-    console.log(req.query);
 
     axios.get(url, {
         headers: {
@@ -110,19 +109,16 @@ apiRoutes.get('/getCollection', function (req, res) {
         console.log(e);
     });
 });
+
 // 获取歌曲播放地址
 apiRoutes.post('/getSongPlayingUrl', function (req, res) {
-    console.log('123456789');
-    console.log(req.methods);
+    console.log(req.payload);
+
+    // var data = `{"comm":{"g_tk":5381,"uin":0,"format":"json","inCharset":"utf-8","outCharset":"utf-8","notice":0,"platform":"h5","needNewCode":1},"url_mid":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"guid":"8523866568","songmid":["001cC5Wp2lyAlA","0048NO8R0UCH2e","0016OGIq4TOxHu","001P48Vk1wU08z","002lPjsF3ay3lo","002stn7j049fFD","002vsj5D3ZcBoW","001JWMPW4aZyhR","004dzvN80moq7y","001fyxrh2CqK5T","002NBpge1oHMhT","002NsGsI0CuFF4","0045415l2hShqO","004NIuF84QMqVn","000mxl8a2o4Ufe","002btSvp3AzWfA","0014ImdS1z09yw","000SSCrs20rDo7","004MnPsT38Vr04","000MHgwo4fPyM2","004G9eYC2KhufP","001eIii535iCzC"],"songtype":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"uin":"0","loginflag":0,"platform":"23"}}}`;
 
     var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
-    axios.post(url, {
-        headers: {
-            referer: 'https://u.y.qq.com/',
-            host: 'u.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
+
+    axios.post(url, data).then((response) => {
         var ret = response.data;
         if (typeof ret === 'string') {
             var reg = /^\w+\(({[^()]+})\)$/;

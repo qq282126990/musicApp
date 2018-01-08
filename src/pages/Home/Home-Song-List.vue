@@ -127,7 +127,6 @@
             getMusicuMessage (data) {
                 getMusicuMessage(this._Song_Playing_Mp4_Url(data)).then((res) => {
                     if (res.code === ERR_OK) {
-                        console.log(res.data);
                     }
                 });
             },
@@ -136,7 +135,7 @@
                 let songtype = [];
                 list.forEach((data) => {
                     if (data) {
-                        songmid.push(data.songmid);
+                        songmid.push(`"${data.songmid}"`);
                         songtype.push(0);
                     }
                 });
