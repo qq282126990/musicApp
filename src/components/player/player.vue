@@ -2,15 +2,17 @@
     <!--最小化样式-->
     <div class="mini-player">
         <!--有歌曲列表时显示-->
-        <div class="slide" v-show="playList.length>0">
-            <div class="avatar">
-                <img width="100%" height="100%" :src="currentSong.image"/>
+        <transition name="playList">
+            <div class="slide" v-show="playList.length>0" :key="currentSong.id">
+                <div class="avatar">
+                    <img width="100%" height="100%" :src="currentSong.image"/>
+                </div>
+                <div class="text">
+                    <h2 class="name" v-html="currentSong.name"></h2>
+                    <p class="desc" v-html="currentSong.singer"></p>
+                </div>
             </div>
-            <div class="text">
-                <h2 class="name" v-html="currentSong.name"></h2>
-                <p class="desc" v-html="currentSong.singer"></p>
-            </div>
-        </div>
+        </transition>
         <!--没有歌曲列表时显示-->
         <div class="no-play-list" v-show="playList.length === 0">
             <span>QQ音乐 听我想听得歌</span>
@@ -32,7 +34,7 @@
     import {mapActions, mapGetters} from 'vuex';
 
     export default {
-        data () {
+        data() {
             return {
                 /**
                  * 判断歌曲是否准备好播放了
@@ -97,11 +99,13 @@
         },
         watch: {
             playing(newPlaying) {
-                console.log(this.currentSong);
                 const audio = this.$refs.audio;
                 this.$nextTick(() => {
                     newPlaying ? audio.play() : audio.pause();
                 });
+            },
+            currentSong (newCurrentSong) {
+                console.log(newCurrentSong);
             }
         }
     };
@@ -111,8 +115,18 @@
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
 
+    /*有播放歌曲时组件出现的动画*/
+    .playList-enter-active, .playList-leave-active {
+        transition: all .5s
+    }
+
+    .playList-enter, .playList-leave-to {
+        opacity: 0;
+    }
+
     /*左右滑动wrapper*/
     .slide {
+        overflow: hidden;
         display: -webkit-box;
         width: 100%;
     }

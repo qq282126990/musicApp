@@ -2,9 +2,9 @@
     <div>
         <transition name="slide">
             <music-list
-                    :collection="collection"
-                    :hasMore="hasMore"
-                    :ajax_ok="ajax_ok"
+                :collection="collection"
+                :hasMore="hasMore"
+                :ajax_ok="ajax_ok"
             ></music-list>
         </transition>
     </div>
@@ -13,7 +13,7 @@
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
     import {getSongList, getCollection} from 'api/musicSongList';
-    import {getMusicuMessage} from 'api/songPlayingUrl';
+    import {getSongPlayingUrl, getabcefom} from 'api/songPlayingUrl';
     import {ERR_OK} from 'api/config';
     import {createSong} from 'common/js/song';
     import {crackedPlayingAjax} from 'common/js/cracked_ajax';
@@ -23,15 +23,41 @@
     export default {
         data() {
             return {
-                // 歌曲数据
+                /*
+                * 歌曲数据
+                *
+                * @param {Object}
+                **/
                 data: {},
-                // 歌曲列表
+                /*
+                * 歌曲列表
+                *
+                * @param {Array}
+                **/
                 songs: [],
-                // 设置是否有更多歌曲列表
+                /*
+                * 歌曲播放地址
+                *
+                * @param {Object}
+                **/
+                songPlayingUrl: {},
+                /*
+                 * 设置是否有更多歌曲列表
+                 *
+                 * @param {Boolean}
+                 **/
                 hasMore: false,
-                // 判断请求是否完成
+                /*
+                 * 判断请求是否完成
+                 *
+                 * @param {Boolean}
+                 **/
                 ajax_ok: false,
-                // 专辑收藏量
+                /*
+                 * 专辑收藏量
+                 *
+                 * @param {Number}
+                 **/
                 collection: 0
             };
         },
@@ -80,13 +106,8 @@
                     // 下拉加载时传入的参数    this.songBegin
                     getSongList(this.homeSonglist.content_id).then((res) => {
                         if (res.code === ERR_OK) {
-                            // this.data = res.cdlist[0];
-
-                            // 歌曲
-                            this.songs = this._genResult(res.cdlist[0].songlist);
-
-                            // 把歌曲列表存入vuex
-                            this.setSongList(this.songs);
+                            // 获取歌曲播放MP4地址
+                            this.getSongPlayingUrl(res.cdlist[0].songlist);
 
                             //  ---------------歌曲列表的信息---------------------- //
                             // 简介
@@ -109,9 +130,6 @@
 
                             // 设置请求完成
                             this.ajax_ok = true;
-
-                            // 获取歌曲播放MP4地址
-                            this.getMusicuMessage(res.cdlist[0].songlist);
                         }
                     });
 
@@ -123,19 +141,43 @@
                     });
                 }
             },
-            // 歌曲播放mp4 地址
-            getMusicuMessage (data) {
-                getMusicuMessage(this._Song_Playing_Mp4_Url(data)).then((res) => {
+            /**
+             * 歌曲播放mp4 地址
+             *
+             */
+            getSongPlayingUrl(data) {
+
+                // 对数据进行转换
+                getSongPlayingUrl(this._Song_Playing_Mp4_Url(data)).then((res) => {
                     if (res.code === ERR_OK) {
+                        this.songPlayingUrl = res.url_mid.data;
+
+                        // 歌曲数据
+                        this.songs = this._normalizeSongs(data, this.songPlayingUrl);
+
+                        // 把歌曲列表存入vuex
+                        this.setSongList(this.songs);
+                    }
+                });
+
+
+                getabcefom().then((res) => {
+                    if (res.code === ERR_OK) {
+                        console.log(res);
                     }
                 });
             },
+            /**
+             * 歌曲播放接口传入的data参数
+             *
+             * @type {Object}  list
+             */
             _Song_Playing_Mp4_Url(list) {
                 let songmid = [];
                 let songtype = [];
                 list.forEach((data) => {
                     if (data) {
-                        songmid.push(`"${data.songmid}"`);
+                        songmid.push(`${data.songmid}`);
                         songtype.push(0);
                     }
                 });
@@ -186,13 +228,15 @@
              *
              * @type {Array}  list
              */
-            _normalizeSongs(list) {
+            _normalizeSongs(list, playingUrl) {
                 let ret = [];
-                list.forEach((musicData) => {
+
+                list.forEach((musicData, index) => {
                     if (musicData) {
-                        ret.push(createSong(musicData));
+                        ret.push(createSong(musicData, playingUrl, index));
                     }
                 });
+
                 return ret;
             },
             /**
@@ -200,13 +244,13 @@
              *
              * @type {Array}  list
              */
-            _genResult(list) {
-                let ret = [];
-                if (list) {
-                    ret = ret.concat(this._normalizeSongs(list));
-                }
-                return ret;
-            },
+//            _genResult(list) {
+//                let ret = [];
+//                if (list) {
+//                    ret = ret.concat(this._normalizeSongs(list));
+//                }
+//                return ret;
+//            },
             /**
              * 计算播放量
              *
