@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <JSCodeStyleSettings>
+          <option name="OBJECT_LITERAL_WRAP" value="1" />
+          <option name="IMPORTS_WRAP" value="1" />
+        </JSCodeStyleSettings>
+        <codeStyleSettings language="JavaScript">
+          <option name="SPACE_BEFORE_METHOD_PARENTHESES" value="true" />
+          <indentOptions>
+            <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true" />
+          </indentOptions>
+        </codeStyleSettings>
+      </value>
+    </option>
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default" />
+  </component>
+</project>

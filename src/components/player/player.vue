@@ -82,7 +82,7 @@
             ])
         },
         methods: {
-            _getSinglePlayingUrl (songmid) {
+            _getSinglePlayingUrl(songmid) {
                 getSinglePlayingUrl(songmid).then((res) => {
                     if (res.code === ERR_OK) {
                         console.log(res);
@@ -91,6 +91,12 @@
 
                         // 歌曲播放地址
                         this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&guid=7026557876&fromtag=66`;
+//                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&uin=0&fromtag=66`;
+
+                        const audio = this.$refs.audio;
+                        this.$nextTick(() => {
+                            this.playUrl ? audio.play() : audio.pause();
+                        });
 
                         console.log(this.playUrl);
                     }
@@ -126,14 +132,19 @@
         },
         watch: {
             playing(newPlaying) {
+                console.log(newPlaying);
                 const audio = this.$refs.audio;
                 this.$nextTick(() => {
                     newPlaying ? audio.play() : audio.pause();
                 });
             },
-            currentSong (newCurrentSong) {
+            currentSong(newCurrentSong) {
                 this._getSinglePlayingUrl(newCurrentSong.mid);
                 console.log(newCurrentSong);
+                const audio = this.$refs.audio;
+                this.$nextTick(() => {
+                    newCurrentSong ? audio.play() : audio.pause();
+                });
             }
         }
     };

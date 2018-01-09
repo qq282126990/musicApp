@@ -42,6 +42,7 @@
 
 <script>
     import {mapActions, mapState} from 'vuex';
+    import {getCookie} from 'api/songPlayingUrl';
     import Silder from 'base/slider/slider';
     import ListMenu from 'base/list-menu/list-menu';
     import Scroll from 'base/scroll/scroll';
@@ -66,6 +67,12 @@
                 ];
                 return this.list;
             }
+        },
+        created () {
+            // 获取cookie 获取歌曲播放的 guid
+            getCookie().then((res) => {});
+
+            console.log(document.cookie('pgv_pvid'));
         },
         methods: {
             // 选择列表 中的模块 跳转页面
