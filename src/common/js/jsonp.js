@@ -3,10 +3,10 @@ import originJsonp from 'jsonp';
 export default function jsonp(url, data, option) {
     // 如果url连接中没有?就添加? 有就添加&
     url += (url.indexOf('?') < 0 ? '?' : '&') + param(data);
-
     // 返回请求
     return new Promise((resolve, reject) => {
         originJsonp(url, option, (error, data) => {
+
             if (!error) {
                 resolve(data);
             }

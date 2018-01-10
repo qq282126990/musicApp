@@ -42,7 +42,7 @@
 
 <script>
     import {mapActions, mapState} from 'vuex';
-    import {getCookie} from 'api/songPlayingUrl';
+    import {setCookie} from 'common/js/cookie';
     import Silder from 'base/slider/slider';
     import ListMenu from 'base/list-menu/list-menu';
     import Scroll from 'base/scroll/scroll';
@@ -70,9 +70,9 @@
         },
         created () {
             // 获取cookie 获取歌曲播放的 guid
-            getCookie().then((res) => {});
+            setCookie()
 
-            console.log(document.cookie('pgv_pvid'));
+            console.log(document.cookie);
         },
         methods: {
             // 选择列表 中的模块 跳转页面
@@ -89,9 +89,9 @@
             },
             ...mapActions('appStore', [
                 /*
-                * 主页选中的专辑数据
-                * type {Object}
-                */
+                 * 主页选中的专辑数据
+                 * type {Object}
+                 */
                 'homeSonglist',
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15

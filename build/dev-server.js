@@ -114,6 +114,7 @@ apiRoutes.get('/getCollection', function (req, res) {
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
 
 apiRoutes.post('/getSongPlayingUrl', function (req, res) {
 
@@ -163,6 +164,24 @@ apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
     });
 });
 
+// 获取cookies
+apiRoutes.get('/getCookies', function (req, res) {
+
+    var url = 'https://pingfore.qq.com/pingd';
+
+    axios.get(url, {
+        headers: {
+            referer: 'https://pingfore.qq.com/',
+            host: 'pingfore.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
 app.use('/api', apiRoutes);
 
 // 代理请求
