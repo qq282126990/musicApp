@@ -33,6 +33,7 @@
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
     import {getSinglePlayingUrl} from 'api/songPlayingUrl';
+    import {getCookie} from 'common/js/cookie';
     import {ERR_OK} from 'api/config';
 
     export default {
@@ -85,12 +86,11 @@
             _getSinglePlayingUrl(songmid) {
                 getSinglePlayingUrl(songmid).then((res) => {
                     if (res.code === ERR_OK) {
-                        console.log(res);
                         this.filename = res.data.items[0].filename;
                         this.vkey = res.data.items[0].vkey;
 
                         // 歌曲播放地址
-                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&guid=7026557876&fromtag=66`;
+                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
 //                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&uin=0&fromtag=66`;
 
                         const audio = this.$refs.audio;
@@ -132,7 +132,6 @@
         },
         watch: {
             playing(newPlaying) {
-                console.log(newPlaying);
                 const audio = this.$refs.audio;
                 this.$nextTick(() => {
                     newPlaying ? audio.play() : audio.pause();
@@ -140,7 +139,6 @@
             },
             currentSong(newCurrentSong) {
                 this._getSinglePlayingUrl(newCurrentSong.mid);
-                console.log(newCurrentSong);
                 const audio = this.$refs.audio;
                 this.$nextTick(() => {
                     newCurrentSong ? audio.play() : audio.pause();

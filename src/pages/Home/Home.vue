@@ -56,6 +56,9 @@
             await store.dispatch('asyncAjax/getfeaturedRadio'); // 精选电台接口请求
             await store.dispatch('asyncAjax/getDigitalAlbum'); // 数字专辑接口请求
         },
+        data () {
+            return {};
+        },
         computed: {
             // 获取请求接口对应的数据
             ...mapState('asyncAjax', ['slider', 'recommend', 'newSong', 'featuredRadio']),
@@ -66,13 +69,17 @@
                     {recommend: [{'name': '新歌速递', 'data': this.newSong}]}
                 ];
                 return this.list;
+            },
+            // 获取歌曲播放的 guid !!!!!!!!!!!!!!!!!!!!!! 重要
+            guid () {
+                var date = new Date();
+                return Math.round(2147483647 * Math.abs(Math.random() - 1) * date.getUTCMilliseconds() % 1e10);
             }
         },
         created () {
             // 获取cookie 获取歌曲播放的 guid
-            setCookie()
-
-            console.log(document.cookie);
+            // 设置guid 到cookie中 !!!!!!!!!!!!!!!!!!!!!! 重要
+            setCookie('guid', this.guid, Infinity, '/');
         },
         methods: {
             // 选择列表 中的模块 跳转页面

@@ -147,7 +147,6 @@
              *
              */
             getSongPlayingUrl(data) {
-                console.log(this._Song_Playing_Mp4_Url(data));
                 // 对数据进行转换
                 getSongPlayingUrl(this._Song_Playing_Mp4_Url(data)).then((res) => {
                     if (res.code === ERR_OK) {
@@ -167,16 +166,15 @@
              * @type {Object}  list
              */
             _Song_Playing_Mp4_Url(list) {
-                let songmid = [];
+                let strMediaMid = [];
                 let songtype = [];
                 list.forEach((data) => {
                     if (data) {
-                        songmid.push(`${data.songmid}`);
+                        strMediaMid.push(`${data.strMediaMid}`);
                         songtype.push(0);
                     }
                 });
-
-                return crackedPlayingAjax(songmid, songtype);
+                return crackedPlayingAjax(strMediaMid, songtype);
             },
             /**
              *  获取更多歌曲列表

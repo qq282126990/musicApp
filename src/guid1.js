@@ -43,20 +43,15 @@ function saveCookie(e, s, r) {
     document.cookie = e + ";path=/;domain=" + s + ";" + r
 }
 
-function get(e, s) {
-    var r, i, a = s ? document.cookie : this.get("pgv_info=", !0), n = p;
-    if (r = a.indexOf(e),
-        r > -1) {
-        if (r += e.length,
-                i = a.indexOf(";", r),
-            -1 == i && (i = a.length),
-                !s) {
-            var o = a.indexOf("&", r);
-            o > -1 && (i = Math.min(i, o))
+function get() {
+    let t = '10';
+    let n = '5381';
+    if (t){
+        for (var i = 0, o = t.length; o > i; ++i){
+            n += (n << 5) + t.charCodeAt(i);
         }
-        n = a.substring(r, i)
     }
-    return n
-}
 
+    console.log(2147483647 & n)
+}
 get()
