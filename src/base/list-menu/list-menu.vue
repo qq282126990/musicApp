@@ -5,7 +5,7 @@
                 <li v-for="(recommend, index) in items.recommend" :key="recommend.name">
                     <div class="list-title">
                         <h1 class="name">{{recommend.name}}</h1>
-                        <i class="iconfont icon-prev_arrow-copy"></i>
+                        <i class="iconfont icon-prev_arrow-copy" @click="clickTitle(recommend.name)"></i>
                     </div>
                     <ul class="list-data" v-if="recommend.data.length">
                         <li v-for="(data, index) in recommend.data" :key="index"
@@ -21,7 +21,7 @@
                     <!--加载图-->
                     <ul class="list-data" v-if="_showLondImg">
                         <li v-for="item in loadingImg">
-                            <img class="cover" src="../../common/image/default.jpg"/>
+                            <img class="cover" src="../../../static/img/default.jpg"/>
                             <div class="title">
                                 <hr>
                                 <hr width="50%" align="left">
@@ -70,10 +70,17 @@
             }
         },
         methods: {
+            // 标题点击事件
+            clickTitle (data) {
+                this.$emit('clickTitle', data);
+                // 显示遮罩层
+                this.maskLayer(true);
+            },
             // 派发点击事件
             selectItem(item) {
                 if (this.List) {
                     this.$emit('select', item);
+                    // 显示遮罩层
                     this.maskLayer(true);
                 }
             },

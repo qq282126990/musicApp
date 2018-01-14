@@ -3,7 +3,6 @@ import * as types from './mutation-types';
 
 /**
  * 主页 选择的的歌曲列表
- *
  * @param {Function} commit
  * @param {Object} homeSonglist
  */
@@ -13,7 +12,6 @@ export const homeSonglist = function ({commit}, homeSonglist) {
 
 /**
  * 设置遮罩层显示隐藏
- *
  * @param {Function} commit
  * @param {Boolean} maskLayer
  */
@@ -24,7 +22,6 @@ export const maskLayer = function ({commit}, maskLayer) {
 
 /**
  * 歌曲列表接口一次请求的页数 一次 +15
- *
  * @param {Function} commit
  * @param {Number} songBegin
  */
@@ -32,7 +29,6 @@ export const songBegin = function ({commit}, songBegin) {
     commit(types.SET_SONG_BEGIN, songBegin);
 };
 /** *****************滚动组件的状态*********************** **/
-
 /**
  * 滚动的状态
  * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
@@ -46,7 +42,6 @@ export const probeType = function ({commit}, probeType) {
 
 /**
  * 分发点击事件
- *
  * @type {Boolean}
  */
 export const click = function ({commit}, click) {
@@ -55,7 +50,6 @@ export const click = function ({commit}, click) {
 
 /**
  * 外部传入的数据
- *
  * @type {Array}
  */
 export const data = function ({commit}, data) {
@@ -64,7 +58,6 @@ export const data = function ({commit}, data) {
 
 /**
  * scroll 要不要监听滚动事件
- *
  * @type {Boolean}
  */
 export const listenScroll = function ({commit}, listenScroll) {
@@ -73,7 +66,6 @@ export const listenScroll = function ({commit}, listenScroll) {
 
 /**
  * 是否开启滚动到到底部刷新
- *
  * @type {Boolean}
  */
 export const pullup = function ({commit}, pullup) {
@@ -82,7 +74,6 @@ export const pullup = function ({commit}, pullup) {
 
 /**
  * 开始滚动
- *
  * @type {Boolean}
  */
 export const beforeScroll = function ({commit}, beforeScroll) {
@@ -91,7 +82,6 @@ export const beforeScroll = function ({commit}, beforeScroll) {
 
 /**
  * 刷新延迟
- *
  * @type {Number}
  */
 export const refreshDelay = function ({commit}, refreshDelay) {
@@ -100,7 +90,6 @@ export const refreshDelay = function ({commit}, refreshDelay) {
 
 /**
  * 是否开启回弹效果
- *
  * @type {Boolean}
  */
 export const bounce = function ({commit}, bounce) {
@@ -109,7 +98,6 @@ export const bounce = function ({commit}, bounce) {
 
 /**
  * 回弹时间
- *
  * @type {Boolean}
  */
 export const bounceTime = function ({commit}, bounceTime) {
@@ -119,7 +107,6 @@ export const bounceTime = function ({commit}, bounceTime) {
 
 /**
  * 歌曲列表信息
- *
  * @type {Object}
  */
 export const songListMessage = function ({commit}, songListMessage) {
@@ -128,7 +115,6 @@ export const songListMessage = function ({commit}, songListMessage) {
 
 /**
  * 歌曲列表
- *
  * @type {Array}
  */
 export const songList = function ({commit}, SET_SONG_LIST) {
@@ -138,12 +124,10 @@ export const songList = function ({commit}, SET_SONG_LIST) {
 /** *************** 播放组件状态 ***************** **/
 /**
  * 选择播放
- *
  * @type {Object}
  * list {Array}
  * index {Number}
  * SET_PLAYING_STATE {Boolean}
- *
  */
 export const selectPlay = function ({commit, state}, {list, index}) {
     // 设置当前的播放列表
@@ -156,7 +140,6 @@ export const selectPlay = function ({commit, state}, {list, index}) {
 
 /**
  * 控制歌曲播放
- *
  * @type {Boolean}
  */
 export const playing = function ({commit}, flag) {

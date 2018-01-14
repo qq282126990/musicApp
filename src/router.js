@@ -9,9 +9,15 @@ import * as types from './store/mutation-types';
 
 // 定义切割点，异步加载路由组件
 let Home = () => import('@/pages/Home/Home.vue');
-let HomeSongList = () => import('@/pages/Home/Home-Song-List.vue');
+// 歌曲列表模块
+let SongList = () => import('@/components/song-list/song-List.vue');
+// 热门推荐模块
+let HotRecommend = () => import('@/components/hot-recommend/hot-recommend.vue');
+// 发现模块
 let Find = () => import('@/pages/Find/Find.vue');
+// 我的模块
 let My = () => import('@/pages/My/My.vue');
+// 没有找到页面时显示的模块
 let NotFound = () => import('@/pages/NotFound.vue');
 
 Vue.use(Router);
@@ -29,9 +35,15 @@ export function createRouter() {
                 path: '/home',
                 component: Home
             },
+            // 热门推荐模块   /热门推荐
+            {
+                path: '/热门推荐',
+                component: HotRecommend
+            },
+            // 歌曲列表
             {
                 path: '/songlist/:id',
-                component: HomeSongList,
+                component: SongList,
                 alias: '/home/:id'
             },
             {

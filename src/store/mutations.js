@@ -7,7 +7,6 @@ const mutations = {
     // state 获取当前状态设置的state  其他=参数
     /**
      * 主页 选择的的歌曲列表
-     *
      * @type {Object}
      */
         [types.SET_HOME_SONG_LIST](state, homeSonglist) {
@@ -15,7 +14,6 @@ const mutations = {
     },
     /**
      * 设置遮罩层显示隐藏
-     *
      * @type {Boolean}
      */
         [types.SET_MASKLAYER](state, maskLayer) {
@@ -23,7 +21,6 @@ const mutations = {
     },
     /**
      * 歌曲列表接口一次请求的页数 一次 +15
-     *
      * @type {Number}
      */
         [types.SET_SONG_BEGIN](state, songBegin) {
@@ -31,7 +28,6 @@ const mutations = {
     },
     /**
      * 歌曲列表信息
-     *
      * @type {Object}
      */
         [types.SET_SONG_LIST_MESSAGE](state, songListMessage) {
@@ -39,7 +35,6 @@ const mutations = {
     },
     /**
      * 歌曲列表
-     *
      * @type {Array}
      */
         [types.SET_SONG_LIST](state, songList) {
@@ -58,7 +53,6 @@ const mutations = {
     },
     /**
      * 分发点击事件
-     *
      * @type {Boolean}
      */
         [types.SET_CLICK](state, click) {
@@ -66,7 +60,6 @@ const mutations = {
     },
     /**
      * 外部传入的数据
-     *
      * @type {Array}
      */
         [types.SET_DATA](state, data) {
@@ -74,7 +67,6 @@ const mutations = {
     },
     /**
      * scroll 要不要监听滚动事件
-     *
      * @type {Boolean}
      */
         [types.SET_LISTEN_SCROLL](state, listenScroll) {
@@ -82,7 +74,6 @@ const mutations = {
     },
     /**
      * 是否开启滚动到到底部刷新
-     *
      * @type {Boolean}
      */
         [types.SET_PULLUP](state, pullup) {
@@ -90,7 +81,6 @@ const mutations = {
     },
     /**
      * 开始滚动
-     *
      * @type {Boolean}
      */
         [types.SET_BEFORE_SCROLL](state, beforeScroll) {
@@ -98,7 +88,6 @@ const mutations = {
     },
     /**
      * 刷新延迟
-     *
      * @type {Number}
      */
         [types.SET_REFRESH_DELAY](state, refreshDelay) {
@@ -106,7 +95,6 @@ const mutations = {
     },
     /**
      * 是否开启回弹效果
-     *
      * @type {Boolean}
      */
         [types.SET_BOUNCE](state, bounce) {
@@ -114,7 +102,6 @@ const mutations = {
     },
     /**
      * 回弹时间
-     *
      * @type {Number}
      */
         [types.SET_BOUNCE_TIME](state, bounceTime) {
@@ -124,7 +111,6 @@ const mutations = {
     /** ********************播放组件状态********************** **/
     /**
      * 控制歌曲播放
-     *
      * @type {Boolean}
      */
         [types.SET_PLAYING_STATE](state, flag) {
@@ -132,7 +118,6 @@ const mutations = {
     },
     /**
      * 获取播放列表
-     *
      * @type {Object}
      */
         [types.SET_PLAYLIST](state, list) {
@@ -140,7 +125,6 @@ const mutations = {
     },
     /**
      * 当前播放索引
-     *
      * @type {Number}
      */
         [types.SET_CURRENT_INDEX](state, index) {

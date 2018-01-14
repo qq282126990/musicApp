@@ -20,17 +20,18 @@
         <div class="music-list">
             <!--背景图-->
             <div :class="headerBg ? 'background-header-bgcolor' : 'background'" ref="background">
-                <img width="100%" height="100%" :src="this.homeSonglist.cover">
+                <img width="100%" height="100%" v-lazy="this.homeSonglist.cover">
             </div>
             <!--背景滤镜效果-->
             <div :class="headerBg ? 'filter-header-bgcolor' : 'filter'"></div>
             <!--专辑-->
-            <div class="album-wrapper" ref="bgImage">
+            <div class="album-wrapper" ref="bgImage"
+                 :style="{transform: bgImageY, overflow: overflow, paddingTop: paddingTop}">
                 <!--专辑信息-->
                 <div class="album" :style="{opacity: transparent}">
                     <!--专辑头像-->
                     <div class="cover">
-                        <img :src="this.homeSonglist.cover ? this.homeSonglist.cover : this.default_avater"/>
+                        <img v-lazy="this.homeSonglist.cover"/>
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <div class="play-number">
@@ -50,7 +51,7 @@
                             <img class="small-avatar" :src="data.smallAvatar"/>
                             <!--作者大头像-->
                             <img class="author-avatar"
-                                 :src="data.authorAvatar ? data.authorAvatar : this.default_avater"/>
+                                 v-lazy="data.authorAvatar"/>
                             <!--作者名字-->
                             <div class="author-name" :class="{error: !this.homeSonglist.username}">
                                 <span>{{this.homeSonglist.username}}</span>
@@ -80,7 +81,7 @@
                 </div>
             </div>
             <!--歌曲列表播放全部模块-->
-            <div class="list-header" ref="ListHeader">
+            <div class="list-header" ref="ListHeader" :style="{transform: headerY}">
                 <!--播放全部-->
                 <div class="play-all-wrapper">
                     <v-icon class="play">play_circle_outline</v-icon>
@@ -98,17 +99,17 @@
                     <span class="title">多选</span>
                 </div>
             </div>
-            <div class="bg-layer" ref="layer"></div>
+            <div class="bg-layer" ref="layer" :style="{transform: bgImageY}"></div>
             <!--歌曲列表-->
             <scroll
-                    @scroll="scroll"
-                    @scrollToEnd="loadMore"
-                    class="song-list"
-                    ref="SongListScroll">
+                @scroll="scroll"
+                @scrollToEnd="loadMore"
+                class="song-list"
+                ref="SongListScroll">
                 <song-list
-                        :hasMore="hasMore"
-                        @select="select"
-                        ref="SongListWrapper"
+                    :hasMore="hasMore"
+                    @select="select"
+                    ref="SongListWrapper"
                 ></song-list>
             </scroll>
         </div>
@@ -140,8 +141,6 @@
         },
         data() {
             return {
-                // 图片丢失的路径 img error
-                default_avater: '../../../static/img/default_avater.png',
                 // 是否设置头部背景效果
                 headerBg: false,
                 // 开启标题滚动
@@ -163,7 +162,13 @@
                 // 获取图片背景的高度
                 imageHeight: null,
                 // 专辑内容的透明度
-                transparent: 1
+                transparent: 1,
+                // 滚动时设置专辑内容移动的距离
+                translateY: 0,
+                // 滚动时设置专辑内容超出内容隐藏
+                overflow: '',
+                // 滚动时设置专辑内容padding-top
+                paddingTop: ''
             };
         },
         mounted() {
@@ -198,23 +203,34 @@
             });
         },
         computed: {
+            // 专辑内容移动的位置
+            bgImageY () {
+                return `translate3d(0,${this.translateY}px,0)`;
+            },
+            // 播放全部模块移动的位置
+            headerY () {
+                if (this.scrollY < this.minTransalteY) {
+                    return `translate3d(0,40px,0)`;
+                }
+                else {
+                    let translateY = Math.max(this.minTransalteY, this.translateY);
+                    return `translate3d(0,${translateY}px,0)`;
+                }
+            },
             ...mapGetters('appStore', {
                 /*
                  * 歌曲列表信息
                  * @param {Object}
-                 *
                  * */
                 data: 'songListMessage',
                 /*
                  * 歌曲列表
                  * @param {Array}
-                 *
                  * */
                 songs: 'songList',
                 /*
                  * 选择的的歌曲列表数据
                  * @param {Object}
-                 *
                  * */
                 homeSonglist: 'homeSonglist'
             })
@@ -277,15 +293,9 @@
                 this.$refs.SongListScroll.scrollTo(0, 0);
 
                 // 初始化专辑区块的style
-                this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
-                this.$refs.bgImage.style.overflow = 'visible';
-                this.$refs.bgImage.style.paddingTop = '70%';
-
-                // 把播放全部模块位置重置
-                this.$refs.ListHeader.style.transform = `translate3d(0,0,0)`;
-
-                // 初始化  layer
-                this.$refs.layer.style.transform = `translate3d(0,0,0)`;
+                this.translateY = 0;
+                this.overflow = 'visible';
+                this.paddingTop = '70%';
 
                 // 组件激活时调用
                 this.carouselStart = false;
@@ -307,19 +317,16 @@
             ...mapActions('appStore', {
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15
-                 *
                  * @type {Number}
                  */
                 setSongBegin: 'songBegin',
                 /**
                  * 外部传入的数据
-                 *
                  * @type {Array}
                  */
                 setData: 'data',
                 /**
                  * scroll 要不要监听滚动事件
-                 *
                  * @type {Boolean}
                  */
                 setListenScroll: 'listenScroll',
@@ -333,19 +340,16 @@
                 setProbeType: 'probeType',
                 /**
                  * 是否开启回弹效果
-                 *
                  * @type {Boolean}
                  */
                 setBounce: 'bounce',
                 /**
                  * 是否开启滚动到到底部刷新
-                 *
                  * @type {Boolean}
                  */
                 setPullup: 'pullup',
                 /**
                  * 选择播放的歌曲
-                 *
                  * @type {Boolean}
                  */
                 setSelectPlay: 'selectPlay'
@@ -359,10 +363,6 @@
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
 
-                // 设置播放全部的位置
-                let translateY = Math.max(this.minTransalteY, newScrollY);
-                this.$refs.ListHeader.style.transform = `translate3d(0,${translateY}px,0)`;
-
                 // 设置想上滚专辑信息区块的透明度
                 const percent = Math.abs(newScrollY / this.imageHeight);
 
@@ -370,15 +370,9 @@
                 if (newScrollY < this.minTransalteY) {
 
                     // 设置专辑区块的style
-                    this.$refs.bgImage.style.transform = `translate3d(0,0,0)`;
-                    this.$refs.bgImage.style.overflow = 'hidden';
-                    this.$refs.bgImage.style.paddingTop = '0';
-
-                    // 设置播放全部模块位置为初始值
-                    this.$refs.ListHeader.style.transform = `translate3d(0,40px,0)`;
-
-                    // 重置layer块的位置
-                    this.$refs.layer.style.transform = `translate3d(0,0,0)`;
+                    this.translateY = 0;
+                    this.overflow = 'hidden';
+                    this.paddingTop = '0';
 
                     // 初始化专辑内容的透明度
                     this.transparent = 1;
@@ -391,12 +385,9 @@
                 }
                 else {
                     // 设置专辑区块的style
-                    this.$refs.bgImage.style.transform = `translate3d(0,${newScrollY}px,0)`;
-                    this.$refs.bgImage.style.overflow = 'visible';
-                    this.$refs.bgImage.style.paddingTop = '70%';
-
-                    // 设置 layer块的位置
-                    this.$refs.layer.style.transform = `translate3d(0,${newScrollY}px,0)`;
+                    this.translateY = newScrollY;
+                    this.overflow = 'visible';
+                    this.paddingTop = '70%';
 
                     // 设置专辑内容的透明度
                     this.transparent = Math.min(1, 1 - percent);
@@ -514,9 +505,9 @@
         width: 100%;
         height: px2rem(84px);
         overflow: hidden;
-        opacity: 0.6;
+        opacity: 0.75;
         object-fit: cover;
-        filter: blur(0);
+        filter: blur(0px);
         background: $filter-bgcolor;
         z-index: 15;
     }
@@ -544,7 +535,7 @@
         height: px2rem(84px);
         overflow: hidden;
         opacity: 1;
-        filter: blur(0);
+        filter: blur(0px);
         z-index: 15;
         img {
             position: absolute;
@@ -844,7 +835,7 @@
         padding: 0;
         position: fixed;
         top: 0;
-        bottom: 0;
+        bottom: px2rem(120px);
         width: 100%;
     }
 

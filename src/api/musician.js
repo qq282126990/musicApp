@@ -20,7 +20,6 @@ export function getMusicuMessage() {
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {
-        g_tk: 666624029,
         hostUin: 0,
         platform: 'yqq',
         needNewCode: 0,
@@ -35,7 +34,6 @@ export function getDigitalAlbum() {
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {
-        g_tk: 666624029,
         hostUin: 0,
         platform: 'yqq',
         needNewCode: 0,
@@ -50,7 +48,6 @@ export function getfeaturedRadio() {
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {
-        g_tk: 1835499862,
         channel: 'radio',
         page: 'index',
         hostUin: 0,

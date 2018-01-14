@@ -17,45 +17,39 @@
     import {ERR_OK} from 'api/config';
     import {createSong} from 'common/js/song';
     import {crackedPlayingAjax} from 'common/js/cracked_ajax';
-    import musicList from '../../components/music-list/music-list.vue';
+    import musicList from '../music-list/music-list.vue';
 
 
     export default {
         data() {
             return {
                 /*
-                * 歌曲数据
-                *
-                * @param {Object}
-                **/
+                 * 歌曲数据
+                 * @param {Object}
+                 **/
                 data: {},
                 /*
-                * 歌曲列表
-                *
-                * @param {Array}
-                **/
+                 * 歌曲列表
+                 * @param {Array}
+                 **/
                 songs: [],
                 /*
-                * 歌曲播放地址
-                *
-                * @param {Object}
-                **/
+                 * 歌曲播放地址
+                 * @param {Object}
+                 **/
                 songPlayingUrl: {},
                 /*
                  * 设置是否有更多歌曲列表
-                 *
                  * @param {Boolean}
                  **/
                 hasMore: false,
                 /*
                  * 判断请求是否完成
-                 *
                  * @param {Boolean}
                  **/
                 ajax_ok: false,
                 /*
                  * 专辑收藏量
-                 *
                  * @param {Number}
                  **/
                 collection: 0
@@ -67,13 +61,11 @@
                 /*
                  * 选择的的歌曲列表数据
                  * @param {Object}
-                 *
                  * */
                 'homeSonglist',
                 /*
                  * 歌曲列表显示页数 默认是0  请求一次 + 15
                  * @param {Number}
-                 *
                  * */
                 'songBegin'
             ])
@@ -144,7 +136,6 @@
             },
             /**
              * 歌曲播放mp4 地址
-             *
              */
             getSongPlayingUrl(data) {
                 // 对数据进行转换
@@ -162,7 +153,6 @@
             },
             /**
              * 歌曲播放接口传入的data参数
-             *
              * @type {Object}  list
              */
             _Song_Playing_Mp4_Url(list) {
@@ -217,7 +207,6 @@
 //            },
             /**
              * 对list数据做处理
-             *
              * @type {Array}  list
              */
             _normalizeSongs(list, playingUrl) {
@@ -233,7 +222,6 @@
             },
             /**
              * 对list数据进行拼接 上拉加载
-             *
              * @type {Array}  list
              */
 //            _genResult(list) {
@@ -245,7 +233,6 @@
 //            },
             /**
              * 计算播放量
-             *
              * @type {String}  playNumber
              */
             computedPlayNumber(playNumber) {
@@ -261,21 +248,16 @@
             ...mapActions('appStore', {
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15
-                 *
                  * @type {Number}
                  */
                 setSongBegin: 'songBegin',
                 /**
                  * 歌曲列表信息
-                 *
-                 *
                  * @type {Object}
                  */
                 setSongListMessage: 'songListMessage',
                 /**
                  * 歌曲列表
-                 *
-                 *
                  * @type {Array}
                  */
                 setSongList: 'songList'
@@ -299,8 +281,6 @@
                     this.getSongList();
                 }, 400);
             }
-
-
         },
         // 当组件停用时执行
         deactivated() {

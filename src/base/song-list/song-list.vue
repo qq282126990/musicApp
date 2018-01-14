@@ -45,11 +45,6 @@
 
     export default {
         props: {
-            // 歌曲列表
-//            songs: {
-//                type: Array,
-//                default: null
-//            },
             // 设置是否能够加载更多
             hasMore: {
                 type: Boolean,
@@ -66,7 +61,6 @@
                 /*
                  * 歌曲列表
                  * @param {Array}
-                 *
                  * */
                 songs: 'songList'
             })
@@ -88,7 +82,6 @@
 
     /*歌曲列表外层*/
     .list-wrapper {
-        position: relative;
         padding: 0;
         min-height: 100%;
         background: $list-bgcolor;

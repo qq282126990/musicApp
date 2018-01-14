@@ -1,7 +1,8 @@
 export default class Song {
-    constructor({id, mid, singer, name, album, duration, image, url}) {
+    constructor({id, mid, strMediaMid, singer, name, album, duration, image, url}) {
         this.id = id;
         this.mid = mid;
+        this.strMediaMid = strMediaMid;
         this.singer = singer;
         this.name = name;
         this.album = album;
@@ -11,11 +12,12 @@ export default class Song {
     };
 };
 
-// 创建一个song 相当于 new songe
+// 创建歌曲列表
 export function createSong(musicData, playingUrl, index) {
     return new Song({
         id: musicData.songid,
-        mid: musicData.strMediaMid,
+        mid: musicData.songmid,
+        strMediaMid: musicData.strMediaMid,
         // 歌手名称
         singer: filterSinger(musicData.singer),
         // 歌名

@@ -1,7 +1,7 @@
 export const commonParams = {
     inCharset: 'utf-8',
     outCharset: 'utf-8',
-    g_tk: 5381,
+    g_tk: setgtk(),
     format: 'jsonp',
     notice: 0
 };

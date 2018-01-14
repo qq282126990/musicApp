@@ -5,7 +5,7 @@
         <transition name="playList">
             <div class="slide" v-show="playList.length>0" :key="currentSong.id">
                 <div class="avatar">
-                    <img width="100%" height="100%" :src="currentSong.image"/>
+                    <img width="100%" height="100%" v-lazy="currentSong.image"/>
                 </div>
                 <div class="text">
                     <h2 class="name" v-html="currentSong.name"></h2>
@@ -36,6 +36,9 @@
     import {getCookie} from 'common/js/cookie';
     import {ERR_OK} from 'api/config';
 
+    // 歌曲链接地址头部
+    const URL_HEAD = `https://dl.stream.qqmusic.qq.com/`;
+
     export default {
         data() {
             return {
@@ -44,6 +47,11 @@
                  * type {Boolean}
                  * */
                 songReady: false,
+                /**
+                 * 歌曲播放错误
+                 * type {Boolean}
+                 * */
+                playError: false,
                 /**
                  * 播放歌曲Url接口 filename
                  * type {String}
@@ -54,6 +62,10 @@
                  * type {String}
                  * */
                 vkey: '',
+                /**
+                 * 播放歌曲链接地址 mp4
+                 * type {String}
+                 * */
                 playUrl: null
             };
         },
@@ -61,45 +73,59 @@
             ...mapGetters('appStore', [
                 /**
                  * 当前播放的歌曲信息
-                 *
-                 *
                  * @type {Object}
                  */
                 'currentSong',
                 /**
                  * 播放列表
-                 *
-                 *
                  * @type {Array}
                  */
                 'playList',
                 /**
                  * 控制歌曲播放
-                 *
-                 *
                  * @type {Boolean}
                  */
                 'playing'
             ])
         },
         methods: {
-            _getSinglePlayingUrl(songmid) {
-                getSinglePlayingUrl(songmid).then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.filename = res.data.items[0].filename;
-                        this.vkey = res.data.items[0].vkey;
+            _getSinglePlayingUrl(songmid, strMediaMid) {
+                // 两种情况 如果请求找不到歌曲就执行以下个接口
+                // 默认播放器没有错误
+                if (!this.playError) {
+                    getSinglePlayingUrl(strMediaMid).then((res) => {
+                        if (res.code === ERR_OK) {
+                            this.filename = res.data.items[0].filename;
+                            this.vkey = res.data.items[0].vkey;
+                            // 歌曲播放地址
+                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
 
-                        // 歌曲播放地址
-                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
-//                        this.playUrl = `https://dl.stream.qqmusic.qq.com/${this.filename}?vkey=${this.vkey}&uin=0&fromtag=66`;
+                            // 设置播放器播放
+                            this.audioPlay(this.playUrl);
+                        }
+                    });
+                }
+                else {
+                    // 备用接口
+                    getSinglePlayingUrl(songmid).then((res) => {
+                        if (res.code === ERR_OK) {
+                            this.filename = res.data.items[0].filename;
+                            this.vkey = res.data.items[0].vkey;
 
-                        const audio = this.$refs.audio;
-                        this.$nextTick(() => {
-                            this.playUrl ? audio.play() : audio.pause();
-                        });
+                            // 歌曲播放地址
+                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
 
-                        console.log(this.playUrl);
-                    }
+                            // 设置播放器播放
+                            this.audioPlay(this.playUrl);
+                        }
+                    });
+                }
+            },
+            // 设置播放器播放
+            audioPlay (data) {
+                this.$nextTick(() => {
+                    const audio = this.$refs.audio;
+                    data ? audio.play() : audio.pause();
                 });
             },
             // 控制播放
@@ -118,31 +144,43 @@
             // 播放器错误事件
             error() {
                 console.log('出错了');
+                // 歌曲准备状态设置为false
                 this.songReady = false;
+
+                // 设置播放器错误
+                this.playError = true;
             },
             ...mapActions('appStore', {
                 /**
                  * 控制歌曲播放
-                 *
-                 *
                  * @type {Boolean}
                  */
                 setPlaying: 'playing'
             })
         },
         watch: {
-            playing(newPlaying) {
-                const audio = this.$refs.audio;
-                this.$nextTick(() => {
-                    newPlaying ? audio.play() : audio.pause();
-                });
+            // 监听播放器错误
+            playError (newPlayError) {
+                // 如果播放器错误就请求备用接口
+                if (newPlayError) {
+                    this._getSinglePlayingUrl(this.currentSong.mid);
+                }
             },
+            // 监听播放器播放
+            playing(newPlaying) {
+                // 设置播放器播放
+                this.audioPlay(newPlaying);
+            },
+            // 监听歌曲改变
             currentSong(newCurrentSong) {
-                this._getSinglePlayingUrl(newCurrentSong.mid);
-                const audio = this.$refs.audio;
-                this.$nextTick(() => {
-                    newCurrentSong ? audio.play() : audio.pause();
-                });
+                // 默认播放没有错误
+                this.playError = false;
+
+                // 请求歌曲地址 传入 songmid = mid
+                this._getSinglePlayingUrl(newCurrentSong.mid, this.currentSong.strMediaMid);
+
+                // 设置播放器播放
+                this.audioPlay(newCurrentSong);
             }
         }
     };

@@ -1,7 +1,7 @@
 import * as types from '../mutation-types';
 import {ERR_OK} from 'api/config';
 import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
-import {createNewSong} from 'common/js/newSong';
+import {createNewSong} from 'common/js/new_song_speed';
 
 /**
  * 新歌速递组件默认数据
@@ -19,7 +19,6 @@ let defaultSong = {
 
 /**
  * 新歌速递组件的数据
- *
  * @type {Object}
  */
 let newSongList = [];
@@ -28,7 +27,6 @@ let state = {
 
     /**
      * 主页 的 渲染数据
-     *
      * @type {Object}
      */
     slider: [], // 轮播图
@@ -41,7 +39,6 @@ let actions = {
 
     /**
      * 获取轮播图
-     *
      * @param {Function} commit
      */
     async getSlider({commit}) {
@@ -55,7 +52,6 @@ let actions = {
     },
     /**
      * 获取数字专辑
-     *
      * @param {Function} commit
      */
     async getDigitalAlbum({commit}) {
@@ -73,7 +69,6 @@ let actions = {
     },
     /**
      * 获取精选电台
-     *
      * @param {Function} commit
      */
     async getfeaturedRadio({commit}) {
@@ -87,7 +82,6 @@ let actions = {
     },
     /**
      * 获取主页信息
-     *
      * @param {Function} commit
      */
     async getMusicuMessage({commit}) {

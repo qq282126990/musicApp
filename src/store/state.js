@@ -4,33 +4,26 @@
 const state = {
     /**
      * 主页 选择的的歌曲列表
-     *
      * @type {Object}
      */
     homeSonglist: {},
     /**
      * 设置遮罩层显示隐藏
-     *
      * @type {Boolean}
      */
     maskLayer: false,
     /**
      * 歌曲列表接口一次请求的页数 一次 +15
-     *
      * @type {Number}
      */
     songBegin: 0,
     /**
      * 歌曲列表信息
-     *
-     *
      * @type {Object}
      */
     songListMessage: {},
     /**
      * 歌曲列表
-     *
-     *
      * @type {Array}
      */
     songList: [],
@@ -45,49 +38,41 @@ const state = {
     probeType: 1,
     /**
      * 分发点击事件
-     *
      * @type {Boolean}
      */
     click: true,
     /**
      * 外部传入的数据
-     *
      * @type {Array}
      */
     data: null,
     /**
      * scroll 要不要监听滚动事件
-     *
      * @type {Boolean}
      */
     listenScroll: false,
     /**
      * 是否开启滚动到到底部刷新
-     *
      * @type {Boolean}
      */
     pullup: false,
     /**
      * 开始滚动
-     *
      * @type {Boolean}
      */
     beforeScroll: false,
     /**
      * 刷新延迟
-     *
      * @type {Number}
      */
     refreshDelay: 20,
     /**
      * 是否开启回弹效果
-     *
      * @type {Boolean}
      */
     bounce: true,
     /**
      * 回弹时间
-     *
      * @type {Number}
      */
     bounceTime: 300,
@@ -95,22 +80,16 @@ const state = {
     /** *****************播放组件状态************************** **/
     /**
      * 控制歌曲播放
-     *
-     *
      * @type {Boolean}
      */
     playing: false,
     /**
      * 播放列表
-     *
-     *
      * @type {Array}
      */
     playList: [],
     /**
      * 当前播放索引
-     *
-     *
      * @type {Number}
      */
     currentIndex: -1

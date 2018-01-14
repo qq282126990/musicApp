@@ -9,28 +9,24 @@ let state = {
 
     /**
      * 是否需要页面切换动画
-     *
      * @type {boolean}
      */
     needPageTransition: true,
 
     /**
      * 多个页面是否处于切换中
-     *
      * @type {boolean}
      */
     isPageSwitching: false,
 
     /**
      * 多个页面切换效果名称
-     *
      * @type {string}
      */
     pageTransitionName: '',
 
     /**
      * 上个页面 scroll 的信息
-     *
      * @type {Object}
      */
     historyPageScrollTop: {}
@@ -40,7 +36,6 @@ let actions = {
 
     /**
      * 开启页面切换动画
-     *
      * @param {Function} commit commit
      */
     enablePageTransition({commit}) {
@@ -51,7 +46,6 @@ let actions = {
     },
     /**
      * 关闭页面切换动画
-     *
      * @param {Function} commit commit
      */
     disablePageTransition({commit}) {
@@ -60,7 +54,6 @@ let actions = {
 
     /**
      * 设置页面是否处于切换中
-     *
      * @param {Function} commit commit
      * @param {boolean} isPageSwitching isPageSwitching
      */
@@ -70,7 +63,6 @@ let actions = {
 
     /**
      * 保存页面 scroll 高度
-     *
      * @param {[type]} options.commit [description]
      * @param {string} options.path path
      * @param {number} options.scrollTop scrollTop
@@ -103,7 +95,6 @@ export default {
 
         /**
          * 顶部导航栏的数据
-         *
          * @type {Object}
          */
         appHeader: {
@@ -112,48 +103,41 @@ export default {
 
                 /**
                  * 是否展示顶部导航栏
-                 *
                  * @type {boolean}
                  */
                 show: true,
 
                 /**
                  * 标题内容
-                 *
                  * @type {string}
                  */
                 title: '',
                 /**
                  * logo图标名称
-                 *
                  * @type {string}
                  */
                 logoIcon: '',
 
                 /**
                  * 是否展示左侧菜单图标
-                 *
                  * @type {boolean}
                  */
                 showMenu: true,
 
                 /**
                  * 是否展示左侧返回图标
-                 *
                  * @type {boolean}
                  */
                 showBack: false,
 
                 /**
                  * 是否展示左侧logo
-                 *
                  * @type {boolean}
                  */
                 showLogo: true,
 
                 /**
                  * 右侧操作按钮数组
-                 *
                  * @type {Array}
                  */
                 actions: []
@@ -162,7 +146,6 @@ export default {
 
                 /**
                  * 设置顶部导航条
-                 *
                  * @param {Function} commit commit
                  * @param {Object} appHeader appHeader
                  */
@@ -179,7 +162,6 @@ export default {
 
         /**
          * 左侧侧边栏的数据
-         *
          * @type {Object}
          */
         appSidebar: {
@@ -223,7 +205,6 @@ export default {
 
                 /**
                  * 展示侧边栏
-                 *
                  * @param {Function} commit commit
                  */
                 showSidebar({commit}) {
@@ -232,7 +213,6 @@ export default {
 
                 /**
                  * 隐藏侧边栏
-                 *
                  * @param {Function} commit commit
                  */
                 hideSidebar({commit}) {

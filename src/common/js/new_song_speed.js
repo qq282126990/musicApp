@@ -9,6 +9,7 @@ export default class Song {
     }
 };
 
+// 主页新歌速递模块数据
 export function createNewSong(list) {
     let items = {};
 

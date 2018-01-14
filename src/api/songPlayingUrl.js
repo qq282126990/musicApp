@@ -30,30 +30,3 @@ export function getSinglePlayingUrl(songmid) {
         return Promise.resolve(res.data);
     });
 }
-
-// originJsonp.interceptors.response.use(function (res) {
-//     // Do something with response data
-//     console.log(res);
-//     return res;
-// }, function (error) {
-//     // Do something with response error
-//     return Promise.reject(error);
-// });
-
-// 获取cookie
-// export function getCookie() {
-//     const url = 'https://pingfore.qq.com/pingd';
-//     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
-//     const data = Object.assign({}, {
-//         dm: 'y.qq.com.hot',
-//         url: 'https://y.qq.com/n/yqq/playlist/3640494236.html#stat=y_new.index.playlist.pic',
-//         hottag: 'Y_NEW.GEDAN.HEADER.PLAYALL',
-//         hotx: 9999,
-//         hoty: 9999,
-//         rand: 27649
-//     });
-//
-//     return jsonp(url, data);
-// }
-
-

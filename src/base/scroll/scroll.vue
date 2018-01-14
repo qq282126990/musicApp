@@ -9,56 +9,6 @@
     import {mapState} from 'vuex';
 
     export default {
-        props: {
-            // 滚动的状态
-            // 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
-            // 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
-            // 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
-//            probeType: {
-//                type: Number,
-//                default: 1
-//            },
-            // 分发点击事件
-//            click: {
-//                type: Boolean,
-//                default: true
-//            },
-            // 外部传入的数据
-//            data: {
-//                type: Array,
-//                default: null
-//            },
-            // scroll 要不要监听滚动事件
-//            listenScroll: {
-//                type: Boolean,
-//                default: false
-//            },
-            // 是否开启滚动到到底部刷新
-//            pullup: {
-//                type: Boolean,
-//                default: false
-//            },
-            // 开始滚动
-//            beforeScroll: {
-//                type: Boolean,
-//                default: false
-//            },
-            // 刷新延迟
-//            refreshDelay: {
-//                type: Number,
-//                default: 20
-//            },
-//            // 是否开启回弹效果
-//            bounce: {
-//                type: Boolean,
-//                default: true
-//            },
-            // 设置回弹动画事件
-//            bounceTime: {
-//                type: Number,
-//                default: 400
-//            }
-        },
         computed: {
             ...mapState('appStore', [
                 'probeType',

@@ -18,7 +18,7 @@
                 <tab-router></tab-router>
                 <div class="content-wrapper">
                     <!--其他导航列表-->
-                    <list-menu :List="List" @select="selectSinger"></list-menu>
+                    <list-menu :List="List" @clickTitle="clickTitle" @select="selectSinger"></list-menu>
                     <!--精选电台-->
                     <div class="featuredRadio-wrapper">
                         <div class="list-title">
@@ -80,8 +80,17 @@
             // 获取cookie 获取歌曲播放的 guid
             // 设置guid 到cookie中 !!!!!!!!!!!!!!!!!!!!!! 重要
             setCookie('guid', this.guid, Infinity, '/');
+
+            // 设置滚动列表不能回弹
+            this.bounce(false);
         },
         methods: {
+            // 点击标题 跳转页面
+            clickTitle(data) {
+                this.$router.push({
+                    path: `/${data}`
+                });
+            },
             // 选择列表 中的模块 跳转页面
             selectSinger(singer) {
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
@@ -102,24 +111,24 @@
                 'homeSonglist',
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15
-                 *
                  * @type {Number}
                  */
                 'songBegin',
                 /**
                  * 歌曲列表信息
-                 *
-                 *
                  * @type {Object}
                  */
                 'songListMessage',
                 /**
                  * 歌曲列表
-                 *
-                 *
                  * @type {Array}
                  */
-                'songList'
+                'songList',
+                /**
+                 * 设置滚动列表不回弹
+                 * @type {Boolean}
+                 */
+                'bounce'
             ]),
             ...mapActions('asyncAjax', [
                 /*

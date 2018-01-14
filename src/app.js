@@ -30,8 +30,8 @@ Vue.config.productionTip = false;
 
 // 懒加载图片
 Vue.use(VueLazyload, {
-    error: require('common/image/default.jpg'),
-    loading: require('common/image/default.jpg')
+    error: require('../static/img/default.jpg'),
+    loading: require('../static/img/default.jpg')
 });
 
 /* eslint-disable no-new */

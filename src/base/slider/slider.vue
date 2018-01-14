@@ -68,8 +68,6 @@
                     // 刷新轮播
                     this.refresh();
                 }, 60);
-//                this._setSliderWidth(true);
-//                this.slider.refresh();
             });
         },
         // 切换路由时也开启轮播

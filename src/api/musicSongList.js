@@ -13,7 +13,6 @@ export function getSongList(disstid) {
 
     const data = Object.assign({}, commonParams, {
         disstid,
-        g_tk: 5381,
         type: 1,
         json: 1,
         utf8: 1,
@@ -39,7 +38,6 @@ export function getCollection(disstid) {
 
     const data = Object.assign({}, commonParams, {
         disstid,
-        g_tk: 5381,
         loginUin: 0,
         hostUin: 0,
         platform: 'yqq',
