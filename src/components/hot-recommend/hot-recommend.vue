@@ -10,25 +10,44 @@
                 <span>分类歌单</span>
             </div>
         </div>
-        <div class="content-wrapper">
-            <!--热门歌单模块-->
-            <div class="hot-songs">
-                <span class="title">热门歌单</span>
-                <div class="content">
-                    <ul>
-                        <li v-for="item in dissTag.slice(1,11)" :key="item.categoryId">
-                            <img
-                                :src="`https://y.gtimg.cn/music/photo/radio/track_radio_${item.categoryId + 6}_10_3.jpg?max_age=2592000`"
-                                @error="tagErrorImg" :data-index="item.categoryId"/>
-                            <span class="name">{{item.categoryName}}</span>
-                        </li>
-                    </ul>
+        <scroll class="scroll" :data="dissTag">
+            <div>
+                <!--热门歌单模块-->
+                <div class="hot-songs">
+                    <!--标题-->
+                    <span class="title">热门歌单</span>
+                    <!--内容-->
+                    <div class="content">
+                        <ul>
+                            <li v-for="item in dissTag.slice(1,11)" :key="item.categoryId">
+                                <img
+                                    :src="`https://y.gtimg.cn/music/photo/radio/track_radio_${item.categoryId + 6}_10_3.jpg?max_age=2592000`"
+                                    @error="tagErrorImg" :data-index="item.categoryId"/>
+                                <span class="name">{{item.categoryName}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="look-more" @click="lookMore">【查看更多】</span>
+                </div>
+                <!--歌单推荐模块-->
+                <div class="song-recommended">
+                    <span class="title">歌单推荐</span>
+                    <div class="conent">
+                        <slider-switch>
+                            <div>
+                                <img class="slider-switch-item"
+                                     src="https://p.qpic.cn/music_cover/bMoY206eicbphwEh4kRnrkahJLh7Y3LA1CtCB3abgQe3fqFiahYVm3YQ/300?n=1">
+                            </div>
+                            <div>
+                                <img class="slider-switch-item"
+                                     src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
+                            </div>
+
+                        </slider-switch>
+                    </div>
                 </div>
             </div>
-            <!--歌单推荐模块-->
-            <div class="song-recommended">
-            </div>
-        </div>
+        </scroll>
     </div>
 </template>
 
@@ -36,6 +55,9 @@
     import {mapActions} from 'vuex';
     import {getDissTag} from 'api/categorySong';
     import {ERR_OK} from 'api/config';
+    import Scroll from 'base/scroll/scroll';
+    // 滑动切换内容基础组件
+    import sliderSwitch from 'base/slider-switch/slider-switch';
 
     // 分类歌单导航头部链接
     const TAG_URL_HEADER = 'https://y.gtimg.cn/music/photo/radio/track_radio_';
@@ -61,8 +83,9 @@
             back() {
                 this.$router.back();
             },
-
+            // 歌单导航图片错误时显示的默认图片
             tagErrorImg (e) {
+                // 设置错误图片
                 switch (e.currentTarget.dataset.index) {
                     case '166':
                         e.currentTarget.src = `${TAG_URL_HEADER}${parseInt(e.currentTarget.dataset.index) + 1}_10_3.jpg?max_age=2592000`;
@@ -76,6 +99,9 @@
                     case '6':
                         e.currentTarget.src = `${TAG_URL_HEADER}${parseInt(e.currentTarget.dataset.index) + 200}_10_3.jpg?max_age=2592000`;
                         break;
+                    default:
+                        // 默认错误图片
+                        e.currentTarget.src = this.errorImg;
                 }
             },
             // 获取分类歌单导航
@@ -85,6 +111,9 @@
                         this.dissTag = this.normalizeDissTag(res.data.categories.slice(1, 6));
                     }
                 });
+            },
+            // 查看更多点击
+            lookMore () {
             },
             // 初始化分类歌单导航数据
             normalizeDissTag(list) {
@@ -97,18 +126,6 @@
                 });
 
                 return ret.slice(0, 11);
-            },
-            // 随机显示分类歌单导航数据
-            randomDissTag (data) {
-                for (let i = data.length - 1; i >= 0; i--) {
-                    let randomIndex = Math.floor(Math.random() * (i + 1));
-                    let itemAtIndex = data[randomIndex];
-
-                    data[randomIndex] = data[i];
-                    data[i] = itemAtIndex;
-                }
-
-                return data;
             },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
@@ -127,6 +144,10 @@
             this.setAppHeader({
                 show: true
             });
+        },
+        components: {
+            sliderSwitch,
+            Scroll
         }
     };
 </script>
@@ -134,6 +155,11 @@
 <style scoped lang="scss">
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
+
+    .scroll {
+        height: 100%;
+        overflow: hidden;
+    }
 
     /*外层*/
     .wrapper {
@@ -152,6 +178,7 @@
         width: 100%;
         height: px2rem(84px);
         z-index: 100;
+        background: $header-color;
         /*返回按钮*/
         .back {
             position: absolute;
@@ -182,13 +209,12 @@
         }
     }
 
-    // 内容
-    .content-wrapper {
-        position: fixed;
-        top: px2rem(84px);
-        bottom: px2rem(120px);
-        overflow: hidden;
-        width: 100%;
+    /*标题*/
+    .title {
+        display: block;
+        line-height: px2rem(60px);
+        font-size: px2rem(32px);
+        color: $title-color;
     }
 
     /*热门歌单模块*/
@@ -197,13 +223,6 @@
         box-sizing: border-box;
         width: 100%;
         min-height: px2rem(400px);
-        /*标题*/
-        .title {
-            display: block;
-            line-height: px2rem(60px);
-            font-size: px2rem(32px);
-            color: $title-color;
-        }
         /*内容*/
         .content {
             padding: 0 px2rem(20px);
@@ -233,12 +252,23 @@
                 }
             }
         }
+        /*查看更多*/
+        .look-more {
+            display: block;
+            line-height: px2rem(60px);
+            font-size: px2rem(28px);
+            color: $look-more-color;
+        }
     }
 
     /*歌曲推荐模块*/
     .song-recommended {
         width: 100%;
-        height: 100%;
-        background: peru;
+        height: 900px;
+        overflow: hidden;
+        .conent {
+            width: 100%;
+            height: 100%;
+        }
     }
 </style>

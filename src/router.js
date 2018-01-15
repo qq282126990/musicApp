@@ -37,7 +37,7 @@ export function createRouter() {
             },
             // 热门推荐模块   /热门推荐
             {
-                path: '/热门推荐',
+                path: '/aaaa',
                 component: HotRecommend
             },
             // 歌曲列表
