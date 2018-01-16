@@ -1,22 +1,20 @@
 <template>
-    <div class="slider-switch" ref="slider">
+    <div class="slider-switch" ref="sliderSwitch">
         <!--内容-->
-        <div class="slider-switch-group" ref="sliderGroup">
+        <div class="slider-switch-group" ref="sliderSwitchGroup">
             <slot></slot>
         </div>
         <!--导航-->
         <div class="slider-switch-dots">
             <!--标题名称-->
             <div class="title">
-                <span class="name">综合</span>
-                <span class="name">综合</span>
-                <span class="name">综合</span>
-                <span class="name">综合</span>
-                <span class="name">综合</span>
+                <span class="name">全部</span>
+
+                <span class="name" v-for="item in dotsTitle">{{item.categoryName}}</span>
             </div>
             <div class="dots-wrapper">
-                <div class="dots">
-                    <span class="icon active"></span>
+                <div class="dots" v-for="(item,index) in dots">
+                    <span class="icon" :class="{active: currentPageIndex === index}"></span>
                 </div>
             </div>
         </div>
@@ -37,20 +35,23 @@
             };
         },
         props: {
+            /*
+             * 头部导航标题
+             * @type {Array}
+             * */
+            dotsTitle: {
+                type: Array,
+                default: []
+            },
             // 是否循环播放
             loop: {
                 type: Boolean,
-                default: true
+                default: false
             },
             // 是否自动轮播
             autoPlay: {
                 type: Boolean,
-                default: true
-            },
-            // 切换时间
-            interval: {
-                type: Number,
-                default: 2000
+                default: false
             },
             click: {
                 type: Boolean,
@@ -58,131 +59,69 @@
             }
         },
         mounted() {
-            // 确保dom已经渲染了 初始化代码
+            // 更新数据
             this.update();
-
-            // 自适应大小
-            window.addEventListener('resize', () => {
-                if (!this.slider || !this.slider.enabled) {
-                    return;
-                }
-                clearTimeout(this.resizeTimer);
-
-                // 改变窗口时大小执行
-                this.resizeTimer = setTimeout(() => {
-                    // 判断当前 scroll 是否处于滚动动画过程中。
-                    if (this.slider.isInTransition) {
-                        this._onScrollEnd();
-                    }
-                    else {
-                        if (this.autoPlay) {
-                            this._play();
-                        }
-                    }
-                    // 刷新轮播
-                    this.refresh();
-                }, 60);
-            });
-        },
-        // 切换路由时也开启轮播
-        activated() {
-            if (!this.slider) {
-                return;
-            }
-            // 启用 better-scroll, 默认 开启
-            this.slider.enable();
-
-            // 获取当前页面的信息。
-            let pageIndex = this.slider.getCurrentPage().pageX;
-
-            // 调用 goToPage 方法 滚动到指定的页面
-            this.slider.goToPage(pageIndex, 0, 0);
-
-            // 设置当前的页数 = pageIndex
-            this.currentPageIndex = pageIndex;
-
-            // 开启轮播
-            if (this.autoPlay) {
-                this._play();
-            }
-        },
-        deactivated() {
-            // 禁用 better-scroll
-            this.slider.disable();
-            clearTimeout(this.timer);
-        },
-        beforeDestroy() {
-            this.slider.disable();
-            clearTimeout(this.timer);
         },
         methods: {
+            // 更新数据
             update() {
-                if (this.slider) {
+                if (this.sliderSwitch) {
                     // 销毁 better-scroll，解绑事件
-                    this.slider.destroy();
+                    this.sliderSwitch.destroy();
                 }
                 this.$nextTick(() => {
                     // 初始化 better-scroll
                     this.init();
                 });
             },
-            // 刷新轮播
-            refresh() {
-                this._setSliderWidth(true);
-                this.slider.refresh();
-            },
-            // 滚动到下一个页面
-            next() {
-                this.slider.next();
-            },
             // 初始化方法
-            init() {
-                clearTimeout(this.timer); // 清除定时器
-                this.currentPageIndex = 0; // 设置当前页数为0
+            init () {
 
-                this._setSliderWidth(); // 设置滚动的宽度
-                this._initDots(); // 初始化轮播点
-                this._initSlider(); // 初始化滑块
+                // 设置当前页数为0
+                this.currentPageIndex = 0;
 
-                if (this.autoPlay) {
-                    this._play();
-                }
+                // 设置滑动的宽度
+                this._setSliderSwitchWidth();
+                // 初始化滑动
+                this._initSliderSwitch();
+                // 初始化dots
+                this._initDots();
             },
-            // 设置滚动的宽度
-            _setSliderWidth(isResize) {
+            // 设置滑动的宽度
+            _setSliderSwitchWidth () {
                 // 获取所有图片
-                this.children = this.$refs.sliderGroup.children;
+                this.children = this.$refs.sliderSwitchGroup.children;
 
                 // 初始化宽度
                 let width = 0;
-                // 初始化轮播图当的宽度为当前视图宽度
-                let sliderWidth = this.$refs.slider.clientWidth;
+                // 初始化当前的宽度为当前视图宽度
+                let sliderSwitchWidth = this.$refs.sliderSwitch.clientWidth;
 
-                // 循环轮播图
+                console.log(this.$refs.sliderSwitchGroup);
+
+                // 循环滑动内容
                 for (let i = 0; i < this.children.length; i++) {
-                    // 获取每个轮播图
+                    // 获取每个滑动内容
                     let child = this.children[i];
-                    // 添加类
+                    // 为每个滑动内容添加一个类
                     addClass(child, 'slider-switch-item');
-                    // 设置轮播图的宽度
-                    child.style.width = sliderWidth + 'px';
-                    // 设置-每个轮播图-的宽度
-                    width += sliderWidth;
+                    // 设置每个滑动内容的宽度 = 当前视图宽度
+                    child.style.width = sliderSwitchWidth + 'px';
+                    // 设置每个轮播图的宽度
+                    width += sliderSwitchWidth;
                 }
 
-                // 判断如果开启了轮播在当前容器的宽度上 *2 + 轮播图宽度
-                if (this.loop && !isResize) {
-                    width += 2 * sliderWidth;
-                }
-
-                // 设置整个轮播的宽度
-                this.$refs.sliderGroup.style.width = width + 'px';
+                // 设置整个滑动区域的宽度
+                this.$refs.sliderSwitchGroup.style.width = width + 'px';
             },
-            // 初始化滑块
-            _initSlider() {
-                this.slider = new BScroll(this.$refs.slider, {
+            // 初始化滑动
+            _initSliderSwitch () {
+                this.sliderSwitch = new BScroll(this.$refs.sliderSwitch, {
+                    // 开启向左滑动
                     scrollX: true,
                     momentum: false,
+                    bounce: false,
+                    probeType: 3,
                     snap: {
                         loop: this.loop,
                         threshold: 0.3,
@@ -191,49 +130,28 @@
                     click: this.click
                 });
 
+                // 向外层派发滚动事件
+                this.sliderSwitch.on('scroll', (pos) => {
+                    this.$emit('scroll', pos);
+                });
+
                 // 滑动结束触发的事件
-                this.slider.on('scrollEnd', this._onScrollEnd);
-
-                // 手指离开 事件
-                this.slider.on('touchend', () => {
-                    if (this.autoPlay) {
-                        this._play();
-                    }
-                });
-
-                // 滚动开始之前 事件
-                this.slider.on('beforeScrollStart', () => {
-                    if (this.autoPlay) {
-                        clearTimeout(this.timer);
-                    }
-                });
+                this.sliderSwitch.on('scrollEnd', this._onScrollEnd);
             },
             // 滑动结束事件
-            _onScrollEnd() {
+            _onScrollEnd () {
                 // 获取页面的数量
-                let pageIndex = this.slider.getCurrentPage().pageX;
+                let pageIndex = this.sliderSwitch.getCurrentPage().pageX;
 
-                if (this.loop) {
-                    pageIndex -= 1;
-                }
                 // 当前的页面的数量
                 this.currentPageIndex = pageIndex;
 
-                if (this.autoPlay) {
-                    this._play();
-                }
+                // 发送当前的页数
+                this.$emit('pageIndex', this.currentPageIndex);
             },
-            // 初始化轮播点
+            // 初始化dots
             _initDots() {
-                this.dots = this.$refs.sliderGroup.children.length;
-            },
-            // 自动轮播
-            _play() {
-                clearTimeout(this.timer);
-                // 轮播动画时间
-                this.timer = setTimeout(() => {
-                    this.slider.next();
-                }, this.interval);
+                this.dots = this.$refs.sliderSwitchGroup.children.length;
             }
         }
     };

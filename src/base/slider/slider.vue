@@ -138,10 +138,10 @@
             _setSliderWidth(isResize) {
                 // 获取所有图片
                 this.children = this.$refs.sliderGroup.children;
-
+                console.log()
                 // 初始化宽度
                 let width = 0;
-                // 初始化轮播图当的宽度为当前视图宽度
+                // 初始化轮播图当前的宽度为当前视图宽度
                 let sliderWidth = this.$refs.slider.clientWidth;
 
                 // 循环轮播图
@@ -152,7 +152,7 @@
                     addClass(child, 'slider-item');
                     // 设置轮播图的宽度
                     child.style.width = sliderWidth + 'px';
-                    // 设置-每个轮播图-的宽度
+                    // 设置每个轮播图的宽度
                     width += sliderWidth;
                 }
 

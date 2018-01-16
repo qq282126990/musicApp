@@ -22,7 +22,11 @@
                             <li v-for="item in dissTag.slice(1,11)" :key="item.categoryId">
                                 <img
                                     :src="`https://y.gtimg.cn/music/photo/radio/track_radio_${item.categoryId + 6}_10_3.jpg?max_age=2592000`"
-                                    @error="tagErrorImg" :data-index="item.categoryId"/>
+                                    :data-index="item.categoryId"
+                                    @error="tagErrorImg"
+                                    v-if="dissTag"
+                                />
+                                <img :src="errorImg" v-else/>
                                 <span class="name">{{item.categoryName}}</span>
                             </li>
                         </ul>
@@ -32,17 +36,17 @@
                 <!--歌单推荐模块-->
                 <div class="song-recommended">
                     <span class="title">歌单推荐</span>
-                    <div class="conent">
-                        <slider-switch>
-                            <div>
-                                <img class="slider-switch-item"
-                                     src="https://p.qpic.cn/music_cover/bMoY206eicbphwEh4kRnrkahJLh7Y3LA1CtCB3abgQe3fqFiahYVm3YQ/300?n=1">
+                    <div class="conent-wrapper">
+                        <slider-switch :dotsTitle="dotsTitle"
+                                       @scroll="scroll"
+                                       @pageIndex="pageIndex"
+                                       ref="sliderSwitch">
+                            <div v-for="item in dotsTitle">
+                                <a>
+                                    <img src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
+                                    {{item}}
+                                </a>
                             </div>
-                            <div>
-                                <img class="slider-switch-item"
-                                     src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
-                            </div>
-
                         </slider-switch>
                     </div>
                 </div>
@@ -70,6 +74,21 @@
                  * @types {Array}
                  * */
                 dissTag: [],
+                /*
+                 * 滑动切换头部导航标题
+                 * @types {Object}
+                 * */
+                dotsTitle: [],
+                /*
+                 * 左右滑动距离
+                 * @type {String}
+                 * */
+                scrollX: '',
+                /*
+                 * 滑动的当前页数
+                 * @type {Number}
+                 * */
+                currentPageIndex: '',
                 // 图片丢失时的默认图
                 errorImg: '../../../static/img/default.jpg'
             };
@@ -82,6 +101,14 @@
             // 返回按钮
             back() {
                 this.$router.back();
+            },
+            // 监听滚动
+            scroll(pos) {
+                this.scrollX = pos.x;
+            },
+            // 监听左右滑动的页数
+            pageIndex (index) {
+                this.currentPageIndex = index;
             },
             // 歌单导航图片错误时显示的默认图片
             tagErrorImg (e) {
@@ -109,11 +136,26 @@
                 getDissTag().then((res) => {
                     if (res.code === ERR_OK) {
                         this.dissTag = this.normalizeDissTag(res.data.categories.slice(1, 6));
+
+                        // 滑动切换头部导航标题
+                        this.dotsTitle = this.randomDissTag(this.normalizeDissTag(res.data.categories.slice(1, 6))).slice(0, 4);
                     }
                 });
             },
             // 查看更多点击
             lookMore () {
+            },
+            // 随机显示分类歌单导航数据
+            randomDissTag (data) {
+                for (let i = data.length - 1; i >= 0; i--) {
+                    let randomIndex = Math.floor(Math.random() * (i + 1));
+                    let itemAtIndex = data[randomIndex];
+
+                    data[randomIndex] = data[i];
+                    data[i] = itemAtIndex;
+                }
+
+                return data;
             },
             // 初始化分类歌单导航数据
             normalizeDissTag(list) {
@@ -144,6 +186,16 @@
             this.setAppHeader({
                 show: true
             });
+        },
+        watch: {
+            // 监听向右滑动
+            scrollX (newScrollX) {
+//                console.log(newScrollX);
+            },
+            // 监听左右滑动的页数
+            currentPageIndex(index) {
+                console.log(index);
+            }
         },
         components: {
             sliderSwitch,
@@ -266,9 +318,13 @@
         width: 100%;
         height: 900px;
         overflow: hidden;
-        .conent {
+        .conent-wrapper {
             width: 100%;
             height: 100%;
+            .content {
+                height: 500px;
+                background-color: red;
+            }
         }
     }
 </style>
