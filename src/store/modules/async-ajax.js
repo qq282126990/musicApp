@@ -1,6 +1,7 @@
 import * as types from '../mutation-types';
 import {ERR_OK} from 'api/config';
 import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
+import {getDissTag, getSortSongData} from 'api/sortSong';
 import {createNewSong} from 'common/js/new_song_speed';
 
 /**
@@ -31,7 +32,9 @@ let state = {
     slider: [], // 轮播图
     recommend: [], // 热门推荐数据
     newSong: [], // 数据通过 newSongList 组合完传入
-    featuredRadio: [] // 精选电台
+    featuredRadio: [], // 精选电台
+    dissNavigate: [], //  分类歌单导航
+    sortSongData: [] // 获取分类歌单歌曲信息
 };
 
 let actions = {
@@ -96,6 +99,32 @@ let actions = {
         else {
             // 错误处理
         }
+    },
+    /**
+     * 获取分类歌单导航信息
+     * @param {Function} commit
+     */
+    async getDissTag({commit}) {
+        let res = await getDissTag();
+        if (res.code === ERR_OK) {
+            commit(types.SET_DISS_NAVIGATE, {dissNavigate: res.data.categories || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取分类歌单歌曲信息
+     * @param {Function} commit
+     */
+    async getSortSongData({commit}, param) {
+        let res = await getSortSongData(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_SORT_SONG_DATA, {sortSongData: res.data || []});
+        }
+        else {
+            // 错误处理
+        }
     }
 };
 
@@ -117,8 +146,18 @@ let mutations = {
         state.recommend = recommend;
     },
     // 分类歌单数据
-    [types.SET_SORT_SONG_LIST](state, {sortSongData}) {
+    [types.SET_DISS_NAVIGATE](state, {dissNavigate}) {
+        state.dissNavigate = dissNavigate;
+    },
+    // 获取分类歌单歌曲信息
+    [types.SET_SORT_SONG_DATA](state, {sortSongData}) {
         state.sortSongData = sortSongData;
+    }
+};
+
+let getters = {
+    sortSongData(state) {
+        return state.sortSongData;
     }
 };
 
@@ -126,5 +165,6 @@ export default {
     namespaced: true,
     actions,
     mutations,
+    getters,
     state
 };

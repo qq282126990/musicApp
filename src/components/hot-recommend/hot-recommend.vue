@@ -10,7 +10,7 @@
                 <span>分类歌单</span>
             </div>
         </div>
-        <scroll class="scroll" :data="dissTag">
+        <scroll class="scroll" :data="dissRouter">
             <div>
                 <!--热门歌单模块-->
                 <div class="hot-songs">
@@ -19,12 +19,12 @@
                     <!--内容-->
                     <div class="content">
                         <ul>
-                            <li v-for="item in dissTag.slice(1,11)" :key="item.categoryId">
+                            <li v-for="item in dissRouter.slice(1,11)" :key="item.categoryId">
                                 <img
                                     :src="`https://y.gtimg.cn/music/photo/radio/track_radio_${item.categoryId + 6}_10_3.jpg?max_age=2592000`"
                                     :data-index="item.categoryId"
                                     @error="tagErrorImg"
-                                    v-if="dissTag"
+                                    v-if="dissRouter"
                                 />
                                 <img :src="errorImg" v-else/>
                                 <span class="name">{{item.categoryName}}</span>
@@ -46,7 +46,13 @@
                                            ref="sliderSwitch">
                                 <!--全部-->
                                 <div class="content">
-
+                                    <ul>
+                                        <li v-for="item in sortSongList" :key="item.listennum">
+                                            <!--头像-->
+                                            <img :src="item.imgurl"/>
+                                        </li>
+                                        <li></li>
+                                    </ul>
                                 </div>
                                 <!--其他-->
                                 <div v-for="item in dotsTitle" :key="dotsTitle.categoryName">
@@ -65,9 +71,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions} from 'vuex';
-    import {getDissTag} from 'api/sortSong';
-    import {ERR_OK} from 'api/config';
+    import {mapState, mapActions, mapGetters} from 'vuex';
+    //    import {getSortSongData} from 'api/sortSong';
+    //     import {ERR_OK} from 'api/config';
     import Scroll from 'base/scroll/scroll';
     // 滑动切换内容基础组件
     import sliderSwitch from 'base/slider-switch/slider-switch';
@@ -76,18 +82,28 @@
     const TAG_URL_HEADER = 'https://y.gtimg.cn/music/photo/radio/track_radio_';
 
     export default {
+        async asyncData({store}) {
+            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
+            await store.dispatch('asyncAjax/getDissTag'); // 获取分类歌单导航请求
+            // await store.dispatch('asyncAjax/getSortSongData', {categoryId: this.categoryId, sin: this.sin, ein: this.ein}); // 获取分类歌单导航请求
+        },
         data () {
             return {
                 /*
-                 * 分类歌单导航
+                 * 获取分类歌单导航
                  * @types {Array}
                  * */
-                dissTag: [],
+                dissRouter: [],
                 /*
                  * 滑动切换头部导航标题
                  * @types {Object}
                  * */
                 dotsTitle: [],
+                /*
+                 * 获取分类歌单歌单列表
+                 * @types {Object}
+                 * */
+                sortSongList: [],
                 /*
                  * 左右滑动距离
                  * @type {String}
@@ -98,13 +114,43 @@
                  * @type {Number}
                  * */
                 currentPageIndex: '',
+                /*
+                 * 分类歌单id
+                 * @type {Number}
+                 * @default 10000000
+                 * */
+                categoryId: 10000000,
+                /*
+                 * 分类歌单显示列表的起始位置
+                 * @type {Number}
+                 * @default 0
+                 * */
+                sin: 0,
+                /*
+                 * 分类歌单显示列表的结束位置
+                 * @type {Number}
+                 * @default 29
+                 * */
+                ein: 29,
                 // 图片丢失时的默认图
                 errorImg: '../../../static/img/default.jpg'
             };
         },
+        computed: {
+            // 获取请求接口对应的数据
+            ...mapState('asyncAjax', ['dissNavigate']),
+            ...mapGetters('asyncAjax', ['sortSongData'])
+        },
+        created () {
+            // 请求分类歌单的歌单信息
+            this._getSortSongData(this.categoryId, this.sin, this.ein);
+        },
         mounted () {
             // 获取分类歌单导航
-            this.getDissTag();
+            this.dissRouter = this.normalizeDissTag(this.dissNavigate.slice(1, 6));
+
+            // 滑动切换头部导航标题
+            this.dotsTitle = this.randomDissTag(this.normalizeDissTag(this.dissNavigate.slice(1, 6))).slice(0, 4);
         },
         methods: {
             // 返回按钮
@@ -140,19 +186,11 @@
                         e.currentTarget.src = this.errorImg;
                 }
             },
-            // 获取分类歌单导航
-            getDissTag () {
-                getDissTag().then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.dissTag = this.normalizeDissTag(res.data.categories.slice(1, 6));
-
-                        // 滑动切换头部导航标题
-                        this.dotsTitle = this.randomDissTag(this.normalizeDissTag(res.data.categories.slice(1, 6))).slice(0, 4);
-                    }
-                });
-            },
             // 查看更多点击
             lookMore () {
+            },
+            _getSortSongData (categoryId, sin, ein) {
+                this.getSortSongData({categoryId: categoryId, sin: sin, ein: ein});
             },
             // 随机显示分类歌单导航数据
             randomDissTag (data) {
@@ -180,6 +218,10 @@
             },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
+            ]),
+            // 进行异步请求
+            ...mapActions('asyncAjax', [
+                'getSortSongData'
             ])
         },
         // 当组件激活的调用
@@ -204,6 +246,11 @@
             // 监听左右滑动的页数
             currentPageIndex (index) {
                 console.log(index);
+            },
+            // 监听分类歌单歌单列表变化
+            sortSongData (newData) {
+                this.sortSongList = newData;
+                console.log(this.sortSongList);
             }
         },
         components: {
@@ -332,7 +379,20 @@
             height: 100%;
             .content {
                 height: 500px;
-                background-color: red;
+                ul {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
+                li {
+                    flex-basis: 50%;
+                    box-sizing: border-box;
+                    height: 200px;
+                    background: red;
+                }
+                li:nth-child(n + 2) {
+                    background: rgba(130,163,167,0.95);
+                }
             }
         }
     }

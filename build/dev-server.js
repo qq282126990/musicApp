@@ -166,9 +166,9 @@ apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
 
 // 获取分类歌单歌曲
 apiRoutes.get('/sortSongData', function (req, res) {
-    
+
     var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
-    
+
     axios.get(url, {
         headers: {
             referer: 'https://c.y.qq.com/',
