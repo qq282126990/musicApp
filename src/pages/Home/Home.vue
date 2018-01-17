@@ -113,7 +113,7 @@
                  * 歌曲列表接口一次请求的页数 一次 +15
                  * @type {Number}
                  */
-                'songBegin',
+                // 'songBegin',
                 /**
                  * 歌曲列表信息
                  * @type {Object}
@@ -141,7 +141,7 @@
         activated() {
             setTimeout(() => {
                 // 初始化歌曲列表全部数据
-                this.songBegin(0);
+                // this.songBegin(0);
                 this.songListMessage({});
                 this.songList([]);
             }, 400);

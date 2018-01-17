@@ -66,7 +66,7 @@
 
 <script type="text/ecmascript-6">
     import {mapActions} from 'vuex';
-    import {getDissTag} from 'api/categorySong';
+    import {getDissTag} from 'api/sortSong';
     import {ERR_OK} from 'api/config';
     import Scroll from 'base/scroll/scroll';
     // 滑动切换内容基础组件

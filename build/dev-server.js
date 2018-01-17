@@ -164,24 +164,32 @@ apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
     });
 });
 
-// 获取cookies
-apiRoutes.get('/getCookies', function (req, res) {
-
-    var url = 'https://pingfore.qq.com/pingd';
-
+// 获取分类歌单歌曲
+apiRoutes.get('/sortSongData', function (req, res) {
+    
+    var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
+    
     axios.get(url, {
         headers: {
-            referer: 'https://pingfore.qq.com/',
-            host: 'pingfore.qq.com'
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
         },
         params: req.query
     }).then((response) => {
         var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
         res.json(ret);
     }).catch((e) => {
         console.log(e);
     });
 });
+
 app.use('/api', apiRoutes);
 
 // 代理请求

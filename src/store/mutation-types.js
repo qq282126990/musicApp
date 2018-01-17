@@ -41,3 +41,5 @@ export const SET_SONG_LIST = 'SET_SONG_LIST'; // 获取歌曲列表
 export const SET_PLAYLIST = 'SET_PLAYLIST'; // 获取播放列表
 export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX'; // 当前播放索引
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'; // 控制歌曲播放
+
+// 分类歌单状态

@@ -9,7 +9,6 @@
             <!--标题名称-->
             <div class="title">
                 <span class="name">全部</span>
-
                 <span class="name" v-for="item in dotsTitle">{{item.categoryName}}</span>
             </div>
             <!--dots-->

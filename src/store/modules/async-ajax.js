@@ -24,7 +24,6 @@ let defaultSong = {
 let newSongList = [];
 
 let state = {
-
     /**
      * 主页 的 渲染数据
      * @type {Object}
@@ -101,17 +100,25 @@ let actions = {
 };
 
 let mutations = {
+    // 获取轮播图
     [types.SET_SLIDER](state, {slider}) {
         state.slider = slider;
     },
+    // 数据通过 newSongList 组合完传入
     [types.SET_DIGITAL_ALBUM](state, {newSong}) {
         state.newSong = newSong;
     },
+    // 获取精选电台
     [types.SET_FEATERED_RADIO](state, {featuredRadio}) {
         state.featuredRadio = featuredRadio;
     },
+    // 热门推荐数据
     [types.SET_RECOMMEND](state, {recommend}) {
         state.recommend = recommend;
+    },
+    // 分类歌单数据
+    [types.SET_SORT_SONG_LIST](state, {sortSongData}) {
+        state.sortSongData = sortSongData;
     }
 };
 
