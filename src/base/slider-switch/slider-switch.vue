@@ -12,9 +12,10 @@
 
                 <span class="name" v-for="item in dotsTitle">{{item.categoryName}}</span>
             </div>
+            <!--dots-->
             <div class="dots-wrapper">
-                <div class="dots" v-for="(item,index) in dots">
-                    <span class="icon" :class="{active: currentPageIndex === index}"></span>
+                <div class="dots" :style="{transform: `translate3d(${dotsScrollX}px, 0, 0)`}" ref="dots">
+                    <span class="icon active"></span>
                 </div>
             </div>
         </div>
@@ -26,14 +27,6 @@
     import BScroll from 'better-scroll';
 
     export default {
-        data() {
-            return {
-                // 原点数量
-                dots: [],
-                // 当前的轮播图数量
-                currentPageIndex: 0
-            };
-        },
         props: {
             /*
              * 头部导航标题
@@ -43,13 +36,11 @@
                 type: Array,
                 default: []
             },
-            // 是否循环播放
+            /*
+            * 是否循环播放
+            * @type {Boolean}
+            * */
             loop: {
-                type: Boolean,
-                default: false
-            },
-            // 是否自动轮播
-            autoPlay: {
                 type: Boolean,
                 default: false
             },
@@ -58,13 +49,23 @@
                 default: true
             }
         },
-        mounted() {
+        data () {
+            return {
+                // 原点数量
+                dots: [],
+                // 当前的轮播图数量
+                currentPageIndex: 0,
+                // dots滑动的距离
+                dotsScrollX: 0
+            };
+        },
+        mounted () {
             // 更新数据
             this.update();
         },
         methods: {
             // 更新数据
-            update() {
+            update () {
                 if (this.sliderSwitch) {
                     // 销毁 better-scroll，解绑事件
                     this.sliderSwitch.destroy();
@@ -97,8 +98,6 @@
                 // 初始化当前的宽度为当前视图宽度
                 let sliderSwitchWidth = this.$refs.sliderSwitch.clientWidth;
 
-                console.log(this.$refs.sliderSwitchGroup);
-
                 // 循环滑动内容
                 for (let i = 0; i < this.children.length; i++) {
                     // 获取每个滑动内容
@@ -120,18 +119,25 @@
                     // 开启向左滑动
                     scrollX: true,
                     momentum: false,
+                    // 禁用回弹效果
                     bounce: false,
+                    // Bscroll 类型为3
                     probeType: 3,
                     snap: {
+                        // 是否循环播放
                         loop: this.loop,
                         threshold: 0.3,
                         speed: 400
                     },
+                    // 设置可以点击
                     click: this.click
                 });
 
                 // 向外层派发滚动事件
                 this.sliderSwitch.on('scroll', (pos) => {
+                    // 设置dots 滑动的距离
+                    this.dotsScrollX = Math.abs(pos.x / 5);
+
                     this.$emit('scroll', pos);
                 });
 
@@ -150,7 +156,7 @@
                 this.$emit('pageIndex', this.currentPageIndex);
             },
             // 初始化dots
-            _initDots() {
+            _initDots () {
                 this.dots = this.$refs.sliderSwitchGroup.children.length;
             }
         }

@@ -35,19 +35,28 @@
                 </div>
                 <!--歌单推荐模块-->
                 <div class="song-recommended">
+                    <!--标题-->
                     <span class="title">歌单推荐</span>
+                    <!--内容-->
                     <div class="conent-wrapper">
-                        <slider-switch :dotsTitle="dotsTitle"
-                                       @scroll="scroll"
-                                       @pageIndex="pageIndex"
-                                       ref="sliderSwitch">
-                            <div v-for="item in dotsTitle">
-                                <a>
-                                    <img src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
-                                    {{item}}
-                                </a>
-                            </div>
-                        </slider-switch>
+                        <div v-if="dotsTitle.length">
+                            <slider-switch :dotsTitle="dotsTitle"
+                                           @scroll="scroll"
+                                           @pageIndex="pageIndex"
+                                           ref="sliderSwitch">
+                                <!--全部-->
+                                <div class="content">
+
+                                </div>
+                                <!--其他-->
+                                <div v-for="item in dotsTitle" :key="dotsTitle.categoryName">
+                                    <a>
+                                        <img
+                                            src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
+                                    </a>
+                                </div>
+                            </slider-switch>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,11 +108,11 @@
         },
         methods: {
             // 返回按钮
-            back() {
+            back () {
                 this.$router.back();
             },
             // 监听滚动
-            scroll(pos) {
+            scroll (pos) {
                 this.scrollX = pos.x;
             },
             // 监听左右滑动的页数
@@ -132,7 +141,7 @@
                 }
             },
             // 获取分类歌单导航
-            getDissTag() {
+            getDissTag () {
                 getDissTag().then((res) => {
                     if (res.code === ERR_OK) {
                         this.dissTag = this.normalizeDissTag(res.data.categories.slice(1, 6));
@@ -158,7 +167,7 @@
                 return data;
             },
             // 初始化分类歌单导航数据
-            normalizeDissTag(list) {
+            normalizeDissTag (list) {
                 let ret = [];
 
                 list.forEach((item) => {
@@ -174,14 +183,14 @@
             ])
         },
         // 当组件激活的调用
-        activated() {
+        activated () {
             // 隐藏头部导航
             this.setAppHeader({
                 show: false
             });
         },
         // 当组件停用时执行
-        deactivated() {
+        deactivated () {
             // 显示头部导航
             this.setAppHeader({
                 show: true
@@ -193,7 +202,7 @@
 //                console.log(newScrollX);
             },
             // 监听左右滑动的页数
-            currentPageIndex(index) {
+            currentPageIndex (index) {
                 console.log(index);
             }
         },

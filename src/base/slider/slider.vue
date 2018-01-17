@@ -138,7 +138,6 @@
             _setSliderWidth(isResize) {
                 // 获取所有图片
                 this.children = this.$refs.sliderGroup.children;
-                console.log()
                 // 初始化宽度
                 let width = 0;
                 // 初始化轮播图当前的宽度为当前视图宽度
