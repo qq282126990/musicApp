@@ -39,23 +39,26 @@
                     <span class="title">歌单推荐</span>
                     <!--内容-->
                     <div class="conent-wrapper">
-                        <div v-if="dotsTitle.length">
+                        <div>
                             <slider-switch :dotsTitle="dotsTitle"
                                            @scroll="scroll"
                                            @pageIndex="pageIndex"
                                            ref="sliderSwitch">
                                 <!--全部-->
                                 <div class="content">
-                                    <ul>
+                                    <ul  v-if="sortSongList.length">
                                         <li v-for="item in sortSongList" :key="item.listennum">
                                             <!--头像-->
                                             <img :src="item.imgurl"/>
                                         </li>
-                                        <li></li>
                                     </ul>
+                                    <!--显示加载中效果-->
+                                    <div class="loding-wrapper" v-else>
+                                        <loading></loading>
+                                    </div>
                                 </div>
                                 <!--其他-->
-                                <div v-for="item in dotsTitle" :key="dotsTitle.categoryName">
+                                <div class="content"  v-for="item in dotsTitle" :key="dotsTitle.categoryName">
                                     <a>
                                         <img
                                             src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
@@ -72,11 +75,10 @@
 
 <script type="text/ecmascript-6">
     import {mapState, mapActions, mapGetters} from 'vuex';
-    //    import {getSortSongData} from 'api/sortSong';
-    //     import {ERR_OK} from 'api/config';
     import Scroll from 'base/scroll/scroll';
+    import Loading from 'base/loading/loading';
     // 滑动切换内容基础组件
-    import sliderSwitch from 'base/slider-switch/slider-switch';
+    import SliderSwitch from 'base/slider-switch/slider-switch';
 
     // 分类歌单导航头部链接
     const TAG_URL_HEADER = 'https://y.gtimg.cn/music/photo/radio/track_radio_';
@@ -151,6 +153,9 @@
 
             // 滑动切换头部导航标题
             this.dotsTitle = this.randomDissTag(this.normalizeDissTag(this.dissNavigate.slice(1, 6))).slice(0, 4);
+
+            // 设置滚动时否有回弹效果
+            this.bounce(true);
         },
         methods: {
             // 返回按钮
@@ -222,6 +227,13 @@
             // 进行异步请求
             ...mapActions('asyncAjax', [
                 'getSortSongData'
+            ]),
+            ...mapActions('appStore', [
+                /**
+                 * 设置滚动列表不回弹
+                 * @type {Boolean}
+                 */
+                'bounce'
             ])
         },
         // 当组件激活的调用
@@ -249,13 +261,13 @@
             },
             // 监听分类歌单歌单列表变化
             sortSongData (newData) {
-                this.sortSongList = newData;
-                console.log(this.sortSongList);
+                this.sortSongList = newData.list;
             }
         },
         components: {
-            sliderSwitch,
-            Scroll
+            SliderSwitch,
+            Scroll,
+            Loading
         }
     };
 </script>
@@ -272,12 +284,10 @@
     /*外层*/
     .wrapper {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        height: 100%;
+        overflow: hidden;
         z-index: 110;
-        background: $header-color;
+        background: $hot-recommend-bg-color;
     }
 
     /*头部*/
@@ -327,10 +337,10 @@
 
     /*热门歌单模块*/
     .hot-songs {
-        margin-top: px2rem(20px);
+        padding-top: px2rem(20px);
+        padding-bottom: px2rem(20px);
         box-sizing: border-box;
         width: 100%;
-        min-height: px2rem(400px);
         /*内容*/
         .content {
             padding: 0 px2rem(20px);
@@ -350,7 +360,7 @@
                 }
                 .name {
                     display: block;
-                    margin-top: px2rem(10px);
+                    padding-top: px2rem(10px);
                     font-size: px2rem(28px);
                     text-align: center;
                     width: px2rem(102px);
@@ -372,13 +382,11 @@
     /*歌曲推荐模块*/
     .song-recommended {
         width: 100%;
-        height: 900px;
         overflow: hidden;
         .conent-wrapper {
+            padding-top: px2rem(30px);
             width: 100%;
-            height: 100%;
             .content {
-                height: 500px;
                 ul {
                     display: flex;
                     flex-direction: row;
@@ -387,13 +395,32 @@
                 li {
                     flex-basis: 50%;
                     box-sizing: border-box;
-                    height: 200px;
-                    background: red;
+                    img {
+                        margin-right: px2rem(10px);
+                        border-top-right-radius: px2rem(15px);
+                        border-bottom-right-radius: px2rem(15px);
+                        width: 100%;
+                    }
                 }
-                li:nth-child(n + 2) {
-                    background: rgba(130,163,167,0.95);
+                li:nth-child(2n + 2) {
+                    img {
+                        margin-left: px2rem(10px);
+                        padding-right: 0;
+                        border-top-left-radius: px2rem(15px);
+                        border-bottom-left-radius: px2rem(15px);
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
                 }
             }
         }
+    }
+
+    /*加载中效果*/
+    .loding-wrapper {
+        padding-top: 50%;
+        box-sizing: border-box;
+        width: 100%;
+        height: -webkit-fill-available;
     }
 </style>

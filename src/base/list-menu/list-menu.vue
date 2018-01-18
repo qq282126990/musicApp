@@ -3,9 +3,9 @@
         <div v-for="items in List" v-show="List">
             <ul v-show="items.recommend">
                 <li v-for="(recommend, index) in items.recommend" :key="recommend.name">
-                    <div class="list-title">
+                    <div class="list-title"  @click="clickTitle(recommend.name)">
                         <h1 class="name">{{recommend.name}}</h1>
-                        <i class="iconfont icon-prev_arrow-copy" @click="clickTitle(recommend.name)"></i>
+                        <i class="iconfont icon-prev_arrow-copy"></i>
                     </div>
                     <ul class="list-data" v-if="recommend.data.length">
                         <li v-for="(data, index) in recommend.data" :key="index"

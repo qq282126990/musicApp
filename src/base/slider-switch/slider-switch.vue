@@ -36,9 +36,9 @@
                 default: []
             },
             /*
-            * 是否循环播放
-            * @type {Boolean}
-            * */
+             * 是否循环播放
+             * @type {Boolean}
+             * */
             loop: {
                 type: Boolean,
                 default: false
@@ -176,6 +176,7 @@
             top: 0;
             left: 0;
             right: 0;
+            padding-top: px2rem(20px);
             height: px2rem(80px);
             background: $slider-switch-dots-bg;
             /*标题*/
@@ -193,6 +194,7 @@
             .dots-wrapper {
                 display: flex;
                 height: px2rem(40px);
+                background: $slider-switch-dots-bg;
                 .dots {
                     line-height: px2rem(40px);
                     flex-basis: 20%;
@@ -212,7 +214,8 @@
         /*内容*/
         .slider-switch-group {
             position: relative;
-            top: px2rem(80px);
+            padding-top: px2rem(100px);
+            padding-bottom: px2rem(200px);
             overflow: hidden;
             .slider-switch-item {
                 position: relative;
