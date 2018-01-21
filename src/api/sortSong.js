@@ -40,3 +40,4 @@ export function getSortSongData(param) {
         return Promise.resolve(res.data);
     });
 }
+

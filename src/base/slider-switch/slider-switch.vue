@@ -8,8 +8,9 @@
         <div class="slider-switch-dots">
             <!--标题名称-->
             <div class="title">
-                <span class="name">全部</span>
-                <span class="name" v-for="item in dotsTitle">{{item.categoryName}}</span>
+                <span class="name"
+                      v-for="(item,index) in dotsTitle"
+                      >{{item.categoryName}}</span>
             </div>
             <!--dots-->
             <div class="dots-wrapper">
@@ -134,10 +135,14 @@
 
                 // 向外层派发滚动事件
                 this.sliderSwitch.on('scroll', (pos) => {
+                    // 判断向左向右滑动 -1 向右 1 向左
+                    let movingDirectionX = this.sliderSwitch.movingDirectionX;
+
                     // 设置dots 滑动的距离
                     this.dotsScrollX = Math.abs(pos.x / 5);
 
-                    this.$emit('scroll', pos);
+                    // 发送滚动事件
+                    this.$emit('scroll', pos, movingDirectionX);
                 });
 
                 // 滑动结束触发的事件

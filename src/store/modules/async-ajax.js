@@ -26,15 +26,20 @@ let newSongList = [];
 
 let state = {
     /**
-     * 主页 的 渲染数据
-     * @type {Object}
+     * 主页的渲染数据
+     * @type {Array}
      */
     slider: [], // 轮播图
     recommend: [], // 热门推荐数据
     newSong: [], // 数据通过 newSongList 组合完传入
     featuredRadio: [], // 精选电台
+    /*
+    * 分类歌单的渲染数据
+    * @type {Array} || {Boolean}
+     * */
     dissNavigate: [], //  分类歌单导航
-    sortSongData: [] // 获取分类歌单歌曲信息
+    sortSongData: [], // 获取分类歌单推荐信息
+    setSortSongDataOK: false // 设置分类歌单推荐信息请求是否完成
 };
 
 let actions = {
@@ -118,13 +123,23 @@ let actions = {
      * @param {Function} commit
      */
     async getSortSongData({commit}, param) {
+        // 设置分类歌单推荐信息请求是否完成
+        commit(types.SET_SORT_SONG_DATA_OK, false);
+
         let res = await getSortSongData(param);
         if (res.code === ERR_OK) {
+            // 获取分类歌单歌曲信息
             commit(types.SET_SORT_SONG_DATA, {sortSongData: res.data || []});
+
+            // 设置分类歌单推荐信息请求是否完成
+            commit(types.SET_SORT_SONG_DATA_OK, true);
         }
         else {
             // 错误处理
         }
+    },
+    setSortSongDataOK ({commit}, setSortSongDataOK) {
+        commit(types.SET_SORT_SONG_DATA_OK, setSortSongDataOK);
     }
 };
 
@@ -152,12 +167,19 @@ let mutations = {
     // 获取分类歌单歌曲信息
     [types.SET_SORT_SONG_DATA](state, {sortSongData}) {
         state.sortSongData = sortSongData;
+    },
+    // 设置分类歌单推荐信息请求是否完成
+    [types.SET_SORT_SONG_DATA_OK](state, setSortSongDataOK) {
+        state.setSortSongDataOK = setSortSongDataOK;
     }
 };
 
 let getters = {
     sortSongData(state) {
         return state.sortSongData;
+    },
+    setSortSongDataOK (state) {
+        return state.setSortSongDataOK;
     }
 };
 

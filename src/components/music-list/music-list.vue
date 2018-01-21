@@ -319,7 +319,7 @@
                  * 歌曲列表接口一次请求的页数 一次 +15
                  * @type {Number}
                  */
-                setSongBegin: 'songBegin',
+                // setSongBegin: 'songBegin',
                 /**
                  * 外部传入的数据
                  * @type {Array}
@@ -659,8 +659,8 @@
                 /*专辑作者头像下面的小图标*/
                 .small-avatar {
                     position: absolute;
-                    padding: 15px;
-                    width: 10px;
+                    padding: px2rem(30px);
+                    width: px2rem(20px);
                 }
                 /*专辑作者名字*/
                 .author-name {

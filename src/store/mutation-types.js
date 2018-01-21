@@ -44,4 +44,5 @@ export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'; // 控制歌曲播放
 
 // 分类歌单状态
 export const SET_DISS_NAVIGATE = 'SET_DISS_NAVIGATE'; // 分类歌单标题
-export const SET_SORT_SONG_DATA = 'SET_SORT_SONG_DATA'; // 获取分类歌单歌曲信息
+export const SET_SORT_SONG_DATA = 'SET_SORT_SONG_DATA'; // 获取分类歌单推荐歌单信息
+export const SET_SORT_SONG_DATA_OK = 'SET_SORT_SONG_DATA_OK'; // 获取分类歌单推荐歌单信息请求是否完成

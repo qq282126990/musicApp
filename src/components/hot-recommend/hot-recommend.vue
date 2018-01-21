@@ -10,7 +10,7 @@
                 <span>分类歌单</span>
             </div>
         </div>
-        <scroll class="scroll" :data="dissRouter">
+        <scroll class="scroll" :data="dissRouter" @scrollToEnd="loadMoreSongListSort" ref="scroll">
             <div>
                 <!--热门歌单模块-->
                 <div class="hot-songs">
@@ -39,30 +39,47 @@
                     <span class="title">歌单推荐</span>
                     <!--内容-->
                     <div class="conent-wrapper">
-                        <div>
+                        <div @touchstart.prevent="sliderTouchStart"
+                             @touchmove.prevent="sliderTouchMove"
+                             @touchend="sliderTouchEnd">
                             <slider-switch :dotsTitle="dotsTitle"
                                            @scroll="scroll"
                                            @pageIndex="pageIndex"
                                            ref="sliderSwitch">
-                                <!--全部-->
-                                <div class="content">
-                                    <ul  v-if="sortSongList.length">
-                                        <li v-for="item in sortSongList" :key="item.listennum">
+                                <div class="content" v-for="(item, index) in dotsTitle" :key="dotsTitle.categoryName">
+                                    <!--判断当前需要显示的页面 otherSortSongList[index]-->
+                                    <ul v-if="index === newPageIndex && sortSongList[index].list"
+                                        :key="item.categoryId">
+                                        <li v-for="item in sortSongList[index].list">
                                             <!--头像-->
-                                            <img :src="item.imgurl"/>
+                                            <img class="avatar" :src="item.imgurl"/>
+                                            <!--播放量-->
+                                            <div class="play-number-wrapper">
+                                                <!--播放量数字-->
+                                                <div class="play-number">
+                                                    <i class="iconfont icon-erji"></i>
+                                                    <span class="number">{{computedPlayNumber(item.listennum)}}</span>
+                                                </div>
+                                                <!--播放按钮-->
+                                                <v-icon class="play">play_circle_outline</v-icon>
+                                            </div>
+                                            <!--歌单标题-->
+                                            <span class="name">{{item.dissname}}</span>
+                                            <!--发布人-->
+                                            <div class="user-name">
+                                                <span>{{item.creator.name}}</span>
+                                                <!--正则判断是否显示logo-->
+                                                <img class="logo"
+                                                     src="https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/114042.png"
+                                                     v-show="new RegExp('/*').test(`${item.creator.encrypt_uin}`)"/>
+                                            </div>
                                         </li>
                                     </ul>
                                     <!--显示加载中效果-->
                                     <div class="loding-wrapper" v-else>
                                         <loading></loading>
+                                        <span class="title">加载中...</span>
                                     </div>
-                                </div>
-                                <!--其他-->
-                                <div class="content"  v-for="item in dotsTitle" :key="dotsTitle.categoryName">
-                                    <a>
-                                        <img
-                                            src="https://y.gtimg.cn/music/photo/radio/track_radio_167_10_3.jpg?max_age=2592000">
-                                    </a>
                                 </div>
                             </slider-switch>
                         </div>
@@ -75,22 +92,44 @@
 
 <script type="text/ecmascript-6">
     import {mapState, mapActions, mapGetters} from 'vuex';
+    // 一些处理数据的方法
+    import {normalizeDotsTitle} from 'common/js/sortSong.js';
+    // 滚动组件
     import Scroll from 'base/scroll/scroll';
+    // Loading组件
     import Loading from 'base/loading/loading';
     // 滑动切换内容基础组件
     import SliderSwitch from 'base/slider-switch/slider-switch';
 
-    // 分类歌单导航头部链接
+    // 错误图片显示的图片路径
     const TAG_URL_HEADER = 'https://y.gtimg.cn/music/photo/radio/track_radio_';
 
     export default {
+        // 调用 vuex action，在异步操作完成之前有顶部进度条提示
         async asyncData({store}) {
-            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
-            await store.dispatch('asyncAjax/getDissTag'); // 获取分类歌单导航请求
-            // await store.dispatch('asyncAjax/getSortSongData', {categoryId: this.categoryId, sin: this.sin, ein: this.ein}); // 获取分类歌单导航请求
+            /**
+             * 获取分类歌单导航请求
+             * */
+            await store.dispatch('asyncAjax/getDissTag');
+            /*
+             * 获取歌单推荐数据
+             * @default categoryId = 10000000
+             *          sin = 0
+             *          ein = 29
+             * */
+            await store.dispatch('asyncAjax/getSortSongData', {
+                categoryId: 10000000,
+                sin: 0,
+                ein: 29
+            });
         },
         data () {
             return {
+                /*
+                 * 创建手指触摸操作
+                 * 用于歌单推荐左右滑动
+                 * */
+                touch: {},
                 /*
                  * 获取分类歌单导航
                  * @types {Array}
@@ -98,30 +137,40 @@
                 dissRouter: [],
                 /*
                  * 滑动切换头部导航标题
-                 * @types {Object}
+                 * @types {Array}
                  * */
                 dotsTitle: [],
                 /*
-                 * 获取分类歌单歌单列表
-                 * @types {Object}
-                 * */
-                sortSongList: [],
-                /*
-                 * 左右滑动距离
-                 * @type {String}
-                 * */
-                scrollX: '',
-                /*
-                 * 滑动的当前页数
+                 * 获取当前页面对应的 categoryId 数组的位置
                  * @type {Number}
                  * */
-                currentPageIndex: '',
+                dotsTitleIndex: 0,
+                /*
+                 * 当前页面的页数
+                 * @type {Number}
+                 * */
+                newPageIndex: 0,
+                /*
+                 * 获取分类歌单歌单列表
+                 * @types {Array}
+                 * */
+                sortSongList: [{}, {}, {}, {}, {}],
+                /*
+                 * 左右滑动距离
+                 * @type {Number}
+                 * */
+                scrollX: 0,
                 /*
                  * 分类歌单id
                  * @type {Number}
                  * @default 10000000
                  * */
                 categoryId: 10000000,
+                /*
+                 * 当前显示的页面的分类歌单id
+                 * @type {Number}
+                 * */
+                currentCategoryId: 0,
                 /*
                  * 分类歌单显示列表的起始位置
                  * @type {Number}
@@ -134,43 +183,216 @@
                  * @default 29
                  * */
                 ein: 29,
-                // 图片丢失时的默认图
+                /*
+                 * 设置歌单推荐列表请求 是否可以开始状态
+                 *  @type {Boolean}
+                 * */
+                ajaxSortSongData: false,
+                /*
+                 * 设置歌单推荐列表时否可以向右滑动状态
+                 * @type {Boolean}
+                 * */
+                touchRight: true,
+                /*
+                 * 图片丢失时的默认图
+                 * @type {String}
+                 * */
                 errorImg: '../../../static/img/default.jpg'
             };
+        },
+        mounted () {
+            // 获取分类歌单导航
+            this.dissRouter = this._normalizeDissTag(this.dissNavigate.slice(1, 6));
+            // 滑动切换头部导航标题
+            this.dotsTitle = normalizeDotsTitle(this.dissNavigate).slice(0, 5);
+            // 设置分类歌单列表
+            this.sortSongList[0] = this.sortSongData;
+            // 设置滚动时否有回弹效果
+            this.bounce(true);
+            // 设置上拉加载效果
+            this.pullup(true);
         },
         computed: {
             // 获取请求接口对应的数据
             ...mapState('asyncAjax', ['dissNavigate']),
-            ...mapGetters('asyncAjax', ['sortSongData'])
-        },
-        created () {
-            // 请求分类歌单的歌单信息
-            this._getSortSongData(this.categoryId, this.sin, this.ein);
-        },
-        mounted () {
-            // 获取分类歌单导航
-            this.dissRouter = this.normalizeDissTag(this.dissNavigate.slice(1, 6));
-
-            // 滑动切换头部导航标题
-            this.dotsTitle = this.randomDissTag(this.normalizeDissTag(this.dissNavigate.slice(1, 6))).slice(0, 4);
-
-            // 设置滚动时否有回弹效果
-            this.bounce(true);
+            // 获取歌单推荐列表信息数据
+            ...mapGetters('asyncAjax', {
+                sortSongData: 'sortSongData',
+                getSortSongDataOK: 'setSortSongDataOK'
+            })
         },
         methods: {
             // 返回按钮
             back () {
                 this.$router.back();
             },
-            // 监听滚动
-            scroll (pos) {
-                this.scrollX = pos.x;
-            },
-            // 监听左右滑动的页数
+            /*
+             * 监听左右滑动的页数
+             * @param {Number}
+             * */
             pageIndex (index) {
-                this.currentPageIndex = index;
+                // 获取当前显示的页数
+                this.newPageIndex = index;
+
+                // 重置分类歌单请求列表的起始位置
+                this.sin = 0;
+                this.ein = 29;
+
+                // 如果当前页数不是最后一页就可以向右滑动
+                if (index === 4) {
+                    this.touchRight = false;
+                }
+                else {
+                    this.touchRight = true;
+                }
             },
-            // 歌单导航图片错误时显示的默认图片
+            // 查看更多点击
+            lookMore () {
+            },
+            /*
+             * 上拉加载更多歌单列表方法
+             * */
+            loadMoreSongListSort () {
+                // 先判断当前页面时否正确 请求完成时才执行上拉加载
+                if (this.newPageIndex === this.dotsTitleIndex && this.getSortSongDataOK) {
+                    this.sin += 30;
+                    this.ein += 30;
+
+                    // 请求更多歌单列表
+                     this.getSortSongData({categoryId: this.dotsTitle[this.newPageIndex].categoryId, sin: this.sin, ein: this.ein});
+
+                    console.log(this.sin);
+                    console.log(this.ein);
+                }
+
+                this.setSortSongDataOK(false);
+            },
+            /*
+             *  歌单推荐列表切换滑动事件   手指开始滑动
+             * */
+            sliderTouchStart(e) {
+                // 设置状态
+                this.touch.initiated = true;
+                // 记录手指第一次触摸的位置
+                const touch = e.touches[0];
+                this.touch.startX = touch.pageX;
+                this.touch.startY = touch.pageY;
+            },
+            /*
+             *  歌单推荐列表切换滑动事件   手指滑动中
+             * */
+            sliderTouchMove(e) {
+                // 判断有没有触摸到有才执行下一步
+                if (!this.touch.initiated) {
+                    return;
+                }
+                // 获取移动的手指坐标
+                const touch = e.touches[0];
+                const deltaX = touch.pageX - this.touch.startX;
+                const deltaY = touch.pageY - this.touch.startY;
+                // 获取需要显示下一页的页数
+                const nextPageIndex = Math.abs(5 - 5 - this.dotsTitleIndex);
+
+                // 判断当前触摸的Y轴是否大于X 是就不执行下一步 如果当前是主页并且向右滑动就不执行 和 如果是最后一页向左滑动
+                if (Math.abs(deltaY) > Math.abs(deltaX) || this.dotsTitleIndex === 0) {
+                    return;
+                }
+
+                // 获取滑动的宽度
+                const left = nextPageIndex === this.dotsTitleIndex ? 0 : -window.innerWidth;
+                const offsetwidth = Math.max(-window.innerWidth, left + deltaX);
+
+                // 手指向右滑动
+                if (offsetwidth > window.innerWidth / 5) {
+                    // 获取当前页面 dotsTitle数组中对应的categoryId
+                    this.currentCategoryId = this.dotsTitle[this.dotsTitleIndex - 1].categoryId;
+
+                    // 如果当前的页面数据与 otherSortSongList中的数据不对应就重新请求
+                    if (this.currentCategoryId !== this.sortSongList[this.dotsTitleIndex - 1].categoryId) {
+                        //  重新设置歌单推荐列表请求可以开始
+                        this.ajaxSortSongData = true;
+                        // 清空数据
+                        this.sortSongList[this.dotsTitleIndex] = {};
+                    }
+                    // 判断如果当前页面有数据就不请求
+                    else if (this.sortSongList[this.dotsTitleIndex].list) {
+                        this.ajaxSortSongData = false;
+                    }
+                    //  否则设置歌单推荐列表请求可以开始
+                    else {
+                        this.ajaxSortSongData = true;
+                    }
+                }
+                // 手指向左滑动
+                else if (offsetwidth < -window.innerWidth / 5 && this.touchRight) {
+                    // 获取当前页面 dotsTitle数组中对应的categoryId
+                    this.currentCategoryId = this.dotsTitle[this.dotsTitleIndex].categoryId;
+
+                    // 如果当前的页面数据与 otherSortSongList中的数据不对应就重新请求
+                    if (this.currentCategoryId !== this.sortSongList[this.dotsTitleIndex].categoryId) {
+                        //  重新设置歌单推荐列表请求可以开始
+                        this.ajaxSortSongData = true;
+                        // 清空数据
+                        this.sortSongList[this.dotsTitleIndex] = {};
+                    }
+                    // 判断如果当前页面有数据就不请求
+                    else if (this.sortSongList[this.dotsTitleIndex].list) {
+                        this.ajaxSortSongData = false;
+                    }
+                    //  否则设置歌单推荐列表请求可以开始
+                    else {
+                        this.ajaxSortSongData = true;
+                    }
+                }
+            },
+            /*
+             *  歌单推荐列表切换滑动事件   手指滑动完成
+             * */
+            sliderTouchEnd() {
+                // 滑动完成设置请求为false
+                this.ajaxSortSongData = false;
+            },
+            /*
+             * 监听滚动
+             * @param {Number}
+             * pos 滑动的位置
+             * movingDirectionX 判断滑动方向
+             * */
+            scroll (pos, movingDirectionX) {
+                this.scrollX = pos.x;
+                // 判断向左向右滑动
+                this.movingDirectionX = movingDirectionX;
+            },
+            /**
+             * 计算播放量
+             * @param {Number}
+             */
+            computedPlayNumber(playNumber) {
+                // 如果当前播放量是1万才进行计算
+                if (playNumber > 1e4) {
+                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+                }
+                return playNumber;
+            },
+            /*
+             * 初始化分类歌单导航数据
+             * @param {Number}
+             * */
+            _normalizeDissTag (list) {
+                let ret = [];
+
+                list.forEach((item) => {
+                    item.items.forEach((data) => {
+                        ret.push(data);
+                    });
+                });
+
+                return ret.slice(0, 11);
+            },
+            /*
+             * 歌单导航图片错误时显示的默认图片
+             * @param {Object}
+             * */
             tagErrorImg (e) {
                 // 设置错误图片
                 switch (e.currentTarget.dataset.index) {
@@ -191,49 +413,27 @@
                         e.currentTarget.src = this.errorImg;
                 }
             },
-            // 查看更多点击
-            lookMore () {
-            },
-            _getSortSongData (categoryId, sin, ein) {
-                this.getSortSongData({categoryId: categoryId, sin: sin, ein: ein});
-            },
-            // 随机显示分类歌单导航数据
-            randomDissTag (data) {
-                for (let i = data.length - 1; i >= 0; i--) {
-                    let randomIndex = Math.floor(Math.random() * (i + 1));
-                    let itemAtIndex = data[randomIndex];
-
-                    data[randomIndex] = data[i];
-                    data[i] = itemAtIndex;
-                }
-
-                return data;
-            },
-            // 初始化分类歌单导航数据
-            normalizeDissTag (list) {
-                let ret = [];
-
-                list.forEach((item) => {
-                    item.items.forEach((data) => {
-                        ret.push(data);
-                    });
-                });
-
-                return ret.slice(0, 11);
-            },
+            // 设置主页头部导航是否显示
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),
             // 进行异步请求
             ...mapActions('asyncAjax', [
-                'getSortSongData'
+                'getSortSongData',
+                'setSortSongDataOK'
             ]),
+            // 其他状态
             ...mapActions('appStore', [
                 /**
                  * 设置滚动列表不回弹
                  * @type {Boolean}
                  */
-                'bounce'
+                'bounce',
+                /**
+                 * 设置开启上拉加载
+                 * @type {Boolean}
+                 */
+                'pullup'
             ])
         },
         // 当组件激活的调用
@@ -251,17 +451,59 @@
             });
         },
         watch: {
-            // 监听向右滑动
+            /*
+             * 监听左右滑动
+             * @param {Number}
+             * */
             scrollX (newScrollX) {
-//                console.log(newScrollX);
+                // 获取当前的页面页数
+                this.dotsTitleIndex = Math.ceil(Math.abs(Math.round(newScrollX) / window.innerWidth));
             },
-            // 监听左右滑动的页数
-            currentPageIndex (index) {
-                console.log(index);
+            /*
+             * 获取歌单推荐列表请求是否可以开始
+             * @param {Boolean}
+             * */
+            ajaxSortSongData (Boolean) {
+                if (Boolean === true) {
+                    this.getSortSongData({categoryId: this.currentCategoryId, sin: this.sin, ein: this.ein});
+                }
             },
-            // 监听分类歌单歌单列表变化
+            /*
+             * 监听分类歌单歌单列表变化
+             * @param {Object}
+             * */
             sortSongData (newData) {
-                this.sortSongList = newData.list;
+                // 设置每个其他歌单推荐的数据
+                // 如果对应的数组中已经有数据了就不执行
+                switch (this.dotsTitleIndex) {
+                    case 1:
+                        if (this.sortSongList[1].list) {
+                            return;
+                        }
+                        this.sortSongList[1] = newData;
+                        break;
+                    case 2:
+                        if (this.sortSongList[2].list) {
+                            return;
+                        }
+                        this.sortSongList[2] = newData;
+                        break;
+                    case 3:
+                        if (this.sortSongList[3].list) {
+                            return;
+                        }
+                        this.sortSongList[3] = newData;
+                        break;
+                    case 4:
+                        if (this.sortSongList[4].list) {
+                            return;
+                        }
+                        this.sortSongList[4] = newData;
+                        break;
+                }
+
+                this.sortSongList[0].list = this.sortSongList[0].list.concat(newData.list);
+                console.log(this.sortSongList[0].list);
             }
         },
         components: {
@@ -393,18 +635,93 @@
                     flex-wrap: wrap;
                 }
                 li {
+                    position: relative;
                     flex-basis: 50%;
                     box-sizing: border-box;
-                    img {
-                        margin-right: px2rem(10px);
+                    overflow: hidden;
+                    text-align: left;
+                    /*歌单图片*/
+                    .avatar {
+                        display: block;
+                        padding-right: px2rem(10px);
                         border-top-right-radius: px2rem(15px);
                         border-bottom-right-radius: px2rem(15px);
                         width: 100%;
+                        min-width: px2rem(375px);
+                        min-height: px2rem(375px);
+                    }
+                    /*歌单标题*/
+                    .name {
+                        display: block;
+                        padding: px2rem(16px) px2rem(20px);
+                        text-align: left;
+                        line-height: px2rem(40px);
+                        font-size: px2rem(26px);
+                        height: px2rem(76px);
+                        max-height: px2rem(76px);
+                        color: $content-name-color;
+                    }
+                    /*播放量*/
+                    .play-number-wrapper {
+                        position: absolute;
+                        margin-top: px2rem(-50px);
+                        padding: 0 px2rem(20px);
+                        box-sizing: border-box;
+                        display: flex;
+                        align-items: flex-end;
+                        width: 100%;
+                        height: px2rem(50px);
+                        color: $title-color;
+                        background: $play-number-bgcolor;
+                        z-index: 2;
+                        /*播放量数字*/
+                        .play-number {
+                            display: flex;
+                            flex: 1;
+                            padding: 0 px2rem(20px) px2rem(10px) 0;
+                            /*title*/
+                            .number {
+                                flex: 1;
+                                padding-left: px2rem(15px);
+                                font-size: px2rem(24px);
+                                line-height: px2rem(24px);
+                            }
+                            /*icon*/
+                            .icon-erji {
+                                flex: 0 0 px2rem(24px);
+                                font-size: px2rem(24px);
+                            }
+                        }
+                        /*播放按钮*/
+                        .play {
+                            padding-bottom: px2rem(4px);
+                            font-size: px2rem(48px);
+                        }
+                    }
+                    /*发布人*/
+                    .user-name {
+                        display: flex;
+                        align-items: flex-end;
+                        padding: 0 px2rem(20px) px2rem(20px) px2rem(20px);
+                        font-size: px2rem(24px);
+                        color: $user-name-color;
+                        span {
+                            display: inline-block;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        .logo {
+                            display: inline-block;
+                            padding-left: px2rem(10px);
+                            width: px2rem(24px);
+                            height: px2rem(24px);
+                        }
                     }
                 }
                 li:nth-child(2n + 2) {
-                    img {
-                        margin-left: px2rem(10px);
+                    .avatar {
+                        padding-left: px2rem(10px);
                         padding-right: 0;
                         border-top-left-radius: px2rem(15px);
                         border-bottom-left-radius: px2rem(15px);
@@ -422,5 +739,9 @@
         box-sizing: border-box;
         width: 100%;
         height: -webkit-fill-available;
+        .title {
+            box-sizing: border-box;
+            padding: px2rem(20px) 0 0 px2rem(20px);
+        }
     }
 </style>

@@ -16,6 +16,7 @@
     import {getSongPlayingUrl} from 'api/songPlayingUrl';
     import {ERR_OK} from 'api/config';
     import {createSong} from 'common/js/song';
+    import {computedPlayNumber} from 'common/js/util';
     import {crackedPlayingAjax} from 'common/js/cracked_ajax';
     import musicList from '../music-list/music-list.vue';
 
@@ -110,7 +111,7 @@
                             // 专辑的小头像
                             this.data.smallAvatar = res.cdlist[0].ifpicurl;
                             // 播放量
-                            this.data.playNumber = this.computedPlayNumber(res.cdlist[0].visitnum);
+                            this.data.playNumber = computedPlayNumber(res.cdlist[0].visitnum);
                             // 歌曲列表总数
                             this.data.totalSongNum = res.cdlist[0].total_song_num;
 
@@ -235,13 +236,13 @@
              * 计算播放量
              * @type {String}  playNumber
              */
-            computedPlayNumber(playNumber) {
-                // 如果当前播放量是1万才进行计算
-                if (playNumber > 1e4) {
-                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
-                }
-                return playNumber;
-            },
+//            computedPlayNumber(playNumber) {
+//                // 如果当前播放量是1万才进行计算
+//                if (playNumber > 1e4) {
+//                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+//                }
+//                return playNumber;
+//            },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),

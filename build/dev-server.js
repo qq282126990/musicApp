@@ -183,8 +183,8 @@ apiRoutes.get('/sortSongData', function (req, res) {
             if (matches) {
                 ret = JSON.parse(matches[1]);
             }
+            res.json(ret);
         }
-        res.json(ret);
     }).catch((e) => {
         console.log(e);
     });
