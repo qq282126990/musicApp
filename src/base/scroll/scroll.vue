@@ -9,6 +9,17 @@
     import {mapState} from 'vuex';
 
     export default {
+        props: {
+            pullUpLoad: {
+                type: null,
+                default: false
+            }
+        },
+        data () {
+            return {
+                isPullingDown: false
+            };
+        },
         computed: {
             ...mapState('appStore', [
                 'probeType',
@@ -22,14 +33,14 @@
                 'bounceTime'
             ])
         },
-        mounted() {
+        mounted () {
             // 确保dom已经渲染了 初始化代码
             setTimeout(() => {
                 this._initScroll(true);
             }, 20);
         },
         methods: {
-            _initScroll() {
+            _initScroll () {
                 // 判断有没有内容   没有就不执行
                 if (!this.$refs.scrollWrapper) {
                     return;
@@ -41,7 +52,8 @@
                     probeType: this.probeType,
                     click: this.click, // 设置可以点击
                     bounce: this.bounce, // 是否开始回弹效果 boolean
-                    HWCompositing: true // 硬件加速
+                    HWCompositing: true, // 硬件加速
+                    pullUpLoad: this.pullUpLoad // 拉加载功能
                 });
 
                 // 如果监听了scroll 就派发scroll滚动事件
@@ -69,35 +81,46 @@
                         this.$emit('beforeScroll');
                     });
                 }
+
+
+                if (this.pullUpLoad) {
+                    this.scroll.on('pullingUp', () => {
+                        this.$emit('pullingUp');
+                    });
+                }
             },
             // 禁用 better-scroll
-            disable() {
+            disable () {
                 this.scroll && this.scroll.disable();
             },
             // 销毁 better-scroll，解绑事件。
-            destroy() {
+            destroy () {
                 this.scroll && this.scroll.destroy();
             },
             // 启用 better-scroll, 默认 开启。
-            enable() {
+            enable () {
                 this.scroll && this.scroll.enable();
             },
             // 重新计算高度
-            refresh() {
+            refresh () {
                 this.scroll && this.scroll.refresh();
             },
             // 滚动到指定位置
-            scrollTo() {
+            scrollTo () {
                 this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
             },
             // 滚动到指定的目标元素
-            scrollToElement() {
+            scrollToElement () {
                 this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
+            },
+            // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载
+            finishPullUp () {
+                this.scroll && this.scroll.finishPullUp();
             }
         },
         // 监听数据的变化
         watch: {
-            data() {
+            data () {
                 setTimeout(() => {
                     // 数据发生变化时刷新滚动 重新计算滚动
                     this.refresh();

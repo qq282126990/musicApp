@@ -10,7 +10,11 @@
                 <span>分类歌单</span>
             </div>
         </div>
-        <scroll class="scroll" :data="dissRouter" @scrollToEnd="loadMoreSongListSort" ref="scroll">
+        <scroll class="scroll"
+                :data="dissRouter"
+                :pullUpLoad="pullUpLoad"
+                @pullingUp="pullingUp"
+                ref="scroll">
             <div>
                 <!--热门歌单模块-->
                 <div class="hot-songs">
@@ -34,7 +38,7 @@
                     <span class="look-more" @click="lookMore">【查看更多】</span>
                 </div>
                 <!--歌单推荐模块-->
-                <div class="song-recommended">
+                <div class="song-recommended" ref="SongRecommended">
                     <!--标题-->
                     <span class="title">歌单推荐</span>
                     <!--内容-->
@@ -50,7 +54,7 @@
                                     <!--判断当前需要显示的页面 otherSortSongList[index]-->
                                     <ul v-if="index === newPageIndex && sortSongList[index].list"
                                         :key="item.categoryId">
-                                        <li v-for="item in sortSongList[index].list">
+                                        <li v-for="item in sortSongList[index].list" @click="selectItem(item)">
                                             <!--头像-->
                                             <img class="avatar" :src="item.imgurl"/>
                                             <!--播放量-->
@@ -106,7 +110,7 @@
 
     export default {
         // 调用 vuex action，在异步操作完成之前有顶部进度条提示
-        async asyncData({store}) {
+        async asyncData ({store}) {
             /**
              * 获取分类歌单导航请求
              * */
@@ -197,7 +201,9 @@
                  * 图片丢失时的默认图
                  * @type {String}
                  * */
-                errorImg: '../../../static/img/default.jpg'
+                errorImg: '../../../static/img/default.jpg',
+                // 上啦加载
+                pullUpLoad: true
             };
         },
         mounted () {
@@ -208,7 +214,7 @@
             // 设置分类歌单列表
             this.sortSongList[0] = this.sortSongData;
             // 设置滚动时否有回弹效果
-            this.bounce(true);
+            this.bounce(false);
             // 设置上拉加载效果
             this.pullup(true);
         },
@@ -234,10 +240,6 @@
                 // 获取当前显示的页数
                 this.newPageIndex = index;
 
-                // 重置分类歌单请求列表的起始位置
-                this.sin = 0;
-                this.ein = 29;
-
                 // 如果当前页数不是最后一页就可以向右滑动
                 if (index === 4) {
                     this.touchRight = false;
@@ -250,27 +252,53 @@
             lookMore () {
             },
             /*
-             * 上拉加载更多歌单列表方法
-             * */
-            loadMoreSongListSort () {
+            * 上拉加载更多歌单列表方法
+            * */
+            pullingUp () {
+                // 如果当前列表的数量小于30就不能上拉加载
+                if (this.sortSongList[this.dotsTitleIndex].list && this.sortSongList[this.dotsTitleIndex].list.length < 30) {
+                    return;
+                }
+
                 // 先判断当前页面时否正确 请求完成时才执行上拉加载
-                if (this.newPageIndex === this.dotsTitleIndex && this.getSortSongDataOK) {
+                if (this.newPageIndex === this.dotsTitleIndex && this.sortSongList[this.dotsTitleIndex].list && this.getSortSongDataOK) {
                     this.sin += 30;
                     this.ein += 30;
 
                     // 请求更多歌单列表
-                     this.getSortSongData({categoryId: this.dotsTitle[this.newPageIndex].categoryId, sin: this.sin, ein: this.ein});
-
-                    console.log(this.sin);
-                    console.log(this.ein);
+                    this.getSortSongData({
+                        categoryId: this.dotsTitle[this.newPageIndex].categoryId, sin: this.sin, ein: this.ein
+                    });
                 }
 
                 this.setSortSongDataOK(false);
             },
             /*
+            * 上拉加载更多歌单列表完成后刷新数据方法
+            * */
+            PullingUpRefresh () {
+                // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+                this.$refs.scroll.finishPullUp();
+                // 数据更新时刷新滚动列表数据
+                this.$refs.scroll.refresh();
+            },
+            // 点击选择歌单
+            selectItem (data) {
+                console.log(data);
+                // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
+                if (data.dissid) {
+                    // 把选中的专辑的数据存入 homeSonglist
+                    this.homeSonglist(data);
+                    // 跳转到专辑页面
+                    this.$router.push({
+                        path: `/home/${data.dissid}`
+                    });
+                }
+            },
+            /*
              *  歌单推荐列表切换滑动事件   手指开始滑动
              * */
-            sliderTouchStart(e) {
+            sliderTouchStart (e) {
                 // 设置状态
                 this.touch.initiated = true;
                 // 记录手指第一次触摸的位置
@@ -281,17 +309,18 @@
             /*
              *  歌单推荐列表切换滑动事件   手指滑动中
              * */
-            sliderTouchMove(e) {
+            sliderTouchMove (e) {
                 // 判断有没有触摸到有才执行下一步
                 if (!this.touch.initiated) {
                     return;
                 }
+
                 // 获取移动的手指坐标
                 const touch = e.touches[0];
                 const deltaX = touch.pageX - this.touch.startX;
                 const deltaY = touch.pageY - this.touch.startY;
                 // 获取需要显示下一页的页数
-                const nextPageIndex = Math.abs(5 - 5 - this.dotsTitleIndex);
+                const nextPageIndex = Math.ceil(Math.abs(5 - 5 - this.dotsTitleIndex));
 
                 // 判断当前触摸的Y轴是否大于X 是就不执行下一步 如果当前是主页并且向右滑动就不执行 和 如果是最后一页向左滑动
                 if (Math.abs(deltaY) > Math.abs(deltaX) || this.dotsTitleIndex === 0) {
@@ -304,6 +333,16 @@
 
                 // 手指向右滑动
                 if (offsetwidth > window.innerWidth / 5) {
+                    // 如果切换页面了就重置分类歌单请求列表的起始位置 并且  把滚动位置重置为顶部
+                    if (this.dotsTitleIndex === nextPageIndex) {
+                        // this.sortSongList[this.dotsTitleIndex] = {};
+                        // 重置滚动条位置
+                        this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+
+                        this.sin = 0;
+                        this.ein = 29;
+                    }
+
                     // 获取当前页面 dotsTitle数组中对应的categoryId
                     this.currentCategoryId = this.dotsTitle[this.dotsTitleIndex - 1].categoryId;
 
@@ -325,6 +364,16 @@
                 }
                 // 手指向左滑动
                 else if (offsetwidth < -window.innerWidth / 5 && this.touchRight) {
+                    // 如果切换页面了就重置分类歌单请求列表的起始位置 并且  把滚动位置重置为顶部
+                    if (this.dotsTitleIndex === nextPageIndex) {
+                        // this.sortSongList[this.dotsTitleIndex] = {};
+                        // 重置滚动条位置
+                        this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+
+                        this.sin = 0;
+                        this.ein = 29;
+                    }
+
                     // 获取当前页面 dotsTitle数组中对应的categoryId
                     this.currentCategoryId = this.dotsTitle[this.dotsTitleIndex].categoryId;
 
@@ -348,7 +397,7 @@
             /*
              *  歌单推荐列表切换滑动事件   手指滑动完成
              * */
-            sliderTouchEnd() {
+            sliderTouchEnd () {
                 // 滑动完成设置请求为false
                 this.ajaxSortSongData = false;
             },
@@ -367,7 +416,7 @@
              * 计算播放量
              * @param {Number}
              */
-            computedPlayNumber(playNumber) {
+            computedPlayNumber (playNumber) {
                 // 如果当前播放量是1万才进行计算
                 if (playNumber > 1e4) {
                     playNumber = (playNumber / 1e4).toFixed(1) + '万';
@@ -433,7 +482,12 @@
                  * 设置开启上拉加载
                  * @type {Boolean}
                  */
-                'pullup'
+                'pullup',
+                /*
+                * 主页选中的专辑数据
+                * type {Object}
+                */
+                'homeSonglist'
             ])
         },
         // 当组件激活的调用
@@ -476,34 +530,64 @@
                 // 设置每个其他歌单推荐的数据
                 // 如果对应的数组中已经有数据了就不执行
                 switch (this.dotsTitleIndex) {
-                    case 1:
-                        if (this.sortSongList[1].list) {
+                    case 0:
+                        // 歌曲列表的数量大于30才能进行拼接
+                        if (this.sortSongList[0].list && this.sortSongList[0].list.length < 30) {
                             return;
                         }
-                        this.sortSongList[1] = newData;
+                        // 上拉加载更多歌单列表完成后刷新数据方法
+                        this.PullingUpRefresh();
+                        this.sortSongList[0].list = this.sortSongList[0].list.concat(newData.list);
+                        break;
+                    case 1:
+                        if (this.sortSongList[1].list && this.sortSongList[1].list.length >= 30) {
+                            // 上拉加载更多歌单列表完成后刷新数据方法
+                            this.PullingUpRefresh();
+                            this.sortSongList[1].list = this.sortSongList[1].list.concat(newData.list);
+                        }
+                        else {
+                            // 重置滚动条位置
+                            this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+                            this.sortSongList[1] = newData;
+                        }
                         break;
                     case 2:
-                        if (this.sortSongList[2].list) {
-                            return;
+                        if (this.sortSongList[2].list && this.sortSongList[2].list.length >= 30) {
+                            // 上拉加载更多歌单列表完成后刷新数据方法
+                            this.PullingUpRefresh();
+                            this.sortSongList[2].list = this.sortSongList[2].list.concat(newData.list);
                         }
-                        this.sortSongList[2] = newData;
+                        else {
+                            // 重置滚动条位置
+                            this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+                            this.sortSongList[2] = newData;
+                        }
                         break;
                     case 3:
-                        if (this.sortSongList[3].list) {
-                            return;
+                        if (this.sortSongList[3].list && this.sortSongList[3].list.length >= 30) {
+                            // 上拉加载更多歌单列表完成后刷新数据方法
+                            this.PullingUpRefresh();
+                            this.sortSongList[3].list = this.sortSongList[3].list.concat(newData.list);
                         }
-                        this.sortSongList[3] = newData;
+                        else {
+                            // 重置滚动条位置
+                            this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+                            this.sortSongList[3] = newData;
+                        }
                         break;
                     case 4:
-                        if (this.sortSongList[4].list) {
-                            return;
+                        if (this.sortSongList[4].list && this.sortSongList[4].list.length >= 30) {
+                            // 上拉加载更多歌单列表完成后刷新数据方法
+                            this.PullingUpRefresh();
+                            this.sortSongList[4].list = this.sortSongList[4].list.concat(newData.list);
                         }
-                        this.sortSongList[4] = newData;
+                        else {
+                            // 重置滚动条位置
+                            this.$refs.scroll.scrollToElement(this.$refs.SongRecommended, 1500);
+                            this.sortSongList[4] = newData;
+                        }
                         break;
                 }
-
-                this.sortSongList[0].list = this.sortSongList[0].list.concat(newData.list);
-                console.log(this.sortSongList[0].list);
             }
         },
         components: {
