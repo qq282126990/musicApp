@@ -43,9 +43,15 @@
 <script>
     import {mapActions, mapState} from 'vuex';
     import {setCookie} from 'common/js/cookie';
+    // 自定义歌单推荐数据
+    import {createSongTableMessage} from 'common/js/songTableMessage';
+    // 轮播图
     import Silder from 'base/slider/slider';
+    // 菜单模块导航
     import ListMenu from 'base/list-menu/list-menu';
+    // 滚动组件
     import Scroll from 'base/scroll/scroll';
+    // TabRouter导航
     import TabRouter from 'components/tabRouter/tabRouter';
 
     export default {
@@ -65,8 +71,8 @@
             // 主页类别  模块 数据
             List() {
                 this.list = [
-                    {recommend: [{'name': '热门推荐', 'data': this.recommend}]},
-                    {recommend: [{'name': '新歌速递', 'data': this.newSong}]}
+                    {recommend: [{'name': '热门推荐', 'title': 'hotRecommend', 'data': this.recommend}]},
+                    {recommend: [{'name': '新歌速递', 'title': 'newSongList', 'data': this.newSong}]}
                 ];
                 return this.list;
             },
@@ -88,7 +94,7 @@
             // 点击标题 跳转页面
             clickTitle(data) {
                 this.$router.push({
-                    path: `/${data}`
+                    path: `/home/module/${data}`
                 });
             },
             // 选择列表 中的模块 跳转页面
@@ -97,7 +103,7 @@
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.content_id) {
                     // 把选中的专辑的数据存入 homeSonglist
-                    this.homeSonglist(singer);
+                    this.homeSonglist(createSongTableMessage(singer));
                     // 跳转到专辑页面
                     this.$router.push({
                         path: `/home/${singer.content_id}`

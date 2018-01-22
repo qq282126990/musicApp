@@ -1,3 +1,4 @@
+// 自定义定义歌曲信息
 export default class Song {
     constructor({id, mid, strMediaMid, singer, name, album, duration, image, url}) {
         this.id = id;
@@ -13,7 +14,7 @@ export default class Song {
 };
 
 // 创建歌曲列表
-export function createSong(musicData, playingUrl, index) {
+export function createSong(musicData) {
     return new Song({
         id: musicData.songid,
         mid: musicData.songmid,

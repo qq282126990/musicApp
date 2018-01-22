@@ -33,17 +33,20 @@ export function createRouter() {
             },
             {
                 path: '/home',
+                name: 'home',
                 component: Home
             },
             // 热门推荐模块   /热门推荐
             {
-                path: '/aaaa',
+                path: '/home/module/hotRecommend',
+                name: 'hotRecommend',
                 component: HotRecommend
             },
             // 歌曲列表
             {
                 path: '/songlist/:id',
                 component: SongList,
+                name: 'SongList',
                 alias: '/home/:id'
             },
             {
@@ -103,7 +106,7 @@ export function createRouter() {
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_BACK_PAGE = ['my', 'home'];
+const ALWAYS_BACK_PAGE = ['my', 'home', 'HotRecommend'];
 
 
 /**
@@ -112,7 +115,7 @@ const ALWAYS_BACK_PAGE = ['my', 'home'];
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_FORWARD_PAGE = ['find'];
+const ALWAYS_FORWARD_PAGE = ['find', 'SongList'];
 
 /**
  * 历史记录，记录访问过的页面的 fullPath
@@ -120,7 +123,7 @@ const ALWAYS_FORWARD_PAGE = ['find'];
  * @type {Array.<string>}
  * @const
  */
-const HISTORY_STACK = ['/home'];
+const HISTORY_STACK = ['/home', '/home/module/hotRecommend'];
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
  *

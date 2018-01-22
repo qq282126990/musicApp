@@ -6,21 +6,21 @@
             </div>
             <div class="title">
                 <transition name="fade">
-                    <span v-if="!carouselStart">{{this.homeSonglist.rcmdtemplate}}</span>
+                    <span v-if="!carouselStart">{{homeSonglist.rcmdtemplate}}</span>
                 </transition>
                 <!--滚动的标题-->
                 <transition name="fade">
                     <span :class="{carousel: carouselStart}"
                           v-if="carouselStart"
                           ref="carousel"
-                    >{{this.homeSonglist.title}}</span>
+                    >{{homeSonglist.title}}</span>
                 </transition>
             </div>
         </div>
         <div class="music-list">
             <!--背景图-->
             <div :class="headerBg ? 'background-header-bgcolor' : 'background'" ref="background">
-                <img width="100%" height="100%" v-lazy="this.homeSonglist.cover">
+                <img width="100%" height="100%" v-lazy="homeSonglist.cover">
             </div>
             <!--背景滤镜效果-->
             <div :class="headerBg ? 'filter-header-bgcolor' : 'filter'"></div>
@@ -31,34 +31,34 @@
                 <div class="album" :style="{opacity: transparent}">
                     <!--专辑头像-->
                     <div class="cover">
-                        <img v-lazy="this.homeSonglist.cover"/>
+                        <img v-lazy="homeSonglist.cover"/>
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <div class="play-number">
                                 <i class="iconfont icon-erji"></i>
-                                <span class="number">{{data.playNumber}}</span>
+                                <span class="number">{{getSongListMessage.playNumber}}</span>
                             </div>
                         </div>
                     </div>
                     <!--专辑信息-->
                     <div class="message">
                         <!--专辑名称-->
-                        <h1 class="album-name" :class="{error: !this.homeSonglist.title}">
-                            {{this.homeSonglist.title}}</h1>
+                        <h1 class="album-name" :class="{error: !homeSonglist.title}">
+                            {{homeSonglist.title}}</h1>
                         <!--作者头像-->
                         <div class="author">
                             <!--作者小头像-->
-                            <img class="small-avatar" :src="data.smallAvatar"/>
+                            <img class="small-avatar" :src="getSongListMessage.smallAvatar"/>
                             <!--作者大头像-->
                             <img class="author-avatar"
-                                 v-lazy="data.authorAvatar"/>
+                                 v-lazy="getSongListMessage.authorAvatar"/>
                             <!--作者名字-->
-                            <div class="author-name" :class="{error: !this.homeSonglist.username}">
-                                <span>{{this.homeSonglist.username}}</span>
+                            <div class="author-name" :class="{error: !getSongListMessage.nickname}">
+                                <span>{{getSongListMessage.nickname}}</span>
                             </div>
                         </div>
-                        <div class="desc" :class="{error: !data.desc}">
-                            <p v-html="data.desc"></p>
+                        <div class="desc" :class="{error: !getSongListMessage.desc}">
+                            <p v-html="getSongListMessage.desc"></p>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="play-all-wrapper">
                     <v-icon class="play">play_circle_outline</v-icon>
                     <h3 class="title">全部播放</h3>
-                    <span class="total-number">共{{data.totalSongNum}}首</span>
+                    <span class="total-number">共{{getSongListMessage.totalSongNum}}首</span>
                 </div>
                 <!--下载-->
                 <div class="download">
@@ -222,7 +222,7 @@
                  * 歌曲列表信息
                  * @param {Object}
                  * */
-                data: 'songListMessage',
+                getSongListMessage: 'songListMessage',
                 /*
                  * 歌曲列表
                  * @param {Array}

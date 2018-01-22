@@ -98,6 +98,8 @@
     import {mapState, mapActions, mapGetters} from 'vuex';
     // 一些处理数据的方法
     import {normalizeDotsTitle} from 'common/js/sortSong.js';
+    // 自定义歌单推荐数据
+    import {createSongTableMessage} from 'common/js/songTableMessage';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
     // Loading组件
@@ -252,8 +254,8 @@
             lookMore () {
             },
             /*
-            * 上拉加载更多歌单列表方法
-            * */
+             * 上拉加载更多歌单列表方法
+             * */
             pullingUp () {
                 // 如果当前列表的数量小于30就不能上拉加载
                 if (this.sortSongList[this.dotsTitleIndex].list && this.sortSongList[this.dotsTitleIndex].list.length < 30) {
@@ -274,8 +276,8 @@
                 this.setSortSongDataOK(false);
             },
             /*
-            * 上拉加载更多歌单列表完成后刷新数据方法
-            * */
+             * 上拉加载更多歌单列表完成后刷新数据方法
+             * */
             PullingUpRefresh () {
                 // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
                 this.$refs.scroll.finishPullUp();
@@ -288,7 +290,7 @@
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (data.dissid) {
                     // 把选中的专辑的数据存入 homeSonglist
-                    this.homeSonglist(data);
+                    this.homeSonglist(createSongTableMessage(data));
                     // 跳转到专辑页面
                     this.$router.push({
                         path: `/home/${data.dissid}`
@@ -484,9 +486,9 @@
                  */
                 'pullup',
                 /*
-                * 主页选中的专辑数据
-                * type {Object}
-                */
+                 * 主页选中的专辑数据
+                 * type {Object}
+                 */
                 'homeSonglist'
             ])
         },
@@ -496,6 +498,9 @@
             this.setAppHeader({
                 show: false
             });
+
+            // 重置滚动位置
+            this.$refs.scroll.scrollTo(0, 0);
         },
         // 当组件停用时执行
         deactivated () {

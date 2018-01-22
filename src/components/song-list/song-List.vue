@@ -85,9 +85,9 @@
                 this.ajax_ok = false;
 
                 // 判断如果没有 数据就回退上一页
-                if (!this.homeSonglist.content_id) {
+                if (!this.homeSonglist.contentId) {
                     // 返回主页
-                    // this.$router.back();
+                     this.$router.back();
                 }
                 else {
                     // 初始化歌曲列表显示的页数
@@ -96,11 +96,9 @@
                     // 设置加载更多
                     this.hasMore = false;
 
-                    console.log(this.homeSonglist.dissid);
-
                     // 获取歌曲列表接口
                     // 下拉加载时传入的参数    this.songBegin
-                    getSongList(this.homeSonglist.content_id || this.homeSonglist.dissid).then((res) => {
+                    getSongList(this.homeSonglist.contentId || this.homeSonglist.dissid).then((res) => {
                         if (res.code === ERR_OK) {
                             // 获取歌曲播放MP4地址
                             this.getSongPlayingUrl(res.cdlist[0].songlist);
@@ -116,7 +114,8 @@
                             this.data.playNumber = computedPlayNumber(res.cdlist[0].visitnum);
                             // 歌曲列表总数
                             this.data.totalSongNum = res.cdlist[0].total_song_num;
-
+                            // 发布人
+                            this.data.nickname = res.cdlist[0].nickname;
                             // ------------------------------------------------- //
                             // 存入vuex的 songListMessage
                             this.setSongListMessage(this.data);
@@ -130,13 +129,11 @@
                     });
 
                     // 获取专辑收藏量接口
-                    getCollection(this.homeSonglist.content_id || this.homeSonglist.dissid).then((res) => {
+                    getCollection(this.homeSonglist.contentId || this.homeSonglist.dissid).then((res) => {
                         if (res.code === ERR_OK) {
                             this.collection = res.totalnum;
                         }
                     });
-
-                    console.log('11');
                 }
             },
             /**
@@ -275,6 +272,8 @@
                 show: false
             });
 
+            // 每次切换都重置一边歌曲列表
+            this.setSongList([]);
             // 初始化歌曲列表
             this.songs = [];
 
@@ -285,7 +284,6 @@
                 setTimeout(() => {
                     this.getSongList();
                 }, 400);
-                console.log('adc');
             }
         },
         // 当组件停用时执行
