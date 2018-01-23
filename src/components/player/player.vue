@@ -1,32 +1,40 @@
 <template>
-    <!--最小化样式-->
-    <div class="mini-player">
-        <!--有歌曲列表时显示-->
-        <transition name="playList">
-            <div class="slide" v-show="playList.length>0" :key="currentSong.id">
-                <div class="avatar">
-                    <img width="100%" height="100%" v-lazy="currentSong.image"/>
+    <div>
+        <!--放大样式-->
+        <div class="normal-player">
+
+        </div>
+        <!--最小化样式-->
+        <div class="mini-player">
+            <!--有歌曲列表时显示-->
+            <transition name="playList">
+                <div class="slide" v-show="playList.length>0" :key="currentSong.id">
+                    <div class="avatar">
+                        <img width="100%" height="100%" v-lazy="currentSong.image"/>
+                    </div>
+                    <div class="text">
+                        <h2 class="name" v-html="currentSong.name"></h2>
+                        <p class="desc" v-html="currentSong.singer"></p>
+                    </div>
                 </div>
-                <div class="text">
-                    <h2 class="name" v-html="currentSong.name"></h2>
-                    <p class="desc" v-html="currentSong.singer"></p>
-                </div>
+            </transition>
+            <!--没有歌曲列表时显示-->
+            <div class="no-play-list" v-show="playList.length === 0">
+                <span>QQ音乐 听我想听得歌</span>
             </div>
-        </transition>
-        <!--没有歌曲列表时显示-->
-        <div class="no-play-list" v-show="playList.length === 0">
-            <span>QQ音乐 听我想听得歌</span>
+            <!--播放按钮-->
+            <div class="control">
+                <v-icon class="play" @click.stop="togglePlaying">
+                    {{playing ? 'pause_circle_outline' : 'play_circle_outline'}}
+                </v-icon>
+            </div>
+            <!--播放列表按钮-->
+            <div class="queue">
+                <v-icon class="queue_music">queue_music</v-icon>
+            </div>
+            <!--播放器-->
+            <audio ref="audio" :src="playUrl" @play="ready" @error="error"></audio>
         </div>
-        <!--播放按钮-->
-        <div class="control">
-            <v-icon class="play" @click.stop="togglePlaying">play_circle_outline</v-icon>
-        </div>
-        <!--播放列表按钮-->
-        <div class="queue">
-            <v-icon class="queue_music">queue_music</v-icon>
-        </div>
-        <!--播放器-->
-        <audio ref="audio" :src="playUrl" @play="ready" @error="error"></audio>
     </div>
 </template>
 
@@ -40,7 +48,7 @@
     const URL_HEAD = `https://dl.stream.qqmusic.qq.com/`;
 
     export default {
-        data() {
+        data () {
             return {
                 /**
                  * 判断歌曲是否准备好播放了
@@ -89,7 +97,7 @@
             ])
         },
         methods: {
-            _getSinglePlayingUrl(songmid, strMediaMid) {
+            _getSinglePlayingUrl (songmid, strMediaMid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
                 if (!this.playError) {
@@ -129,7 +137,7 @@
                 });
             },
             // 控制播放
-            togglePlaying() {
+            togglePlaying () {
                 // 判断是否准备好播放
                 if (!this.songReady) {
                     return;
@@ -138,11 +146,11 @@
                 this.setPlaying(!this.playing);
             },
             // 播放准备状态
-            ready() {
+            ready () {
                 this.songReady = true;
             },
             // 播放器错误事件
-            error() {
+            error () {
                 console.log('出错了');
                 // 歌曲准备状态设置为false
                 this.songReady = false;
@@ -167,12 +175,12 @@
                 }
             },
             // 监听播放器播放
-            playing(newPlaying) {
+            playing (newPlaying) {
                 // 设置播放器播放
                 this.audioPlay(newPlaying);
             },
             // 监听歌曲改变
-            currentSong(newCurrentSong) {
+            currentSong (newCurrentSong) {
                 // 默认播放没有错误
                 this.playError = false;
 
@@ -227,67 +235,73 @@
         width: 100%;
         height: px2rem(120px);
         background: $mini-player-color;
-    }
-
-    /*播放的歌曲图片*/
-    .avatar {
-        flex: 0 0 px2rem(80px);
-        width: px2rem(80px);
-        padding: 0 px2rem(30px) 0 px2rem(40px);
-        img {
-            display: block;
-            border-radius: 50%;
+        /*播放的歌曲图片*/
+        .avatar {
+            flex: 0 0 px2rem(80px);
+            width: px2rem(80px);
+            padding: 0 px2rem(30px) 0 px2rem(40px);
+            img {
+                display: block;
+                border-radius: 50%;
+            }
         }
-    }
-
-    /*播放的歌曲标题和文字*/
-    .text {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex: 1;
-        overflow: hidden;
-        text-align: left;
-        line-height: px2rem(40px);
-        .name {
+        /*播放的歌曲标题和文字*/
+        .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            margin-bottom: px2rem(10px);
-            font-size: px2rem(32px);
-            color: $text-name-color;
+            text-align: left;
+            line-height: px2rem(40px);
+            .name {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                margin-bottom: px2rem(10px);
+                font-size: px2rem(32px);
+                color: $text-name-color;
+            }
+            .desc {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-size: px2rem(32px);
+                color: $text-desc-color;
+            }
         }
-        .desc {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            font-size: px2rem(32px);
-            color: $text-desc-color;
+        /*播放和歌曲icon样式*/
+        .control {
+            flex: 0 0 px2rem(80px);
+            width: px2rem(80px);
+            padding: 0 px2rem(20px);
+        }
+        /*播放按钮图标*/
+        .play {
+            font-size: px2rem(70px);
+            color: $play-color;
+        }
+        /*音乐列表图标*/
+        .queue {
+            flex: 0 0 px2rem(80px);
+            width: px2rem(80px);
+            padding: 0 px2rem(30px) 0 0;
+        }
+        /*播放列表按钮*/
+        .queue_music {
+            font-size: px2rem(70px);
+            color: $play-color;
         }
     }
 
-    /*播放和歌曲icon样式*/
-    .control {
-        flex: 0 0 px2rem(80px);
-        width: px2rem(80px);
-        padding: 0 px2rem(20px);
+    /*播放器放大时的样式*/
+    .normal-player {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 150;
     }
 
-    /*播放按钮图标*/
-    .play {
-        font-size: px2rem(70px);
-        color: $play-color;
-    }
-
-    /*音乐列表图标*/
-    .queue {
-        flex: 0 0 px2rem(80px);
-        width: px2rem(80px);
-        padding: 0 px2rem(30px) 0 0;
-    }
-
-    .queue_music {
-        font-size: px2rem(70px);
-        color: $play-color;
-    }
 </style>
