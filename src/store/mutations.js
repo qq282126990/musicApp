@@ -109,6 +109,13 @@ const mutations = {
     },
     /*********************************************************/
     /** ********************播放组件状态********************** **/
+    /*
+     * 控制播发器放大缩小
+     * @type {Boolean}
+     * */
+    [types.SET_FULL_SCREEN](state, flag) {
+        state.fullScreen = flag;
+    },
     /**
      * 控制歌曲播放
      * @type {Boolean}

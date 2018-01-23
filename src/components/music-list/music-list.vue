@@ -103,7 +103,6 @@
             <!--歌曲列表-->
             <scroll
                 @scroll="scroll"
-                @scrollToEnd="loadMore"
                 class="song-list"
                 ref="SongListScroll">
                 <song-list
@@ -141,6 +140,8 @@
         },
         data() {
             return {
+                // 判断是否已经滚动了
+                isScroll: false,
                 // 是否设置头部背景效果
                 headerBg: false,
                 // 开启标题滚动
@@ -158,7 +159,7 @@
                 // 获取滚动的时候Y轴坐标
                 scrollY: 0,
                 // 歌曲列表显示页数 默认15 一次 *2 需要存入vuex songBegin
-                songBegin: 0,
+                // songBegin: 0,
                 // 获取图片背景的高度
                 imageHeight: null,
                 // 专辑内容的透明度
@@ -186,7 +187,7 @@
 
             // 自适应大小
             window.addEventListener('resize', () => {
-                if (!this.songs) {
+                if (!this.getSongList) {
                     return;
                 }
 
@@ -209,7 +210,8 @@
             },
             // 播放全部模块移动的位置
             headerY () {
-                if (this.scrollY < this.minTransalteY) {
+                // 判断是否已经滚动了菜开始
+                if (this.scrollY < this.minTransalteY && this.isScroll) {
                     return `translate3d(0,40px,0)`;
                 }
                 else {
@@ -227,7 +229,7 @@
                  * 歌曲列表
                  * @param {Array}
                  * */
-                songs: 'songList',
+                getSongList: 'songList',
                 /*
                  * 选择的的歌曲列表数据
                  * @param {Object}
@@ -256,27 +258,10 @@
             enable() {
                 this.$refs.SongListScroll.enable();
             },
-            // 上拉加载方法
-            loadMore() {
-//                if (!this.hasMore) {
-//                    return;
-//                }
-
-                // 请求完成时才执行上拉加载
-//                if (this.ajax_ok) {
-//                    // 页数小于页数小于 歌曲列表总数就执行
-//                    if (this.hasMore || this.songBegin <= this.data.totalSongNum) {
-//
-//                        // 每次加15
-//                        this.songBegin = this.songBegin + 15;
-//                        this.setSongBegin(this.songBegin);
-//                    }
-//                }
-            },
             // 选择歌曲列表
             select(item, index) {
                 this.setSelectPlay({
-                    list: this.songs,
+                    list: this.getSongList,
                     index
                 });
                 // 禁用 better-scroll
@@ -296,12 +281,17 @@
                 this.translateY = 0;
                 this.overflow = 'visible';
                 this.paddingTop = '70%';
+                this.transparent = 1;
 
                 // 组件激活时调用
                 this.carouselStart = false;
+                // 初始化头部背景状态
+                this.headerBg = false;
+                // 判断是否已经滚动了
+                this.isScroll = false;
 
                 // 重置上拉加载的页数
-                this.songBegin = 0;
+                // this.songBegin = 0;
 
                 // 设置滚动组件状态
                 this.setData(this.data);
@@ -310,9 +300,8 @@
                 this.setBounce(this.bounce);
                 this.setPullup(this.pullup);
 
-                // 初始化头部背景状态
-                this.headerBg = false;
-
+                // 刷新滚动
+                this.refresh();
             },
             ...mapActions('appStore', {
                 /**
@@ -362,6 +351,8 @@
         watch: {
             // 监听歌曲列表Y轴滚动
             scrollY(newScrollY) {
+                // 判断是否已经滚动了
+                this.isScroll = true;
 
                 // 设置想上滚专辑信息区块的透明度
                 const percent = Math.abs(newScrollY / this.imageHeight);
@@ -397,6 +388,14 @@
 
                     // 头部字体滚动
                     this.carouselStart = false;
+                }
+            },
+            // 选择的的歌曲列表数据
+            getSongList (data) {
+                this.isInit = true;
+                if (data.length > 0) {
+                    // 初始化化完成
+                    this.isInit = false;
                 }
             }
         },

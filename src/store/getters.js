@@ -15,18 +15,26 @@ export const songListMessage = state => state.songListMessage;
 // 歌曲列表
 export const songList = state => state.songList;
 
+/*********************/
+
 /** 播放组件状态 **/
+// 控制播发器放大缩小
+export const fullScreen = state => state.fullScreen;
+
 // 控制播放
 export const playing = state => state.playing;
+
 // 播放列表
 export const playList = state => state.playList;
 
 // 当前播放索引
 export const currentIndex = state => state.currentIndex;
+
 // 当前歌曲
 export const currentSong = (state) => {
     return state.playList[state.currentIndex] || {};
 };
+
 /*********************/
 
 /** 滚动组件状态 **/

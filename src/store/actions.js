@@ -28,6 +28,14 @@ export const maskLayer = function ({commit}, maskLayer) {
 export const songBegin = function ({commit}, songBegin) {
     commit(types.SET_SONG_BEGIN, songBegin);
 };
+
+/*
+ * 控制播发器放大缩小
+ * @type {Boolean}
+ * */
+export const fullScreen = function ({commit}, fullScreen) {
+    commit(types.SET_FULL_SCREEN, fullScreen);
+};
 /** *****************滚动组件的状态*********************** **/
 /**
  * 滚动的状态

@@ -74,6 +74,9 @@
         mounted() {
             // 初始化歌曲列表
             this.songs = [];
+            // 初始化歌曲列表全部数据
+            this.setSongListMessage({});
+            this.setSongList([]);
         },
         methods: {
             /**
@@ -87,7 +90,7 @@
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.contentId) {
                     // 返回主页
-                     this.$router.back();
+                    this.$router.back();
                 }
                 else {
                     // 初始化歌曲列表显示的页数
@@ -273,17 +276,18 @@
             });
 
             // 每次切换都重置一边歌曲列表
-            this.setSongList([]);
+            // this.setSongList([]);
             // 初始化歌曲列表
-            this.songs = [];
+            // this.songs = [];
 
-            if (this.songs.length === 0) {
+            if (this.songs.length === 0 && !this.ajax_ok) {
                 // 组件激活的时候调用接口 不应该放在created 或者mounted钩子里，
                 // 如果放在created 或者mounted钩子里只会执行一次
                 // 获取歌曲列表
-                setTimeout(() => {
-                    this.getSongList();
-                }, 400);
+                this.getSongList();
+
+//                setTimeout(() => {
+//                }, 400);
             }
         },
         // 当组件停用时执行

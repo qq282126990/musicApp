@@ -1,11 +1,21 @@
 <template>
     <div>
         <!--放大样式-->
-        <div class="normal-player">
-
+        <div class="normal-player" v-show="fullScreen">
+            <!--头部-->
+            <div class="header">
+                <!--返回按钮-->
+                <div class="back" @click="back">
+                    <v-icon>keyboard_arrow_down</v-icon>
+                </div>
+                <!--头部标题-->
+                <div class="title">
+                    <span v-html="currentSong.name"></span>
+                </div>
+            </div>
         </div>
         <!--最小化样式-->
-        <div class="mini-player">
+        <div class="mini-player" v-show="!fullScreen" @click="open">
             <!--有歌曲列表时显示-->
             <transition name="playList">
                 <div class="slide" v-show="playList.length>0" :key="currentSong.id">
@@ -79,6 +89,11 @@
         },
         computed: {
             ...mapGetters('appStore', [
+                /*
+                 * 控制播发器放大缩小
+                 * @type {Boolean}
+                 * */
+                'fullScreen',
                 /**
                  * 当前播放的歌曲信息
                  * @type {Object}
@@ -97,6 +112,19 @@
             ])
         },
         methods: {
+            // 切换到缩小的播放器
+            back() {
+                this.setFullScreen(false);
+            },
+            // 切换到放大的播放器
+            open() {
+                // 如果没有播放歌曲就不能点击放大播放器
+//                if (this.playList.length === 0) {
+//                    return;
+//                }
+                this.setFullScreen(true);
+            },
+            // 获取播放歌曲的播放链接
             _getSinglePlayingUrl (songmid, strMediaMid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
@@ -151,7 +179,6 @@
             },
             // 播放器错误事件
             error () {
-                console.log('出错了');
                 // 歌曲准备状态设置为false
                 this.songReady = false;
 
@@ -159,6 +186,11 @@
                 this.playError = true;
             },
             ...mapActions('appStore', {
+                /*
+                 * 控制播发器放大缩小
+                 * @type {Boolean}
+                 * */
+                setFullScreen: 'fullScreen',
                 /**
                  * 控制歌曲播放
                  * @type {Boolean}
@@ -302,6 +334,42 @@
         top: 0;
         bottom: 0;
         z-index: 150;
+        background: $normal-player-bgcolor;
+        /*头部*/
+        .header {
+            position: relative;
+            width: 100%;
+            height: px2rem(84px);
+            z-index: 100;
+            /*返回按钮*/
+            .back {
+                position: absolute;
+                top: 0;
+                z-index: 50;
+                i {
+                    display: block;
+                    padding: 0 px2rem(20px);
+                    font-size: px2rem(84px);
+                    color: $icon-fanhui1-copy;
+                }
+            }
+            /*标题*/
+            .title {
+                position: absolute;
+                top: 0;
+                left: 10%;
+                width: 80%;
+                margin: 0;
+                text-align: center;
+                line-height: px2rem(84px);
+                font-size: px2rem(36px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: $title-color;
+                z-index: 40;
+            }
+        }
     }
 
 </style>

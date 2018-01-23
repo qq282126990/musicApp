@@ -99,7 +99,6 @@
             },
             // 选择列表 中的模块 跳转页面
             selectSinger(singer) {
-                console.log(singer);
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.content_id) {
                     // 把选中的专辑的数据存入 homeSonglist
@@ -149,8 +148,8 @@
             setTimeout(() => {
                 // 初始化歌曲列表全部数据
                 // this.songBegin(0);
-                this.songListMessage({});
-                this.songList([]);
+//                this.songListMessage({});
+//                this.songList([]);
             }, 400);
         },
         // 监听错误
