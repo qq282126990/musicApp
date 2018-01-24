@@ -205,11 +205,11 @@
         },
         computed: {
             // 专辑内容移动的位置
-            bgImageY () {
+            bgImageY() {
                 return `translate3d(0,${this.translateY}px,0)`;
             },
             // 播放全部模块移动的位置
-            headerY () {
+            headerY() {
                 // 判断是否已经滚动了菜开始
                 if (this.scrollY < this.minTransalteY && this.isScroll) {
                     return `translate3d(0,40px,0)`;
@@ -268,9 +268,9 @@
                 // this.disable();
 
                 // 开启 better-scroll
-                setTimeout(() => {
-                    // this.enable();
-                }, 100);
+                // setTimeout(() => {
+                //     this.enable();
+                //  }, 100);
             },
             // 初始化操作
             _initDom() {
@@ -391,7 +391,7 @@
                 }
             },
             // 选择的的歌曲列表数据
-            getSongList (data) {
+            getSongList(data) {
                 this.isInit = true;
                 if (data.length > 0) {
                     // 初始化化完成

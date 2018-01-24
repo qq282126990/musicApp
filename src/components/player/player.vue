@@ -4,13 +4,30 @@
         <div class="normal-player" v-show="fullScreen">
             <!--头部-->
             <div class="header">
-                <!--返回按钮-->
+                <!--返回按np钮-->
                 <div class="back" @click="back">
                     <v-icon>keyboard_arrow_down</v-icon>
                 </div>
                 <!--头部标题-->
                 <div class="title">
-                    <span v-html="currentSong.name"></span>
+                    <span>小红帽 (Live)</span>
+                </div>
+                <!--menu-->
+                <div class="menu">
+                </div>
+            </div>
+            <!--内容-->
+            <div class="normal-player-content">
+                <!--歌手名称-->
+                <div class="sing-name">
+                    <v-icon>more_horiz</v-icon>
+                    <span>朱亚文</span>
+                    <v-icon>more_horiz</v-icon>
+                </div>
+                <!--切换 dot-->
+                <div class="dot-wrapper">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
         </div>
@@ -113,11 +130,11 @@
         },
         methods: {
             // 切换到缩小的播放器
-            back() {
+            back () {
                 this.setFullScreen(false);
             },
             // 切换到放大的播放器
-            open() {
+            open () {
                 // 如果没有播放歌曲就不能点击放大播放器
 //                if (this.playList.length === 0) {
 //                    return;
@@ -328,6 +345,8 @@
 
     /*播放器放大时的样式*/
     .normal-player {
+        display: flex;
+        flex-direction: column;
         position: fixed;
         left: 0;
         right: 0;
@@ -338,13 +357,14 @@
         /*头部*/
         .header {
             position: relative;
+            display: flex;
+            justify-content: space-between;
             width: 100%;
             height: px2rem(84px);
             z-index: 100;
             /*返回按钮*/
             .back {
-                position: absolute;
-                top: 0;
+                flex-basis: 20%;
                 z-index: 50;
                 i {
                     display: block;
@@ -355,10 +375,11 @@
             }
             /*标题*/
             .title {
-                position: absolute;
-                top: 0;
-                left: 10%;
-                width: 80%;
+                /*position: absolute;*/
+                /*top: 0;*/
+                /*left: px2rem(124px);*/
+                padding-left: px2rem(10px);
+                width: 100%;
                 margin: 0;
                 text-align: center;
                 line-height: px2rem(84px);
@@ -368,6 +389,50 @@
                 white-space: nowrap;
                 color: $title-color;
                 z-index: 40;
+            }
+            /*菜单*/
+            .menu {
+                flex-basis: 20%;
+                z-index: 50;
+                width: px2rem(124px);
+            }
+        }
+        /*内容*/
+        .normal-player-content {
+            padding-top: px2rem(20px);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+            /*歌手名称*/
+            .sing-name {
+                display: block;
+                text-align: center;
+                font-size: px2rem(30px);
+                color: #999;
+                i {
+                    font-size: px2rem(40px);
+                }
+            }
+            /*切换 dot*/
+            .dot-wrapper {
+                padding-top: px2rem(50px);
+                text-align: center;
+                font-size: 0;
+                .dot {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 0 4px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    &.active {
+                        border-radius: 5px;
+                        background: #fff
+                    }
+                }
             }
         }
     }
