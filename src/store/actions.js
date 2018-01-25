@@ -28,14 +28,6 @@ export const maskLayer = function ({commit}, maskLayer) {
 export const songBegin = function ({commit}, songBegin) {
     commit(types.SET_SONG_BEGIN, songBegin);
 };
-
-/*
- * 控制播发器放大缩小
- * @type {Boolean}
- * */
-export const fullScreen = function ({commit}, fullScreen) {
-    commit(types.SET_FULL_SCREEN, fullScreen);
-};
 /** *****************滚动组件的状态*********************** **/
 /**
  * 滚动的状态
@@ -130,6 +122,22 @@ export const songList = function ({commit}, SET_SONG_LIST) {
 };
 
 /** *************** 播放组件状态 ***************** **/
+/*
+ * 控制播发器放大缩小
+ * @type {Boolean}
+ * */
+export const fullScreen = function ({commit}, fullScreen) {
+    commit(types.SET_FULL_SCREEN, fullScreen);
+};
+
+/*
+ * 控制歌曲播放模式
+ * @type {Boolean}
+ * */
+export const playMode = function ({commit}, playMode) {
+    commit(types.SET_PLAY_MODE, playMode);
+};
+
 /**
  * 选择播放
  * @type {Object}

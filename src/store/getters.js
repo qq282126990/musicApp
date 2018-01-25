@@ -21,6 +21,9 @@ export const songList = state => state.songList;
 // 控制播发器放大缩小
 export const fullScreen = state => state.fullScreen;
 
+// 控制歌曲播放模式
+export const playMode = state => state.playMode;
+
 // 控制播放
 export const playing = state => state.playing;
 

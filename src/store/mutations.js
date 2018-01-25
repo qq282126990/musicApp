@@ -116,6 +116,13 @@ const mutations = {
     [types.SET_FULL_SCREEN](state, flag) {
         state.fullScreen = flag;
     },
+    /*
+     * 设置歌曲播放模式
+     * @type {String}
+     * */
+    [types.SET_PLAY_MODE](state, playMode) {
+        state.playMode = playMode;
+    },
     /**
      * 控制歌曲播放
      * @type {Boolean}

@@ -42,6 +42,7 @@ export const SET_PLAYLIST = 'SET_PLAYLIST'; // 获取播放列表
 export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX'; // 当前播放索引
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'; // 控制歌曲播放
 export const SET_FULL_SCREEN = 'SET_FULL_SCREEN'; // 控制播发器放大缩小
+export const SET_PLAY_MODE = 'SET_PLAY_MODE'; // 设置歌曲播放模式
 
 // 分类歌单状态
 export const SET_DISS_NAVIGATE = 'SET_DISS_NAVIGATE'; // 分类歌单标题

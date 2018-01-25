@@ -57,6 +57,14 @@ $text-desc-color: #777; // 歌手颜色
 $play-color: #0dbb64; // 播放按钮图标颜色
 $no-play-list-color: #fff; // 没有歌曲列表时显示
 $normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
+$sing-name-color: #fff; // 歌手名颜色
+$playing-lyric-color: rgba(255, 255, 255, 0.5); // 小歌词默认颜色
+$time-color: #fff; // 播放时间颜色
+$favorite: rgba(157, 157, 157, 1); // 喜欢按钮
+$kip-previous: #31c27c; // 回到上一个
+$skip-next: #31c27c; // 下一个
+$mode-color: rgba(157, 157, 157, 1); // 切换播放模式按钮颜色
+
 // hot-recommend.vue
 $hot-recommend-bg-color: #1e2326; // 背景颜色
 $title-color: #fff; // 标题颜色

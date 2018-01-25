@@ -1,3 +1,5 @@
+import {playMode} from 'common/js/config';
+
 /**
  * 状态管理
  */
@@ -27,6 +29,11 @@ const state = {
      * @type {Array}
      */
     songList: [],
+    /**
+     * 歌曲播放模式
+     * @type {String}
+     */
+    playMode: playMode.sequence,
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态
