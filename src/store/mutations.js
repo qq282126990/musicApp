@@ -132,10 +132,17 @@ const mutations = {
     },
     /**
      * 获取播放列表
-     * @type {Object}
+     * @type {Array}
      */
         [types.SET_PLAYLIST](state, list) {
         state.playList = list;
+    },
+    /**
+     * 顺序播放列表
+     * @type {Array}
+     */
+        [types.SET_SEQUENCE_LIST](state, list) {
+        state.sequenceList = list;
     },
     /**
      * 当前播放索引
@@ -143,6 +150,13 @@ const mutations = {
      */
         [types.SET_CURRENT_INDEX](state, index) {
         state.currentIndex = index;
+    },
+    /**
+     * 获取收藏歌曲列表
+     * @type {Array}
+     */
+        [types.SET_FAVORITE_LIST](state, list) {
+        state.favoriteList = list;
     }
 };
 

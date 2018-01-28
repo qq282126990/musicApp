@@ -9,19 +9,12 @@ import appShell from './modules/app-shell';
 import appStore from './modules/app-store';
 import asyncAjax from './modules/async-ajax';
 
-import createLogger from 'vuex/dist/logger';
-
 Vue.use(Vuex);
-
-// 开启控制台警报
-const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
     modules: {
         appShell,
         appStore,
-        asyncAjax,
-        strict: debug,
-        plugins: debug ? [createLogger()] : []
+        asyncAjax
     }
 });

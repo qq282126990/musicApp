@@ -2,7 +2,6 @@ import {getCookie} from './cookie';
 import {commonParams} from 'api/config';
 
 // 获取歌曲播放地址接口
-
 export function crackedPlayingAjax(strMediaMid, songtype) {
     const comm = Object.assign({}, commonParams, {
         'uin': 0,

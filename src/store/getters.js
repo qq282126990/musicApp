@@ -30,6 +30,9 @@ export const playing = state => state.playing;
 // 播放列表
 export const playList = state => state.playList;
 
+// 顺序播放列表
+export const sequenceList = state => state.sequenceList;
+
 // 当前播放索引
 export const currentIndex = state => state.currentIndex;
 
@@ -37,6 +40,9 @@ export const currentIndex = state => state.currentIndex;
 export const currentSong = (state) => {
     return state.playList[state.currentIndex] || {};
 };
+
+// 获取收藏列表
+export const favoriteList = state => state.favoriteList;
 
 /*********************/
 

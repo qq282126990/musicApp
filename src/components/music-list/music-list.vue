@@ -212,7 +212,7 @@
             headerY() {
                 // 判断是否已经滚动了菜开始
                 if (this.scrollY < this.minTransalteY && this.isScroll) {
-                    return `translate3d(0,40px,0)`;
+                    return `translate3d(0,${this.header}px,0)`;
                 }
                 else {
                     let translateY = Math.max(this.minTransalteY, this.translateY);

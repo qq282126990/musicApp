@@ -1,4 +1,5 @@
-import {playMode} from 'common/js/config';
+import {isPlayMode} from 'common/js/config';
+import {loadFavorite} from 'common/js/cache';
 
 /**
  * 状态管理
@@ -29,11 +30,6 @@ const state = {
      * @type {Array}
      */
     songList: [],
-    /**
-     * 歌曲播放模式
-     * @type {String}
-     */
-    playMode: playMode.sequence,
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态
@@ -85,6 +81,11 @@ const state = {
     bounceTime: 300,
     /*********************************************/
     /** *****************播放组件状态************************** **/
+    /**
+     * 歌曲播放模式
+     * @type {String}
+     */
+    playMode: isPlayMode.sequence,
     /*
      * 控制播发器放大缩小
      * @type {Boolean}
@@ -101,10 +102,20 @@ const state = {
      */
     playList: [],
     /**
+     * 顺序播放列表
+     * @type {Array}
+     */
+    sequenceList: [],
+    /**
      * 当前播放索引
      * @type {Number}
      */
-    currentIndex: -1
+    currentIndex: -1,
+    /**
+     * 获取当前收藏列表
+     * @type {Array}
+     */
+    favoriteList: loadFavorite()
     /****************************************/
 };
 

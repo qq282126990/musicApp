@@ -24,7 +24,7 @@ time, mark, audio, video, input {
     font-family: "hiragino sans gb", arial;
 }
 
-input:focus {
+input, button:focus {
     outline: 0;
 }
 

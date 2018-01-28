@@ -1,3 +1,8 @@
+import {getLyric} from 'api/songPlayingUrl';
+import {ERR_OK} from 'api/config';
+// 用base64解析歌词数据
+import {Base64} from 'js-base64';
+
 // 自定义定义歌曲信息
 export default class Song {
     constructor({id, mid, strMediaMid, singer, name, album, duration, image, url}) {
@@ -11,6 +16,26 @@ export default class Song {
         this.image = image;
         this.url = url;
     };
+
+    // 获取歌曲歌词
+    getLyric() {
+        if (this.lyric) {
+            return Promise.resolve(this.lyric);
+        }
+
+        return new Promise((resolve, reject) => {
+            getLyric(this.mid).then((res) => {
+                if (res.retcode === ERR_OK) {
+                    this.lyric = Base64.decode(res.lyric);
+                    resolve(this.lyric);
+                }
+                else {
+                    const error = 'no lyric';
+                    reject(error);
+                }
+            });
+        });
+    }
 };
 
 // 创建歌曲列表
@@ -30,8 +55,9 @@ export function createSong(musicData) {
         // 专辑图片
         image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
         // 音乐链接
-        url: `isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+        url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
         // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+        // isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a
     });
 };
 

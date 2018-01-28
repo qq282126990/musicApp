@@ -1,5 +1,18 @@
 /** 异步更改 **/
 import * as types from './mutation-types';
+// 歌曲播放状态方法
+import {isPlayMode} from 'common/js/config';
+// 设置随机歌曲列表方法
+import {shuffle} from 'common/js/util';
+import {saveFavorite, deleteFavorite} from 'common/js/cache';
+
+
+// 找到随机列表中,对应点击选择列表的歌曲的索引
+function findIndex (list, song) {
+    return list.findIndex((item) => {
+        return item.id === song.id;
+    });
+}
 
 /**
  * 主页 选择的的歌曲列表
@@ -131,11 +144,27 @@ export const fullScreen = function ({commit}, fullScreen) {
 };
 
 /*
+ * 设置歌曲播放列表
+ * @type {Boolean}
+ * */
+export const playList = function ({commit}, playList) {
+    commit(types.SET_PLAYLIST, playList);
+};
+
+/*
  * 控制歌曲播放模式
  * @type {Boolean}
  * */
 export const playMode = function ({commit}, playMode) {
     commit(types.SET_PLAY_MODE, playMode);
+};
+
+/*
+ * 设置当前播放歌曲索引
+ * @type {Boolean}
+ * */
+export const currentIndex = function ({commit}, currentIndex) {
+    commit(types.SET_CURRENT_INDEX, currentIndex);
 };
 
 /**
@@ -146,12 +175,67 @@ export const playMode = function ({commit}, playMode) {
  * SET_PLAYING_STATE {Boolean}
  */
 export const selectPlay = function ({commit, state}, {list, index}) {
-    // 设置当前的播放列表
-    commit(types.SET_PLAYLIST, list);
+    // 顺序播放列表
+    commit(types.SET_SEQUENCE_LIST, list);
+    // 判断是否是点击了音乐列表随机播放按钮，在随机列表中找到对应的歌曲进行顺序播放
+    if (state.playMode === isPlayMode.random) {
+        // 获取随机的播放列表
+        let randomList = shuffle(list);
+        // 替换掉当前的播放列表
+        commit(types.SET_PLAYLIST, randomList);
+        // 获取随机列表中对应播放列表的歌曲
+        index = findIndex(randomList, list[index]);
+    }
+    else {
+        // 设置当前的播放列表
+        commit(types.SET_PLAYLIST, list);
+    }
+
     // 当前播放索引
     commit(types.SET_CURRENT_INDEX, index);
     // 控制播放
     commit(types.SET_PLAYING_STATE, true);
+};
+
+/**
+ * 删除歌曲
+ * @type {Array}
+ */
+export const deleteSong = function ({commit, state}, currentSong) {
+    // 获取播放列表
+    let playlist = state.playList.slice();
+    // 获取顺序播放列表
+    let sequenceList = state.sequenceList.slice();
+    // 获取当前歌曲的index索引
+    let currentIndex = state.currentIndex;
+
+    // 找到列表中,对应点击的歌曲的索引
+    // 找到列表中,对应点击的歌曲的索引
+    let pIndex = findIndex(playlist, currentSong);
+    // 删除对应索引的歌曲
+    playlist.splice(pIndex, 1);
+
+    // 找到顺序播放列表中,对应点击的歌曲的索引
+    let sIndex = findIndex(sequenceList, currentSong);
+    // 删除对应索引的歌曲
+    sequenceList.splice(sIndex, 1);
+
+    // 如果当前播放列表中没有歌曲 重新设置当前歌曲索引为0
+    if (currentIndex > pIndex || currentIndex === playlist.length) {
+        currentIndex--;
+    }
+
+    commit(types.SET_PLAYLIST, playlist);
+    commit(types.SET_SEQUENCE_LIST, sequenceList);
+    commit(types.SET_CURRENT_INDEX, currentIndex);
+
+    // 如果当前列表中没有歌曲了就设置播放器停止播放
+    if (!playlist.length) {
+        commit(types.SET_PLAYING_STATE, false);
+    }
+    else {
+        commit(types.SET_PLAYING_STATE, true);
+    }
 };
 
 /**
@@ -160,6 +244,22 @@ export const selectPlay = function ({commit, state}, {list, index}) {
  */
 export const playing = function ({commit}, flag) {
     commit(types.SET_PLAYING_STATE, flag);
+};
+
+/**
+ * 设置收藏歌曲
+ * @type {Array}
+ */
+export const saveFavoriteList = function ({commit}, currentSong) {
+    commit(types.SET_FAVORITE_LIST, saveFavorite(currentSong));
+};
+
+/**
+ * 取消收藏歌曲
+ * @type {Array}
+ */
+export const deleteFavoriteList = function ({commit}, currentSong) {
+    commit(types.SET_FAVORITE_LIST, deleteFavorite(currentSong));
 };
 
 /************************************/

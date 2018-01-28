@@ -3,41 +3,41 @@
         <div>
             <div class="app-shell">
                 <app-header
-                        class="app-shell-header"
-                        :class="{'app-shell-header-zIndex': !maskLayer}"
-                        @click-menu="handleClickHeaderMenu"
-                        @click-back="handleClickHeaderBack"
+                    class="app-shell-header"
+                    :class="{'app-shell-header-zIndex': !maskLayer}"
+                    @click-menu="handleClickHeaderMenu"
+                    @click-back="handleClickHeaderBack"
                 >
                 </app-header>
                 <app-sidebar
-                        @hide-sidebar="handleHideSidebar"
-                        @show-sidebar="handleShowSidebar"
+                    @hide-sidebar="handleHideSidebar"
+                    @show-sidebar="handleShowSidebar"
                 >
                 </app-sidebar>
                 <div class="app-view-wrapper">
                     <transition
-                            :name="pageTransitionName"
-                            @before-enter="handleBeforeEnter"
-                            @after-enter="handleAfterEnter">
+                        :name="pageTransitionName"
+                        @before-enter="handleBeforeEnter"
+                        @after-enter="handleAfterEnter">
                         <keep-alive>
                             <router-view
-                                    :key="$route.fullPath"
-                                    v-if="!$route.meta.notKeepAlive"
-                                    class="app-view"
-                                    :class="{
+                                :key="$route.fullPath"
+                                v-if="!$route.meta.notKeepAlive"
+                                class="app-view"
+                                :class="{
                                     'app-view-with-header': appHeader.show,
                                 }"></router-view>
                         </keep-alive>
                     </transition>
                     <transition
-                            :name="pageTransitionName"
-                            @before-enter="handleBeforeEnter"
-                            @after-enter="handleAfterEnter">
+                        :name="pageTransitionName"
+                        @before-enter="handleBeforeEnter"
+                        @after-enter="handleAfterEnter">
                         <router-view
-                                :key="$route.fullPath"
-                                v-if="$route.meta.notKeepAlive"
-                                class="app-view"
-                                :class="{
+                            :key="$route.fullPath"
+                            v-if="$route.meta.notKeepAlive"
+                            class="app-view"
+                            :class="{
                                 'app-view-with-header': appHeader.show,
                             }"></router-view>
                     </transition>
@@ -106,7 +106,6 @@
 </script>
 
 <style lang="stylus">
-
     #app
         font-family 'Avenir', Helvetica, Arial, sans-serif
         -webkit-font-smoothing antialiased
@@ -138,6 +137,7 @@
         left: 0;
         right: 0;
     }
+
     .app-shell-header-zIndex {
         z-index: 50;
     }

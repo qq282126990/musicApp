@@ -10,7 +10,7 @@ export function getSongPlayingUrl(data) {
     });
 }
 
-// 获取歌曲播放地址
+// 获取歌曲 单曲 播放地址
 export function getSinglePlayingUrl(songmid) {
     const url = '/api/getSinglePlayingUrl';
     const data = Object.assign({}, commonParams, {
@@ -24,6 +24,27 @@ export function getSinglePlayingUrl(songmid) {
         filename: `C400${songmid}.m4a`,
         guid: getCookie('guid')
     });
+    return axios.get(url, {
+        params: data
+    }).then((res) => {
+        return Promise.resolve(res.data);
+    });
+}
+
+// 获取歌曲歌词
+export function getLyric(mid) {
+    const url = '/api/lyric';
+
+    const data = Object.assign({}, commonParams, {
+        songmid: mid,
+        platform: 'yqq',
+        hostUin: 0,
+        needNewCode: 0,
+        categoryId: 10000000,
+        pcachetime: +new Date(),
+        format: 'json'
+    });
+
     return axios.get(url, {
         params: data
     }).then((res) => {

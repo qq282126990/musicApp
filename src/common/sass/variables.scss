@@ -52,18 +52,39 @@ $green-color: #57b45a; // 旋转圆圈颜色
 
 // player.vue
 $mini-player-color: rgba(18, 21, 33, 0.95); //播放器最小化时的背景颜色
+$normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
 $text-name-color: #fff; // 歌曲标题颜色
 $text-desc-color: #777; // 歌手颜色
 $play-color: #0dbb64; // 播放按钮图标颜色
+$playing-lyric-color: #31c27c; // 小歌词默认颜色
 $no-play-list-color: #fff; // 没有歌曲列表时显示
-$normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
 $sing-name-color: #fff; // 歌手名颜色
-$playing-lyric-color: rgba(255, 255, 255, 0.5); // 小歌词默认颜色
 $time-color: #fff; // 播放时间颜色
-$favorite: rgba(157, 157, 157, 1); // 喜欢按钮
+$lyric-text-color: rgba(255, 255, 255, 0.5); // 歌词颜色
+$lyric-text-current-color: #31c27c; // 歌词行激活的颜色
+$favorite_border: #9d9d9d; // 没有收藏按钮
+$favorite: #f06868; // 收藏按钮
 $kip-previous: #31c27c; // 回到上一个
 $skip-next: #31c27c; // 下一个
 $mode-color: rgba(157, 157, 157, 1); // 切换播放模式按钮颜色
+
+// playlist.vue
+$playlist-bgcolor: rgba(0, 0, 0, .3); // 播放列表外层背景颜色
+$list-wrapper-bgcolor: rgba(24, 30, 39, 0.7); // 内容背景颜色
+$list-header-bgcolor: #1b2129; // 列表头部背景颜色
+$list-header-play-mode: #fff; // 播放模式icon颜色
+$list-header-text: #fff; // 文本文字颜色
+$list-header-text-numer: #999; // 文本歌曲数量颜色
+$list-header-icon: #999; // 列表头部icon颜色
+$list-content-bgcolor: rgba(26, 31, 40, 0.9); // 列表内容背景颜色
+$list-close-bgcolor: rgba(26, 31, 40, 0.4); // 关闭按钮背景颜色
+$list-close-color: #fff; // 关闭按钮文字颜色
+$list-content-name-color: #fff; // 歌曲名字颜色
+$list-content-name-active-color: #16c975; // 当前正在播放的歌曲的文字颜色
+
+//progress-bar.vue
+$bar-inner-color: #898989; // 播放器进度条颜色
+$progress-color: #16c975; // 进度条进度颜色
 
 // hot-recommend.vue
 $hot-recommend-bg-color: #1e2326; // 背景颜色
