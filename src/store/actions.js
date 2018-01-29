@@ -8,7 +8,7 @@ import {saveFavorite, deleteFavorite} from 'common/js/cache';
 
 
 // 找到随机列表中,对应点击选择列表的歌曲的索引
-function findIndex (list, song) {
+function findIndex(list, song) {
     return list.findIndex((item) => {
         return item.id === song.id;
     });
@@ -199,7 +199,7 @@ export const selectPlay = function ({commit, state}, {list, index}) {
 
 /**
  * 删除歌曲
- * @type {Array}
+ * @type {String}
  */
 export const deleteSong = function ({commit, state}, currentSong) {
     // 获取播放列表
@@ -236,6 +236,21 @@ export const deleteSong = function ({commit, state}, currentSong) {
     else {
         commit(types.SET_PLAYING_STATE, true);
     }
+};
+
+/**
+ * 删除所有歌曲
+ * @type {Array}
+ */
+export const deleteSongList = function ({commit}) {
+    // 初始化当前歌曲索引
+    commit(types.SET_CURRENT_INDEX, -1);
+    // 初始化播放列表
+    commit(types.SET_PLAYLIST, []);
+    // 初始化顺序播放列表
+    commit(types.SET_SEQUENCE_LIST, []);
+    // 初始化播放器播放状态
+    commit(types.SET_PLAYING_STATE, false);
 };
 
 /**

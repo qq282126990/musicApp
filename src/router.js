@@ -106,7 +106,7 @@ export function createRouter() {
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_BACK_PAGE = ['my', 'home', 'HotRecommend'];
+const ALWAYS_BACK_PAGE = ['my', 'HotRecommend'];
 
 
 /**

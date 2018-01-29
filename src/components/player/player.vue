@@ -62,6 +62,10 @@
                         <scroll class="middle-r" ref="lyricList">
                             <!--歌词-->
                             <div class="lyric-wrapper">
+                                <!--自动校正歌词-->
+                                <p class="auto-regulate-lyric"
+                                   v-show="currentLyric"
+                                   @click="autoRegulateLyric">{{autoRegulateLyricTexT}}</p>
                                 <!--有歌词时才显示-->
                                 <div v-if="currentLyric">
                                     <!--歌词行-->
@@ -76,6 +80,7 @@
                                     <p class="text">暂无歌词</p>
                                 </div>
                             </div>
+                            <!--<div class="middle-r-bg"></div>-->
                         </scroll>
                     </div>
                 </div>
@@ -127,7 +132,7 @@
             <div class="mini-player" v-show="!fullScreen" @click="open">
                 <!--有歌曲列表时显示-->
                 <transition name="playList">
-                    <div class="slide" v-show="playList.length > 0" :key="currentSong.id">
+                    <div class="slide" v-show="currentSong.id" :key="currentSong.id">
                         <div class="avatar">
                             <img width="100%" height="100%" v-lazy="currentSong.image" ref="miniAvatar"/>
                         </div>
@@ -138,7 +143,7 @@
                     </div>
                 </transition>
                 <!--没有歌曲列表时显示-->
-                <div class="no-play-list" v-show="playList.length === 0">
+                <div class="no-play-list" v-show="!currentSong.id">
                     <span>QQ音乐 听我想听得歌</span>
                 </div>
                 <!--播放按钮-->
@@ -169,6 +174,7 @@
     import {mapActions, mapGetters} from 'vuex';
     // 歌词解析器插件
     import Lyric from 'lyric-parser';
+    import {Base64} from 'js-base64';
     // 动画插件
     import animations from 'create-keyframe-animation';
     // 滚动组件
@@ -177,8 +183,8 @@
     import ProgressBar from 'base/progress-bar/progress-bar';
     // 歌曲播放列表组件
     import Playlist from 'components/playlist/playlist';
-    // 获取歌曲播放链接
-    import {getSinglePlayingUrl} from 'api/songPlayingUrl';
+    // 获取歌曲播放链接 获取歌词
+    import {getSinglePlayingUrl, getLyric} from 'api/songPlayingUrl';
     import {ERR_OK} from 'api/config';
     // 样式兼容方法
     import {prefixStyle} from 'common/js/dom';
@@ -199,7 +205,7 @@
 
     export default {
         mixins: [playerMixin],
-        data () {
+        data() {
             return {
                 /**
                  * 判断歌曲是否准备好播放了
@@ -258,21 +264,21 @@
                 currentShow: 'cd'
             };
         },
-        created () {
+        created() {
             // 用于保存手指触摸移动的坐标
             this.touch = {};
         },
         computed: {
             // 控制歌曲图片旋转
-            cdCls () {
+            cdCls() {
                 return this.playing ? 'play' : 'play pause';
             },
             // 获取进度条进度
-            progressBar () {
+            progressBar() {
                 return this.currentTime / this.currentSong.duration;
             },
             //  计算cdWrapper宽度
-            cdWrapperWidth () {
+            cdWrapperWidth() {
                 if (window.innerWidth >= 1024) {
                     return Math.min(600, window.innerWidth - 75);
                 }
@@ -282,6 +288,18 @@
                 else {
                     return window.innerWidth - 75;
                 }
+            },
+            // 自动校正歌词文字
+            autoRegulateLyricTexT() {
+                if (this.currentLyric) {
+                    if (this.currentLyric.lines.length > 0) {
+                        return '点击自动校正歌词';
+                    }
+                    else {
+                        return this.currentSong.lyric.slice(10);
+                    }
+                }
+
             },
             ...mapGetters('appStore', [
                 /*
@@ -318,7 +336,7 @@
         },
         methods: {
             // 播放器放大时执行的动画 开始
-            enter (el, done) {
+            enter(el, done) {
                 // 获取放大和缩小时播放器的位置
                 const {x, y, scale} = this._getPosAndScale();
 
@@ -348,13 +366,13 @@
                 animations.runAnimation(this.$refs.cdWrapper, 'move', done);
             },
             // 播放器放大时执行的动画 开始后
-            afterEnter () {
+            afterEnter() {
                 // 结束动画
                 animations.unregisterAnimation('move');
                 this.$refs.cdWrapper.style.animation = '';
             },
             // 播放器放大时执行的动画 离开
-            leave (el, done) {
+            leave(el, done) {
                 // 获取放大和缩小时播放器的位置
                 const {x, y, scale} = this._getPosAndScale();
 
@@ -363,13 +381,13 @@
                 this.$refs.cdWrapper.addEventListener('transitionend', done);
             },
             // 播放器放大时执行的动画 离开后
-            afterleave () {
+            afterleave() {
                 // 结束动画
                 this.$refs.cdWrapper.style.transition = '';
                 this.$refs.cdWrapper.style[transform] = '';
             },
             // 切换cd和歌词的动画 开始
-            middleTouchStart (e) {
+            middleTouchStart(e) {
                 // 设置手指触摸了的状态
                 this.touch.initiated = true;
                 // 用来判断是否是一次移动
@@ -416,7 +434,7 @@
                 this.$refs.middleL.style[transitionDuration] = 0;
             },
             // 切换cd和歌词的动画 结束
-            middleTouchEnd () {
+            middleTouchEnd() {
                 if (!this.touch.moved) {
                     return;
                 }
@@ -461,7 +479,7 @@
                 this.touch.initiated = false;
             },
             // 播放器放大动画执行时调用，获取放大和缩小时播放器的位置
-            _getPosAndScale () {
+            _getPosAndScale() {
                 // 返回元素的大小及其相对于视口的位置
                 const cdWrapper = this.$refs.cdWrapper.getBoundingClientRect();
                 const miniAvatar = this.$refs.miniAvatar.getBoundingClientRect();
@@ -483,11 +501,11 @@
                 return {x, y, scale};
             },
             // 切换到缩小的播放器
-            back () {
+            back() {
                 this.setFullScreen(false);
             },
             // 切换到放大的播放器
-            open () {
+            open() {
                 // 如果没有播放歌曲就不能点击放大播放器
                 if (this.playList.length === 0) {
                     return;
@@ -497,39 +515,45 @@
 //                this.setPlaying(true);
             },
             // 显示播放列表
-            showPlaylist () {
+            showPlaylist() {
                 if (!this.playList.length) {
                     return;
                 }
                 this.$refs.playList.show();
             },
             // 设置播放器播放
-            audioPlay (data) {
+            audioPlay(data) {
                 const audio = this.$refs.audio;
                 this.$nextTick(() => {
                     data ? audio.play() : audio.pause();
                 });
             },
             // 控制播放
-            togglePlaying () {
+            togglePlaying() {
                 // 判断是否准备好播放
                 if (!this.songReady) {
                     return;
                 }
-                // 设置歌曲播放状态
-                this.setPlaying(!this.playing);
+
+                // 如果没有歌曲id就直接返回不执行
+                if (!this.currentSong.id) {
+                    return;
+                }
 
                 // 设置歌词开始播放
                 if (this.currentLyric) {
                     this.currentLyric.togglePlay();
                 }
+
+                // 设置歌曲播放状态
+                this.setPlaying(!this.playing);
             },
             // 播放准备状态
-            ready () {
+            ready() {
                 this.songReady = true;
             },
             // 播放器错误事件
-            error () {
+            error() {
                 console.log('播放出错了');
                 // 歌曲准备状态设置为false
                 this.songReady = false;
@@ -541,7 +565,7 @@
                 this.playErrorCounter++;
             },
             // 歌曲播放完后执行
-            end () {
+            end() {
                 // 判断播放模式执行那个方法，如果是当前模式是单曲循环就执行循环播放
                 if (this.playMode === isPlayMode.loop) {
                     this.loopPlay();
@@ -608,7 +632,7 @@
                 this.songReady = false;
             },
             // 单曲循环模式执行的播放方法
-            loopPlay () {
+            loopPlay() {
                 // 重置当前播放时间
                 this.$refs.audio.currentTime = 0;
                 // 设置播放器播放
@@ -623,7 +647,7 @@
                 }
             },
             // 获取当前播放时间
-            updateTime (e) {
+            updateTime(e) {
                 this.currentTime = e.target.currentTime;
             },
             // 计算时间搓
@@ -652,7 +676,8 @@
                 return num;
             },
             // 获取当前进度条的位置设置歌曲播放时间进度
-            onPercentChange (percent) {
+            onPercentChange(percent) {
+                this.percent = percent;
                 // 获取当前歌曲播放时间  = 总时长 * 进度条偏移的量
                 const currentTime = this.currentSong.duration * percent;
                 // 设置歌曲的播放时间
@@ -667,28 +692,65 @@
                     this.currentLyric.seek(currentTime * 1000);
                 }
             },
-            // 获取歌词
-            getLyric() {
+            // 点击自动校正歌词
+            autoRegulateLyric() {
                 if (!this.currentSong) {
                     return;
                 }
-                this.currentSong.getLyric().then((lyric) => {
-                    // 判断歌词是否是当前歌曲的歌词不是直接return
-                    if (this.currentSong.lyric !== lyric) {
-                        return;
+
+                // 停止歌词滚动
+                this.currentLyric.stop();
+                // 初始化播放时间
+                this.currentTime = 0;
+                // 初始化小歌词
+                this.playingLyric = '暂无歌词';
+                // 初始化歌词行
+                this.currentLineNum = 0;
+                // 初始化歌词滚动行数
+                this.$refs.lyricList.scrollToElement(0, 1000);
+                // 初始化歌词数据
+                this.currentLyric = null;
+
+                this.getLyric(this.currentSong.mid);
+
+                // 延迟1秒后重新请求歌词
+                setTimeout(() => {
+                    // 吧歌词滑动到对应位置
+                    if (this.percent && this.currentLyric) {
+                        // 获取当前歌曲播放时间  = 总时长 * 进度条偏移的量
+                        let currentTime = this.currentSong.duration * this.percent;
+                        this.currentLyric.seek(currentTime * 1000);
                     }
+                }, 1000);
+            },
+            // 获取歌词
+            getLyric(mid) {
+                // 设置当前没有自动校正
+                if (!this.currentSong) {
+                    return;
+                }
+                // 获取歌曲歌词
+                getLyric(mid).then((res) => {
+                    if (res.retcode === ERR_OK) {
+                        const lyric = Base64.decode(res.lyric);
 
-                    // 设置当前的歌词
-                    this.currentLyric = new Lyric(lyric, this.handleLyric);
+                        // 判断歌词是否是当前歌曲的歌词不是直接return
+                       // if (this.currentSong.lyric !== lyric) {
+                       //     return;
+                       // }
 
-                    // 如果有歌词就设置歌词开始滚动
-                    if (this.playing) {
-                        this.currentLyric.play();
+                        // 设置当前的歌词
+                        this.currentLyric = new Lyric(lyric, this.handleLyric);
+                        // 初始化歌词行
+                        this.currentLineNum = 0;
+                        // 如果有歌词就设置歌词开始滚动
+                        if (this.playing) {
+                            this.currentLyric.play();
+                        }
+
+                        // 设置歌词滚动组件的数据
+                        this.setScrollData(this.currentLyric && this.currentLyric.lines);
                     }
-
-                    // 设置歌词滚动组件的数据
-                    this.setScrollData(this.currentLyric && this.currentLyric.lines);
-
                 }).catch(() => {
                     // 初始化歌词数据
                     this.currentLyric = null;
@@ -699,7 +761,7 @@
                 });
             },
             // 处理歌词方法
-            handleLyric ({lineNum, txt}) {
+            handleLyric({lineNum, txt}) {
                 // 获取当前歌曲播放的行
                 this.currentLineNum = lineNum;
                 // 设置如果当前的歌词行数进行到大于5才执行滚动动画
@@ -714,7 +776,7 @@
                 this.playingLyric = txt;
             },
             // 获取播放歌曲的播放链接
-            _getSinglePlayingUrl (songmid, strMediaMid) {
+            _getSinglePlayingUrl(songmid, strMediaMid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
                 if (!this.playError) {
@@ -724,8 +786,11 @@
                             this.vkey = res.data.items[0].vkey;
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
+                            // 设置歌曲播放状态
+                            this.setPlaying(true);
                         }
                     });
                 }
@@ -737,8 +802,11 @@
                             this.vkey = res.data.items[0].vkey;
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
+                            // 设置歌曲播放状态
+                            this.setPlaying(true);
                         }
                     });
                 }
@@ -763,39 +831,45 @@
         },
         watch: {
             // 监听播放器错误
-            playError (newPlayError) {
+            playError(newPlayError) {
                 // 如果播放器错误就请求备用接口
                 if (newPlayError) {
                     this._getSinglePlayingUrl(this.currentSong.mid);
 
-                    // 停止歌词滚动
-                    this.currentLyric.stop();
-                    // 初始化播放时间
-                    this.currentTime = 0;
-                    // 初始化小歌词
-                    this.playingLyric = '暂无歌词';
-                    // 初始化歌词行
-                    this.currentLineNum = 0;
-                    // 初始化歌词滚动行数
-                    this.$refs.lyricList.scrollToElement(0, 1000);
+                    // 如果有歌词就重置歌词状态
+                    if (this.currentLyric) {
+                        // 停止歌词滚动
+                        this.currentLyric.stop();
+                        // 初始化播放时间
+                        this.currentTime = 0;
+                        // 初始化小歌词
+                        this.playingLyric = '暂无歌词';
+                        // 初始化歌词行
+                        this.currentLineNum = 0;
+                        // 初始化歌词滚动行数
+                        this.$refs.lyricList.scrollToElement(0, 1000);
+                    }
                 }
             },
             // 监听错误次数
-            playErrorCounter (newCounter) {
+            playErrorCounter(newCounter) {
                 // 歌曲链接报错3次以上请求新的歌曲播放地址
                 if (newCounter >= 2) {
                     // 设置播放器播放地址
                     this.playUrl = this.currentSong.url;
                     this.audioPlay(this.playUrl);
+
+                    // 设置歌曲播放状态
+                    this.setPlaying(true);
                 }
             },
             // 监听播放器播放
-            playing (newPlaying) {
+            playing(newPlaying) {
                 // 设置播放器播放
                 this.audioPlay(newPlaying);
             },
             // 监听播放器放大缩小
-            fullScreen (newVal) {
+            fullScreen(newVal) {
                 if (newVal) {
                     setTimeout(() => {
                         this.$refs.lyricList.refresh();
@@ -803,11 +877,19 @@
                 }
             },
             // 监听歌曲改变
-            currentSong (newCurrentSong, oldSong) {
+            currentSong(newCurrentSong, oldSong) {
                 // 如果没有歌曲id就不播放歌曲
                 if (!newCurrentSong.id) {
+                    // 清除播放链接
+                    this.playUrl = null;
+                    // 设置歌曲播放状态
+                    this.setPlaying(false);
+                    // 设置播放器不播放
+                    this.$refs.audio.pause();
+
                     return;
                 }
+
                 // 判断是否是重复播放
                 if (newCurrentSong.id === oldSong.id) {
                     return;
@@ -821,6 +903,8 @@
 
                 // 请求歌曲地址 传入 songmid = mid
                 this._getSinglePlayingUrl(newCurrentSong.mid, this.currentSong.strMediaMid);
+                // 获取歌曲歌词
+                this.getLyric(newCurrentSong.mid);
 
                 // 执行初始化歌词列表
                 if (this.currentLyric) {
@@ -840,11 +924,14 @@
                 clearTimeout(this.timer);
                 // 设置歌曲播放
                 this.timer = setTimeout(() => {
-                    // 设置播放器播放
-                    this.$refs.audio.play();
+//                    // 设置播放器播放
+//                    this.$refs.audio.play();
+//                    this.setPlaying(true);
+
+                    // 获取歌曲歌词
+//                    this.getLyric(newCurrentSong.mid);
                 }, 1000);
-                // 获取歌曲歌词
-                this.getLyric();
+
             }
         },
         components: {
@@ -1146,6 +1233,14 @@
                     width: 100%;
                     height: 100%;
                     overflow: hidden;
+                    /*自动校正歌词按钮*/
+                    .auto-regulate-lyric {
+                        display: block;
+                        width: 100%;
+                        line-height: px2rem(50px);
+                        font-size: px2rem(30px);
+                        color: #fff
+                    }
                     /*歌词*/
                     .lyric-wrapper {
                         width: 80%;
@@ -1154,7 +1249,7 @@
                         text-align: center;
                         /*内容*/
                         .text {
-                            line-height: 32px;
+                            line-height: px2rem(64px);
                             font-size: px2rem(28px);
                             color: $lyric-text-color;
                             // 当前的歌词行
@@ -1162,6 +1257,14 @@
                                 color: $lyric-text-current-color;
                             }
                         }
+                    }
+                    // 背景
+                    .middle-r-bg {
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                        height: px2rem(100px);
+                        background: rgba(0, 0, 0, .5);
                     }
                 }
             }

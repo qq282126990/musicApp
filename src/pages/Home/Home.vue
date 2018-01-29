@@ -1,7 +1,9 @@
 <template>
     <div>
-        <scroll class="scroll" :data="recommend" ref="scroll">
+        <scroll class="scroll" @scroll="scroll" ref="scroll">
             <div>
+                <!--轮播图背景-->
+                <div class="silder-wrapper-bg" ref="silderWrapperBg"></div>
                 <!--轮播图-->
                 <div class="silder-wrapper">
                     <div v-if="slider.length">
@@ -15,7 +17,9 @@
                     </div>
                 </div>
                 <!--主页导航-->
-                <tab-router></tab-router>
+                <tab-router
+                    :style="{transform: `translate3d(0, -${translateY}px, 0)`, boxShadow: `0px ${translateY === 0 ? 0 : translateY - 3}px ${translateY}px #999`}"
+                    ref="tabRouter"></tab-router>
                 <div class="content-wrapper">
                     <!--其他导航列表-->
                     <list-menu :List="List" @clickTitle="clickTitle" @select="selectSinger"></list-menu>
@@ -62,8 +66,18 @@
             await store.dispatch('asyncAjax/getfeaturedRadio'); // 精选电台接口请求
             await store.dispatch('asyncAjax/getDigitalAlbum'); // 数字专辑接口请求
         },
-        data () {
-            return {};
+        data() {
+            return {
+                /*
+                * 获取Y轴滚动
+                * @type {Number}
+                * */
+                scrollY: 0,
+                /*
+                * 设置tab-router向上偏移的位置
+                * */
+                translateY: 5
+            };
         },
         computed: {
             // 获取请求接口对应的数据
@@ -71,18 +85,18 @@
             // 主页类别  模块 数据
             List() {
                 this.list = [
-                    {recommend: [{'name': '热门推荐', 'title': 'hotRecommend', 'data': this.recommend}]},
+                    {recommend: [{'name': '为你推荐歌单', 'title': 'hotRecommend', 'data': this.recommend}]},
                     {recommend: [{'name': '新歌速递', 'title': 'newSongList', 'data': this.newSong}]}
                 ];
                 return this.list;
             },
             // 获取歌曲播放的 guid !!!!!!!!!!!!!!!!!!!!!! 重要
-            guid () {
+            guid() {
                 var date = new Date();
                 return Math.round(2147483647 * Math.abs(Math.random() - 1) * date.getUTCMilliseconds() % 1e10);
             }
         },
-        created () {
+        created() {
             // 获取cookie 获取歌曲播放的 guid
             // 设置guid 到cookie中 !!!!!!!!!!!!!!!!!!!!!! 重要
             setCookie('guid', this.guid, Infinity, '/');
@@ -90,12 +104,22 @@
             // 设置滚动列表不能回弹
             this.bounce(false);
         },
+        mounted() {
+            // 设置滚动组件滚动的状态
+            this.probeType(3);
+            // scroll 组件 开启滚动监听
+            this.listenScroll(true);
+        },
         methods: {
             // 点击标题 跳转页面
             clickTitle(data) {
                 this.$router.push({
                     path: `/home/module/${data}`
                 });
+            },
+            // 监听滚动
+            scroll(pos) {
+                this.scrollY = pos.y;
             },
             // 选择列表 中的模块 跳转页面
             selectSinger(singer) {
@@ -134,7 +158,25 @@
                  * 设置滚动列表不回弹
                  * @type {Boolean}
                  */
-                'bounce'
+                'bounce',
+                /**
+                 * 滚动组件传入的数据
+                 * @type {Array}
+                 */
+                'data',
+                /**
+                 * 设置scroll组件 要不要监听滚动事件
+                 * @type {Boolean}
+                 */
+                'listenScroll',
+                /**
+                 * 滚动的状态
+                 * 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
+                 * 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
+                 * 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
+                 * @type {Number}
+                 */
+                'probeType'
             ]),
             ...mapActions('asyncAjax', [
                 /*
@@ -152,9 +194,22 @@
 //                this.songList([]);
             }, 400);
         },
-        // 监听错误
-        errorCaptured(err) {
-            console.log(err);
+        watch: {
+            // 监听滚动
+            scrollY(newScrollY) {
+                if (newScrollY < 0 && newScrollY < -5) {
+                    this.translateY = 0;
+                    this.$refs.silderWrapperBg.style.opacity = Math.abs(newScrollY / 100);
+                }
+                else {
+                    this.translateY = 5;
+                    this.$refs.silderWrapperBg.style.opacity = 0;
+
+                }
+            },
+            recommend(newRecommend) {
+                this.data(newRecommend);
+            }
         },
         components: {
             Silder,
@@ -174,6 +229,17 @@
         overflow: hidden;
     }
 
+    /*轮播图背景*/
+    .silder-wrapper-bg {
+        position: absolute;
+        width: 100%;
+        height: px2rem(300px);
+        opacity: 0;
+        background: #000000;
+        z-index: 100;
+    }
+
+    /*轮播图*/
     .silder-wrapper {
         position: relative;
 
@@ -191,7 +257,7 @@
     .list-title {
         margin-left: px2rem(30px);
         margin-right: px2rem(40px);
-        text-align: left;
+        text-align: center;
         line-height: px2rem(80px);
         height: px2rem(80px);
         color: $list-title;
@@ -199,7 +265,7 @@
             display: inline-block;
             margin: 0;
             line-height: px2rem(80px);
-            float: left;
+            /*float: left;*/
             font-size: px2rem(32px);
         }
         .iconfont {

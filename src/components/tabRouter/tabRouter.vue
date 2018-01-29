@@ -30,8 +30,13 @@
     @import "../../common/sass/variables";
 
     .tab-Router {
+        margin: 0 px2rem(20px);
+        box-sizing: border-box;
         height: px2rem(160px);
+        /*box-shadow: 0px 2px 6px #999;*/
         background: $tab-router-bgcolor;
+        transition: all .2s;
+       // transform: translate3d(0, px2rem(-10px), 0);
     }
 
     .teb-li {
@@ -62,7 +67,7 @@
             flex: 1;
             text-align: center;
             font-weight: normal;
-            font-size: px2rem(30px);
+            font-size: px2rem(24px);
             color: $textColor;
         }
     }

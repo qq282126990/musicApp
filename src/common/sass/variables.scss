@@ -13,13 +13,13 @@ $dotsBgColor: rgba(20, 23, 35, 0.95); // 轮播点背景颜色
 $dotActiveBgColor-color: rgba(54, 183, 120, 0.95); // 轮播点激活时的颜色
 
 // tabRouter.vue
-$textColor: #fff; // icon标题颜色
+$textColor: #000; // icon标题颜色
 $IconColor: rgba(49, 194, 124, 0.95); // icon 颜色
-$tab-router-bgcolor: rgba(20, 22, 34, 0.95); // 导航块背景颜色  默认颜色  rgba(20, 22, 34, 0.95)
+$tab-router-bgcolor: #fff; // 导航块背景颜色  默认颜色  rgba(20, 22, 34, 0.95)
 
 // home.vue
-$list-title: #fff; // 菜单列表标题颜色
-$content-bgcolor: rgba(13, 12, 18, 0.95); // 内容背景颜色
+$list-title: #000; // 菜单列表标题颜色
+$content-bgcolor: #fff; // 内容背景颜色 rgba(13, 12, 18, 0.95)
 
 // 图标默认颜色
 $icon-color: #fff;
@@ -51,13 +51,13 @@ $audiotrack-color: #31c27c; // 音乐图标颜色
 $green-color: #57b45a; // 旋转圆圈颜色
 
 // player.vue
-$mini-player-color: rgba(18, 21, 33, 0.95); //播放器最小化时的背景颜色
+$mini-player-color: #fff; //播放器最小化时的背景颜色 rgba(18, 21, 33, 0.95)
 $normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
 $text-name-color: #fff; // 歌曲标题颜色
 $text-desc-color: #777; // 歌手颜色
 $play-color: #0dbb64; // 播放按钮图标颜色
 $playing-lyric-color: #31c27c; // 小歌词默认颜色
-$no-play-list-color: #fff; // 没有歌曲列表时显示
+$no-play-list-color: #000; // 没有歌曲列表时显示
 $sing-name-color: #fff; // 歌手名颜色
 $time-color: #fff; // 播放时间颜色
 $lyric-text-color: rgba(255, 255, 255, 0.5); // 歌词颜色

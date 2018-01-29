@@ -14,7 +14,7 @@
                         <span class="numer">({{sequenceList.length}}首)</span>
                     </div>
                     <!--删除全部-->
-                    <v-btn flat icon color="grey" class="delete-all">
+                    <v-btn flat icon color="grey" class="delete-all" @click="showConfirm">
                         <v-icon>delete</v-icon>
                     </v-btn>
                 </div>
@@ -44,6 +44,9 @@
                     <span>关闭</span>
                 </div>
             </div>
+            <confirm @end="confirmEnd"
+                     text="确定清空所有歌曲?"
+                     ref="confirm"></confirm>
         </div>
     </transition>
 </template>
@@ -55,16 +58,17 @@
     import {isPlayMode} from 'common/js/config';
     // 播放器mixin
     import {playerMixin} from 'common/js/mixin';
+    import Confirm from 'base/confirm/confirm';
 
     export default {
         mixins: [playerMixin],
-        data () {
+        data() {
             return {
                 // 设置是否显示播放列表
                 showFlag: false
             };
         },
-        mounted () {
+        mounted() {
             // 设置滚动组件数据.
             this.setScrollData(this.sequenceList);
             // 设置滚动组件刷新数据延迟
@@ -72,13 +76,13 @@
         },
         computed: {
             // 当前播放模式显示的文字
-            playModeText () {
+            playModeText() {
                 return this.playMode === isPlayMode.sequence ? '顺序播放' : this.playMode === isPlayMode.random ? '随机播放' : '单曲循环';
             }
         },
         methods: {
             // 显示播放列表
-            show () {
+            show() {
                 this.showFlag = true;
                 setTimeout(() => {
                     // 刷新滚动组件
@@ -91,8 +95,19 @@
             hide() {
                 this.showFlag = false;
             },
+            // 显示删除全部确认框
+            showConfirm() {
+                this.$refs.confirm.show();
+            },
+            // 点击弹出框确认按钮
+            confirmEnd() {
+                // 删除所有歌曲
+                this.setDeleteSongList();
+                // 隐藏弹出框
+                this.hide();
+            },
             // 设置自动滚动到当前播放歌曲的位置
-            scrollToCurrent (currentSong) {
+            scrollToCurrent(currentSong) {
                 // 寻找当前歌曲在播放列表中的位置
                 const index = this.sequenceList.findIndex((song) => {
                     return currentSong.id === song.id;
@@ -101,14 +116,14 @@
                 this.$refs.listContent.scrollToElement(this.$refs.list.$el.children[index], 300);
             },
             // 获取当前正在播放的歌曲
-            getCurrentSong (item) {
+            getCurrentSong(item) {
                 if (this.currentSong.id === item.id) {
                     return 'active';
                 }
                 return '';
             },
             // 选择播放歌曲
-            selectItem (item, index) {
+            selectItem(item, index) {
                 // 如果当前是随机歌曲就寻找要播放的歌曲在随机歌曲列表中的索引
                 if (this.playMode === isPlayMode.random) {
                     index = this.playList.findIndex((currentSong) => {
@@ -131,13 +146,31 @@
                 }
             },
             ...mapActions('appStore', {
-                setDeleteSong: 'deleteSong',
+                /*
+                 * 设置滚动组件数据
+                 * @type {Array}
+                 * */
                 setScrollData: 'data',
-                setRefreshDelay: 'refreshDelay'
+                /*
+                 * 设置滚动组件刷新数据延迟时间l
+                 * @type {Array}
+                 * */
+                setRefreshDelay: 'refreshDelay',
+                /*
+                 * 删除当前歌曲
+                 * @type {Array}
+                 * */
+                setDeleteSong: 'deleteSong',
+                /*
+                 * 删除全部歌曲
+                 * @type {Boolean}
+                 * */
+                setDeleteSongList: 'deleteSongList'
             })
         },
         components: {
-            Scroll
+            Scroll,
+            Confirm
         }
     };
 </script>

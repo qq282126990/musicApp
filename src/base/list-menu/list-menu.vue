@@ -3,7 +3,7 @@
         <div v-for="items in List" v-show="List">
             <ul v-show="items.recommend">
                 <li v-for="(recommend, index) in items.recommend" :key="recommend.name">
-                    <div class="list-title"  @click="clickTitle(recommend.title)">
+                    <div class="list-title" @click="clickTitle(recommend.title)">
                         <h1 class="name">{{recommend.name}}</h1>
                         <i class="iconfont icon-prev_arrow-copy"></i>
                     </div>
@@ -53,7 +53,7 @@
                 bigTitle: ['新歌', '数字专辑', '新碟'] // 新歌速递组件 大标题
             };
         },
-        created () {
+        created() {
             // 初始化时隐藏遮罩层
             this.maskLayer(false);
         },
@@ -71,7 +71,7 @@
         },
         methods: {
             // 标题点击事件
-            clickTitle (data) {
+            clickTitle(data) {
                 this.$emit('clickTitle', data);
                 // 显示遮罩层
                 this.maskLayer(true);
@@ -89,11 +89,11 @@
             ])
         },
         // 组件激活时隐藏遮罩层
-        activated () {
+        activated() {
             this.maskLayer(false);
         },
         // 组件销毁时显示遮罩层
-        destroyed () {
+        destroyed() {
             this.maskLayer(true);
         },
         components: {
@@ -107,22 +107,33 @@
     @import "../../common/sass/remAdaptive";
 
     .list-title {
+        position: relative;
+        display: flex;
         margin-left: px2rem(30px);
+        /*padding-right: px2rem(40px);*/
         margin-right: px2rem(40px);
-        text-align: left;
+        box-sizing: border-box;
+        text-align: center;
         line-height: px2rem(80px);
         height: px2rem(80px);
         color: $list-title;
         .name {
+            flex: 1;
             display: inline-block;
+            padding-left: px2rem(40px);
             margin: 0;
+            letter-spacing: 5px;
             line-height: px2rem(80px);
-            float: left;
+            /*float: left;*/
             font-size: px2rem(32px);
         }
         .iconfont {
-            float: right;
+            position: absolute;
+            right: 0;
+            /*text-align: right;*/
+            /*float: right;*/
             font-size: px2rem(40px);
+            color: #999;
         }
     }
 

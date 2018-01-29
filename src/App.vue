@@ -128,7 +128,7 @@
         display: flex;
         flex-direction: column;
         transform: translate3d(0, 0, 0);
-        background: rgba(13, 12, 18, 1);
+        /*background: rgba(13, 12, 18, 1);*/
     }
 
     .app-shell-header {

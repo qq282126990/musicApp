@@ -1,7 +1,7 @@
-import {getLyric} from 'api/songPlayingUrl';
-import {ERR_OK} from 'api/config';
-// 用base64解析歌词数据
-import {Base64} from 'js-base64';
+// import {getLyric} from 'api/songPlayingUrl';
+// import {ERR_OK} from 'api/config';
+// // 用base64解析歌词数据
+// import {Base64} from 'js-base64';
 
 // 自定义定义歌曲信息
 export default class Song {
@@ -17,25 +17,25 @@ export default class Song {
         this.url = url;
     };
 
-    // 获取歌曲歌词
-    getLyric() {
-        if (this.lyric) {
-            return Promise.resolve(this.lyric);
-        }
-
-        return new Promise((resolve, reject) => {
-            getLyric(this.mid).then((res) => {
-                if (res.retcode === ERR_OK) {
-                    this.lyric = Base64.decode(res.lyric);
-                    resolve(this.lyric);
-                }
-                else {
-                    const error = 'no lyric';
-                    reject(error);
-                }
-            });
-        });
-    }
+    // // 获取歌曲歌词
+    // getLyric() {
+    //     if (this.lyric) {
+    //         return Promise.resolve(this.lyric);
+    //     }
+    //
+    //     return new Promise((resolve, reject) => {
+    //         getLyric(this.mid).then((res) => {
+    //             if (res.retcode === ERR_OK) {
+    //                 this.lyric = Base64.decode(res.lyric);
+    //                 resolve(this.lyric);
+    //             }
+    //             else {
+    //                 const error = 'no lyric';
+    //                 reject(error);
+    //             }
+    //         });
+    //     });
+    // }
 };
 
 // 创建歌曲列表
