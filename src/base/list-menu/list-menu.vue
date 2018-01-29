@@ -110,7 +110,6 @@
         position: relative;
         display: flex;
         margin-left: px2rem(30px);
-        /*padding-right: px2rem(40px);*/
         margin-right: px2rem(40px);
         box-sizing: border-box;
         text-align: center;
@@ -192,6 +191,7 @@
         margin-top: -30px;
         font-size: 20px;
         font-weight: bold;
+        color: $list-data-title;
     }
 
     li:nth-child(3n + 2) {

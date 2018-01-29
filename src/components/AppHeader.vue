@@ -122,6 +122,7 @@
     }
 
     .router-link-active {
+        color: $btn-color;
         line-height: px2rem($app-header-height);
         span {
             color: $btn-color;

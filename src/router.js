@@ -38,7 +38,7 @@ export function createRouter() {
             },
             // 热门推荐模块   /热门推荐
             {
-                path: '/home/module/hotRecommend',
+                path: '/hotRecommend',
                 name: 'hotRecommend',
                 component: HotRecommend
             },
@@ -123,7 +123,7 @@ const ALWAYS_FORWARD_PAGE = ['find', 'SongList'];
  * @type {Array.<string>}
  * @const
  */
-const HISTORY_STACK = ['/home', '/home/module/hotRecommend'];
+const HISTORY_STACK = ['/home', '/home/hotRecommend'];
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
  *

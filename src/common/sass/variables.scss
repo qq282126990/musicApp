@@ -2,7 +2,7 @@
 $btn-color: #fff; // 头部按钮颜色
 $app-header-height: 88px; // 头部导航的高度
 $app-header-bgcolor: rgba(49, 194, 124, 0.95); // 头部背景颜色  默认颜色 rgba(49, 194, 124, 0.95)
-$header-li-color: rgba(240, 239, 245, 0.95); // 头部文字颜色
+$header-li-color: rgba(255, 255, 255, 0.8); // 头部文字颜色
 
 // search.vue
 $search-font-color: #fff; // 搜索框字体颜色
@@ -19,6 +19,7 @@ $tab-router-bgcolor: #fff; // 导航块背景颜色  默认颜色  rgba(20, 22, 
 
 // home.vue
 $list-title: #000; // 菜单列表标题颜色
+$list-data-title: #fff; // 新歌速递文字颜色
 $content-bgcolor: #fff; // 内容背景颜色 rgba(13, 12, 18, 0.95)
 
 // 图标默认颜色
@@ -87,13 +88,14 @@ $bar-inner-color: #898989; // 播放器进度条颜色
 $progress-color: #16c975; // 进度条进度颜色
 
 // hot-recommend.vue
-$hot-recommend-bg-color: #1e2326; // 背景颜色
+$hot-recommend-bg-color: rgba(249,249,249,1); // 背景颜色 1e2326
 $title-color: #fff; // 标题颜色
-$header-color: #1b2023; // 标题颜色
+$hot-songs-title-color: #000; // hot-songs字体颜色
+$header-color: #30c27c; // 标题颜色 1b2023
 $look-more-color: #0dbb64; // 查看更多字体颜色
-$content-name-color: #fff; // 歌单标题
+$content-name-color: #000; // 歌单标题
 $user-name-color: #999; // 发布人名字颜色
 // slider-switch.vue
-$slider-switch-dots-bg: #1b2023; // 滑动切换头部的背景
-$name-color: #fff; // 标题颜色
+$slider-switch-dots-bg: #fff; // 滑动切换头部的背景 1b2023
+$slider-switch-name-color: #000; // 标题颜色
 $dots-bg: #0dbb64; // dots颜色

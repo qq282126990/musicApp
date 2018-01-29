@@ -193,7 +193,7 @@
                     line-height: px2rem(40px);
                     flex-basis: 20%;
                     font-size: px2rem(28px);
-                    color: $name-color;
+                    color: $slider-switch-name-color;
                 }
             }
             /*dots*/

@@ -627,6 +627,7 @@
         width: 100%;
         height: px2rem(84px);
         z-index: 100;
+        box-shadow: 0 2px 10px #999;
         background: $header-color;
         /*返回按钮*/
         .back {
@@ -657,15 +658,13 @@
             z-index: 40;
         }
     }
-
     /*标题*/
     .title {
         display: block;
         line-height: px2rem(60px);
         font-size: px2rem(32px);
-        color: $title-color;
+        color: $hot-songs-title-color;
     }
-
     /*热门歌单模块*/
     .hot-songs {
         padding-top: px2rem(20px);
@@ -695,7 +694,7 @@
                     font-size: px2rem(28px);
                     text-align: center;
                     width: px2rem(102px);
-                    color: $title-color;
+                    color: $hot-songs-title-color;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
@@ -715,7 +714,7 @@
         width: 100%;
         overflow: hidden;
         .conent-wrapper {
-            padding-top: px2rem(30px);
+            padding-top: px2rem(10px); // 30
             width: 100%;
             .content {
                 ul {
@@ -745,7 +744,7 @@
                         padding: px2rem(16px) px2rem(20px);
                         text-align: left;
                         line-height: px2rem(40px);
-                        font-size: px2rem(26px);
+                        font-size: px2rem(24px);
                         height: px2rem(76px);
                         max-height: px2rem(76px);
                         color: $content-name-color;

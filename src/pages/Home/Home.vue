@@ -2,8 +2,6 @@
     <div>
         <scroll class="scroll" @scroll="scroll" ref="scroll">
             <div>
-                <!--轮播图背景-->
-                <div class="silder-wrapper-bg" ref="silderWrapperBg"></div>
                 <!--轮播图-->
                 <div class="silder-wrapper">
                     <div v-if="slider.length">
@@ -16,6 +14,8 @@
                         </Silder>
                     </div>
                 </div>
+                <!--轮播图背景-->
+                <div class="silder-wrapper-bg" ref="silderWrapperBg" v-show="translateY !== 5"></div>
                 <!--主页导航-->
                 <tab-router
                     :style="{transform: `translate3d(0, -${translateY}px, 0)`, boxShadow: `0px ${translateY === 0 ? 0 : translateY - 3}px ${translateY}px #999`}"
@@ -69,13 +69,13 @@
         data() {
             return {
                 /*
-                * 获取Y轴滚动
-                * @type {Number}
-                * */
+                 * 获取Y轴滚动
+                 * @type {Number}
+                 * */
                 scrollY: 0,
                 /*
-                * 设置tab-router向上偏移的位置
-                * */
+                 * 设置tab-router向上偏移的位置
+                 * */
                 translateY: 5
             };
         },
@@ -114,7 +114,7 @@
             // 点击标题 跳转页面
             clickTitle(data) {
                 this.$router.push({
-                    path: `/home/module/${data}`
+                    path: `/${data}`
                 });
             },
             // 监听滚动
@@ -232,6 +232,7 @@
     /*轮播图背景*/
     .silder-wrapper-bg {
         position: absolute;
+        top: 0;
         width: 100%;
         height: px2rem(300px);
         opacity: 0;
@@ -255,22 +256,30 @@
     }
 
     .list-title {
+        position: relative;
+        display: flex;
         margin-left: px2rem(30px);
         margin-right: px2rem(40px);
+        box-sizing: border-box;
         text-align: center;
         line-height: px2rem(80px);
         height: px2rem(80px);
         color: $list-title;
         .name {
+            flex: 1;
             display: inline-block;
+            padding-left: px2rem(40px);
             margin: 0;
+            letter-spacing: 5px;
             line-height: px2rem(80px);
             /*float: left;*/
             font-size: px2rem(32px);
         }
         .iconfont {
-            float: right;
+            position: absolute;
+            right: 0;
             font-size: px2rem(40px);
+            color: #999;
         }
     }
 

@@ -735,9 +735,9 @@
                         const lyric = Base64.decode(res.lyric);
 
                         // 判断歌词是否是当前歌曲的歌词不是直接return
-                       // if (this.currentSong.lyric !== lyric) {
-                       //     return;
-                       // }
+                        // if (this.currentSong.lyric !== lyric) {
+                        //     return;
+                        // }
 
                         // 设置当前的歌词
                         this.currentLyric = new Lyric(lyric, this.handleLyric);
@@ -1009,6 +1009,7 @@
         z-index: 200;
         width: 100%;
         height: px2rem(120px);
+        box-shadow: 0 0 10px #999;
         background: $mini-player-color;
         /*播放的歌曲图片*/
         .avatar {

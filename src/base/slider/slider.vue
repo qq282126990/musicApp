@@ -198,9 +198,10 @@
                 // 获取页面的数量
                 let pageIndex = this.slider.getCurrentPage().pageX;
 
-                if (this.loop) {
-                    pageIndex -= 1;
-                }
+//                if (this.loop) {
+//                    pageIndex -= 1;
+//                }
+
                 // 当前的页面的数量
                 this.currentPageIndex = pageIndex;
 
