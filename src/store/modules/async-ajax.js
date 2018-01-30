@@ -98,7 +98,13 @@ let actions = {
             newSongList[0] = createNewSong(res.new_song.data.song_list.slice(0, 1)) || defaultSong;
             newSongList[2] = createNewSong([res.new_album.data.album_list[1]]) || defaultSong;
 
+
+            // 新歌模块数据
+            commit(types.SET_NEW_SONG_LIST, res.new_song.data);
+
+            // 推荐歌单数据
             commit(types.SET_RECOMMEND, {recommend: res.recomPlaylist.data.v_hot.slice(0, 6) || []});
+            // 新歌速递数据
             commit(types.SET_DIGITAL_ALBUM, {newSong: newSongList || []});
         }
         else {
@@ -155,6 +161,10 @@ let mutations = {
     // 获取精选电台
     [types.SET_FEATERED_RADIO](state, {featuredRadio}) {
         state.featuredRadio = featuredRadio;
+    },
+    // 获取歌单模块数据
+    [types.SET_NEW_SONG_LIST](state, newSongList) {
+        state.newSongList = newSongList;
     },
     // 热门推荐数据
     [types.SET_RECOMMEND](state, {recommend}) {

@@ -9,7 +9,7 @@
                     </div>
                     <ul class="list-data" v-if="recommend.data.length">
                         <li v-for="(data, index) in recommend.data" :key="index"
-                            @click="selectItem(data)">
+                            @click="selectItem(data, bigTitle[index])">
                             <img class="mark" :src="data.edge_mark" v-show="data.edge_mark"/>
                             <img class="cover" v-lazy="data.cover"/>
                             <div class="title">
@@ -77,9 +77,9 @@
                 this.maskLayer(true);
             },
             // 派发点击事件
-            selectItem(item) {
+            selectItem(item, bigTitle) {
                 if (this.List) {
-                    this.$emit('select', item);
+                    this.$emit('select', item, bigTitle);
                     // 显示遮罩层
                     this.maskLayer(true);
                 }
@@ -188,10 +188,13 @@
         right: 0;
         text-align: center;
         overflow: visible !important;
-        margin-top: -30px;
-        font-size: 20px;
+        margin-top: px2rem(-70px);
+        font-size: px2rem(40px);
         font-weight: bold;
+        line-height: px2rem(60px);
+        height: px2rem(60px);
         color: $list-data-title;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
     }
 
     li:nth-child(3n + 2) {

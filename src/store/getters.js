@@ -49,10 +49,8 @@ export const favoriteList = state => state.favoriteList;
 /** 滚动组件状态 **/
 // 滚动的状态
 export const probeType = state => state.probeType;
-
 // 分发点击事件
 export const click = state => state.click;
-
 // 外部传入的数据
 export const data = state => state.data;
 // croll 要不要监听滚动事件
@@ -68,3 +66,9 @@ export const bounce = state => state.bounce;
 // 回弹时间
 export const bounceTime = state => state.bounceTime;
 /***************/
+
+/** 新歌速递状态 **/
+// 新歌速递模块数据
+export const newSongList = state => state.newSongList;
+// 新歌速递模块点击内容标题
+export const newSongListTitle = state => state.newSongListTitle;

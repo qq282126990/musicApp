@@ -16,7 +16,7 @@
                 </app-sidebar>
                 <div class="app-view-wrapper">
                     <transition
-                        :name="pageTransitionName"
+                        :name="pageTransitionName === undefined ? null : pageTransitionName"
                         @before-enter="handleBeforeEnter"
                         @after-enter="handleAfterEnter">
                         <keep-alive>

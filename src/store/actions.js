@@ -278,3 +278,19 @@ export const deleteFavoriteList = function ({commit}, currentSong) {
 };
 
 /************************************/
+/** *************** 新歌速递模块 ***************** **/
+/**
+ * 新歌速递模块数据
+ * @type {Array}
+ */
+export const newSongList = function ({commit}, data) {
+    commit(types.SET_NEW_SONG_LIST, data);
+};
+
+/**
+ * 新歌速递模块点击内容标题
+ * @type {String}
+ */
+export const newSongListTitle = function ({commit}, title) {
+    commit(types.SET_NEW_SONG_LIST_TITLE, title);
+};

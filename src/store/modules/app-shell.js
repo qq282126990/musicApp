@@ -69,6 +69,12 @@ let actions = {
      */
     saveScrollTop({commit}, {path, scrollTop}) {
         commit(types.SAVE_SCROLLTOP, {path, scrollTop});
+    },
+    /**
+     * 设置动画名称
+     */
+    setPageTransitionName({commit}, {pageTransitionName}) {
+        commit(types.SET_PAGE_TRANSITION_NAME, {pageTransitionName});
     }
 };
 
@@ -81,6 +87,12 @@ let mutations = {
     },
     [types.SAVE_SCROLLTOP](state, {path, scrollTop}) {
         state.historyPageScrollTop[path] = scrollTop;
+    },
+    [types.DISABLE_PAGE_TRANSITION](state, flg) {
+        state.needPageTransition = flg;
+    },
+    [types.ENABLE_PAGE_TRANSITION](state, flg) {
+        state.needPageTransition = flg;
     }
 };
 

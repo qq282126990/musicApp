@@ -122,7 +122,7 @@
                 this.scrollY = pos.y;
             },
             // 选择列表 中的模块 跳转页面
-            selectSinger(singer) {
+            selectSinger(singer, bigTitle) {
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.content_id) {
                     // 把选中的专辑的数据存入 homeSonglist
@@ -130,6 +130,13 @@
                     // 跳转到专辑页面
                     this.$router.push({
                         path: `/home/${singer.content_id}`
+                    });
+                }
+
+                if (singer.status && bigTitle) {
+                    this.newSongListTitle(bigTitle);
+                    this.$router.push({
+                        path: `/newSongSpeed`
                     });
                 }
             },
@@ -176,7 +183,12 @@
                  * 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
                  * @type {Number}
                  */
-                'probeType'
+                'probeType',
+                /*
+                 * 新歌速递模块点击内容标题
+                 * @type {String}
+                 * */
+                'newSongListTitle'
             ]),
             ...mapActions('asyncAjax', [
                 /*

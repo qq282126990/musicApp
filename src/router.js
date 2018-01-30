@@ -20,6 +20,15 @@ let My = () => import('@/pages/My/My.vue');
 // 没有找到页面时显示的模块
 let NotFound = () => import('@/pages/NotFound.vue');
 
+// 新歌速递模块
+let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
+// // 新歌模块
+// let NewSong = () => import('@/components/newSong/newSong.vue');
+// // 数字专辑模块
+// let DigitalAlbum = () => import('@/components/digital-album/digital-album.vue');
+// // 新碟模块
+// let NewAlbum = () => import('@/components/newAlbum/newAlbum.vue');
+
 Vue.use(Router);
 
 export function createRouter() {
@@ -41,6 +50,12 @@ export function createRouter() {
                 path: '/hotRecommend',
                 name: 'hotRecommend',
                 component: HotRecommend
+            },
+            // 新歌速递模块
+            {
+                path: '/newSongSpeed',
+                name: 'newSongSpeed',
+                component: NewSongSpeed
             },
             // 歌曲列表
             {
@@ -85,15 +100,17 @@ export function createRouter() {
 
     router.beforeEach((to, from, next) => {
         if (router.app.$store) {
-
             // 如果不需要切换动画，直接返回
             if (router.app.$store.state.appShell.needPageTransition) {
 
                 // 判断当前是前进还是后退，添加不同的动画效果
                 let pageTransitionName = isForward(to, from) ? SLIDE_LEFT : SLIDE_RIGHT;
+
                 router.app.$store.commit(`appShell/${types.SET_PAGE_TRANSITION_NAME}`, {pageTransitionName});
+
             }
         }
+
         next();
     });
 
@@ -124,6 +141,7 @@ const ALWAYS_FORWARD_PAGE = ['find', 'SongList'];
  * @const
  */
 const HISTORY_STACK = ['/home', '/home/hotRecommend'];
+
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
  *

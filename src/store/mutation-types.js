@@ -50,3 +50,7 @@ export const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'; // 获取收藏歌曲列�
 export const SET_DISS_NAVIGATE = 'SET_DISS_NAVIGATE'; // 分类歌单标题
 export const SET_SORT_SONG_DATA = 'SET_SORT_SONG_DATA'; // 获取分类歌单推荐歌单信息
 export const SET_SORT_SONG_DATA_OK = 'SET_SORT_SONG_DATA_OK'; // 获取分类歌单推荐歌单信息请求是否完成
+
+// 新歌速递模块状态
+export const SET_NEW_SONG_LIST = 'SET_NEW_SONG_LIST'; // 新歌速递模块数据
+export const SET_NEW_SONG_LIST_TITLE = 'SET_NEW_SONG_LIST_TITLE'; // 新歌速递模块点击内容标题
