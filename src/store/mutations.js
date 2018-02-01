@@ -161,13 +161,6 @@ const mutations = {
     /** *************** 新歌速递模块状态 ***************** **/
     /**
      * 新歌速递模块点击内容标题
-     * @type {Array}
-     */
-        [types.SET_NEW_SONG_LIST](state, newSongList) {
-        state.newSongList = newSongList;
-    },
-    /**
-     * 新歌速递模块点击内容标题
      * @type {String}
      */
         [types.SET_NEW_SONG_LIST_TITLE](state, newSongListTitle) {

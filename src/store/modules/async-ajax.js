@@ -39,7 +39,12 @@ let state = {
      * */
     dissNavigate: [], //  分类歌单导航
     sortSongData: [], // 获取分类歌单推荐信息
-    setSortSongDataOK: false // 设置分类歌单推荐信息请求是否完成
+    setSortSongDataOK: false, // 设置分类歌单推荐信息请求是否完成
+    /**
+     * 新歌速递---新歌模块数据
+     * @type {Array}
+     */
+    newSongList: []
 };
 
 let actions = {
@@ -99,12 +104,14 @@ let actions = {
             newSongList[2] = createNewSong([res.new_album.data.album_list[1]]) || defaultSong;
 
 
-            // 新歌模块数据
+            // 新歌速递---新歌模块数据
             commit(types.SET_NEW_SONG_LIST, res.new_song.data);
+
+            console.log(res.new_song.data);
 
             // 推荐歌单数据
             commit(types.SET_RECOMMEND, {recommend: res.recomPlaylist.data.v_hot.slice(0, 6) || []});
-            // 新歌速递数据
+            // 主页新歌速递数据
             commit(types.SET_DIGITAL_ALBUM, {newSong: newSongList || []});
         }
         else {
@@ -190,6 +197,9 @@ let getters = {
     },
     setSortSongDataOK (state) {
         return state.setSortSongDataOK;
+    },
+    newSongList (state) {
+        return state.newSongList;
     }
 };
 

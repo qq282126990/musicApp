@@ -30,11 +30,6 @@ const state = {
      * @type {Array}
      */
     songList: [],
-    /**
-     * 新歌速递模块数据
-     * @type {Array}
-     */
-    newSongList: [],
     /*
     * 新歌速递模块点击内容标题
     * @type {String}

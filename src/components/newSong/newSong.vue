@@ -1,11 +1,21 @@
 <template>
     <div class="new-song-wrapper">
-        asdasdsadsadsadas
+        <div class="header-router">
+            {{newSongList}}
+        </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    export default {};
+    import {mapState} from 'vuex';
+
+    export default {
+        computed: {
+            ...mapState('appStore', [
+                'newSongList'
+            ])
+        }
+    };
 </script>
 
 <style scoped lang="scss">

@@ -46,19 +46,40 @@
             ...mapGetters('appStore', ['newSongListTitle'])
         },
         methods: {
+            // 切换新歌组件
             newSongGO() {
+                this.setNewSongListTitle('新歌');
+
                 this.componentId = 'newSong';
             },
+            // 切换数字专辑组件
             digitalAlbumGO() {
-                this.componentId = 'newAlbum';
-            },
-            newAlbumGO() {
+                this.setNewSongListTitle('数字专辑');
+
                 this.componentId = 'digitalAlbum';
             },
+            // 切换新碟组件
+            newAlbumGO() {
+                this.setNewSongListTitle('新碟');
+
+                this.componentId = 'newAlbum';
+            },
+            // 返回按钮
             back() {
                 this.$router.back();
             },
+            ...mapActions('appStore', {
+                /*
+                * 设置新歌速递模块标题
+                * @type {String}
+                * */
+                setNewSongListTitle: 'newSongListTitle'
+            }),
             ...mapActions('appShell/appHeader', [
+                /*
+                * 隐藏首页头部导航
+                * @type {Boolean}
+                * */
                 'setAppHeader'
             ])
         },
@@ -149,6 +170,5 @@
         left: 0;
         bottom: 0;
         padding-top: px2rem(84px);
-        padding-bottom: px2rem(120px);
     }
 </style>
