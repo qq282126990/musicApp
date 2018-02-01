@@ -34,7 +34,7 @@ const state = {
     * 新歌速递模块点击内容标题
     * @type {String}
     * */
-    newSongListTitle: '新歌',
+    newSongListTitle: null,
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态

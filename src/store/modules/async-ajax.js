@@ -34,8 +34,8 @@ let state = {
     newSong: [], // 数据通过 newSongList 组合完传入
     featuredRadio: [], // 精选电台
     /*
-    * 分类歌单的渲染数据
-    * @type {Array} || {Boolean}
+     * 分类歌单的渲染数据
+     * @type {Array} || {Boolean}
      * */
     dissNavigate: [], //  分类歌单导航
     sortSongData: [], // 获取分类歌单推荐信息
@@ -105,7 +105,7 @@ let actions = {
 
 
             // 新歌速递---新歌模块数据
-            commit(types.SET_NEW_SONG_LIST, res.new_song.data);
+            commit(types.SET_NEW_SONG_LIST, {newSongList: res.new_song.data});
 
             console.log(res.new_song.data);
 
@@ -170,7 +170,7 @@ let mutations = {
         state.featuredRadio = featuredRadio;
     },
     // 获取歌单模块数据
-    [types.SET_NEW_SONG_LIST](state, newSongList) {
+    [types.SET_NEW_SONG_LIST](state, {newSongList}) {
         state.newSongList = newSongList;
     },
     // 热门推荐数据

@@ -540,6 +540,9 @@
                         if (this.sortSongList[0].list && this.sortSongList[0].list.length < 30) {
                             return;
                         }
+                        if (!newData.list) {
+                            return;
+                        }
                         // 上拉加载更多歌单列表完成后刷新数据方法
                         this.PullingUpRefresh();
                         this.sortSongList[0].list = this.sortSongList[0].list.concat(newData.list);
@@ -548,6 +551,10 @@
                         if (this.sortSongList[1].list && this.sortSongList[1].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
                             this.PullingUpRefresh();
+
+                            if (!newData.list) {
+                                return;
+                            }
                             this.sortSongList[1].list = this.sortSongList[1].list.concat(newData.list);
                         }
                         else {
@@ -560,6 +567,9 @@
                         if (this.sortSongList[2].list && this.sortSongList[2].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
                             this.PullingUpRefresh();
+                            if (!newData.list) {
+                                return;
+                            }
                             this.sortSongList[2].list = this.sortSongList[2].list.concat(newData.list);
                         }
                         else {
@@ -572,6 +582,9 @@
                         if (this.sortSongList[3].list && this.sortSongList[3].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
                             this.PullingUpRefresh();
+                            if (!newData.list) {
+                                return;
+                            }
                             this.sortSongList[3].list = this.sortSongList[3].list.concat(newData.list);
                         }
                         else {
@@ -584,6 +597,9 @@
                         if (this.sortSongList[4].list && this.sortSongList[4].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
                             this.PullingUpRefresh();
+                            if (!newData.list) {
+                                return;
+                            }
                             this.sortSongList[4].list = this.sortSongList[4].list.concat(newData.list);
                         }
                         else {

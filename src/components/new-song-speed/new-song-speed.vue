@@ -39,29 +39,57 @@
     export default {
         data() {
             return {
+                /*
+                 * 要显示的组件
+                 * @type {String}
+                 * */
                 componentId: 'newSong'
             };
         },
         computed: {
-            ...mapGetters('appStore', ['newSongListTitle'])
+            ...mapGetters('appStore', [
+                /*
+                 * 获取歌单速递头部导航
+                 * */
+                'newSongListTitle'
+            ])
+        },
+        mounted () {
+            // 如果没有数据就返回上一页
+            if (!this.newSongListTitle) {
+                this.$router.back();
+            }
+            // 判断头部导航
+            if (this.newSongListTitle === '新歌') {
+                this.componentId = 'newSong';
+            }
+            else if (this.newSongListTitle === '数字专辑') {
+                this.componentId = 'digitalAlbum';
+            }
+            else if (this.newSongListTitle === '新碟') {
+                this.componentId = 'newAlbum';
+            }
         },
         methods: {
             // 切换新歌组件
             newSongGO() {
+                // 设置对应的标题
                 this.setNewSongListTitle('新歌');
-
+                // 设置显示组件
                 this.componentId = 'newSong';
             },
             // 切换数字专辑组件
             digitalAlbumGO() {
+                // 设置对应的标题
                 this.setNewSongListTitle('数字专辑');
-
+                // 设置显示组件
                 this.componentId = 'digitalAlbum';
             },
             // 切换新碟组件
             newAlbumGO() {
+                // 设置对应的标题
                 this.setNewSongListTitle('新碟');
-
+                // 设置显示组件
                 this.componentId = 'newAlbum';
             },
             // 返回按钮
@@ -70,16 +98,16 @@
             },
             ...mapActions('appStore', {
                 /*
-                * 设置新歌速递模块标题
-                * @type {String}
-                * */
+                 * 设置新歌速递模块标题
+                 * @type {String}
+                 * */
                 setNewSongListTitle: 'newSongListTitle'
             }),
             ...mapActions('appShell/appHeader', [
                 /*
-                * 隐藏首页头部导航
-                * @type {Boolean}
-                * */
+                 * 隐藏首页头部导航
+                 * @type {Boolean}
+                 * */
                 'setAppHeader'
             ])
         },
