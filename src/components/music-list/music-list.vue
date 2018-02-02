@@ -131,12 +131,12 @@
             hasMore: {
                 type: Boolean,
                 default: false
-            },
-            // 获取请求是否完成了
-            ajax_ok: {
-                type: Boolean,
-                default: false
             }
+            // 获取请求是否完成了
+//            ajax_ok: {
+//                type: Boolean,
+//                default: false
+//            }
         },
         data() {
             return {
@@ -264,13 +264,6 @@
                     list: this.getSongList,
                     index
                 });
-                // 禁用 better-scroll
-                // this.disable();
-
-                // 开启 better-scroll
-                // setTimeout(() => {
-                //     this.enable();
-                //  }, 100);
             },
             // 初始化操作
             _initDom() {
@@ -388,14 +381,6 @@
 
                     // 头部字体滚动
                     this.carouselStart = false;
-                }
-            },
-            // 选择的的歌曲列表数据
-            getSongList(data) {
-                this.isInit = true;
-                if (data.length > 0) {
-                    // 初始化化完成
-                    this.isInit = false;
                 }
             }
         },

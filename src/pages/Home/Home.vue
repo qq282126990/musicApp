@@ -105,12 +105,21 @@
             this.bounce(false);
         },
         mounted() {
-            // 设置滚动组件滚动的状态
-            this.probeType(3);
-            // scroll 组件 开启滚动监听
-            this.listenScroll(true);
+            // 一些初始化操作
+            this._initDom();
         },
         methods: {
+            // 一些初始化操作
+            _initDom() {
+                // 设置滚动组件滚动的状态
+                this.probeType(3);
+                // scroll 组件 开启滚动监听
+                this.listenScroll(true);
+
+                // 初始化轮播图样式
+                this.translateY = 5;
+                this.$refs.silderWrapperBg.style.opacity = 0;
+            },
             // 点击标题 跳转页面
             clickTitle(data) {
                 this.$router.push({
@@ -199,12 +208,9 @@
             ])
         },
         activated() {
-            setTimeout(() => {
-                // 初始化歌曲列表全部数据
-                // this.songBegin(0);
-//                this.songListMessage({});
-//                this.songList([]);
-            }, 400);
+            // 初始化轮播图样式
+            this.translateY = 5;
+            this.$refs.silderWrapperBg.style.opacity = 0;
         },
         watch: {
             // 监听滚动
@@ -216,7 +222,6 @@
                 else {
                     this.translateY = 5;
                     this.$refs.silderWrapperBg.style.opacity = 0;
-
                 }
             },
             recommend(newRecommend) {

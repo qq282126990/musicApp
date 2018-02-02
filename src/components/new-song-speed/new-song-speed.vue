@@ -43,7 +43,7 @@
                  * 要显示的组件
                  * @type {String}
                  * */
-                componentId: 'newSong'
+                componentId: ''
             };
         },
         computed: {
@@ -144,7 +144,7 @@
         width: 100%;
         height: px2rem(84px);
         z-index: 100;
-        box-shadow: 0 2px 10px #999;
+        box-shadow: 0 0 10px #999;
         background: $header-color;
         /*返回按钮*/
         .back {

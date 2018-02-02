@@ -68,8 +68,8 @@
 
                 // 设置滚动
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
-                    scrollY: this.scrollY, // 设置开启Y轴滚动
-                    scrollX: this.scrollX, // 设置开启X轴滚动
+//                    scrollY: this.scrollY, // 设置开启Y轴滚动
+//                    scrollX: this.scrollX, // 设置开启X轴滚动
                     bounceTime: this.bounceTime, // 设置回弹时间
                     probeType: this.probeType,
                     click: this.click, // 设置可以点击

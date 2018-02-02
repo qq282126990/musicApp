@@ -34,6 +34,7 @@ export const SET_BOUNCE = 'SET_BOUNCE'; // 是否开启回弹效果
 export const SET_BOUNCE_TIME = 'SET_BOUNCE_TIME'; // 回弹时间
 
 // 歌曲列表状态
+export const SET_SONG_LIST_DATA = 'SET_SONG_LIST_DATA'; // 获取歌曲列表原始数据
 export const SET_SONG_LIST_MESSAGE = 'SET_SONG_LIST_MESSAGE'; // 获取歌曲列表信息
 export const SET_SONG_LIST = 'SET_SONG_LIST'; // 获取歌曲列表
 
@@ -54,3 +55,4 @@ export const SET_SORT_SONG_DATA_OK = 'SET_SORT_SONG_DATA_OK'; // 获取分类歌
 // 新歌速递模块状态
 export const SET_NEW_SONG_LIST = 'SET_NEW_SONG_LIST'; // 新歌速递模块数据
 export const SET_NEW_SONG_LIST_TITLE = 'SET_NEW_SONG_LIST_TITLE'; // 新歌速递模块点击内容标题
+export const SET_SWITCH_NEW_SONG_LIST_TITLE = 'SET_SWITCH_NEW_SONG_LIST_TITLE'; // 新歌速递模块点击内容标题 对应type的数据

@@ -61,7 +61,10 @@ export function createSong(musicData) {
     });
 };
 
-// musicData.singer是一个数组  过滤出singer的name
+/*
+* musicData.singer是一个数组  过滤出singer的name
+* @type {String}
+* */
 export function filterSinger(singer) {
     let ret = [];
 
@@ -76,13 +79,70 @@ export function filterSinger(singer) {
     return ret.join('/');
 };
 
-// 对歌曲列表list数据做处理
-export function normalizeSongs(list) {
+
+/**
+ * 对list数据做处理
+ * @type {Array}  list
+ */
+export function normalizeSongs(list, playingUrl) {
     let ret = [];
 
-    list.forEach((musicData) => {
+    list.forEach((musicData, index) => {
         if (musicData) {
-            ret.push(createSong(musicData));
+            ret.push(createSong(musicData, playingUrl, index));
+        }
+    });
+
+    return ret;
+}
+
+/************************************************/
+// 新歌模块显示的数据
+class NewSong {
+    constructor({id, mid, strMediaMid, singer, name, album, duration, image, url}) {
+        this.id = id;
+        this.mid = mid;
+        this.strMediaMid = strMediaMid;
+        this.singer = singer;
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.image = image;
+        this.url = url;
+    };
+}
+
+// 创建新歌模块歌曲列表
+export function createNewSong(musicData) {
+    return new NewSong({
+        id: musicData.id,
+        mid: musicData.mid,
+        strMediaMid: musicData.mid,
+        // 歌手名称
+        singer: filterSinger(musicData.singer),
+        // 歌名
+        name: musicData.title,
+        // 专辑名称
+        album: musicData.album.name,
+        // 播放时间
+        duration: musicData.interval,
+        // 专辑图片
+        image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.album.mid}.jpg?max_age=2592000`,
+        // 音乐链接
+        url: `http://dl.stream.qqmusic.qq.com/C100${musicData.file.media_mid}.m4a`
+    });
+};
+
+/**
+ * 对新歌list数据做处理
+ * @type {Array}  list
+ */
+export function normalizeNewSongs(list, playingUrl) {
+    let ret = [];
+
+    list.forEach((musicData, index) => {
+        if (musicData) {
+            ret.push(createNewSong(musicData, playingUrl, index));
         }
     });
 

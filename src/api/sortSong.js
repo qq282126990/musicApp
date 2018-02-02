@@ -1,6 +1,6 @@
 import jsonp from 'common/js/jsonp';
-import {commonParams, options} from 'api/config';
 import axios from 'axios';
+import {commonParams, options} from 'api/config';
 
 // 获取分类歌单导航
 export function getDissTag() {
@@ -24,7 +24,6 @@ export function getSortSongData(param) {
 
     const data = Object.assign({}, commonParams, {
         picmid: 1,
-        g_tk: 5381,
         rnd: Math.random(),
         loginUin: 0,
         hostUin: 0,

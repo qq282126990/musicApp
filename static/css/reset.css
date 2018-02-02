@@ -104,3 +104,8 @@ body {
 .list__tile--link:hover, .list__tile--highlighted {
     background: none !important;
 }
+
+.btn__content {
+    padding: 0 !important;
+}
+

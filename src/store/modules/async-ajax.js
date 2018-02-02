@@ -1,8 +1,13 @@
 import * as types from '../mutation-types';
 import {ERR_OK} from 'api/config';
+// 主页数据
 import {getSlider, getMusicuMessage, getDigitalAlbum, getfeaturedRadio} from 'api/musician';
+// 分类歌单数据接口
 import {getDissTag, getSortSongData} from 'api/sortSong';
+// 首页新歌速递导航数据
 import {createNewSong} from 'common/js/new_song_speed';
+// 获取新歌模块头部切换对应的歌曲列表
+import {getSwitchNewSongList} from 'api/newSongModule';
 
 /**
  * 新歌速递组件默认数据
@@ -41,10 +46,15 @@ let state = {
     sortSongData: [], // 获取分类歌单推荐信息
     setSortSongDataOK: false, // 设置分类歌单推荐信息请求是否完成
     /**
-     * 新歌速递---新歌模块数据
+     * 新歌速递 新歌模块数据
      * @type {Array}
      */
-    newSongList: []
+    newSongList: [],
+    /**
+     * 新歌速递模块点击内容标题 对应type的数据
+     * @type {Array}
+     */
+    switchNewSongList: []
 };
 
 let actions = {
@@ -76,7 +86,6 @@ let actions = {
         }
         else {
             // 错误处理
-            console.log(res.error);
         }
     },
     /**
@@ -103,12 +112,8 @@ let actions = {
             newSongList[0] = createNewSong(res.new_song.data.song_list.slice(0, 1)) || defaultSong;
             newSongList[2] = createNewSong([res.new_album.data.album_list[1]]) || defaultSong;
 
-
             // 新歌速递---新歌模块数据
             commit(types.SET_NEW_SONG_LIST, {newSongList: res.new_song.data});
-
-            console.log(res.new_song.data);
-
             // 推荐歌单数据
             commit(types.SET_RECOMMEND, {recommend: res.recomPlaylist.data.v_hot.slice(0, 6) || []});
             // 主页新歌速递数据
@@ -151,8 +156,21 @@ let actions = {
             // 错误处理
         }
     },
-    setSortSongDataOK ({commit}, setSortSongDataOK) {
+    setSortSongDataOK({commit}, setSortSongDataOK) {
         commit(types.SET_SORT_SONG_DATA_OK, setSortSongDataOK);
+    },
+    /**
+     * 获取新歌速递模块点击内容标题 对应type的数据
+     * @param {Function} commit
+     */
+    async getSwitchNewSongList({commit}, type) {
+        let res = await getSwitchNewSongList(type);
+        if (res.code === ERR_OK) {
+            commit(types.SET_SWITCH_NEW_SONG_LIST_TITLE, {switchNewSongList: res.new_song.data || []});
+        }
+        else {
+            // 错误处理
+        }
     }
 };
 
@@ -188,6 +206,10 @@ let mutations = {
     // 设置分类歌单推荐信息请求是否完成
     [types.SET_SORT_SONG_DATA_OK](state, setSortSongDataOK) {
         state.setSortSongDataOK = setSortSongDataOK;
+    },
+    // 获取新歌速递模块点击内容标题 对应type的数据
+    [types.SET_SWITCH_NEW_SONG_LIST_TITLE](state, {switchNewSongList}) {
+        state.switchNewSongList = switchNewSongList;
     }
 };
 
@@ -195,11 +217,14 @@ let getters = {
     sortSongData(state) {
         return state.sortSongData;
     },
-    setSortSongDataOK (state) {
+    setSortSongDataOK(state) {
         return state.setSortSongDataOK;
     },
-    newSongList (state) {
+    newSongList(state) {
         return state.newSongList;
+    },
+    switchNewSongList () {
+        return state.switchNewSongList;
     }
 };
 

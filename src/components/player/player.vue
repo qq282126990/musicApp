@@ -11,7 +11,7 @@
                 <!--背景-->
                 <div class="background">
                     <img width="100%" height="100%"
-                         src="https://p.qpic.cn/music_cover/1ZdGl7wveVA1a9fU8FWwvCQfPyQ2qP6cNtIZf87lbV3qgnus24N32g/300?n=1">
+                         v-lazy="currentSong.image">
                 </div>
                 <!--头部-->
                 <div class="header">
@@ -291,7 +291,7 @@
             },
             // 自动校正歌词文字
             autoRegulateLyricTexT() {
-                if (this.currentLyric) {
+                if (this.currentLyric && this.currentSong.lyric) {
                     if (this.currentLyric.lines.length > 0) {
                         return '点击自动校正歌词';
                     }
@@ -335,6 +335,35 @@
             ])
         },
         methods: {
+            // 初始化操作
+            _initDom () {
+                // 默认显示cd
+                this.currentShow = 'cd';
+                // 设置歌词偏移的位置
+                this.$refs.lyricList.$el.style[transform] = `translate3d(0,0,0)`;
+                // 设置cd出现动画
+                this.$refs.middleL.style.opacity = 1;
+
+                // 默认播放没有错误
+                this.playError = false;
+
+                // 重置歌曲报错次数
+                this.playErrorCounter = 0;
+
+                // 执行初始化歌词列表
+                if (this.currentLyric) {
+                    // 停止歌词滚动
+                    this.currentLyric.stop();
+                    // 初始化播放时间
+                    this.currentTime = 0;
+                    // 初始化小歌词
+                    this.playingLyric = '暂无歌词';
+                    // 初始化歌词行
+                    this.currentLineNum = 0;
+                    // 初始化歌词滚动行数
+                    this.$refs.lyricList.scrollToElement(0, 1000);
+                }
+            },
             // 播放器放大时执行的动画 开始
             enter(el, done) {
                 // 获取放大和缩小时播放器的位置
@@ -895,30 +924,13 @@
                     return;
                 }
 
-                // 默认播放没有错误
-                this.playError = false;
-
-                // 重置歌曲报错次数
-                this.playErrorCounter = 0;
+                // 初始化一些操作
+                this._initDom();
 
                 // 请求歌曲地址 传入 songmid = mid
                 this._getSinglePlayingUrl(newCurrentSong.mid, this.currentSong.strMediaMid);
                 // 获取歌曲歌词
                 this.getLyric(newCurrentSong.mid);
-
-                // 执行初始化歌词列表
-                if (this.currentLyric) {
-                    // 停止歌词滚动
-                    this.currentLyric.stop();
-                    // 初始化播放时间
-                    this.currentTime = 0;
-                    // 初始化小歌词
-                    this.playingLyric = '暂无歌词';
-                    // 初始化歌词行
-                    this.currentLineNum = 0;
-                    // 初始化歌词滚动行数
-                    this.$refs.lyricList.scrollToElement(0, 1000);
-                }
 
                 // 每次执行前先清除time
                 clearTimeout(this.timer);
