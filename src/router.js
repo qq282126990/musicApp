@@ -6,11 +6,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import * as types from './store/mutation-types';
+// 歌曲列表模块
+import SongList from '@/components/song-list/song-List.vue';
+// 数字专辑音乐列表
+import DigitalAlbumMusicList from '@/components/digital-album-music-list/digital-album-music-list.vue';
+// 新歌速递
+import NewSongSpeed from '@/components/new-song-speed/new-song-speed.vue';
+
 
 // 定义切割点，异步加载路由组件
 let Home = () => import('@/pages/Home/Home.vue');
 // 歌曲列表模块
-let SongList = () => import('@/components/song-list/song-List.vue');
+// let SongList = () => import('@/components/song-list/song-List.vue');
 // 热门推荐模块
 let HotRecommend = () => import('@/components/hot-recommend/hot-recommend.vue');
 // 发现模块
@@ -21,7 +28,7 @@ let My = () => import('@/pages/My/My.vue');
 let NotFound = () => import('@/pages/NotFound.vue');
 
 // 新歌速递模块
-let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
+// let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
 // // 新歌模块
 // let NewSong = () => import('@/components/newSong/newSong.vue');
 // // 数字专辑模块
@@ -31,7 +38,7 @@ let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue'
 
 Vue.use(Router);
 
-export function createRouter() {
+export function createRouter () {
     let router = new Router({
         // history 模式，需要服务器后端配合做路由代理，将所有的前端路由同步代理到 /
         mode: 'history',
@@ -57,11 +64,17 @@ export function createRouter() {
                 name: 'newSongSpeed',
                 component: NewSongSpeed
             },
+            {
+                path: '/digitalAlbumMusicList',
+                name: 'digitalAlbumMusicList',
+                component: DigitalAlbumMusicList,
+                alias: '/newSongSpeed/digitalAlbumMusicList/:id'
+            },
             // 歌曲列表
             {
                 path: '/songlist/:id',
-                component: SongList,
                 name: 'SongList',
+                component: SongList,
                 alias: '/home/:id'
             },
             {
@@ -149,7 +162,7 @@ const HISTORY_STACK = ['/home', '/home/hotRecommend'];
  * @param {Object} from 源 route
  * @return {boolean} 是否表示返回
  */
-function isForward(to, from) {
+function isForward (to, from) {
 
     // to 如果在这个列表中，始终认为是后退
     if (to.name && ALWAYS_BACK_PAGE.indexOf(to.name) !== -1) {

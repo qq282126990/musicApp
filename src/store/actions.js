@@ -198,6 +198,28 @@ export const selectPlay = function ({commit, state}, {list, index}) {
 };
 
 /**
+ * 播放全部
+ * @type {Object}
+ * list {Array}
+ * index {Number}
+ * SET_PLAYING_STATE {Boolean}
+ */
+export const allPlay = function ({commit}, {list}) {
+    // 切换到顺序播放模式
+    commit(types.SET_PLAY_MODE, isPlayMode.sequence);
+    // 获取顺序播放列表
+    commit(types.SET_SEQUENCE_LIST, list);
+    // 设置当前的播放列表
+    commit(types.SET_PLAYLIST, list);
+    // 设置当前的播放位置
+    commit(types.SET_CURRENT_INDEX, 0);
+    // 控制播发器放大缩小
+    commit(types.SET_FULL_SCREEN, false);
+    // 控制播放
+    commit(types.SET_PLAYING_STATE, true);
+};
+
+/**
  * 删除歌曲
  * @type {String}
  */

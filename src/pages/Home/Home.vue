@@ -5,19 +5,20 @@
                 <!--轮播图-->
                 <div class="silder-wrapper">
                     <div v-if="slider.length">
-                        <Silder>
+                        <Slider>
                             <div v-for="item in slider">
                                 <a :href="item.linkUrl">
                                     <img :src="item.picUrl">
                                 </a>
                             </div>
-                        </Silder>
+                        </Slider>
                     </div>
                 </div>
                 <!--轮播图背景-->
                 <div class="silder-wrapper-bg" ref="silderWrapperBg" v-show="translateY !== 5"></div>
                 <!--主页导航-->
                 <tab-router
+                    :tebLi="tebLi"
                     :style="{transform: `translate3d(0, -${translateY}px, 0)`, boxShadow: `0px ${translateY === 0 ? 0 : translateY - 3}px ${translateY}px #999`}"
                     ref="tabRouter"></tab-router>
                 <div class="content-wrapper">
@@ -50,7 +51,7 @@
     // 自定义歌单推荐数据
     import {createSongTableMessage} from 'common/js/songTableMessage';
     // 轮播图
-    import Silder from 'base/slider/slider';
+    import Slider from 'base/slider/slider';
     // 菜单模块导航
     import ListMenu from 'base/list-menu/list-menu';
     // 滚动组件
@@ -75,8 +76,20 @@
                 scrollY: 0,
                 /*
                  * 设置tab-router向上偏移的位置
+                 * @type {Number}
                  * */
-                translateY: 5
+                translateY: 5,
+                /*
+                * 设置标签信息
+                * @type {Array}
+                * */
+                tebLi: [{
+                    tab: [{'name': '歌手', 'iconfont': 'icon-maikefeng'},
+                        {'name': '排行', 'iconfont': 'icon-paixingbang1'},
+                        {'name': '主播电台', 'iconfont': 'icon-erji3'},
+                        {'name': '数字专辑', 'iconfont': 'icon-zhuanjiguangpan'}
+                    ]
+                }]
             };
         },
         computed: {
@@ -86,7 +99,7 @@
             List() {
                 this.list = [
                     {recommend: [{'name': '为你推荐歌单', 'title': 'hotRecommend', 'data': this.recommend}]},
-                    {recommend: [{'name': '新歌速递', 'title': 'newSongList', 'data': this.newSong}]}
+                    {recommend: [{'name': '新歌速递', 'title': 'newSongSpeed', 'data': this.newSong}]}
                 ];
                 return this.list;
             },
@@ -207,6 +220,7 @@
                 'getMusicuMessage'
             ])
         },
+        // 组件激活时调用
         activated() {
             // 初始化轮播图样式
             this.translateY = 5;
@@ -229,7 +243,7 @@
             }
         },
         components: {
-            Silder,
+            Slider,
             ListMenu,
             Scroll,
             TabRouter
@@ -260,9 +274,7 @@
     /*轮播图*/
     .silder-wrapper {
         position: relative;
-
         overflow: hidden;
-
         width: 100%;
         height: px2rem(300px);
     }

@@ -56,3 +56,8 @@ export const SET_SORT_SONG_DATA_OK = 'SET_SORT_SONG_DATA_OK'; // 获取分类歌
 export const SET_NEW_SONG_LIST = 'SET_NEW_SONG_LIST'; // 新歌速递模块数据
 export const SET_NEW_SONG_LIST_TITLE = 'SET_NEW_SONG_LIST_TITLE'; // 新歌速递模块点击内容标题
 export const SET_SWITCH_NEW_SONG_LIST_TITLE = 'SET_SWITCH_NEW_SONG_LIST_TITLE'; // 新歌速递模块点击内容标题 对应type的数据
+
+// 数字专辑
+export const SET_MUSIC_DIGITAL_ALBUM = 'SET_MUSIC_DIGITAL_ALBUM'; // 获取全部数字专辑数据 音乐数字专辑相册
+export const SET_DIGITAL_MORE_ALBUM = 'SET_DIGITAL_MORE_ALBUM'; // 更多数字专辑数据
+export const SET_DIGITAL_ALBUM_MUSIC_LIST = 'SET_DIGITAL_ALBUM_MUSIC_LIST'; // 获取数字专辑歌曲列表数据

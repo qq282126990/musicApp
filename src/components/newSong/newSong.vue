@@ -5,14 +5,11 @@
             <div ref="headerListWrapper">
                 <ul ref="headerList">
                     <li class="item"
-                        :class="{'active': headerSelect === index}"
+                        :class="{'active': headerSelect === item.id}"
                         v-for="(item,index) in newSongList.type_info" :key="item.title"
-                        @click="selectHeader(item,index)"
+                        @click="selectHeader(item, index)"
                     >
-                        <v-btn flat class="title" v-if="index === 0" @clic.stop="">
-                            <span>最新</span>
-                        </v-btn>
-                        <v-btn flat class="title" v-else>
+                        <v-btn flat class="title">
                             <span>{{item.title}}</span>
                         </v-btn>
                     </li>
@@ -20,18 +17,22 @@
             </div>
         </div>
         <!--显示的内容-->
-        <div class="content" ref="sliderSwitch">
+        <!--loading组件-->
+        <div class="loading-one">
+            <loading></loading>
+            <span class="text">加载中...</span>
+        </div>
+        <div class="content-wrapper" ref="sliderSwitch" v-show="getSongList.length > 0">
             <!--歌曲列表-->
-            <div style="height: 100%;" v-for="(item, index) in newSongListData" v-if="headerSelect === index">
-                <transition name="fade">
-                    <scroll class="song-list" v-show="newSongListData[index]">
+            <div class="content">
+                <transition name="slider">
+                    <scroll class="song-list" v-show="newSongListData[headerSelect]">
                         <div>
                             <div class="list-header">
                                 <!--播放全部-->
                                 <div class="play-all-wrapper">
-                                    <v-icon class="play">play_circle_outline</v-icon>
+                                    <v-icon class="play" @click.stop="allPlay">play_circle_outline</v-icon>
                                     <h3 class="title">全部播放</h3>
-                                    <span class="total-number">共{{totalSongNum}}首</span>
                                 </div>
                                 <!--下载-->
                                 <div class="download">
@@ -44,13 +45,15 @@
                                     <span class="title">多选</span>
                                 </div>
                             </div>
-                            <song-list
-                                @select="selectSong"
-                                ref="SongListWrapper"
-                            ></song-list>
+                            <song-list @select="selectSong"></song-list>
                         </div>
                     </scroll>
                 </transition>
+                <!--loading组件-->
+                <div class="loading-two" v-show="newSongListData[headerSelect].length===0">
+                    <loading></loading>
+                    <span class="text">加载中...</span>
+                </div>
             </div>
         </div>
     </div>
@@ -61,28 +64,35 @@
     import {mapState, mapActions, mapGetters} from 'vuex';
     // 对list数据做处理
     import {normalizeNewSongs} from 'common/js/song';
+    // 添加类
+    import {addClass} from 'common/js/dom';
     // 滚动插件
     import BScroll from 'better-scroll';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
     // 歌曲列表
     import SongList from 'base/song-list/song-list';
-    import {addClass} from 'common/js/dom';
+    // loading组件
+    import Loading from 'base/loading/loading';
 
     export default {
         data() {
             return {
+                // 歌曲列表数量开始长度
+                songlistSin: 0,
+                // 歌曲列表数量结束长度
+                songlistEin: 29,
                 /*
                  * 设置头部导航那个激活了
                  * */
                 headerSelect: 0,
                 /*
-                * 歌曲总数
-                * */
+                 * 歌曲总数
+                 * */
                 totalSongNum: '',
                 /*
-                * 歌曲列表数据
-                * */
+                 * 歌曲列表数据
+                 * */
                 newSongListData: [{}, {}, {}, {}, {}, {}]
             };
         },
@@ -102,8 +112,16 @@
                 'switchNewSongList'
             ]),
             ...mapGetters('appStore', {
+                /*
+                 * 获取歌曲列表
+                 * @type {Object}
+                 * */
                 getSongList: 'songList'
             })
+        },
+        created () {
+            // 初始化播放列表
+            this.setSongList([]);
         },
         mounted() {
             // 设置滑动的宽度
@@ -121,39 +139,54 @@
                 // 设置内容总的宽度
                 this._setSliderWidth();
 
-                // 默认请求最新歌曲列表
-                this.getSwitchNewSongList(0);
-
                 // 设置滚动组件数据
                 this.setScrollData(this.newSongList);
-            },
 
+                setTimeout(() => {
+                    // 默认请求最新歌曲列表
+                    this.getSwitchNewSongList(this.newSongList.type_info[0].id);
+                }, 40);
+            },
+            // 播放全部按钮
+            allPlay () {
+                this.setAllPlay({
+                    list: this.getSongList
+                });
+            },
             // 选择歌曲列表
             selectSong(item, index) {
                 this.setSelectPlay({
                     list: this.getSongList,
                     index
                 });
-
-                // 默认请求最新歌曲列表
-                this.getSwitchNewSongList(index);
             },
             // 选择头部导航
             selectHeader(item, index) {
                 // 设置头部导航那个激活了
-                this.headerSelect = index;
+                this.headerSelect = item.id;
 
                 // 判断是否已经请求过歌曲列表了
-                if (this.newSongListData[index].length > 0) {
-                    this.setSongList(this.newSongListData[index]);
+                if (this.newSongListData[item.id].length > 0) {
+                    this.setSongList(this.newSongListData[item.id]);
                     return;
                 }
-                // 获取新歌速递模块点击内容标题 对应type的数据
-                this.getSwitchNewSongList(index);
+
+                // 初始化播放列表
+                this.setSongList([]);
+
+                setTimeout(() => {
+                    // 获取新歌速递模块点击内容标题 对应type的数据
+                    this.getSwitchNewSongList(item.id);
+                }, 1000);
             },
             // 设置头部导航滑动的宽度
             _setHeaderScroll() {
                 if (this.newSongList.type_info) {
+                    // 默认请求最新歌曲列表
+                    this.getSwitchNewSongList(this.newSongList.type_info[0].id);
+                    // 设置头部导航那个激活了
+                    this.headerSelect = this.newSongList.type_info[0].id;
+
                     // 获取所有内容标签
                     this.children = this.$refs.headerList.children;
                     // 初始化宽度
@@ -170,7 +203,6 @@
 
                     // 设置整个头部的宽度
                     this.$refs.headerList.style.width = width + 'px';
-
 
                     this.$nextTick(() => {
                         if (!this.headerScroll) {
@@ -196,7 +228,7 @@
                 // 初始化宽度
                 let width = 0;
                 // 初始化当前的宽度为当前视图宽度
-                let sliderSwitchWidth = this.$refs.sliderSwitch.clientWidth;
+                let sliderSwitchWidth = window.innerWidth;
 
                 // 循环内容
                 for (let i = 0; i < this.children.length; i++) {
@@ -228,7 +260,7 @@
                  */
                 setScrollData: 'data',
                 /**
-                 * 歌曲列表
+                 * 设置歌曲列表
                  * @type {Array}
                  */
                 setSongList: 'songList',
@@ -236,23 +268,45 @@
                  * 选择播放的歌曲
                  * @type {Boolean}
                  */
-                setSelectPlay: 'selectPlay'
+                setSelectPlay: 'selectPlay',
+                /**
+                 * 播放全部歌曲
+                 * @type {Array}
+                 */
+                setAllPlay: 'allPlay'
             })
+        },
+        // 组件激活时调用
+        activated() {
+            // 初始化播放列表
+            this.setSongList([]);
+
+            if (this.newSongList.type_info) {
+                // 延迟1秒执行
+                setTimeout(() => {
+                    // 默认请求最新歌曲列表
+                    this.getSwitchNewSongList(this.newSongList.type_info[0].id);
+
+                    // 设置头部导航那个激活了
+                    this.headerSelect = this.newSongList.type_info[0].id;
+                }, 1000);
+            }
         },
         watch: {
             // 监听歌曲列表的变化
             switchNewSongList(newList) {
                 // 保存歌曲列表
                 this.newSongListData[newList.type] = normalizeNewSongs(newList.song_list);
-                // 设置歌曲列表
-                this.setSongList(normalizeNewSongs(newList.song_list));
+                // 设置歌曲列表 前30首
+                this.setSongList(normalizeNewSongs(newList.song_list).splice(this.songlistSin, this.songlistEin));
                 // 设置歌曲数量
                 this.totalSongNum = this.newSongList.size;
             }
         },
         components: {
             SongList,
-            Scroll
+            Scroll,
+            Loading
         }
     };
 </script>
@@ -281,6 +335,33 @@
     .scroll {
         overflow: hidden;
         white-space: nowrap;
+    }
+
+    /*loading组件*/
+    /*加载中效果*/
+    .loading-one {
+        position: fixed;
+        padding-top: 50%;
+        box-sizing: border-box;
+        width: 100%;
+        z-index: 10;
+        .text {
+            box-sizing: border-box;
+            font-size: px2rem(30px);
+            margin: px2rem(20px) 0 0 px2rem(20px);
+        }
+    }
+
+    .loading-two {
+        position: relative;
+        padding-top: 50%;
+        box-sizing: border-box;
+        width: 100%;
+        .text {
+            box-sizing: border-box;
+            font-size: px2rem(30px);
+            margin: px2rem(20px) 0 0 px2rem(20px);
+        }
     }
 
     /*头部导航*/
@@ -406,11 +487,17 @@
         }
     }
 
-    .content {
+    /*显示的内容*/
+    .content-wrapper {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
+        z-index: 20;
+        .content {
+            width: 100%;
+            height: 100%;
+        }
         .slider-switch-item {
             position: relative;
             float: left;
@@ -428,12 +515,9 @@
         top: 0;
         bottom: px2rem(120px);
         width: 100%;
-        &.fade-enter-active, &.fade-leave-active {
-            transition: opacity .5s;
-        }
-
-        &.fade-enter, &.fade-leave-to {
-            opacity: 0;
+        transition: transform 0.4s cubic-bezier(.55, 0, .1, 1);
+        &.slider-enter-active {
+            transform: translate(100%, 0);
         }
     }
 </style>

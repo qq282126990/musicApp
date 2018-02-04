@@ -84,7 +84,7 @@
             <div class="list-header" ref="ListHeader" :style="{transform: headerY}">
                 <!--播放全部-->
                 <div class="play-all-wrapper">
-                    <v-icon class="play">play_circle_outline</v-icon>
+                    <v-icon class="play" @click.stop="allPlay">play_circle_outline</v-icon>
                     <h3 class="title">全部播放</h3>
                     <span class="total-number">共{{getSongListMessage.totalSongNum}}首</span>
                 </div>
@@ -246,6 +246,12 @@
             scroll(pos) {
                 this.scrollY = pos.y;
             },
+            // 播放全部按钮
+            allPlay () {
+                this.setAllPlay({
+                    list: this.getSongList
+                });
+            },
             // 刷新滚动列表
             refresh() {
                 this.$refs.SongListScroll.refresh();
@@ -334,7 +340,12 @@
                  * 选择播放的歌曲
                  * @type {Boolean}
                  */
-                setSelectPlay: 'selectPlay'
+                setSelectPlay: 'selectPlay',
+                /**
+                 * 播放全部歌曲
+                 * @type {Array}
+                 */
+                setAllPlay: 'allPlay'
             })
         },
         activated() {

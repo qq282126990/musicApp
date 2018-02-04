@@ -9,11 +9,11 @@
                     @click-back="handleClickHeaderBack"
                 >
                 </app-header>
-                <app-sidebar
-                    @hide-sidebar="handleHideSidebar"
-                    @show-sidebar="handleShowSidebar"
-                >
-                </app-sidebar>
+                <!--<app-sidebar-->
+                    <!--@hide-sidebar="handleHideSidebar"-->
+                    <!--@show-sidebar="handleShowSidebar"-->
+                <!--&gt;-->
+                <!--</app-sidebar>-->
                 <div class="app-view-wrapper">
                     <transition
                         :name="pageTransitionName === undefined ? null : pageTransitionName"
@@ -28,18 +28,6 @@
                                     'app-view-with-header': appHeader.show,
                                 }"></router-view>
                         </keep-alive>
-                    </transition>
-                    <transition
-                        :name="pageTransitionName"
-                        @before-enter="handleBeforeEnter"
-                        @after-enter="handleAfterEnter">
-                        <router-view
-                            :key="$route.fullPath"
-                            v-if="$route.meta.notKeepAlive"
-                            class="app-view"
-                            :class="{
-                                'app-view-with-header': appHeader.show,
-                            }"></router-view>
                     </transition>
                 </div>
                 <player></player>

@@ -5,12 +5,12 @@
             <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item, index)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
-                    <div class="bg-color" v-show="select"></div>
+                    <div :class="getCurrentSong(item)"></div>
                 </div>
                 <!--内容-->
                 <div class="content-wrapper">
-                    <div class="content">
-                        <h3 class="title">
+                    <div class="content" :class="setStyle">
+                        <h3 class="title" :class="setStyle">
                             <span>{{item.name}}</span>
                         </h3>
                         <p class="text">
@@ -18,7 +18,7 @@
                         </p>
                     </div>
                     <!--更多-->
-                    <v-icon class="more">more_vert</v-icon>
+                    <v-icon class="more" :class="setStyle">more_vert</v-icon>
                 </div>
             </v-list-tile>
             <!--下拉加载时显示的Loading效果-->
@@ -49,6 +49,11 @@
             hasMore: {
                 type: Boolean,
                 default: false
+            },
+            // 设置样式
+            setStyle: {
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -62,12 +67,24 @@
                  * 歌曲列表
                  * @param {Array}
                  * */
-                songs: 'songList'
+                songs: 'songList',
+                /**
+                 * 当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                currentSong: 'currentSong'
             })
         },
         methods: {
             selectItem(item, index) {
                 this.$emit('select', item, index);
+            },
+            // 获取当前正在播放的歌曲
+            getCurrentSong(item) {
+                if (this.currentSong.id === item.id) {
+                   return 'bg-color';
+                }
+               return '';
             }
         },
         components: {
@@ -282,5 +299,10 @@
             font-size: px2rem(52px);
             color: #b6b6b6;
         }
+    }
+
+    /*白色字体*/
+    .colorWhite {
+        color: #fff !important;
     }
 </style>

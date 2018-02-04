@@ -3,7 +3,7 @@
         <div class="slider-group" ref="sliderGroup">
             <slot></slot>
         </div>
-        <div class="slider-dots">
+        <div class="slider-dots" v-show="showDots">
             <span class="dots" v-for="(item,index) in dots" :class="{active: currentPageIndex === index}"></span>
         </div>
     </div>
@@ -14,15 +14,15 @@
     import BScroll from 'better-scroll';
 
     export default {
-        data() {
-            return {
-                // 原点数量
-                dots: [],
-                // 当前的轮播图数量
-                currentPageIndex: 0
-            };
-        },
         props: {
+            /*
+             * 设置是否显示 dots
+             * @type {Boolean}
+             * */
+            showDots: {
+                type: Boolean,
+                default: true
+            },
             // 是否循环播放
             loop: {
                 type: Boolean,
@@ -42,6 +42,14 @@
                 type: Boolean,
                 default: true
             }
+        },
+        data() {
+            return {
+                // 原点数量
+                dots: [],
+                // 当前的轮播图数量
+                currentPageIndex: 0
+            };
         },
         mounted() {
             // 确保dom已经渲染了 初始化代码

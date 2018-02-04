@@ -204,7 +204,10 @@
                  * @type {String}
                  * */
                 errorImg: '../../../static/img/default.jpg',
-                // 上啦加载
+                /*
+                 * 设置是否开启上拉加载
+                 * @type {Boolean}
+                 * */
                 pullUpLoad: true
             };
         },
@@ -253,9 +256,7 @@
             // 查看更多点击
             lookMore () {
             },
-            /*
-             * 上拉加载更多歌单列表方法
-             * */
+            // 上拉加载更多歌单列表方法
             pullingUp () {
                 // 如果当前列表的数量小于30就不能上拉加载
                 if (this.sortSongList[this.dotsTitleIndex].list && this.sortSongList[this.dotsTitleIndex].list.length < 30) {
@@ -275,9 +276,7 @@
 
                 this.setSortSongDataOK(false);
             },
-            /*
-             * 上拉加载更多歌单列表完成后刷新数据方法
-             * */
+            // 上拉加载更多歌单列表完成后刷新数据方法
             PullingUpRefresh () {
                 // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
                 this.$refs.scroll.finishPullUp();
@@ -286,7 +285,6 @@
             },
             // 点击选择歌单
             selectItem (data) {
-                console.log(data);
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (data.dissid) {
                     // 把选中的专辑的数据存入 homeSonglist
@@ -674,6 +672,7 @@
             z-index: 40;
         }
     }
+
     /*标题*/
     .title {
         display: block;
@@ -681,6 +680,7 @@
         font-size: px2rem(32px);
         color: $hot-songs-title-color;
     }
+
     /*热门歌单模块*/
     .hot-songs {
         padding-top: px2rem(20px);

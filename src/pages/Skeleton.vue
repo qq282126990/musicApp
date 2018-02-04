@@ -33,7 +33,7 @@ export default {
 @import '~normalize.css';
 
 .skeleton-wrapper
-
+    overflow hidden
     .skeleton-header
         height $app-header-height
         background: $theme.primary
@@ -42,6 +42,4 @@ export default {
     .skeleton-block
         display flex
         flex-direction column
-        padding-top 8px
-
 </style>

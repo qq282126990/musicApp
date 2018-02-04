@@ -2,7 +2,10 @@ import jsonp from 'common/js/jsonp';
 import {commonParams} from 'api/config';
 
 
-// 新歌速递模块点击内容标题 对应type的数据
+/*
+ * 新歌速递模块点击内容标题对应type的数据
+ * type // 标题类型
+ * */
 export function getSwitchNewSongList(type) {
     const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
 

@@ -67,7 +67,7 @@
                                    v-show="currentLyric"
                                    @click="autoRegulateLyric">{{autoRegulateLyricTexT}}</p>
                                 <!--有歌词时才显示-->
-                                <div v-if="currentLyric">
+                                <div v-if="currentLineNum">
                                     <!--歌词行-->
                                     <p class="text"
                                        ref="lyricLine"
@@ -80,7 +80,6 @@
                                     <p class="text">暂无歌词</p>
                                 </div>
                             </div>
-                            <!--<div class="middle-r-bg"></div>-->
                         </scroll>
                     </div>
                 </div>
@@ -291,15 +290,11 @@
             },
             // 自动校正歌词文字
             autoRegulateLyricTexT() {
-                if (this.currentLyric && this.currentSong.lyric) {
-                    if (this.currentLyric.lines.length > 0) {
-                        return '点击自动校正歌词';
-                    }
-                    else {
-                        return this.currentSong.lyric.slice(10);
+                if (this.currentSong.lyric || this.currentLyric) {
+                    if (typeof this.currentLyric.lrc === 'string') {
+                        return this.currentLyric.lrc.slice(10) === '此歌曲为没有填词的纯音乐，请您欣赏' ? '此歌曲为没有填词的纯音乐，请您欣赏' : '点击自动校正歌词';
                     }
                 }
-
             },
             ...mapGetters('appStore', [
                 /*
@@ -740,17 +735,16 @@
                 // 初始化歌词数据
                 this.currentLyric = null;
 
+                // 获取歌词
                 this.getLyric(this.currentSong.mid);
 
-                // 延迟1秒后重新请求歌词
+                // 延迟500后重新请求歌词
                 setTimeout(() => {
                     // 吧歌词滑动到对应位置
-                    if (this.percent && this.currentLyric) {
-                        // 获取当前歌曲播放时间  = 总时长 * 进度条偏移的量
-                        let currentTime = this.currentSong.duration * this.percent;
-                        this.currentLyric.seek(currentTime * 1000);
-                    }
-                }, 1000);
+                    // 获取当前歌曲播放时间  = 总时长 * 进度条偏移的量
+                    let currentTime = this.currentSong.duration * this.percent;
+                    this.currentLyric.seek(currentTime * 1000);
+                }, 500);
             },
             // 获取歌词
             getLyric(mid) {
@@ -762,11 +756,6 @@
                 getLyric(mid).then((res) => {
                     if (res.retcode === ERR_OK) {
                         const lyric = Base64.decode(res.lyric);
-
-                        // 判断歌词是否是当前歌曲的歌词不是直接return
-                        // if (this.currentSong.lyric !== lyric) {
-                        //     return;
-                        // }
 
                         // 设置当前的歌词
                         this.currentLyric = new Lyric(lyric, this.handleLyric);
@@ -794,7 +783,7 @@
                 // 获取当前歌曲播放的行
                 this.currentLineNum = lineNum;
                 // 设置如果当前的歌词行数进行到大于5才执行滚动动画
-                if (lineNum > 5) {
+                if (lineNum > 5 && lineNum !== undefined) {
                     let lyricLine = this.$refs.lyricLine[lineNum - 5];
                     this.$refs.lyricList.scrollToElement(lyricLine, 1000);
                 }
@@ -808,14 +797,14 @@
             _getSinglePlayingUrl(songmid, strMediaMid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
-                if (!this.playError) {
+                if (strMediaMid) {
                     getSinglePlayingUrl(strMediaMid).then((res) => {
                         if (res.code === ERR_OK) {
                             this.filename = res.data.items[0].filename;
                             this.vkey = res.data.items[0].vkey;
+
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
-
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
@@ -829,9 +818,9 @@
                         if (res.code === ERR_OK) {
                             this.filename = res.data.items[0].filename;
                             this.vkey = res.data.items[0].vkey;
+
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
-
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
@@ -863,7 +852,8 @@
             playError(newPlayError) {
                 // 如果播放器错误就请求备用接口
                 if (newPlayError) {
-                    this._getSinglePlayingUrl(this.currentSong.mid);
+                    // this._getSinglePlayingUrl(this.currentSong.mid);
+                    this._getSinglePlayingUrl(null, this.currentSong.strMediaMid);
 
                     // 如果有歌词就重置歌词状态
                     if (this.currentLyric) {
@@ -884,6 +874,9 @@
             playErrorCounter(newCounter) {
                 // 歌曲链接报错3次以上请求新的歌曲播放地址
                 if (newCounter >= 2) {
+                    // 请求歌曲地址 传入 songmid = mid
+                    // this._getSinglePlayingUrl(null, this.currentSong.strMediaMid);
+
                     // 设置播放器播放地址
                     this.playUrl = this.currentSong.url;
                     this.audioPlay(this.playUrl);
@@ -927,10 +920,11 @@
                 // 初始化一些操作
                 this._initDom();
 
-                // 请求歌曲地址 传入 songmid = mid
-                this._getSinglePlayingUrl(newCurrentSong.mid, this.currentSong.strMediaMid);
-                // 获取歌曲歌词
-                this.getLyric(newCurrentSong.mid);
+                // 设置播放器播放地址
+                this._getSinglePlayingUrl(this.currentSong.mid);
+
+                // 设置播放器播放地址
+                // this.playUrl = this.currentSong.url;
 
                 // 每次执行前先清除time
                 clearTimeout(this.timer);
@@ -940,8 +934,10 @@
 //                    this.$refs.audio.play();
 //                    this.setPlaying(true);
 
+                    // 设置播放器播放
+                    // this.audioPlay(this.playUrl);
                     // 获取歌曲歌词
-//                    this.getLyric(newCurrentSong.mid);
+                    this.getLyric(newCurrentSong.mid);
                 }, 1000);
 
             }
@@ -1139,7 +1135,7 @@
             }
             /*菜单*/
             .menu {
-                flex-basis: 20%;
+                flex-basis: 25%;
                 z-index: 50;
                 width: px2rem(124px);
             }
@@ -1154,12 +1150,17 @@
             overflow: hidden;
             /*歌手名称*/
             .sing-name {
-                display: block;
+                display: flex;
+                justify-content: center;
+                padding: 0 px2rem(40px);
                 text-align: center;
                 font-size: px2rem(30px);
                 color: $sing-name-color;
                 i {
                     font-size: px2rem(40px);
+                }
+                span {
+                    padding: 0 px2rem(10px);
                 }
             }
             /*切换 dot*/

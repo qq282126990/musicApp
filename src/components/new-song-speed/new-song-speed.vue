@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper">
         <!--新歌速递头部-->
         <div class="song-speed-header">
             <!--返回按钮-->
@@ -51,7 +51,12 @@
                 /*
                  * 获取歌单速递头部导航
                  * */
-                'newSongListTitle'
+                'newSongListTitle',
+                /*
+                 * 获取歌曲列表
+                 * @type {Object}
+                 * */
+                'songList'
             ])
         },
         mounted () {
@@ -137,6 +142,10 @@
     @import "../../common/sass/remAdaptive";
     @import "../../common/sass/variables";
 
+    .wrapper{
+        overflow: hidden;
+        height: 100%;
+    }
     /*头部*/
     .song-speed-header {
         display: flex;
@@ -196,7 +205,10 @@
         top: 0;
         right: 0;
         left: 0;
-        bottom: 0;
+        box-sizing: border-box;
+        overflow: hidden;
         padding-top: px2rem(84px);
+        padding-bottom: px2rem(120px);
+        height: 100%;
     }
 </style>

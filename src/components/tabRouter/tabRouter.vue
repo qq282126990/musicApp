@@ -11,16 +11,14 @@
 
 <script type="text/ecmascript-6">
     export default {
-        data() {
-            return {
-                tebLi: [{
-                    tab: [{'name': '歌手', 'iconfont': 'icon-maikefeng'},
-                        {'name': '排行', 'iconfont': 'icon-paixingbang1'},
-                        {'name': '主播电台', 'iconfont': 'icon-erji3'},
-                        {'name': '数字专辑', 'iconfont': 'icon-zhuanjiguangpan'}
-                    ]
-                }]
-            };
+        props: {
+            /*
+             * 设置标签信息
+             * */
+            tebLi: {
+                type: Array,
+                default: []
+            }
         }
     };
 </script>
@@ -36,7 +34,7 @@
         /*box-shadow: 0px 2px 6px #999;*/
         background: $tab-router-bgcolor;
         transition: all .2s;
-       // transform: translate3d(0, px2rem(-10px), 0);
+        // transform: translate3d(0, px2rem(-10px), 0);
     }
 
     .teb-li {
@@ -48,6 +46,7 @@
     }
 
     .tab {
+        position: relative;
         flex: 1;
         display: flex;
         text-align: center;

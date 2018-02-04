@@ -157,8 +157,8 @@ apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
             if (matches) {
                 ret = JSON.parse(matches[1]);
             }
+            res.json(ret);
         }
-        res.json(ret);
     }).catch((e) => {
         console.log(e);
     });
@@ -211,6 +211,62 @@ apiRoutes.get('/lyric', function (req, res) {
             }
             res.json(ret);
         }
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取全部数字专辑数据
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
+
+apiRoutes.post('/getTotalDigitalAlbum', function (req, res) {
+
+    // 获取请求的 body payload 转换成字符串
+    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+
+    axios.post(url, data).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取更多数字专辑数据
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
+
+apiRoutes.post('/getMoreAlbumList', function (req, res) {
+
+    // 获取请求的 body payload 转换成字符串
+    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+
+    axios.post(url, data).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
     }).catch((e) => {
         console.log(e);
     });

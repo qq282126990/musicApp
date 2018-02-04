@@ -32,7 +32,10 @@ export function getSongList(disstid) {
     });
 };
 
-// 专辑收藏量
+/*
+ * 专辑收藏量
+ * disstid // 专辑id
+ * */
 export function getCollection(disstid) {
     const url = '/api/getCollection';
 

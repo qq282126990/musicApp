@@ -47,7 +47,7 @@
                  * 判断请求是否完成
                  * @param {Boolean}
                  **/
-                // ajax_ok: false,
+                 ajax_ok: false,
                 /*
                  * 专辑收藏量
                  * @param {Number}
@@ -84,7 +84,7 @@
             getSongList() {
 
                 // 初始化设置还没有请求
-                // this.ajax_ok = false;
+                 this.ajax_ok = false;
 
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.contentId) {
@@ -126,7 +126,7 @@
                             // this._checkMore(res.cdlist[0], this.songBegin);
 
                             // 设置请求完成
-                            // this.ajax_ok = true;
+                             this.ajax_ok = true;
                         }
                     });
 

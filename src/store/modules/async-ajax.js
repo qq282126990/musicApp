@@ -8,6 +8,8 @@ import {getDissTag, getSortSongData} from 'api/sortSong';
 import {createNewSong} from 'common/js/new_song_speed';
 // 获取新歌模块头部切换对应的歌曲列表
 import {getSwitchNewSongList} from 'api/newSongModule';
+// 获取全部数字专辑数据 获取更多数字专辑数据
+import {getTotalDigitalAlbum, getMoreAlbumList, getDigitalAlbumMusicList} from 'api/totalDigitalAlbum';
 
 /**
  * 新歌速递组件默认数据
@@ -54,7 +56,22 @@ let state = {
      * 新歌速递模块点击内容标题 对应type的数据
      * @type {Array}
      */
-    switchNewSongList: []
+    switchNewSongList: [],
+    /**
+     * 获取全部数字专辑数据 音乐数字专辑相册
+     * @type {Object}
+     */
+    musicDigitalAlbum: {},
+    /*
+    * 更多数字专辑数据
+    * @type {Object}
+    * */
+    moreDigitalAlbum: {},
+    /*
+    * 获取数字专辑歌曲列表数据
+    * @type {Object}
+    * */
+    digitalAlbumMusicList: {}
 };
 
 let actions = {
@@ -145,6 +162,7 @@ let actions = {
         commit(types.SET_SORT_SONG_DATA_OK, false);
 
         let res = await getSortSongData(param);
+
         if (res.code === ERR_OK) {
             // 获取分类歌单歌曲信息
             commit(types.SET_SORT_SONG_DATA, {sortSongData: res.data || []});
@@ -167,6 +185,48 @@ let actions = {
         let res = await getSwitchNewSongList(type);
         if (res.code === ERR_OK) {
             commit(types.SET_SWITCH_NEW_SONG_LIST_TITLE, {switchNewSongList: res.new_song.data || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取全部数字专辑数据
+     * @param {Function} commit
+     */
+    async getTotalDigitalAlbum({commit}, type) {
+        let res = await getTotalDigitalAlbum(type);
+        if (res.code === ERR_OK) {
+            // 获取全部数字专辑数据 音乐数字专辑相册
+            commit(types.SET_MUSIC_DIGITAL_ALBUM, {musicDigitalAlbum: res.MusicHallDigitalAlbum.data || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取更多数字专辑数据
+     * @param {Function} commit
+     */
+    async getMoreAlbumList({commit}, start) {
+        let res = await getMoreAlbumList(start);
+        if (res.code === ERR_OK) {
+            // 更多数字专辑数据
+            commit(types.SET_DIGITAL_MORE_ALBUM, {moreDigitalAlbum: res.moreAlbum.data || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取数字专辑歌曲列表数据
+     * @param {Function} commit
+     */
+    async getDigitalAlbumMusicList({commit}, id) {
+        let res = await getDigitalAlbumMusicList(id);
+        if (res.code === ERR_OK) {
+            // 获取数字专辑歌曲列表数据
+            commit(types.SET_DIGITAL_ALBUM_MUSIC_LIST, {digitalAlbumMusicList: res.data || []});
         }
         else {
             // 错误处理
@@ -210,6 +270,18 @@ let mutations = {
     // 获取新歌速递模块点击内容标题 对应type的数据
     [types.SET_SWITCH_NEW_SONG_LIST_TITLE](state, {switchNewSongList}) {
         state.switchNewSongList = switchNewSongList;
+    },
+    // 获取全部数字专辑数据 音乐数字专辑相册
+    [types.SET_MUSIC_DIGITAL_ALBUM](state, {musicDigitalAlbum}) {
+        state.musicDigitalAlbum = musicDigitalAlbum;
+    },
+    // 更多数字专辑数据
+    [types.SET_DIGITAL_MORE_ALBUM](state, {moreDigitalAlbum}) {
+        state.moreDigitalAlbum = moreDigitalAlbum;
+    },
+    // 获取数字专辑歌曲列表数据
+    [types.SET_DIGITAL_ALBUM_MUSIC_LIST](state, {digitalAlbumMusicList}) {
+        state.digitalAlbumMusicList = digitalAlbumMusicList;
     }
 };
 

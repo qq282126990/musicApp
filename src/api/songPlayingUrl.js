@@ -2,7 +2,10 @@ import axios from 'axios';
 import {getCookie} from 'common/js/cookie';
 import {commonParams} from 'api/config';
 
-// 获取歌曲播放地址
+/*
+ * 获取歌曲播放地址
+ * data // 字符串数据
+ * */
 export function getSongPlayingUrl(data) {
     const url = '/api/getSongPlayingUrl';
     return axios.post(url, data).then((res) => {
@@ -10,10 +13,15 @@ export function getSongPlayingUrl(data) {
     });
 }
 
-// 获取歌曲 单曲 播放地址
+/*
+ * 获取歌曲单曲播放地址
+ * songmid // 歌曲mid
+ * */
 export function getSinglePlayingUrl(songmid) {
     const url = '/api/getSinglePlayingUrl';
     const data = Object.assign({}, commonParams, {
+        jsonpCallback: 'MusicJsonCallback7776788287808083',
+        callback: 'MusicJsonCallback7776788287808083',
         format: 'json',
         cid: 205361747,
         platform: 'yqq',
@@ -31,12 +39,15 @@ export function getSinglePlayingUrl(songmid) {
     });
 }
 
-// 获取歌曲歌词
-export function getLyric(mid) {
+/*
+ * 获取歌曲歌词
+ * songmid // 歌曲mid
+ * */
+export function getLyric(songmid) {
     const url = '/api/lyric';
 
     const data = Object.assign({}, commonParams, {
-        songmid: mid,
+        songmid: songmid,
         platform: 'yqq',
         hostUin: 0,
         needNewCode: 0,
