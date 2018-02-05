@@ -424,7 +424,6 @@
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
                     -webkit-box-orient: vertical;
-                    overflow: hidden;
                     font-size: px2rem(28px);
                     line-height: 1.6;
                 }

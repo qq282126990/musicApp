@@ -633,7 +633,7 @@
                 min-height: px2rem(94px);
                 text-align: left;
                 line-height: 1.3;
-                font-size: px2rem(36px);
+                font-size: px2rem(32px);
                 font-weight: 300;
                 overflow: hidden;
             }

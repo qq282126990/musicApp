@@ -1,6 +1,6 @@
 // 自定义定义歌单信息
 export default class SongTableMessage {
-    constructor({contentId, cover, rcmdtemplate, title}) {
+    constructor({contentId, cover, rcmdtemplate, title, start, mid}) {
         // 歌单id
         this.contentId = contentId;
         // 歌单图片
@@ -9,6 +9,10 @@ export default class SongTableMessage {
         this.rcmdtemplate = rcmdtemplate;
         // 歌单标题
         this.title = title;
+        // 状态设置是不是新碟跳转
+        this.start = start;
+        // 专辑mid
+        this.mid = mid;
     };
 };
 
@@ -22,6 +26,10 @@ export function createSongTableMessage(data) {
         // 歌单头部标题
         rcmdtemplate: data.rcmdtemplate || '歌单推荐',
         // 歌单标题
-        title: data.title || data.dissname
+        title: data.title || data.dissname,
+        // 状态设置是不是新碟跳转
+        start: data.start || '',
+        // 专辑mid
+        mid: data.mid || ''
     });
 };

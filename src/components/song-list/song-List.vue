@@ -10,15 +10,23 @@
 </template>
 
 <script type="text/ecmascript-6">
+    // 引入vuex
     import {mapActions, mapGetters} from 'vuex';
+    // 获取歌曲列表 getSongList 获取专辑收藏量接口 getCollection
     import {getSongList, getCollection} from 'api/musicSongList';
+    // 获取歌曲播放MP4地址方法
     import {getSongPlayingUrl} from 'api/songPlayingUrl';
-    import {ERR_OK} from 'api/config';
+    // 对list数据做处理创建歌曲列表方法
     import {createSong} from 'common/js/song';
+    // 获取播放量方法
     import {computedPlayNumber} from 'common/js/util';
+    // 歌曲播放接口
     import {crackedPlayingAjax} from 'common/js/cracked_ajax';
+    // 新碟专辑歌曲列表接口
+    import {getNewAlbumSongList} from 'api/newAlbum';
+    import {ERR_OK} from 'api/config';
+    // 音乐专辑组件
     import musicList from '../music-list/music-list.vue';
-
 
     export default {
         data() {
@@ -47,7 +55,7 @@
                  * 判断请求是否完成
                  * @param {Boolean}
                  **/
-                 ajax_ok: false,
+                ajax_ok: false,
                 /*
                  * 专辑收藏量
                  * @param {Number}
@@ -84,12 +92,43 @@
             getSongList() {
 
                 // 初始化设置还没有请求
-                 this.ajax_ok = false;
+                this.ajax_ok = false;
+                console.log(this.homeSonglist);
 
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.contentId) {
                     // 返回主页
                     this.$router.back();
+                }
+                else if (this.homeSonglist.start === 'newAlbum') {
+                    getNewAlbumSongList(this.homeSonglist.mid).then((res) => {
+                        if (res.code === ERR_OK) {
+                            console.log(res);
+
+                            // 获取歌曲播放MP4地址
+                            this.getSongPlayingUrl(res.data.list);
+
+                            //  ---------------歌曲列表的信息---------------------- //
+                            // 简介
+                            this.data.desc = '简介:' + res.data.desc;
+                            // 专辑头像
+                            this.data.authorAvatar = res.data.company_new.headPic;
+                            // 专辑的小头像
+                            this.data.smallAvatar = '';
+                            // 播放量
+                            this.data.playNumber = '';
+                            // 歌曲列表总数
+                            this.data.totalSongNum = res.data.total_song_num;
+                            // 发布人
+                            this.data.nickname = res.data.company;
+                            // ------------------------------------------------- //
+                            // 存入vuex的 songListMessage
+                            this.setSongListMessage(this.data);
+
+                            // 设置请求完成
+                            this.ajax_ok = true;
+                        }
+                    });
                 }
                 else {
                     // 初始化歌曲列表显示的页数
@@ -126,7 +165,7 @@
                             // this._checkMore(res.cdlist[0], this.songBegin);
 
                             // 设置请求完成
-                             this.ajax_ok = true;
+                            this.ajax_ok = true;
                         }
                     });
 

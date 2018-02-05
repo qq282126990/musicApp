@@ -50,7 +50,8 @@
                                            @scroll="scroll"
                                            @pageIndex="pageIndex"
                                            ref="sliderSwitch">
-                                <div class="content" v-for="(item, index) in dotsTitle" :key="dotsTitle.categoryName">
+                                <div class="content" v-for="(item, index) in dotsTitle"
+                                     :key="dotsTitle.categoryName">
                                     <!--判断当前需要显示的页面 otherSortSongList[index]-->
                                     <ul v-if="index === newPageIndex && sortSongList[index].list"
                                         :key="item.categoryId">

@@ -62,7 +62,7 @@
         mounted () {
             // 如果没有数据就返回上一页
             if (!this.newSongListTitle) {
-                this.$router.back();
+//                this.$router.back();
             }
             // 判断头部导航
             if (this.newSongListTitle === '新歌') {
@@ -129,6 +129,20 @@
             this.setAppHeader({
                 show: true
             });
+        },
+        watch: {
+            newSongListTitle (newTitle) {
+                // 判断头部导航
+                if (newTitle === '新歌') {
+                    this.componentId = 'newSong';
+                }
+                else if (newTitle === '数字专辑') {
+                    this.componentId = 'digitalAlbum';
+                }
+                else if (newTitle === '新碟') {
+                    this.componentId = 'newAlbum';
+                }
+            }
         },
         components: {
             newSong,

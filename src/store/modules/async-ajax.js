@@ -10,6 +10,8 @@ import {createNewSong} from 'common/js/new_song_speed';
 import {getSwitchNewSongList} from 'api/newSongModule';
 // 获取全部数字专辑数据 获取更多数字专辑数据
 import {getTotalDigitalAlbum, getMoreAlbumList, getDigitalAlbumMusicList} from 'api/totalDigitalAlbum';
+// 获取新碟数据
+import {getNewAlbum} from 'api/newAlbum';
 
 /**
  * 新歌速递组件默认数据
@@ -71,7 +73,12 @@ let state = {
     * 获取数字专辑歌曲列表数据
     * @type {Object}
     * */
-    digitalAlbumMusicList: {}
+    digitalAlbumMusicList: {},
+    /*
+    * 获取新碟数据
+    * @type {Object}
+    * */
+    newAlbum: {}
 };
 
 let actions = {
@@ -231,6 +238,20 @@ let actions = {
         else {
             // 错误处理
         }
+    },
+    /**
+     * 获取新碟数据
+     * @param {Function} commit
+     */
+    async getNewAlbum({commit}, param) {
+        let res = await getNewAlbum(param);
+        if (res.code === ERR_OK) {
+            // 获取数字专辑歌曲列表数据
+            commit(types.SET_NEW_ALBUM, {newAlbum: res.albumlib.data || []});
+        }
+        else {
+            // 错误处理
+        }
     }
 };
 
@@ -282,6 +303,10 @@ let mutations = {
     // 获取数字专辑歌曲列表数据
     [types.SET_DIGITAL_ALBUM_MUSIC_LIST](state, {digitalAlbumMusicList}) {
         state.digitalAlbumMusicList = digitalAlbumMusicList;
+    },
+    // 获取新碟数据
+    [types.SET_NEW_ALBUM](state, {newAlbum}) {
+        state.newAlbum = newAlbum;
     }
 };
 
@@ -295,7 +320,7 @@ let getters = {
     newSongList(state) {
         return state.newSongList;
     },
-    switchNewSongList () {
+    switchNewSongList() {
         return state.switchNewSongList;
     }
 };

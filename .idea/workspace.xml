@@ -2,39 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6075bb6-19b5-4762-9584-7f89b9d65829" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/image/cd_gold.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/image/cd_ornament.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/api/totalDigitalAlbum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/base/digital-album-list/digital-album-list.vue" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/api/newAlbum.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/base/header-scroll/header-scroll.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/js/newAlbum.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/musicSongList.js" afterPath="$PROJECT_DIR$/src/api/musicSongList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/newSongModule.js" afterPath="$PROJECT_DIR$/src/api/newSongModule.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/songPlayingUrl.js" afterPath="$PROJECT_DIR$/src/api/songPlayingUrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/sortSong.js" afterPath="$PROJECT_DIR$/src/api/sortSong.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/slider/slider.vue" afterPath="$PROJECT_DIR$/src/base/slider/slider.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/song-list/song-list.vue" afterPath="$PROJECT_DIR$/src/base/song-list/song-list.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/font/iconfont.scss" afterPath="$PROJECT_DIR$/src/common/font/iconfont.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/sass/variables.scss" afterPath="$PROJECT_DIR$/src/common/sass/variables.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/digital-album/digital-album.vue" afterPath="$PROJECT_DIR$/src/components/digital-album/digital-album.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/config.js" afterPath="$PROJECT_DIR$/src/common/js/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/songTableMessage.js" afterPath="$PROJECT_DIR$/src/common/js/songTableMessage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" afterPath="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue" afterPath="$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/music-list/music-list.vue" afterPath="$PROJECT_DIR$/src/components/music-list/music-list.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue" afterPath="$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue" afterPath="$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/newSong/newSong.vue" afterPath="$PROJECT_DIR$/src/components/newSong/newSong.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/player/player.vue" afterPath="$PROJECT_DIR$/src/components/player/player.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/song-list/song-List.vue" afterPath="$PROJECT_DIR$/src/components/song-list/song-List.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/tabRouter/tabRouter.vue" afterPath="$PROJECT_DIR$/src/components/tabRouter/tabRouter.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Home/Home.vue" afterPath="$PROJECT_DIR$/src/pages/Home/Home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Skeleton.vue" afterPath="$PROJECT_DIR$/src/pages/Skeleton.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/router.js" afterPath="$PROJECT_DIR$/src/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/actions.js" afterPath="$PROJECT_DIR$/src/store/actions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/async-ajax.js" afterPath="$PROJECT_DIR$/src/store/modules/async-ajax.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/mutation-types.js" afterPath="$PROJECT_DIR$/src/store/mutation-types.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/reset.css" afterPath="$PROJECT_DIR$/static/css/reset.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,239 +28,360 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="6">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="digital-album.vue" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/components/digital-album/digital-album.vue">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="540">
-                    <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-                    <folding>
-                      <element signature="n#div#0;n#div#0;n#scroll#0;n#template#0;n#!!top" expanded="false" />
-                      <element signature="e#4759#5463#0" expanded="false" />
-                      <element signature="e#5523#5868#0" expanded="false" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="musicAPP" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="digital-album-music-list.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="221" column="15" lean-forward="true" selection-start-line="221" selection-start-column="15" selection-end-line="221" selection-end-column="15" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#6942#7188#0" expanded="false" />
-                <element signature="e#7219#7505#0" expanded="false" />
-                <element signature="e#8419#9560#0" expanded="false" />
-                <element signature="e#9593#9907#0" expanded="false" />
-                <element signature="e#10145#10643#0" expanded="false" />
-                <element signature="e#11165#12797#0" expanded="false" />
-                <element signature="e#11269#11594#0" expanded="false" />
-                <element signature="e#11634#11959#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="song.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/js/song.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="57" column="78" lean-forward="false" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="78" />
-              <folding>
-                <element signature="e#538#550#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="digital-album-list.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/base/digital-album-list/digital-album-list.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="181" column="32" lean-forward="true" selection-start-line="181" selection-start-column="32" selection-end-line="181" selection-end-column="32" />
-              <folding>
-                <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#3399#4095#0" expanded="false" />
-                <element signature="e#4124#4207#0" expanded="false" />
-                <element signature="e#4224#4335#0" expanded="false" />
-                <element signature="e#4421#4974#0" expanded="false" />
-                <element signature="e#5950#6746#0" expanded="false" />
-                <element signature="e#6790#6967#0" expanded="false" />
-                <element signature="e#6987#7234#0" expanded="false" />
-                <element signature="e#7271#7420#0" expanded="false" />
-                <element signature="e#7655#7771#0" expanded="false" />
-                <element signature="e#8713#9197#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hot-recommend.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#9891#10650#0" expanded="false" />
-                <element signature="e#16943#17989#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="async-ajax.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-              <folding>
-                <marker date="1517756040996" expanded="true" signature="7919:7936" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="totalDigitalAlbum.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="119" column="12" lean-forward="true" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="12" />
-              <folding>
-                <element signature="n#!!block;n#createDigitalAlbumList#0" expanded="false" />
-                <element signature="n#!!block;n#createOtherDigitalAlbumList#0" expanded="false" />
-                <element signature="n#!!block;n#createMoreAlbumList#0" expanded="false" />
-                <element signature="n#!!block;n#filterSinger#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="player.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="788" column="0" lean-forward="false" selection-start-line="788" selection-start-column="0" selection-end-line="788" selection-end-column="0" />
-              <folding>
-                <element signature="e#12605#13512#0" expanded="false" />
-                <element signature="e#13572#14505#0" expanded="false" />
-                <element signature="e#14563#14717#0" expanded="false" />
-                <element signature="e#14777#15139#0" expanded="false" />
-                <element signature="e#15197#15356#0" expanded="false" />
-                <element signature="e#15419#15757#0" expanded="false" />
-                <element signature="e#15820#17174#0" expanded="false" />
-                <element signature="e#17234#18755#0" expanded="false" />
-                <element signature="e#18830#19630#0" expanded="false" />
-                <element signature="e#19676#19734#0" expanded="false" />
-                <element signature="e#20091#20241#0" expanded="false" />
-                <element signature="e#20294#20473#0" expanded="false" />
-                <element signature="e#20523#20996#0" expanded="false" />
-                <element signature="e#21139#21403#0" expanded="false" />
-                <element signature="e#21447#21731#0" expanded="false" />
-                <element signature="e#21777#22626#0" expanded="false" />
-                <element signature="e#22672#23516#0" expanded="false" />
-                <element signature="e#23570#23942#0" expanded="false" />
-                <element signature="e#24122#24416#0" expanded="false" />
-                <element signature="e#24474#24738#0" expanded="false" />
-                <element signature="e#24813#25368#0" expanded="false" />
-                <element signature="e#25426#26360#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="new-song-speed.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-268">
-              <caret line="61" column="20" lean-forward="true" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="18" column="44" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.39266387">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="digital-album-music-list.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-532">
+                  <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                    <element signature="n#div#1;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                    <element signature="e#6942#7188#0" expanded="false" />
+                    <element signature="e#7219#7505#0" expanded="false" />
+                    <element signature="e#8419#9560#0" expanded="false" />
+                    <element signature="e#9593#9907#0" expanded="false" />
+                    <element signature="e#11269#11594#0" expanded="false" />
+                    <element signature="e#11634#11959#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newAlbum.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="792">
+                  <caret line="139" column="50" lean-forward="false" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="50" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cache.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/cache.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-171">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="song.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/song.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="68" column="17" lean-forward="false" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#538#550#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="totalDigitalAlbum.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-117">
+                  <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+                  <folding>
+                    <element signature="n#!!block;n#createOtherDigitalAlbumList#0" expanded="false" />
+                    <element signature="n#!!block;n#createMoreAlbumList#0" expanded="false" />
+                    <element signature="n#!!block;n#filterSinger#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="sortSong.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/sortSong.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-304">
+                  <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cracked_ajax.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/cracked_ajax.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="cookie.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/cookie.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/config.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="114">
+                  <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="new_song_speed.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/new_song_speed.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="703">
+                  <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="async-ajax.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="275">
+                  <caret line="245" column="9" lean-forward="false" selection-start-line="245" selection-start-column="4" selection-end-line="245" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="new-song-speed.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="336">
+                  <caret line="65" column="13" lean-forward="false" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="header-scroll.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/base/header-scroll/header-scroll.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="247">
+                  <caret line="43" column="22" lean-forward="false" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="songPlayingUrl.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/songPlayingUrl.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="608">
+                  <caret line="38" column="7" lean-forward="false" selection-start-line="38" selection-start-column="7" selection-end-line="38" selection-end-column="7" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newSongModule.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/newSongModule.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="171">
+                  <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="musicSongList.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/musicSongList.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="304">
+                  <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newAlbum.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/api/newAlbum.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="147">
+                  <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+                  <folding>
+                    <element signature="e#0#36#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newAlbum.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/newAlbum.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="399">
+                  <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="hot-recommend.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="78">
+                  <caret line="472" column="35" lean-forward="false" selection-start-line="472" selection-start-column="35" selection-end-line="472" selection-end-column="35" />
+                  <folding>
+                    <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                    <element signature="e#11863#15586#0" expanded="false" />
+                    <element signature="e#15689#15785#0" expanded="false" />
+                    <element signature="e#26718#30915#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="music-list.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/music-list/music-list.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-19">
+                  <caret line="446" column="0" lean-forward="false" selection-start-line="446" selection-start-column="0" selection-end-line="446" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newSong.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/newSong/newSong.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="703">
+                  <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#8532#10636#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="newAlbum.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/newAlbum.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="375">
+                  <caret line="44" column="12" lean-forward="false" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+                  <folding>
+                    <element signature="e#0#36#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/api/config.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="95">
+                  <caret line="5" column="13" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="5" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="sortSong.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/sortSong.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="399">
+                  <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="totalDigitalAlbum.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/api/totalDigitalAlbum.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="698">
+                  <caret line="63" column="48" lean-forward="false" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="songTableMessage.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/songTableMessage.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="190">
+                  <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mixin.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="741">
+                  <caret line="39" column="22" lean-forward="false" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="vue File" />
+        <option value="sass  vue" />
+        <option value="vue" />
         <option value="复制 vue 的 " />
         <option value="JavaScript File" />
-        <option value="sass  vue" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SongListWrapper</find>
-      <find>1b1b1b</find>
-      <find>_normalizeSongs</find>
+      <find>iconfont</find>
+      <find>icon-erji</find>
+      <find>play-number-wrapper</find>
+      <find>area</find>
+      <find>currentHeader</find>
+      <find>getNewAlbum</find>
+      <find>newAlbumListData</find>
+      <find>newSongListData</find>
+      <find>selectHeader</find>
+      <find>listData</find>
       <find>content</find>
-      <find>homeSonglist</find>
-      <find>setSelectPlay</find>
-      <find>getSinglePlayingUrl</find>
-      <find>more</find>
-      <find>playError</find>
-      <find>playErrorCounter</find>
-      <find>_getSinglePlayingUrl</find>
-      <find>songReady</find>
-      <find>playUrl</find>
-      <find>getCurrentSong</find>
-      <find>scrollToCurrent</find>
       <find>content-wrapper</find>
-      <find>currentSong</find>
-      <find>bg-color</find>
-      <find>createDigitalAlbumMusListMessage</find>
-      <find>songList</find>
+      <find>conent-wrapper</find>
+      <find>songTableMessage</find>
+      <find>homeSonglist</find>
+      <find>song-list</find>
+      <find>setHomeSonglist</find>
+      <find>creator</find>
+      <find>_setHeaderScroll</find>
+      <find>selectItem</find>
+      <find>slider</find>
+      <find>album-name</find>
+      <find>createSong</find>
+      <find>computedPlayNumber</find>
+      <find>crackedPlayingAjax</find>
+      <find>getSongPlayingUrl</find>
       <find>getSongList</find>
-      <find>getSwitchNewSongList</find>
-      <find>newSongList</find>
-      <find>selectSong</find>
-      <find>createAlbumSongTableMessage</find>
-      <find>setSongList</find>
-      <find>list-text1</find>
-      <find>currentLyric</find>
-      <find>autoRegulateLyricTexT</find>
-      <find>handleLyric</find>
+      <find>dissid</find>
+      <find>createSongTableMessage</find>
+      <find>getCollection</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -290,17 +393,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/base/playlist/playlist.vue" />
-        <option value="D:/音乐APP/项目源码/src/components/playlist/playlist.vue" />
-        <option value="$PROJECT_DIR$/src/common/js/mixin.js" />
-        <option value="$PROJECT_DIR$/src/base/progress-bar/progress-bar.vue" />
-        <option value="$PROJECT_DIR$/src/components/playlist/playlist.vue" />
         <option value="$PROJECT_DIR$/src/store/index.js" />
         <option value="$PROJECT_DIR$/src/store/modules/app-store.js" />
         <option value="$PROJECT_DIR$/src/components/AppHeader.vue" />
         <option value="$PROJECT_DIR$/src/base/slider-switch/slider-switch.vue" />
         <option value="$PROJECT_DIR$/src/components/newSongSpeed/newSongSpeed.vue" />
-        <option value="$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue" />
         <option value="$PROJECT_DIR$/src/store/modules/app-shell.js" />
         <option value="$PROJECT_DIR$/src/store/getters.js" />
         <option value="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" />
@@ -311,7 +408,6 @@
         <option value="$PROJECT_DIR$/static/css/reset.css" />
         <option value="$PROJECT_DIR$/node_modules/vuetify/src/stylus/elements/_typography.styl" />
         <option value="$PROJECT_DIR$/src/store/actions.js" />
-        <option value="$PROJECT_DIR$/src/components/music-list/music-list.vue" />
         <option value="$PROJECT_DIR$/src/App.vue" />
         <option value="$PROJECT_DIR$/src/api/digital-album.js" />
         <option value="$PROJECT_DIR$/src/api/digitalAlbum.js" />
@@ -322,25 +418,32 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/common/font/iconfont.scss" />
         <option value="$PROJECT_DIR$/build/dev-server.js" />
-        <option value="$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue" />
         <option value="$PROJECT_DIR$/src/api/musicSongList.js" />
         <option value="$PROJECT_DIR$/src/api/newSongModule.js" />
         <option value="$PROJECT_DIR$/src/api/sortSong.js" />
         <option value="$PROJECT_DIR$/src/router.js" />
         <option value="$PROJECT_DIR$/src/api/totalDigitalAlbum.js" />
-        <option value="$PROJECT_DIR$/src/store/mutation-types.js" />
         <option value="$PROJECT_DIR$/src/common/sass/variables.scss" />
         <option value="$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js" />
-        <option value="$PROJECT_DIR$/src/components/song-list/song-List.vue" />
         <option value="$PROJECT_DIR$/src/api/songPlayingUrl.js" />
         <option value="$PROJECT_DIR$/src/base/song-list/song-list.vue" />
         <option value="$PROJECT_DIR$/src/components/digital-album/digital-album.vue" />
+        <option value="$PROJECT_DIR$/src/base/digital-album-list/digital-album-list.vue" />
+        <option value="$PROJECT_DIR$/src/components/player/player.vue" />
+        <option value="$PROJECT_DIR$/src/store/mutation-types.js" />
+        <option value="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
+        <option value="$PROJECT_DIR$/src/common/js/config.js" />
+        <option value="$PROJECT_DIR$/src/base/header-scroll/header-scroll.vue" />
         <option value="$PROJECT_DIR$/src/store/modules/async-ajax.js" />
+        <option value="$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue" />
         <option value="$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue" />
         <option value="$PROJECT_DIR$/src/components/newSong/newSong.vue" />
-        <option value="$PROJECT_DIR$/src/base/digital-album-list/digital-album-list.vue" />
-        <option value="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
-        <option value="$PROJECT_DIR$/src/components/player/player.vue" />
+        <option value="$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue" />
+        <option value="$PROJECT_DIR$/src/components/music-list/music-list.vue" />
+        <option value="$PROJECT_DIR$/src/common/js/newAlbum.js" />
+        <option value="$PROJECT_DIR$/src/components/song-list/song-List.vue" />
+        <option value="$PROJECT_DIR$/src/common/js/songTableMessage.js" />
+        <option value="$PROJECT_DIR$/src/api/newAlbum.js" />
       </list>
     </option>
   </component>
@@ -362,9 +465,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-7" />
+    <option name="y" value="176" />
     <option name="width" value="1616" />
     <option name="height" value="876" />
   </component>
@@ -386,548 +489,136 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="store" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="store" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Home" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="song-list" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="playlist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="newSong" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new-song-speed" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="music-list" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hot-recommend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="digital-album-music-list" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="song-list" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="digital-album-list" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="styles" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicAPP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="header-scroll" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="digital-album" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="digital-album-music-list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="hot-recommend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="music-list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="new-song-speed" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="newAlbum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="newSong" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="song-list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="musicApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="musicApp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -940,19 +631,19 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/YiSi/Documents/musicApp/src/pages/Home/Home-Song-List.vue" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\YiSi\Documents\musicApp\src\components" />
-      <recent name="D:\musicAPP\src\components" />
-      <recent name="D:\musicAPP\src\common\js" />
-      <recent name="D:\musicAPP\static\img" />
-      <recent name="D:\musicAPP\src\components\song-list" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\musicAPP\src\common\image" />
       <recent name="D:\musicAPP\src\common\font" />
       <recent name="D:\musicAPP\src\common\js" />
       <recent name="D:\musicAPP\static" />
       <recent name="D:\musicAPP\src\store\modules" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\YiSi\Documents\musicApp\src\components" />
+      <recent name="D:\musicAPP\src\components" />
+      <recent name="D:\musicAPP\src\common\js" />
+      <recent name="D:\musicAPP\static\img" />
+      <recent name="D:\musicAPP\src\components\song-list" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -968,6 +659,14 @@
     </option>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -1003,15 +702,6 @@
       <option name="cucumberJsArguments" value="" />
       <option name="executablePath" />
       <option name="filePath" />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -1154,38 +844,39 @@
       <workItem from="1517575494604" duration="11215000" />
       <workItem from="1517630708886" duration="31327000" />
       <workItem from="1517711786746" duration="37743000" />
+      <workItem from="1517795186569" duration="26953000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="913806000" />
+    <option name="totallyTimeSpent" value="940759000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16243654" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.113066666" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24591948" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24483134" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21065989" sideWeight="0.504749" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1213,7 +904,7 @@
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -1227,114 +918,11 @@
           <option name="timeStamp" value="132" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="150" />
+      <option name="time" value="154" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/base/slider-switch/slider-switch.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/base/slider/slider.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Skeleton.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/styles/global.styl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/styles/variables.styl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-347">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/reset.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2807">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/tabRouter/tabRouter.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="48" column="27" lean-forward="false" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/jsonp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/dom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/cracked_ajax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#35#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/new_song_speed.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/base/list-menu/list-menu.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1347,7 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
           <caret line="24" column="70" lean-forward="false" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1363,14 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="186" column="50" lean-forward="false" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -1391,16 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/musician.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/router.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1408,22 +977,6 @@
           <folding>
             <element signature="n#!!doc" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/sortSong.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="5" column="6" lean-forward="true" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/mutation-types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="62" column="41" lean-forward="false" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1439,82 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="403">
           <caret line="119" column="38" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/songTableMessage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="18" column="50" lean-forward="true" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="141" column="35" lean-forward="false" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/sortSong.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="32" column="20" lean-forward="true" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/totalDigitalAlbum.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="72" column="40" lean-forward="false" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/musicSongList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/newSongModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/songPlayingUrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="22" column="59" lean-forward="true" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="10" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="40" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1535,80 +1012,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/song-list/song-List.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="14" column="52" lean-forward="false" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-          <folding>
-            <element signature="e#5833#5878#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/music-list/music-list.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="189" column="37" lean-forward="false" selection-start-line="189" selection-start-column="26" selection-end-line="189" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding>
-            <marker date="1517756040996" expanded="true" signature="7919:7936" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="119" column="12" lean-forward="true" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="12" />
-          <folding>
-            <element signature="n#!!block;n#createDigitalAlbumList#0" expanded="false" />
-            <element signature="n#!!block;n#createOtherDigitalAlbumList#0" expanded="false" />
-            <element signature="n#!!block;n#createMoreAlbumList#0" expanded="false" />
-            <element signature="n#!!block;n#filterSinger#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="494">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <marker date="1517795157760" expanded="true" signature="9100:9158" ph="{...}" />
+            <marker date="1517795157760" expanded="true" signature="9100:11022" ph="..." />
+            <marker date="1517795157760" expanded="true" signature="9181:9252" ph="{...}" />
+            <marker date="1517795157760" expanded="true" signature="9270:9981" ph="{...}" />
+            <marker date="1517795157760" expanded="true" signature="9561:9829" ph="{...}" />
+            <marker date="1517795157760" expanded="true" signature="9848:9975" ph="{...}" />
+            <marker date="1517795157760" expanded="true" signature="10222:10341" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
+        <state relative-caret-position="342">
           <caret line="18" column="44" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-268">
-          <caret line="61" column="20" lean-forward="true" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/newSong/newSong.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="175" column="0" lean-forward="true" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#scroll#0;n#transition#0;n#div#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#7597#8423#0" expanded="false" />
-            <element signature="e#11482#12798#0" expanded="false" />
-            <element signature="e#12833#14937#0" expanded="false" />
+            <marker date="1517795157592" expanded="true" signature="1344:1378" ph="..." />
+            <marker date="1517795157592" expanded="true" signature="1344:1401" ph="..." />
+            <marker date="1517795157592" expanded="true" signature="1502:2983" ph="..." />
+            <marker date="1517795157592" expanded="false" signature="1515:1707" ph="..." />
+            <marker date="1517795157592" expanded="true" signature="1728:2973" ph="{&quot;name&quot;: 'app'...}" />
+            <marker date="1517795157592" expanded="true" signature="1771:1848" ph="{&quot;AppHeader&quot;: AppHeader...}" />
+            <marker date="1517795157592" expanded="true" signature="1865:1899" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="1919:2158" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="1957:2038" ph="[...]" />
+            <marker date="1517795157592" expanded="true" signature="2077:2147" ph="[...]" />
+            <marker date="1517795157592" expanded="true" signature="2177:2967" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2217:2267" ph="[...]" />
+            <marker date="1517795157592" expanded="true" signature="2319:2395" ph="[...]" />
+            <marker date="1517795157592" expanded="true" signature="2432:2492" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2527:2588" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2646:2698" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2736:2787" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2821:2872" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="2906:2957" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3006:3194" ph="..." />
+            <marker date="1517795157592" expanded="true" signature="3025:3186" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3222:4769" ph="..." />
+            <marker date="1517795157592" expanded="true" signature="3316:3605" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3629:3712" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3743:3771" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3795:3894" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="3910:4760" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4236:4308" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4341:4404" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4433:4487" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4517:4572" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4609:4663" ph="{...}" />
+            <marker date="1517795157592" expanded="true" signature="4699:4754" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1617,18 +1074,90 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="815" column="27" lean-forward="true" selection-start-line="815" selection-start-column="27" selection-end-line="815" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/musician.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#scroll#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#4759#5463#0" expanded="false" />
-            <element signature="e#5523#5868#0" expanded="false" />
+            <element signature="e#0#36#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/mutation-types.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="64" column="5" lean-forward="true" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1514">
+          <caret line="241" column="21" lean-forward="true" selection-start-line="241" selection-start-column="21" selection-end-line="241" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/modules/app-shell.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/modules/app-store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="186" column="50" lean-forward="false" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/jsonp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/dom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/base/digital-album-list/digital-album-list.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="181" column="32" lean-forward="true" selection-start-line="181" selection-start-column="32" selection-end-line="181" selection-end-column="32" />
+        <state relative-caret-position="19">
+          <caret line="181" column="32" lean-forward="false" selection-start-line="181" selection-start-column="32" selection-end-line="181" selection-end-column="32" />
           <folding>
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="e#3399#4095#0" expanded="false" />
@@ -1645,22 +1174,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue">
+    <entry file="file://$PROJECT_DIR$/src/common/js/cookie.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#9891#10650#0" expanded="false" />
-            <element signature="e#16943#17989#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/cracked_ajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="245" column="9" lean-forward="false" selection-start-line="245" selection-start-column="4" selection-end-line="245" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/sortSong.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-304">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/new_song_speed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="221" column="15" lean-forward="true" selection-start-line="221" selection-start-column="15" selection-end-line="221" selection-end-column="15" />
+        <state relative-caret-position="-532">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
             <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
@@ -1668,51 +1225,195 @@
             <element signature="e#7219#7505#0" expanded="false" />
             <element signature="e#8419#9560#0" expanded="false" />
             <element signature="e#9593#9907#0" expanded="false" />
-            <element signature="e#10145#10643#0" expanded="false" />
-            <element signature="e#11165#12797#0" expanded="false" />
             <element signature="e#11269#11594#0" expanded="false" />
             <element signature="e#11634#11959#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/cache.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-171">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/newAlbum/newAlbum.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="139" column="50" lean-forward="false" selection-start-line="139" selection-start-column="50" selection-end-line="139" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/musicSongList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/new-song-speed/new-song-speed.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="65" column="13" lean-forward="false" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/base/header-scroll/header-scroll.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="43" column="22" lean-forward="false" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/music-list/music-list.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="446" column="0" lean-forward="false" selection-start-line="446" selection-start-column="0" selection-end-line="446" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/newSong/newSong.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+          <folding>
+            <element signature="e#8532#10636#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/hot-recommend/hot-recommend.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="472" column="35" lean-forward="false" selection-start-line="472" selection-start-column="35" selection-end-line="472" selection-end-column="35" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#11863#15586#0" expanded="false" />
+            <element signature="e#15689#15785#0" expanded="false" />
+            <element signature="e#26718#30915#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/sortSong.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/totalDigitalAlbum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="63" column="48" lean-forward="false" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/songPlayingUrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="38" column="7" lean-forward="false" selection-start-line="38" selection-start-column="7" selection-end-line="38" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/newSongModule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="39" column="22" lean-forward="false" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/common/js/song.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="57" column="78" lean-forward="false" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="78" />
+        <state relative-caret-position="270">
+          <caret line="68" column="17" lean-forward="false" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
           <folding>
             <element signature="e#538#550#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
+    <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="788" column="0" lean-forward="false" selection-start-line="788" selection-start-column="0" selection-end-line="788" selection-end-column="0" />
+        <state relative-caret-position="-117">
+          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
           <folding>
-            <element signature="e#12605#13512#0" expanded="false" />
-            <element signature="e#13572#14505#0" expanded="false" />
-            <element signature="e#14563#14717#0" expanded="false" />
-            <element signature="e#14777#15139#0" expanded="false" />
-            <element signature="e#15197#15356#0" expanded="false" />
-            <element signature="e#15419#15757#0" expanded="false" />
-            <element signature="e#15820#17174#0" expanded="false" />
-            <element signature="e#17234#18755#0" expanded="false" />
-            <element signature="e#18830#19630#0" expanded="false" />
-            <element signature="e#19676#19734#0" expanded="false" />
-            <element signature="e#20091#20241#0" expanded="false" />
-            <element signature="e#20294#20473#0" expanded="false" />
-            <element signature="e#20523#20996#0" expanded="false" />
-            <element signature="e#21139#21403#0" expanded="false" />
-            <element signature="e#21447#21731#0" expanded="false" />
-            <element signature="e#21777#22626#0" expanded="false" />
-            <element signature="e#22672#23516#0" expanded="false" />
-            <element signature="e#23570#23942#0" expanded="false" />
-            <element signature="e#24122#24416#0" expanded="false" />
-            <element signature="e#24474#24738#0" expanded="false" />
-            <element signature="e#24813#25368#0" expanded="false" />
-            <element signature="e#25426#26360#0" expanded="false" />
+            <element signature="n#!!block;n#createOtherDigitalAlbumList#0" expanded="false" />
+            <element signature="n#!!block;n#createMoreAlbumList#0" expanded="false" />
+            <element signature="n#!!block;n#filterSinger#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/newAlbum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/songTableMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/song-list/song-List.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="103" column="57" lean-forward="false" selection-start-line="103" selection-start-column="57" selection-end-line="103" selection-end-column="57" />
+          <folding>
+            <element signature="e#762#811#0" expanded="true" />
+            <element signature="e#4553#5975#0" expanded="false" />
+            <element signature="e#7520#7565#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/newAlbum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
