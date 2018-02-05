@@ -3,7 +3,7 @@ import {commonParams, options, MusicuMessageData} from 'api/config';
 
 // 轮播图接口
 export function getSlider() {
-    const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
+    const url = 'https://shc.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {
@@ -30,7 +30,7 @@ export function getMusicuMessage() {
 
 // 数字专辑接口
 export function getDigitalAlbum() {
-    const url = 'https://c.y.qq.com/v8/fcg-bin/musicmall.fcg';
+    const url = 'https://shc.y.qq.com/v8/fcg-bin/musicmall.fcg';
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {
@@ -44,7 +44,7 @@ export function getDigitalAlbum() {
 
 // 精选电台接口
 export function getfeaturedRadio() {
-    const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_radiolist.fcg';
+    const url = 'https://shc.y.qq.com/v8/fcg-bin/fcg_v8_radiolist.fcg';
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {

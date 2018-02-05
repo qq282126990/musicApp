@@ -278,7 +278,7 @@
                 this.setSortSongDataOK(false);
             },
             // 上拉加载更多歌单列表完成后刷新数据方法
-            PullingUpRefresh () {
+            pullingUpRefresh () {
                 // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
                 this.$refs.scroll.finishPullUp();
                 // 数据更新时刷新滚动列表数据
@@ -543,13 +543,13 @@
                             return;
                         }
                         // 上拉加载更多歌单列表完成后刷新数据方法
-                        this.PullingUpRefresh();
+                        this.pullingUpRefresh();
                         this.sortSongList[0].list = this.sortSongList[0].list.concat(newData.list);
                         break;
                     case 1:
                         if (this.sortSongList[1].list && this.sortSongList[1].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
-                            this.PullingUpRefresh();
+                            this.pullingUpRefresh();
 
                             if (!newData.list) {
                                 return;
@@ -565,7 +565,7 @@
                     case 2:
                         if (this.sortSongList[2].list && this.sortSongList[2].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
-                            this.PullingUpRefresh();
+                            this.pullingUpRefresh();
                             if (!newData.list) {
                                 return;
                             }
@@ -580,7 +580,7 @@
                     case 3:
                         if (this.sortSongList[3].list && this.sortSongList[3].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
-                            this.PullingUpRefresh();
+                            this.pullingUpRefresh();
                             if (!newData.list) {
                                 return;
                             }
@@ -595,7 +595,7 @@
                     case 4:
                         if (this.sortSongList[4].list && this.sortSongList[4].list.length >= 30) {
                             // 上拉加载更多歌单列表完成后刷新数据方法
-                            this.PullingUpRefresh();
+                            this.pullingUpRefresh();
                             if (!newData.list) {
                                 return;
                             }

@@ -1,5 +1,5 @@
 import jsonp from 'common/js/jsonp';
-import {commonParams} from 'api/config';
+import {commonParams, options} from 'api/config';
 
 /*
 * 新碟接口
@@ -47,18 +47,18 @@ export function getNewAlbum(param) {
 *        sin 页数
 * */
 export function getNewAlbumSongList(albummid) {
-    const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg';
+    const url = 'https://shc.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg';
 
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const message = Object.assign({}, commonParams, {
-        jsonpCallback: 'albuminfoCallback',
+        callback: 'albuminfoCallback',
         albummid: albummid,
         loginUin: 0,
         hostUin: 0,
         platform: 'yqq',
-        needNewCode: 0,
+        needNewCode: 0
     });
 
-    return jsonp(url, message);
+    return jsonp(url, message, options);
 }

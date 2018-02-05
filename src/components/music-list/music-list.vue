@@ -35,8 +35,9 @@
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <div class="play-number">
-                                <i class="iconfont icon-erji"></i>
-                                <span class="number">{{getSongListMessage.playNumber}}</span>
+                                <i class="iconfont icon-erji" v-show="getSongListMessage.playNumber"></i>
+                                <v-icon class="icon" v-show="homeSonglist.publicTime">query_builder</v-icon>
+                                <span class="number">{{getSongListMessage.playNumber || homeSonglist.publicTime}}</span>
                             </div>
                         </div>
                     </div>
@@ -51,7 +52,7 @@
                             <img class="small-avatar" :src="getSongListMessage.smallAvatar"/>
                             <!--作者大头像-->
                             <img class="author-avatar"
-                                 v-lazy="getSongListMessage.authorAvatar"/>
+                                 v-lazy="getSongListMessage.authorAvatar || smallAvatarDefault"/>
                             <!--作者名字-->
                             <div class="author-name" :class="{error: !getSongListMessage.nickname}">
                                 <span>{{getSongListMessage.nickname}}</span>
@@ -169,7 +170,8 @@
                 // 滚动时设置专辑内容超出内容隐藏
                 overflow: '',
                 // 滚动时设置专辑内容padding-top
-                paddingTop: ''
+                paddingTop: '',
+                smallAvatarDefault: 'http://y.gtimg.cn/music/common/upload/t_taoge_mingren/51431.jpg'
             };
         },
         mounted() {
@@ -616,6 +618,9 @@
                 }
                 .icon-erji {
                     font-size: px2rem(24px);
+                }
+                .icon {
+                    font-size: px2rem(36px);
                 }
             }
         }

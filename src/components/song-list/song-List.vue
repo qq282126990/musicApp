@@ -93,18 +93,16 @@
 
                 // 初始化设置还没有请求
                 this.ajax_ok = false;
-                console.log(this.homeSonglist);
 
                 // 判断如果没有 数据就回退上一页
                 if (!this.homeSonglist.contentId) {
                     // 返回主页
                     this.$router.back();
                 }
+                // 判断如果是从新碟模块进入就请求新碟歌曲接口
                 else if (this.homeSonglist.start === 'newAlbum') {
                     getNewAlbumSongList(this.homeSonglist.mid).then((res) => {
                         if (res.code === ERR_OK) {
-                            console.log(res);
-
                             // 获取歌曲播放MP4地址
                             this.getSongPlayingUrl(res.data.list);
 

@@ -37,7 +37,7 @@
                 </scroll>
             </transition>
             <!--loading组件-->
-            <div class="loading-two" v-show="newSongListData[headerSelect]">
+            <div class="loading-two" v-show="!newSongListData[headerSelect]">
                 <loading></loading>
                 <span class="text">加载中...</span>
             </div>
@@ -173,7 +173,6 @@
                     ret.push(items);
                 });
 
-                console.log(ret);
                 this.newSongListData = ret;
             },
             ...mapActions('asyncAjax', {

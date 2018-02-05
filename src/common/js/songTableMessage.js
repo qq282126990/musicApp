@@ -1,6 +1,6 @@
 // 自定义定义歌单信息
 export default class SongTableMessage {
-    constructor({contentId, cover, rcmdtemplate, title, start, mid}) {
+    constructor ({contentId, cover, rcmdtemplate, title, start, mid, publicTime}) {
         // 歌单id
         this.contentId = contentId;
         // 歌单图片
@@ -13,11 +13,13 @@ export default class SongTableMessage {
         this.start = start;
         // 专辑mid
         this.mid = mid;
+        // 专辑发行时间
+        this.publicTime = publicTime;
     };
 };
 
 // 创建歌单信息
-export function createSongTableMessage(data) {
+export function createSongTableMessage (data) {
     return new SongTableMessage({
         // 歌单id
         contentId: data.content_id || data.dissid,
@@ -30,6 +32,8 @@ export function createSongTableMessage(data) {
         // 状态设置是不是新碟跳转
         start: data.start || '',
         // 专辑mid
-        mid: data.mid || ''
+        mid: data.mid || '',
+        // 专辑发行时间
+        publicTime: data.publicTime || ''
     });
 };

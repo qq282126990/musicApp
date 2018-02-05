@@ -80,9 +80,9 @@
                  * */
                 translateY: 5,
                 /*
-                * 设置标签信息
-                * @type {Array}
-                * */
+                 * 设置标签信息
+                 * @type {Array}
+                 * */
                 tebLi: [{
                     tab: [{'name': '歌手', 'iconfont': 'icon-maikefeng'},
                         {'name': '排行', 'iconfont': 'icon-paixingbang1'},
@@ -135,6 +135,8 @@
             },
             // 点击标题 跳转页面
             clickTitle(data) {
+                this.newSongListTitle('新歌');
+
                 this.$router.push({
                     path: `/${data}`
                 });

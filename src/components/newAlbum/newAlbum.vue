@@ -5,7 +5,11 @@
                        @selectHeader="selectHeader"
         ></header-scroll>
         <transition name="slide">
-            <scroll class="song-list" v-show="listData.length">
+            <scroll class="song-list"
+                    :pullUpLoad="pullUpLoad"
+                    @pullingUp="pullingUp"
+                    ref="scroll"
+                    v-show="listData.length > 0">
                 <ul>
                     <li v-for="item in listData" @click="selectItem(item)">
                         <!--头像-->
@@ -57,8 +61,8 @@
         data() {
             return {
                 /*
-                * 设置初始化完成
-                * */
+                 * 设置初始化完成
+                 * */
                 _init: false,
                 /*
                  * 设置头部导航那个激活了
@@ -76,16 +80,21 @@
                  * */
                 headerScrollData: [],
                 /*
-                * 设置新碟列表数据
-                * @type {Array}
-                * */
+                 * 设置新碟列表数据
+                 * @type {Array}
+                 * */
                 newAlbumListData: [],
                 listData: [],
                 /*
-                * 设置新碟列表数据开始坐标
-                * @type {Array}
-                * */
-                listSin: 0
+                 * 设置新碟列表数据开始坐标
+                 * @type {Array}
+                 * */
+                listSin: 0,
+                /*
+                 * 设置是否开启上拉刷新
+                 * @type {Boolean}
+                 * */
+                pullUpLoad: true
             };
         },
         mounted() {
@@ -115,6 +124,8 @@
                 // 设置头部导航的index索引
                 this.currentHeader = index;
 
+                // 重置新碟列表数据开始坐标
+                this.listSin = 0;
                 setTimeout(() => {
                     // 判断是否已经请求过歌曲列表了
                     if (this.newAlbumListData[this.currentHeader].length > 0) {
@@ -130,7 +141,6 @@
             },
             // 点击选择歌单
             selectItem(data) {
-                console.log(data);
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (data.dissid) {
                     // 把选中的专辑的数据存入 homeSonglist
@@ -140,6 +150,24 @@
                         path: `/home/${data.dissid}`
                     });
                 }
+            },
+            // 上拉加载更多歌单列表方法
+            pullingUp () {
+                // 设置新碟列表数据开始坐标
+                this.listSin += 20;
+
+                // 请求专辑列表
+                this.getNewAlbum({
+                    'area': this.headerSelect,
+                    'sin': this.listSin
+                });
+            },
+            // 上拉加载更多歌单列表完成后刷新数据方法
+            pullingUpRefresh () {
+                // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+                this.$refs.scroll.finishPullUp();
+                // 数据更新时刷新滚动列表数据
+                this.$refs.scroll.refresh();
             },
             /**
              * 对头部导航数据做处理
@@ -171,9 +199,9 @@
             },
             ...mapActions('asyncAjax', [
                 /*
-                * 获取新碟数据
-                * @type {Object}
-                * */
+                 * 获取新碟数据
+                 * @type {Object}
+                 * */
                 'getNewAlbum'
             ]),
             ...mapActions('appStore', {
@@ -186,7 +214,12 @@
                  * 主页选中的专辑数据
                  * type {Object}
                  */
-                setHomeSonglist: 'homeSonglist'
+                setHomeSonglist: 'homeSonglist',
+                /**
+                 * 设置滚动列表不回弹
+                 * @type {Boolean}
+                 */
+                setBounce: 'bounce'
             })
         },
         // 组件激活时调用
@@ -197,17 +230,26 @@
         watch: {
             newAlbum(data) {
                 if (this.init) {
+                    // 设置滚动列表不回弹
+                    this.setBounce(false);
+
                     // 对头部导航数据做处理
                     this._normalizeSongs(data.tags.area);
 
+                    this.headerSelect = data.tags.area[0].id;
                     // 创建新碟列表数据
                     this._initNewAlbumListData(data.tags.area);
                 }
                 this.init = false;
 
                 // 设置新碟列表数据
-                this.newAlbumListData[this.currentHeader] = listNewAlbum(data.list);
-                this.listData = this.newAlbumListData[this.currentHeader];
+                this.newAlbumListData[this.currentHeader] = listNewAlbum(data.list).slice(0, 20);
+                this.listData = this.listData.concat(this.newAlbumListData[this.currentHeader]);
+                // 如果数据长度大于20 设置上拉加载更多歌单列表完成后刷新数据方法
+                if (this.listData.length >= 20) {
+                    this.newAlbumListData[this.currentHeader] = this.listData;
+                    this.pullingUpRefresh();
+                }
 
                 // 设置滚动组件数据
                 this.setScrollData(data);
@@ -250,11 +292,10 @@
         position: fixed;
         top: px2rem(174px);
         bottom: px2rem(120px);
+        box-sizing: border-box;
         width: 100%;
-        height: 100%;
         overflow: hidden;
         z-index: 20;
-        padding: 0;
         ul {
             display: flex;
             flex-direction: row;
