@@ -2,11 +2,11 @@
 
 @font-face {
     font-family: 'iconfont';  /* project id 485958 */
-    src: url('//at.alicdn.com/t/font_485958_yuho93klx6vzehfr.eot');
-    src: url('//at.alicdn.com/t/font_485958_yuho93klx6vzehfr.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_485958_yuho93klx6vzehfr.woff') format('woff'),
-    url('//at.alicdn.com/t/font_485958_yuho93klx6vzehfr.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_485958_yuho93klx6vzehfr.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_485958_tg3s7nmxt1i6n7b9.eot');
+    src: url('//at.alicdn.com/t/font_485958_tg3s7nmxt1i6n7b9.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_485958_tg3s7nmxt1i6n7b9.woff') format('woff'),
+    url('//at.alicdn.com/t/font_485958_tg3s7nmxt1i6n7b9.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_485958_tg3s7nmxt1i6n7b9.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -131,4 +131,16 @@
 
 .icon-dianzan:before {
     content: "\e65c";
+}
+
+.icon-renwu:before {
+    content: "\e68d";
+}
+
+.icon-vip:before {
+    content: "\e64c";
+}
+
+.icon-iconfontyuleyinle:before {
+    content: "\e63a";
 }

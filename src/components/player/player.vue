@@ -318,7 +318,7 @@
                  */
                 'playList',
                 /**
-                 * 控制歌曲播放
+                 * 获取歌曲是否播放
                  * @type {Boolean}
                  */
                 'playing',
@@ -780,6 +780,9 @@
             },
             // 处理歌词方法
             handleLyric({lineNum, txt}) {
+                if (!lineNum) {
+                    return;
+                }
                 // 获取当前歌曲播放的行
                 this.currentLineNum = lineNum;
                 // 设置如果当前的歌词行数进行到大于5才执行滚动动画
@@ -1116,6 +1119,7 @@
                     display: block;
                     padding: 0 px2rem(20px);
                     font-size: px2rem(84px);
+                    line-height: px2rem(84px);
                     color: $icon-fanhui1-copy;
                 }
             }

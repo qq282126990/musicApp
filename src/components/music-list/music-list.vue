@@ -635,12 +635,16 @@
             /*专辑名字*/
             .album-name {
                 margin: 0;
-                min-height: px2rem(94px);
+                max-height: px2rem(94px);
                 text-align: left;
                 line-height: 1.3;
                 font-size: px2rem(32px);
                 font-weight: 300;
                 overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
             }
             /*专辑作者外层*/
             .author {

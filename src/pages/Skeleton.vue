@@ -1,11 +1,11 @@
 <template>
     <div class="skeleton-wrapper">
         <section class="skeleton-block">
-            <img width="100%" height="100%" src="../common/image/startup.jpg">
+            <img width="100%" height="100%" src="/static/img/icons/startup.jpg">
         </section>
     </div>
 </template>
-
+c
 <script>
 import {mapActions} from 'vuex';
 

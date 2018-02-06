@@ -62,7 +62,7 @@
         mounted () {
             // 如果没有数据就返回上一页
             if (!this.newSongListTitle) {
-//                this.$router.back();
+                this.$router.back();
             }
             // 判断头部导航
             if (this.newSongListTitle === '新歌') {

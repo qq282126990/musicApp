@@ -49,7 +49,6 @@ export function getNewAlbum(param) {
 export function getNewAlbumSongList(albummid) {
     const url = 'https://shc.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg';
 
-
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const message = Object.assign({}, commonParams, {
         callback: 'albuminfoCallback',

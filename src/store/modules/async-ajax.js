@@ -8,10 +8,12 @@ import {getDissTag, getSortSongData} from 'api/sortSong';
 import {createNewSong} from 'common/js/new_song_speed';
 // 获取新歌模块头部切换对应的歌曲列表
 import {getSwitchNewSongList} from 'api/newSongModule';
-// 获取全部数字专辑数据 获取更多数字专辑数据
+// 获取全部数字专辑数据 getTotalDigitalAlbum 获取更多数字专辑数据 getMoreAlbumList 获取数字专辑音乐列表 getDigitalAlbumMusicList
 import {getTotalDigitalAlbum, getMoreAlbumList, getDigitalAlbumMusicList} from 'api/totalDigitalAlbum';
 // 获取新碟数据
 import {getNewAlbum} from 'api/newAlbum';
+// 精选电台歌曲接口 getFeaturedRadio 个性电台歌曲接口 getPersonalFeaturedRadio
+import {getFeaturedRadio, getPersonalFeaturedRadio} from 'api/featuredRadio';
 
 /**
  * 新歌速递组件默认数据
@@ -78,7 +80,17 @@ let state = {
     * 获取新碟数据
     * @type {Object}
     * */
-    newAlbum: {}
+    newAlbum: {},
+    /*
+    * 获取精选电台歌曲列表
+    * @type {Object}
+    * */
+    featuredRadioSongList: {},
+    /*
+    * 获取个性电台歌曲列表
+    * @type {Object}
+    * */
+    personalFeaturedRadio: {}
 };
 
 let actions = {
@@ -252,7 +264,36 @@ let actions = {
         else {
             // 错误处理
         }
+    },
+    /**
+     * 精选电台歌曲接口
+     * @param {Function} commit
+     */
+    async getFeaturedRadio({commit}, param) {
+        let res = await getFeaturedRadio(param);
+        if (res.code === ERR_OK) {
+            // 获取精选电台歌曲列表
+            commit(types.SET_FEATURED_RADIO_SONG_LIST, {featuredRadioSongList: res.songlist.data.track_list || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 个性电台歌曲接口
+     * @param {Function} commit
+     */
+    async getPersonalFeaturedRadio({commit}, param) {
+        let res = await getPersonalFeaturedRadio(param);
+        if (res.code === ERR_OK) {
+            // 获取个性电台歌曲列表
+            commit(types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST, {personalFeaturedRadio: res.songlist || []});
+        }
+        else {
+            // 错误处理
+        }
     }
+
 };
 
 let mutations = {
@@ -307,6 +348,14 @@ let mutations = {
     // 获取新碟数据
     [types.SET_NEW_ALBUM](state, {newAlbum}) {
         state.newAlbum = newAlbum;
+    },
+    // 获取精选电台歌曲列表
+    [types.SET_FEATURED_RADIO_SONG_LIST](state, {featuredRadioSongList}) {
+        state.featuredRadioSongList = featuredRadioSongList;
+    },
+    // 获取个性电台歌曲列表
+    [types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST](state, {personalFeaturedRadio}) {
+        state.personalFeaturedRadio = personalFeaturedRadio;
     }
 };
 

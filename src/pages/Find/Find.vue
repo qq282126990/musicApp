@@ -2,7 +2,7 @@
     <div>
         <transition name="fade" appear>
             <div class="find-wrapper">
-                发现
+                工程师努力开发中....
             </div>
         </transition>
     </div>
@@ -15,6 +15,5 @@
     .find-wrapper{
         width: 100%;
         height: 500px;
-        background: rgba(248,157,138,0.95);
     }
 </style>

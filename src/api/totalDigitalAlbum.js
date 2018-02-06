@@ -71,7 +71,7 @@ export function getMoreAlbumList (start) {
  * id // 数字专辑id
  * */
 export function getDigitalAlbumMusicList (id) {
-    const url = 'https://sh.y.qq.com/v8/fcg-bin/musicmall.fcg';
+    const url = 'https://shc.y.qq.com/v8/fcg-bin/musicmall.fcg';
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const data = Object.assign({}, commonParams, {

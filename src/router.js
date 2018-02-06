@@ -26,15 +26,10 @@ let Find = () => import('@/pages/Find/Find.vue');
 let My = () => import('@/pages/My/My.vue');
 // 没有找到页面时显示的模块
 let NotFound = () => import('@/pages/NotFound.vue');
-
+// 数字专辑音乐列表
+// let DigitalAlbumMusicList = () => import('@/components/digital-album-music-list/digital-album-music-list.vue');
 // 新歌速递模块
 // let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
-// // 新歌模块
-// let NewSong = () => import('@/components/newSong/newSong.vue');
-// // 数字专辑模块
-// let DigitalAlbum = () => import('@/components/digital-album/digital-album.vue');
-// // 新碟模块
-// let NewAlbum = () => import('@/components/newAlbum/newAlbum.vue');
 
 Vue.use(Router);
 

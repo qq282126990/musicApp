@@ -103,7 +103,18 @@ module.exports = {
          */
         runtimeCaching: [
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/musichall/,
+                urlPattern: `[
+                    '/^https:\/\/shc\.y\.qq\.com\/musichall\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/qzone\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/3gmusic\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/base\/',
+                    '/^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/splcloud\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/lyric\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/rcmusic2\/',
+                    '/^https:\/\/shc\.y\.qq\.com\/v8\/',
+                    '/^https:\/\/c\.y\.qq\.com\/splcloud\/'
+                ]`,
                 handler: 'networkFirst'
             }
             // 如果在staticFileGlobs中设置相同的缓存路径，可能导致此处不起作用
