@@ -66,8 +66,8 @@
     import {mapState, mapGetters, mapActions} from 'vuex';
     // 创建数字专辑歌曲列表信息
     import {createDigitalAlbumMusListMessage} from 'common/js/totalDigitalAlbum';
-    // 对list数据做处理
-    import {normalizeSongs} from 'common/js/song';
+    // 应用mixins
+    import {createdSongList} from 'common/js/mixin';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
     // 歌曲列表
@@ -76,6 +76,7 @@
     import Loading from 'base/loading/loading';
 
     export default {
+        mixins: [createdSongList],
         data () {
             return {
                 /*
@@ -132,18 +133,12 @@
                     index
                 });
             },
+
             ...mapActions('asyncAjax', [
                 /*
                  * 获取数字专辑歌曲列表数据
                  * */
                 'getDigitalAlbumMusicList'
-            ]),
-            ...mapActions('appShell/appHeader', [
-                /*
-                 * 隐藏主页导航
-                 * @type {Boolean}
-                 * */
-                'setAppHeader'
             ]),
             ...mapActions('appStore', {
                 /*
@@ -161,11 +156,6 @@
                  * @type {String}
                  * */
                 setNewSongListTitle: 'newSongListTitle',
-                /**
-                 * 设置歌曲列表
-                 * @type {Array}
-                 */
-                setSongList: 'songList',
                 /**
                  * 选择播放的歌曲
                  * @type {Boolean}
@@ -195,11 +185,15 @@
         },
         watch: {
             digitalAlbumMusicList (albumMessage) {
+                if (!albumMessage.songlist) {
+                    return;
+                }
+
                 // 获取专辑信息
                 this.albumMessage = createDigitalAlbumMusListMessage(albumMessage);
 
-                // 设置歌曲列表
-                this.setSongList(normalizeSongs(this.albumMessage.songlist));
+                // 请求歌曲列表播放地址
+                this.getSongPlayingUrl(albumMessage.songlist);
             }
         },
         components: {

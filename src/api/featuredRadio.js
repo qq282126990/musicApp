@@ -38,7 +38,7 @@ export function getFeaturedRadio(param) {
 * @param id 电台id
 * */
 export function getPersonalFeaturedRadio() {
-    const url = 'https://shc.y.qq.com/rcmusic2/fcgi-bin/fcg_guess_youlike_pc.fcg';
+    const url = 'https://c.y.qq.com/rcmusic2/fcgi-bin/fcg_guess_youlike_pc.fcg';
 
     // assign将所有可枚举属性的值从一个或多个源对象复制到目标对象{}
     const message = Object.assign({}, commonParams, {

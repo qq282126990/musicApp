@@ -345,6 +345,15 @@
                 // 重置歌曲报错次数
                 this.playErrorCounter = 0;
 
+                // 重置播放链接
+                this.playUrl = '';
+
+                // 重置歌曲的播放时间
+                this.$refs.audio.currentTime = 0;
+
+                // 设置歌曲播放状态
+                this.setPlaying(!this.playing);
+
                 // 执行初始化歌词列表
                 if (this.currentLyric) {
                     // 停止歌词滚动
@@ -808,6 +817,8 @@
 
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+                            console.log(this.playUrl);
+
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
@@ -824,6 +835,8 @@
 
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+                            console.log(this.playUrl);
+
                             // 设置播放器播放
                             this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
@@ -875,14 +888,26 @@
             },
             // 监听错误次数
             playErrorCounter(newCounter) {
-                // 歌曲链接报错3次以上请求新的歌曲播放地址
-                if (newCounter >= 2) {
+                console.log(newCounter);
+                // 歌曲链接报错2次以上请求新的歌曲播放地址
+                if (newCounter === 2) {
                     // 请求歌曲地址 传入 songmid = mid
                     // this._getSinglePlayingUrl(null, this.currentSong.strMediaMid);
 
                     // 设置播放器播放地址
                     this.playUrl = this.currentSong.url;
                     this.audioPlay(this.playUrl);
+
+                    console.log(this.playUrl);
+                    // 设置歌曲播放状态
+                    this.setPlaying(true);
+                }
+                // 歌曲链接报错3次以上请求新的歌曲播放地址
+                else if (newCounter === 3) {
+                    // 设置播放器播放地址
+                    this.playUrl = this.currentSong.spare;
+                    this.audioPlay(this.playUrl);
+                    console.log(this.playUrl);
 
                     // 设置歌曲播放状态
                     this.setPlaying(true);
@@ -903,6 +928,8 @@
             },
             // 监听歌曲改变
             currentSong(newCurrentSong, oldSong) {
+                console.log(newCurrentSong);
+
                 // 如果没有歌曲id就不播放歌曲
                 if (!newCurrentSong.id) {
                     // 清除播放链接

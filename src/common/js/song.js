@@ -5,7 +5,7 @@
 
 // 自定义定义歌曲信息
 export default class Song {
-    constructor({id, mid, strMediaMid, singer, name, album, duration, image, url}) {
+    constructor({id, mid, strMediaMid, singer, name, album, duration, image, url, spare}) {
         this.id = id;
         this.mid = mid;
         this.strMediaMid = strMediaMid;
@@ -15,6 +15,7 @@ export default class Song {
         this.duration = duration;
         this.image = image;
         this.url = url;
+        this.spare = spare;
     };
 
     // // 获取歌曲歌词
@@ -55,9 +56,11 @@ export function createSong(musicData) {
         // 专辑图片
         image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
         // 音乐链接
-        url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+        // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
         // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
-        // isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a
+        url: `http://isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
+        // 第4个备用接口
+        spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
     });
 };
 

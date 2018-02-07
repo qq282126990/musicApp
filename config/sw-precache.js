@@ -99,22 +99,30 @@ module.exports = {
         /**
          * 需要根据路由动态处理的文件
          *
+         * '[ /^https:\/\/c\.y\.qq\.com\/musichall/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/qzone/,' +
+         ' /^https:\/\/c\.y\.qq\.com\/3gmusic/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/base/, ' +
+         '/^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/splcloud/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/lyric/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/rcmusic2/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/v8/, ' +
+         '/^https:\/\/c\.y\.qq\.com\/splcloud/]'
          * @type {Array}
          */
         runtimeCaching: [
             {
-                urlPattern: `[
-                    '/^https:\/\/shc\.y\.qq\.com\/musichall\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/qzone\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/3gmusic\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/base\/',
-                    '/^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/splcloud\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/lyric\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/rcmusic2\/',
-                    '/^https:\/\/shc\.y\.qq\.com\/v8\/',
-                    '/^https:\/\/c\.y\.qq\.com\/splcloud\/'
-                ]`,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/musichall/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/qzone/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/3gmusic/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/base/,
+                urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/lyric/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/rcmusic2/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/v8/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
                 handler: 'networkFirst'
             }
             // 如果在staticFileGlobs中设置相同的缓存路径，可能导致此处不起作用

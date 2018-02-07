@@ -12,16 +12,12 @@
 <script type="text/ecmascript-6">
     // 引入vuex
     import {mapActions, mapGetters} from 'vuex';
+    // 应用mixins
+    import {createdSongList} from 'common/js/mixin';
     // 获取歌曲列表 getSongList 获取专辑收藏量接口 getCollection
     import {getSongList, getCollection} from 'api/musicSongList';
-    // 获取歌曲播放MP4地址方法
-    import {getSongPlayingUrl} from 'api/songPlayingUrl';
-    // 对list数据做处理创建歌曲列表方法
-    import {createSong} from 'common/js/song';
     // 获取播放量方法
     import {computedPlayNumber} from 'common/js/util';
-    // 歌曲播放接口
-    import {crackedPlayingAjax} from 'common/js/cracked_ajax';
     // 新碟专辑歌曲列表接口
     import {getNewAlbumSongList} from 'api/newAlbum';
     import {ERR_OK} from 'api/config';
@@ -29,6 +25,7 @@
     import musicList from '../music-list/music-list.vue';
 
     export default {
+        mixins: [createdSongList],
         data() {
             return {
                 /*
@@ -176,38 +173,6 @@
                 }
             },
             /**
-             * 歌曲播放mp4 地址
-             */
-            getSongPlayingUrl(data) {
-                // 对数据进行转换
-                getSongPlayingUrl(this._Song_Playing_Mp4_Url(data)).then((res) => {
-                    if (res.code === ERR_OK) {
-                        this.songPlayingUrl = res.url_mid.data;
-
-                        // 歌曲数据
-                        this.songs = this._normalizeSongs(data, this.songPlayingUrl);
-
-                        // 把歌曲列表存入vuex
-                        this.setSongList(this.songs);
-                    }
-                });
-            },
-            /**
-             * 歌曲播放接口传入的data参数
-             * @type {Object}  list
-             */
-            _Song_Playing_Mp4_Url(list) {
-                let strMediaMid = [];
-                let songtype = [];
-                list.forEach((data) => {
-                    if (data) {
-                        strMediaMid.push(`${data.strMediaMid}`);
-                        songtype.push(0);
-                    }
-                });
-                return crackedPlayingAjax(strMediaMid, songtype);
-            },
-            /**
              *  获取更多歌曲列表
              *  @param {number} newSongBegin
              */
@@ -247,21 +212,6 @@
 //                }
 //            },
             /**
-             * 对list数据做处理
-             * @type {Array}  list
-             */
-            _normalizeSongs(list, playingUrl) {
-                let ret = [];
-
-                list.forEach((musicData, index) => {
-                    if (musicData) {
-                        ret.push(createSong(musicData, playingUrl, index));
-                    }
-                });
-
-                return ret;
-            },
-            /**
              * 对list数据进行拼接 上拉加载
              * @type {Array}  list
              */
@@ -283,9 +233,6 @@
 //                }
 //                return playNumber;
 //            },
-            ...mapActions('appShell/appHeader', [
-                'setAppHeader'
-            ]),
             ...mapActions('appStore', {
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15
@@ -296,12 +243,7 @@
                  * 歌曲列表信息
                  * @type {Object}
                  */
-                setSongListMessage: 'songListMessage',
-                /**
-                 * 歌曲列表
-                 * @type {Array}
-                 */
-                setSongList: 'songList'
+                setSongListMessage: 'songListMessage'
             })
         },
         // 当组件激活的调用
