@@ -141,7 +141,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        bottom: px2rem(120px);
+        bottom: 0;
         left: 0;
         overflow-x: hidden;
         overflow-y: auto;

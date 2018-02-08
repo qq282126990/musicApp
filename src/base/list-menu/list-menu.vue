@@ -10,8 +10,13 @@
                     <ul class="list-data" v-if="recommend.data.length">
                         <li v-for="(data, index) in recommend.data" :key="index"
                             @click="selectItem(data, bigTitle[index])">
-                            <img class="mark" :src="data.edge_mark" v-show="data.edge_mark"/>
-                            <img class="cover" v-lazy="data.cover"/>
+                            <img class="mark"
+                                 :alt="data.edge_mark"
+                                 :src="data.edge_mark"
+                                 v-show="data.edge_mark"/>
+                            <img class="cover"
+                                 :alt="data.cover"
+                                 v-lazy="data.cover"/>
                             <div class="title">
                                 <span class="bigTitle" v-show="data.status">{{bigTitle[index]}}</span>
                                 <span v-html="data.title"></span>
@@ -21,7 +26,9 @@
                     <!--加载图-->
                     <ul class="list-data" v-if="_showLondImg">
                         <li v-for="item in loadingImg">
-                            <img class="cover" src="../../../static/img/default.jpg"/>
+                            <img class="cover"
+                                 alt="default"
+                                 src="../../../static/img/default.jpg"/>
                             <div class="title">
                                 <hr>
                                 <hr width="50%" align="left">

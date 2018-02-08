@@ -26,11 +26,14 @@
                             <li v-for="item in dissRouter.slice(1,11)" :key="item.categoryId">
                                 <img
                                     :src="`https://y.gtimg.cn/music/photo/radio/track_radio_${item.categoryId + 6}_10_3.jpg?max_age=2592000`"
+                                    :alt="item.categoryId"
                                     :data-index="item.categoryId"
                                     @error="tagErrorImg"
                                     v-if="dissRouter"
                                 />
-                                <img :src="errorImg" v-else/>
+                                <img
+                                    :alt="errorImg"
+                                    :src="errorImg" v-else/>
                                 <span class="name">{{item.categoryName}}</span>
                             </li>
                         </ul>
@@ -57,7 +60,9 @@
                                         :key="item.categoryId">
                                         <li v-for="item in sortSongList[index].list" @click="selectItem(item)">
                                             <!--头像-->
-                                            <img class="avatar" :src="item.imgurl"/>
+                                            <img class="avatar"
+                                                 :alt="item.imgurl"
+                                                 :src="item.imgurl"/>
                                             <!--播放量-->
                                             <div class="play-number-wrapper">
                                                 <!--播放量数字-->
@@ -76,6 +81,7 @@
                                                 <!--正则判断是否显示logo-->
                                                 <img class="logo"
                                                      src="https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/114042.png"
+                                                     :alt="item.creator.encrypt_uin"
                                                      v-show="new RegExp('/*').test(`${item.creator.encrypt_uin}`)"/>
                                             </div>
                                         </li>

@@ -20,7 +20,9 @@
         <div class="music-list">
             <!--背景图-->
             <div :class="headerBg ? 'background-header-bgcolor' : 'background'" ref="background">
-                <img width="100%" height="100%" v-lazy="homeSonglist.cover">
+                <img width="100%" height="100%"
+                     :alt="homeSonglist.cover"
+                     v-lazy="homeSonglist.cover">
             </div>
             <!--背景滤镜效果-->
             <div :class="headerBg ? 'filter-header-bgcolor' : 'filter'"></div>
@@ -31,7 +33,9 @@
                 <div class="album" :style="{opacity: transparent}">
                     <!--专辑头像-->
                     <div class="cover">
-                        <img v-lazy="homeSonglist.cover"/>
+                        <img
+                            :alt="homeSonglist.cover"
+                            v-lazy="homeSonglist.cover"/>
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <div class="play-number">
@@ -49,9 +53,12 @@
                         <!--作者头像-->
                         <div class="author">
                             <!--作者小头像-->
-                            <img class="small-avatar" :src="getSongListMessage.smallAvatar"/>
+                            <img class="small-avatar"
+                                 :alt="getSongListMessage.smallAvatar"
+                                 :src="getSongListMessage.smallAvatar"/>
                             <!--作者大头像-->
                             <img class="author-avatar"
+                                 :alt="getSongListMessage.authorAvatar || smallAvatarDefault"
                                  v-lazy="getSongListMessage.authorAvatar || smallAvatarDefault"/>
                             <!--作者名字-->
                             <div class="author-name" :class="{error: !getSongListMessage.nickname}">

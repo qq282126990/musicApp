@@ -7,17 +7,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import * as types from './store/mutation-types';
 // 歌曲列表模块
-import SongList from '@/components/song-list/song-List.vue';
+// import SongList from '@/components/song-list/song-List.vue';
 // 数字专辑音乐列表
-import DigitalAlbumMusicList from '@/components/digital-album-music-list/digital-album-music-list.vue';
+// import DigitalAlbumMusicList from '@/components/digital-album-music-list/digital-album-music-list.vue';
 // 新歌速递
-import NewSongSpeed from '@/components/new-song-speed/new-song-speed.vue';
+// import NewSongSpeed from '@/components/new-song-speed/new-song-speed.vue';
 
 
 // 定义切割点，异步加载路由组件
 let Home = () => import('@/pages/Home/Home.vue');
 // 歌曲列表模块
-// let SongList = () => import('@/components/song-list/song-List.vue');
+let SongList = () => import('@/components/song-list/song-List.vue');
 // 热门推荐模块
 let HotRecommend = () => import('@/components/hot-recommend/hot-recommend.vue');
 // 发现模块
@@ -27,9 +27,9 @@ let My = () => import('@/pages/My/My.vue');
 // 没有找到页面时显示的模块
 let NotFound = () => import('@/pages/NotFound.vue');
 // 数字专辑音乐列表
-// let DigitalAlbumMusicList = () => import('@/components/digital-album-music-list/digital-album-music-list.vue');
+let DigitalAlbumMusicList = () => import('@/components/digital-album-music-list/digital-album-music-list.vue');
 // 新歌速递模块
-// let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
+let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
 
 Vue.use(Router);
 

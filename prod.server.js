@@ -1,7 +1,50 @@
-var express = require('express');
-var axios = require('axios');
-
+const express = require('express');
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const axios = require('axios');
+const compression = require('compression');
 const app = express();
+
+//尽量在其他中间件前使用compression
+const privateKey = fs.readFileSync('./linfengzhuiyi.cn.key', 'utf8');
+const certificate = fs.readFileSync('./1_linfengzhuiyi.cn_bundle.crt', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+const PORT = 80;
+const SSLPORT = 443;
+
+httpServer.listen(PORT, function () {
+    console.log('HTTP Server is running on: http://localhost:%s', PORT);
+});
+httpsServer.listen(SSLPORT, function () {
+    console.log('HTTPS Server is running on: https://localhost:%s', SSLPORT);
+});
+
+// const musicApi = require('./server/api/musicApi');
+const config = require('./config/index');
+
+app.use(compression());
+
+app.use(express.static('./dist'));
+
+// 处理 history API 的回退情况
+app.use(require('connect-history-api-fallback')());
+
+// Welcome
+app.get('/', function (req, res) {
+    if (req.protocol === 'https') {
+        res.status(200).send('Welcome to Safety Land!');
+    }
+    else {
+        res.status(200).send('Welcome!');
+    }
+});
+
+
+// 后端路由代理
 const apiRoutes = express.Router();
 
 // 获取歌曲列表
@@ -58,6 +101,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 axios.defaults.withCredentials = true;
+
 apiRoutes.post('/getSongPlayingUrl', function (req, res) {
 
     // 获取请求的 body payload 转换成字符串
@@ -212,4 +256,5 @@ apiRoutes.post('/getMoreAlbumList', function (req, res) {
     });
 });
 
-module.exports = apiRoutes;
+// 后端api路由
+app.use('/api', apiRoutes);

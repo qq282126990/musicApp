@@ -114,14 +114,41 @@ module.exports = {
         runtimeCaching: [
             {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/musichall/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/qzone/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/3gmusic/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/base/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/lyric/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/rcmusic2/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/v8/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
                 handler: 'networkFirst'
             }

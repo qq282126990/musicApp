@@ -11,6 +11,7 @@
                 <!--背景-->
                 <div class="background">
                     <img width="100%" height="100%"
+                         :alt="currentSong.image"
                          v-lazy="currentSong.image">
                 </div>
                 <!--头部-->
@@ -51,6 +52,7 @@
                             <div class="cd-wrapper" :style="{width: `${cdWrapperWidth}px`}" ref="cdWrapper">
                                 <div class="cd" :class="cdCls">
                                     <img class="image"
+                                         :alt="currentSong.image"
                                          v-lazy="currentSong.image"/>
                                 </div>
                             </div>
@@ -133,7 +135,10 @@
                 <transition name="playList">
                     <div class="slide" v-show="currentSong.id" :key="currentSong.id">
                         <div class="avatar">
-                            <img width="100%" height="100%" v-lazy="currentSong.image" ref="miniAvatar"/>
+                            <img width="100%" height="100%"
+                                 :alt="currentSong.image"
+                                 v-lazy="currentSong.image"
+                                 ref="miniAvatar"/>
                         </div>
                         <div class="text">
                             <h2 class="name" v-html="currentSong.name"></h2>
@@ -564,15 +569,16 @@
             // 控制播放
             togglePlaying() {
                 // 判断是否准备好播放
-                if (!this.songReady) {
-                    return;
-                }
+//                if (!this.songReady) {
+//                    return;
+//                }
 
                 // 如果没有歌曲id就直接返回不执行
                 if (!this.currentSong.id) {
                     return;
                 }
 
+                console.log(!this.playing);
                 // 设置歌词开始播放
                 if (this.currentLyric) {
                     this.currentLyric.togglePlay();
@@ -937,8 +943,7 @@
                     // 设置歌曲播放状态
                     this.setPlaying(false);
                     // 设置播放器不播放
-                    this.$refs.audio.pause();
-
+                    // this.$refs.audio.pause();
                     return;
                 }
 

@@ -8,7 +8,7 @@
                         <Slider>
                             <div v-for="item in slider">
                                 <a :href="item.linkUrl">
-                                    <img :src="item.picUrl">
+                                    <img :alt="item.picUrl" :src="item.picUrl">
                                 </a>
                             </div>
                         </Slider>
@@ -33,8 +33,10 @@
                         <ul class="list-data">
                             <li v-for="(item, index) in featuredRadio" :key="index"
                                 @click.stop="playFeaturedRadio(item)">
-                                <v-icon class="icon">{{getSongPlaying && clickFeaturedRadio === item.radioId? 'pause' : 'play_arrow'}}</v-icon>
-                                <img class="cover" v-lazy="item.radioImg"/>
+                                <v-icon class="icon">
+                                    {{getSongPlaying && clickFeaturedRadio === item.radioId ? 'pause' : 'play_arrow'}}
+                                </v-icon>
+                                <img class="cover" :alt="item.radioImg" v-lazy="item.radioImg"/>
                                 <div class="title">
                                     <span>{{item.radioName}}</span>
                                 </div>
@@ -49,7 +51,7 @@
 
 <script>
     import {mapActions, mapState, mapGetters} from 'vuex';
-    import {setCookie} from 'common/js/cookie';
+    import {setCookie, getCookie} from 'common/js/cookie';
     // 自定义歌单推荐数据
     import {createSongTableMessage} from 'common/js/songTableMessage';
     // 对list数据做处理
@@ -84,9 +86,9 @@
                  * */
                 translateY: 5,
                 /*
-                * 获取点击的电台的id
-                * @type {Number}
-                * */
+                 * 获取点击的电台的id
+                 * @type {Number}
+                 * */
                 clickFeaturedRadio: null,
                 /*
                  * 设置标签信息
@@ -100,48 +102,48 @@
                     ]
                 }],
                 /*
-                * 保存当前的歌曲列表
-                * @type {Array}
-                * */
+                 * 保存当前的歌曲列表
+                 * @type {Array}
+                 * */
                 featuredSongList: [],
                 /*
-                * 保存当前的歌曲index
-                * @type {Array}
-                * */
+                 * 保存当前的歌曲index
+                 * @type {Array}
+                 * */
                 saveCurrentSongIndex: 0
             };
         },
         computed: {
             ...mapState('asyncAjax', [
                 /*
-                * 轮播图请求返回的数据
-                * @typ {Array}
-                * */
+                 * 轮播图请求返回的数据
+                 * @typ {Array}
+                 * */
                 'slider',
                 /*
-                * 热门推荐数据
-                * @typ {Array}
-                * */
+                 * 热门推荐数据
+                 * @typ {Array}
+                 * */
                 'recommend',
                 /*
-                * 新歌导航
-                * @typ {Array}
-                * */
+                 * 新歌导航
+                 * @typ {Array}
+                 * */
                 'newSong',
                 /*
-                * 主页精选电台导航数据
-                * @typ {Array}
-                * */
+                 * 主页精选电台导航数据
+                 * @typ {Array}
+                 * */
                 'featuredRadio',
                 /*
-                * 获取精选电台歌曲列表
-                * @typ {Array}
-                * */
+                 * 获取精选电台歌曲列表
+                 * @typ {Array}
+                 * */
                 'featuredRadioSongList',
                 /*
-                * 获取个性电台歌曲列表
-                * @typ {Array}
-                * */
+                 * 获取个性电台歌曲列表
+                 * @typ {Array}
+                 * */
                 'personalFeaturedRadio'
             ]),
             ...mapGetters('appStore', {
@@ -192,10 +194,12 @@
             // 设置guid 到cookie中 !!!!!!!!!!!!!!!!!!!!!! 重要 每天设置一次
             let d = new Date();
             let n = d.getHours();
-            if (n === 0) {
+            if (!getCookie('guid')) {
                 setCookie('guid', this.guid, Infinity, '/');
             }
-
+            else if (n === 0) {
+                setCookie('guid', this.guid, Infinity, '/');
+            }
             // 设置滚动列表不能回弹
             this.bounce(false);
         },
@@ -254,6 +258,9 @@
             },
             // 选择列表 中的模块 跳转页面
             selectSinger(singer, bigTitle) {
+                // 清除 clickFeaturedRadio
+                this.clickFeaturedRadio = null;
+
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.content_id) {
                     // 把选中的专辑的数据存入 homeSonglist
@@ -378,6 +385,11 @@
             },
             // 监听当前播放歌曲的index
             getCurrentIndex(newIndex) {
+                // 如果没有点击电台就不执行下面逻辑
+                if (!this.clickFeaturedRadio) {
+                    return;
+                }
+
                 // 获取歌曲是否播放
                 if (!this.getSongPlaying) {
                     return;
@@ -551,5 +563,9 @@
 
     li:nth-child(3n + 2) {
         margin: 0 px2rem(20px);
+    }
+
+    .featuredRadio-wrapper{
+        padding-bottom: px2rem(120px);
     }
 </style>

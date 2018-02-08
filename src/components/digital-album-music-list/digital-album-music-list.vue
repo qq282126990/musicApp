@@ -10,13 +10,16 @@
                 <div class="cover-wrapper">
                     <!--背景-->
                     <div class="background">
-                        <img v-lazy="albumMessage.cover"/>
+                        <img
+                            :alt="albumMessage.cover"
+                            v-lazy="albumMessage.cover"/>
                     </div>
                     <!--模糊层-->
                     <div class="filter"></div>
                     <!--图片-->
                     <div class="cd-box">
                         <img class="cd-box-cove"
+                             :alt="albumMessage.cover"
                              v-lazy="albumMessage.cover"/>
                         <span class="cd_ornament"></span>
                     </div>

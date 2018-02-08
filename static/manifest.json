@@ -1,19 +1,15 @@
 {
-  "name": "hello",
-  "short_name": "hello",
+  "name": "听 我 想 听 的 歌",
+  "short_name": "听 我 想 听 的 歌",
   "icons": [
     {
-      "src": "/static/img/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }, {
-      "src": "/static/img/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "/static/img/icons/apple-touch-icon-152x152.png",
+      "sizes": "152x152",
       "type": "image/png"
     }
   ],
   "start_url": "/",
-  "background_color": "#000000",
-  "display": "standalone",
-  "theme_color": "#2874f0"
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "theme_color": "#ffffff"
 }

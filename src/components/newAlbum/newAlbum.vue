@@ -14,6 +14,7 @@
                     <li v-for="item in listData" @click="selectItem(item)">
                         <!--头像-->
                         <img class="avatar"
+                             :alt="item.cover"
                              v-lazy="item.cover"/>
                         <!--发行时间-->
                         <div class="play-number-wrapper">

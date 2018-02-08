@@ -13,6 +13,7 @@
                         <!--专辑图片-->
                         <div class="list-media-cd">
                             <img class="list-img"
+                                 :alt="list.cover"
                                  v-lazy="list.cover"/>
                         </div>
                         <!--专辑名称-->
@@ -37,7 +38,9 @@
                 <li class="list-item" v-for="list in item.data">
                     <!--专辑图片-->
                     <div class="item-cove">
-                        <img v-lazy="list.cover"/>
+                        <img
+                            :alt="list.cover"
+                            v-lazy="list.cover"/>
                     </div>
                     <!--专辑文字-->
                     <div class="text-wrapper">

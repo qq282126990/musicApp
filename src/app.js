@@ -14,6 +14,9 @@ import Icon from 'vue-awesome/components/Icon.vue';
 
 import './common/font/iconfont.scss';
 
+/* eslint-disable no-unused-vars */
+import vConsole from 'vconsole';
+
 // 图标库
 Vue.component('icon', Icon);
 // ui组件库

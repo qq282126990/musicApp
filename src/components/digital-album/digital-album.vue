@@ -10,7 +10,9 @@
                     <slider :showDots="showDots">
                         <div v-for="item in musicDigitalAlbum.focus">
                             <a :href="item.jumpurl">
-                                <img :src="item.picurl">
+                                <img
+                                    :alt="item.picurl"
+                                    :src="item.picurl">
                             </a>
                         </div>
                     </slider>
