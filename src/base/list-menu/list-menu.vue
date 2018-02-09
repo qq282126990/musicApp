@@ -19,7 +19,7 @@
                                  v-lazy="data.cover"/>
                             <div class="title">
                                 <span class="bigTitle" v-show="data.status">{{bigTitle[index]}}</span>
-                                <span v-html="data.title"></span>
+                                <span class="title-span" v-html="data.title"></span>
                             </div>
                         </li>
                     </ul>
@@ -180,11 +180,11 @@
         font-size: px2rem(24px);
         color: $list-title;
         height: px2rem(80px);
-        span {
+        -webkit-box-orient: vertical;
+        .title-span {
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
         }
     }
@@ -194,7 +194,7 @@
         left: 0;
         right: 0;
         text-align: center;
-        overflow: visible !important;
+        overflow: visible;
         margin-top: px2rem(-70px);
         font-size: px2rem(40px);
         font-weight: bold;

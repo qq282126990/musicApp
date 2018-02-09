@@ -15,7 +15,7 @@ import Icon from 'vue-awesome/components/Icon.vue';
 import './common/font/iconfont.scss';
 
 /* eslint-disable no-unused-vars */
-import vConsole from 'vconsole';
+// import vConsole from 'vconsole';
 
 // 图标库
 Vue.component('icon', Icon);
@@ -36,6 +36,13 @@ Vue.use(VueLazyload, {
     error: require('../static/img/default.jpg'),
     loading: require('../static/img/default.jpg')
 });
+
+// hack for global nextTick
+function noop() {
+}
+
+window.MessageChannel = noop;
+window.setImmediate = noop;
 
 /* eslint-disable no-new */
 export function createApp() {

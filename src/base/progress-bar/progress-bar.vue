@@ -95,6 +95,10 @@
                 // 偏移的位置
                 const percent = this.$refs.progress.clientWidth / barWidth;
 
+                if (!percent) {
+                    return;
+                }
+
                 // 派发当前进度条的百分比事件
                 this.$emit('percentChange', percent);
             }

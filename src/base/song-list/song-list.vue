@@ -1,8 +1,8 @@
 <template>
     <div class="list-wrapper">
         <!--歌曲列表-->
-        <v-list class="list-content" v-show="songs">
-            <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item, index)" :key="index">
+        <ul class="list-content" v-show="getSongList">
+            <li ripple v-for="(item, index) in getSongList" @click="selectItem(item, index)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
                     <div :class="getCurrentSong(item)"></div>
@@ -20,20 +20,20 @@
                     <!--更多-->
                     <v-icon class="more" :class="setStyle">more_vert</v-icon>
                 </div>
-            </v-list-tile>
+            </li>
             <!--下拉加载时显示的Loading效果-->
-            <div class="has-more" v-show="hasMore && songs.length">
+            <div class="has-more" v-show="hasMore && getSongList.length">
                 <loading></loading>
             </div>
 
             <!--没有更多了-->
-            <div class="none-more" v-show="!hasMore && songs.length">
+            <div class="none-more" v-show="!hasMore && getSongList.length">
                 <v-icon class="icon">sentiment_dissatisfied</v-icon>
                 <span class="title">没有更多了</span>
             </div>
-        </v-list>
+        </ul>
         <!--加载中显示的效果-->
-        <div class="loading-container" v-show="!songs.length">
+        <div class="loading-container" v-show="!getSongList.length">
             <loading></loading>
         </div>
     </div>
@@ -67,7 +67,7 @@
                  * 歌曲列表
                  * @param {Array}
                  * */
-                songs: 'songList',
+                getSongList: 'songList',
                 /**
                  * 当前播放的歌曲信息
                  * @type {Object}

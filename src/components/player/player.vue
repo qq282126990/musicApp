@@ -336,7 +336,7 @@
         },
         methods: {
             // 初始化操作
-            _initDom () {
+            _initDom() {
                 // 默认显示cd
                 this.currentShow = 'cd';
                 // 设置歌词偏移的位置
@@ -562,6 +562,7 @@
             // 设置播放器播放
             audioPlay(data) {
                 const audio = this.$refs.audio;
+
                 this.$nextTick(() => {
                     data ? audio.play() : audio.pause();
                 });
@@ -569,16 +570,15 @@
             // 控制播放
             togglePlaying() {
                 // 判断是否准备好播放
-//                if (!this.songReady) {
-//                    return;
-//                }
+                if (!this.songReady) {
+                    return;
+                }
 
                 // 如果没有歌曲id就直接返回不执行
                 if (!this.currentSong.id) {
                     return;
                 }
 
-                console.log(!this.playing);
                 // 设置歌词开始播放
                 if (this.currentLyric) {
                     this.currentLyric.togglePlay();
@@ -716,6 +716,12 @@
             },
             // 获取当前进度条的位置设置歌曲播放时间进度
             onPercentChange(percent) {
+                // 歌曲准备好播放了才能对播放器进行操作
+                if (!this.songReady) {
+                    return;
+                }
+
+                // 获取进度条当前位置
                 this.percent = percent;
                 // 获取当前歌曲播放时间  = 总时长 * 进度条偏移的量
                 const currentTime = this.currentSong.duration * percent;
@@ -798,10 +804,11 @@
                 if (!lineNum) {
                     return;
                 }
+
                 // 获取当前歌曲播放的行
                 this.currentLineNum = lineNum;
                 // 设置如果当前的歌词行数进行到大于5才执行滚动动画
-                if (lineNum > 5 && lineNum !== undefined) {
+                if (this.$refs.lyricLine && lineNum > 5) {
                     let lyricLine = this.$refs.lyricLine[lineNum - 5];
                     this.$refs.lyricList.scrollToElement(lyricLine, 1000);
                 }
@@ -812,7 +819,7 @@
                 this.playingLyric = txt;
             },
             // 获取播放歌曲的播放链接
-            _getSinglePlayingUrl(songmid, strMediaMid) {
+            _getSinglePlayingUrl(strMediaMid, songmid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
                 if (strMediaMid) {
@@ -823,10 +830,9 @@
 
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
-                            console.log(this.playUrl);
 
                             // 设置播放器播放
-                            this.audioPlay(this.playUrl);
+                            // this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
                             this.setPlaying(true);
                         }
@@ -841,10 +847,9 @@
 
                             // 歌曲播放地址
                             this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
-                            console.log(this.playUrl);
 
                             // 设置播放器播放
-                            this.audioPlay(this.playUrl);
+                            // this.audioPlay(this.playUrl);
                             // 设置歌曲播放状态
                             this.setPlaying(true);
                         }
@@ -870,12 +875,26 @@
             })
         },
         watch: {
+            // 监听播放链接
+            playUrl(newUrl) {
+                if (!newUrl) {
+                    return;
+                }
+
+                setTimeout(() => {
+                    this.$refs.audio.play();
+                }, 1000);
+            },
             // 监听播放器错误
             playError(newPlayError) {
+                // 播放器错误清除播放链接
+                // this.playUrl = null;
                 // 如果播放器错误就请求备用接口
                 if (newPlayError) {
+                    this.$refs.audio.pause();
+
                     // this._getSinglePlayingUrl(this.currentSong.mid);
-                    this._getSinglePlayingUrl(null, this.currentSong.strMediaMid);
+                    this._getSinglePlayingUrl(this.currentSong.strMediaMid, null);
 
                     // 如果有歌词就重置歌词状态
                     if (this.currentLyric) {
@@ -894,17 +913,12 @@
             },
             // 监听错误次数
             playErrorCounter(newCounter) {
-                console.log(newCounter);
                 // 歌曲链接报错2次以上请求新的歌曲播放地址
                 if (newCounter === 2) {
-                    // 请求歌曲地址 传入 songmid = mid
-                    // this._getSinglePlayingUrl(null, this.currentSong.strMediaMid);
-
                     // 设置播放器播放地址
                     this.playUrl = this.currentSong.url;
-                    this.audioPlay(this.playUrl);
+                    // this.audioPlay(this.playUrl);
 
-                    console.log(this.playUrl);
                     // 设置歌曲播放状态
                     this.setPlaying(true);
                 }
@@ -912,8 +926,7 @@
                 else if (newCounter === 3) {
                     // 设置播放器播放地址
                     this.playUrl = this.currentSong.spare;
-                    this.audioPlay(this.playUrl);
-                    console.log(this.playUrl);
+                    // this.audioPlay(this.playUrl);
 
                     // 设置歌曲播放状态
                     this.setPlaying(true);
@@ -921,6 +934,10 @@
             },
             // 监听播放器播放
             playing(newPlaying) {
+                // 歌曲准备好播放了才能对播放器进行操作
+                if (!this.songReady) {
+                    return;
+                }
                 // 设置播放器播放
                 this.audioPlay(newPlaying);
             },
@@ -934,12 +951,8 @@
             },
             // 监听歌曲改变
             currentSong(newCurrentSong, oldSong) {
-                console.log(newCurrentSong);
-
                 // 如果没有歌曲id就不播放歌曲
                 if (!newCurrentSong.id) {
-                    // 清除播放链接
-                    this.playUrl = null;
                     // 设置歌曲播放状态
                     this.setPlaying(false);
                     // 设置播放器不播放
@@ -956,10 +969,7 @@
                 this._initDom();
 
                 // 设置播放器播放地址
-                this._getSinglePlayingUrl(this.currentSong.mid);
-
-                // 设置播放器播放地址
-                // this.playUrl = this.currentSong.url;
+                this._getSinglePlayingUrl(null, this.currentSong.mid);
 
                 // 每次执行前先清除time
                 clearTimeout(this.timer);
@@ -967,7 +977,7 @@
                 this.timer = setTimeout(() => {
 //                    // 设置播放器播放
 //                    this.$refs.audio.play();
-//                    this.setPlaying(true);
+                    this.setPlaying(true);
 
                     // 设置播放器播放
                     // this.audioPlay(this.playUrl);
@@ -982,7 +992,8 @@
             Playlist,
             Scroll
         }
-    };
+    }
+    ;
 </script>
 
 <style lang="scss" scoped>

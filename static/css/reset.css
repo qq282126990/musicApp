@@ -108,3 +108,7 @@ body {
 .btn__content {
     padding: 0 !important;
 }
+
+.title-span {
+    -webkit-box-orient: vertical;
+}

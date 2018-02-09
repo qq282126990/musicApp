@@ -294,7 +294,7 @@
         .cd-box {
             position: relative;
             left: px2rem(-20px);
-            margin-bottom: px2rem(52px);
+            margin: 0 auto px2rem(52px) auto;
             width: px2rem(516px);
             height: px2rem(516px);
             z-index: 1;
@@ -437,7 +437,7 @@
 
     /*歌曲列表*/
     .list-wrapper {
-        background: $digital-album-music-list-content;
+        background: $digital-album-music-list-content !important;
     }
 
     /*loading*/

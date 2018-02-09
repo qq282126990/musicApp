@@ -172,67 +172,6 @@
                     });
                 }
             },
-            /**
-             *  获取更多歌曲列表
-             *  @param {number} newSongBegin
-             */
-//            getSongListMore(newSongBegin) {
-//                // 初始化设置还没有请求
-//                this.ajax_ok = false;
-//
-//                // 如果没有更多就不执行
-//                if (!this.hasMore) {
-//                    return;
-//                }
-//
-//                // 获取歌曲列表接口
-//                getSongList(this.homeSonglist.content_id, newSongBegin).then((res) => {
-//                    if (res.code === ERR_OK) {
-//                        // this.data = res.cdlist[0];
-//
-//                        // 拼接更多歌曲列表
-//                        this.songs = this.songs.concat(this._genResult(res.cdlist[0].songlist));
-//
-//                        // 把歌曲列表存入vuex
-//                        this.setSongList(this.songs);
-//
-//                        // 如果歌曲列表总数小于15条和没有歌曲列表就不能加载更多
-//                        this._checkMore(res.cdlist[0], newSongBegin);
-//
-//                        // 设置请求完成
-//                        this.ajax_ok = true;
-//                    }
-//                });
-//            },
-            // 检查是否能够加载更多
-//            _checkMore(data, newSongBegin) {
-//                // 有歌曲列表，歌曲列表长度小于15，页数 等于歌曲列表总页数  就设置未不能加载更多
-//                if (!data.songlist.length || data.songlist.length < 15 || newSongBegin === data.total_song_num) {
-//                    this.hasMore = false;
-//                }
-//            },
-            /**
-             * 对list数据进行拼接 上拉加载
-             * @type {Array}  list
-             */
-//            _genResult(list) {
-//                let ret = [];
-//                if (list) {
-//                    ret = ret.concat(this._normalizeSongs(list));
-//                }
-//                return ret;
-//            },
-            /**
-             * 计算播放量
-             * @type {String}  playNumber
-             */
-//            computedPlayNumber(playNumber) {
-//                // 如果当前播放量是1万才进行计算
-//                if (playNumber > 1e4) {
-//                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
-//                }
-//                return playNumber;
-//            },
             ...mapActions('appStore', {
                 /**
                  * 歌曲列表接口一次请求的页数 一次 +15
@@ -254,7 +193,7 @@
             });
 
             // 每次切换都重置一边歌曲列表
-            // this.setSongList([]);
+             this.setSongList([]);
             // 初始化歌曲列表
             // this.songs = [];
 
@@ -263,9 +202,6 @@
                 // 如果放在created 或者mounted钩子里只会执行一次
                 // 获取歌曲列表
                 this.getSongList();
-
-//                setTimeout(() => {
-//                }, 400);
             }
         },
         // 当组件停用时执行
