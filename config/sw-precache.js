@@ -6,7 +6,7 @@
  * https://github.com/GoogleChrome/sw-precache#handlefetch-boolean
  * https://metaquant.org/programing/sw-precache-guide.html
  *
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
      * @type {Object}
      */
     build: {
-        cacheId: 'sw-cache-hello',
+        cacheId: 'sw-cache-*__name__*',
 
         filename: 'service-worker.js',
 
@@ -27,9 +27,7 @@ module.exports = {
          *
          * @type {Array}
          */
-        staticFileGlobs: [
-            'dist/index.html'
-        ],
+        staticFileGlobs: [],
 
         /**
          * [mergeStaticsConfig description]
@@ -99,59 +97,15 @@ module.exports = {
         /**
          * 需要根据路由动态处理的文件
          *
-         * '[ /^https:\/\/c\.y\.qq\.com\/musichall/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/qzone/,' +
-         ' /^https:\/\/c\.y\.qq\.com\/3gmusic/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/base/, ' +
-         '/^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/splcloud/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/lyric/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/rcmusic2/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/v8/, ' +
-         '/^https:\/\/c\.y\.qq\.com\/splcloud/]'
          * @type {Array}
          */
         runtimeCaching: [
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/musichall/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/qzone/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/3gmusic/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/base/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/lyric/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/rcmusic2/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/v8/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
+                urlPattern: /\/material-design-icon/,
+                // 五种：caheOnly cacheFirst fastest networkFirst networkOnly
                 handler: 'networkFirst'
             }
+            // ,
             // 如果在staticFileGlobs中设置相同的缓存路径，可能导致此处不起作用
             // {
             //     urlPattern: /\/fonts\//,

@@ -1,13 +1,10 @@
 /**
  * @file 主题构建相关配置
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
-'use strict';
-
 // 定义主题列表
-let themeList = {
-
+const themeList = {
     // 定义主题名称
     myTheme: {
         themeColor: {

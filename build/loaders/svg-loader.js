@@ -2,7 +2,7 @@
  * @file svg loader
  *
  * @desc 向app.js中注入通过vue-awesome注册自定义svg的代码
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable fecs-no-require, fecs-prefer-destructure */

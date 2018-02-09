@@ -2,6 +2,7 @@
     <div class="app-not-found-page">
         <div class="app-not-found-title text-xs-center">
             <div class="not-found-avatar">
+                <v-icon class="not-found-avatar-icon">info</v-icon>
             </div>
             <p>页面未找到</p>
         </div>
@@ -16,6 +17,9 @@ export default {
     methods: {
         ...mapActions('appShell/appHeader', [
             'setAppHeader'
+        ]),
+        ...mapActions('appShell/appBottomNavigator', [
+            'hideBottomNav'
         ])
     },
     activated() {
@@ -27,6 +31,7 @@ export default {
             showLogo: false,
             actions: []
         });
+        this.hideBottomNav();
     }
 };
 </script>

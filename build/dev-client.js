@@ -1,12 +1,12 @@
 /**
  * @file 开发环境客户端
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 'use strict';
 
 require('eventsource-polyfill');
-let hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true');
+var hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true');
 
 hotClient.subscribe(function (event) {
     if (event.action === 'reload') {

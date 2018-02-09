@@ -1,10 +1,6 @@
 /**
  * @file 开发环境服务端
- * @author jianzhongmin(282126990@qq.com)
- */
-/**
- * @file 开发环境服务端
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable no-console */
@@ -23,8 +19,8 @@ const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
-const axios = require('axios');
 const webpackConfig = require('./webpack.dev.conf');
+const utils = require('./utils');
 
 // 默认调试服务器端口
 let port = process.env.PORT || config.dev.port;
@@ -40,9 +36,9 @@ let devMiddleware = require('webpack-dev-middleware')(compiler, {
     quiet: true
 });
 
+let noop = function () {};
 let hotMiddleware = require('webpack-hot-middleware')(compiler, {
-    log: function () {
-    }
+    log: noop
 });
 
 // 当 html-webpack-plugin 的模版文件更新的时候，强制重新刷新调试页面
@@ -59,222 +55,6 @@ compiler.plugin('compilation', function (compilation) {
 let proxyTable = config.dev.proxyTable;
 
 // 代理请求
-const apiRoutes = express.Router();
-
-// 获取歌曲列表
-apiRoutes.get('/getSongList', function (req, res) {
-    var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
-    axios.get(url, {
-        headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-        }
-        res.json(ret);
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取收藏量
-apiRoutes.get('/getCollection', function (req, res) {
-    var url = 'https://c.y.qq.com/3gmusic/fcgi-bin/3g_dir_order_uinlist';
-
-    axios.get(url, {
-        headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-        }
-        res.json(ret);
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取歌曲播放地址
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-axios.defaults.withCredentials = true;
-
-apiRoutes.post('/getSongPlayingUrl', function (req, res) {
-
-    // 获取请求的 body payload 转换成字符串
-    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
-
-    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
-
-    axios.post(url, data).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-        }
-        res.json(ret);
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取歌曲列表的单个播放地址
-apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
-
-    var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
-
-    axios.get(url, {
-        headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-            res.json(ret);
-        }
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取分类歌单歌曲
-apiRoutes.get('/sortSongData', function (req, res) {
-
-    var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg';
-
-    axios.get(url, {
-        headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-            res.json(ret);
-        }
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取歌曲歌词
-apiRoutes.get('/lyric', function (req, res) {
-
-    var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg';
-
-    axios.get(url, {
-        headers: {
-            referer: 'https://c.y.qq.com/',
-            host: 'c.y.qq.com'
-        },
-        params: req.query
-    }).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-            res.json(ret);
-        }
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取全部数字专辑数据
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-axios.defaults.withCredentials = true;
-
-apiRoutes.post('/getTotalDigitalAlbum', function (req, res) {
-
-    // 获取请求的 body payload 转换成字符串
-    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
-
-    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
-
-    axios.post(url, data).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-        }
-        res.json(ret);
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-// 获取更多数字专辑数据
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-axios.defaults.withCredentials = true;
-
-apiRoutes.post('/getMoreAlbumList', function (req, res) {
-
-    // 获取请求的 body payload 转换成字符串
-    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
-
-    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
-
-    axios.post(url, data).then((response) => {
-        var ret = response.data;
-        if (typeof ret === 'string') {
-            var reg = /^\w+\(({[^()]+})\)$/;
-            var matches = ret.match(reg);
-            if (matches) {
-                ret = JSON.parse(matches[1]);
-            }
-        }
-        res.json(ret);
-    }).catch((e) => {
-        console.log(e);
-    });
-});
-
-app.use('/api', apiRoutes);
-
-// 代理请求
 Object.keys(proxyTable).forEach(function (context) {
     let options = proxyTable[context];
     if (typeof options === 'string') {
@@ -285,8 +65,25 @@ Object.keys(proxyTable).forEach(function (context) {
     app.use(proxyMiddleware(options.filter || context, options));
 });
 
-// 处理 history API 的回退情况（如果在线上环境中，也需要服务器做相应处理）
-app.use(require('connect-history-api-fallback')());
+// 处理HTML5 history API，映射例如/home路由到/home/index.html
+let rewrites = [];
+Object.keys(utils.getEntries('./src/pages', 'entry.js'))
+    .forEach(entry => {
+        rewrites.push({
+            from: new RegExp('/' + entry),
+            to: '/' + entry + '/index.html'
+        });
+        // 额外插入skeleton路由
+        rewrites.push({
+            from: new RegExp('/skeleton-' + entry),
+            to: '/' + entry + '/index.html'
+        });
+    });
+
+app.use(require('connect-history-api-fallback')({
+    htmlAcceptHeaders: ['text/html'],
+    rewrites: rewrites
+}));
 
 // 服务器部署 webpack 打包的静态资源
 app.use(devMiddleware);
@@ -298,7 +95,7 @@ app.use(hotMiddleware);
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
 app.use(staticPath, express.static('./static'));
 
-let uri = 'http://localhost:' + port;
+let uri = 'http://localhost:' + port + '/home';
 
 let newResolve;
 let readyPromise = new Promise(function (resolve) {
@@ -318,10 +115,10 @@ devMiddleware.waitUntilValid(function () {
 });
 
 let server = app.listen(port);
-
+let closeServer = function () {
+    server.close();
+};
 module.exports = {
     ready: readyPromise,
-    close: function () {
-        server.close();
-    }
+    close: closeServer
 };

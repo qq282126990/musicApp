@@ -1,6 +1,6 @@
 /**
  * @file 页面骨架
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 import Vue from 'vue';

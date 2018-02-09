@@ -1,6 +1,6 @@
 /**
  * @file 检查版本更新
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable no-console */

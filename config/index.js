@@ -1,13 +1,15 @@
 /**
  * @file 项目所有的配置文件
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
+
+'use strict';
 
 // see http://vuejs-templates.github.io/webpack for documentation.
 const path = require('path');
 const swPrecacheConfig = require('./sw-precache');
-const theme = require('./theme');
 const icon = require('./icon');
+const theme = require('./theme');
 
 module.exports = {
     icon: icon,
@@ -15,7 +17,6 @@ module.exports = {
     swPrecache: swPrecacheConfig,
     build: {
         env: require('./prod.env'),
-        port: 8087,
         index: path.resolve(__dirname, '../dist/index.html'),
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: 'static',
@@ -37,7 +38,7 @@ module.exports = {
     },
     dev: {
         env: require('./dev.env'),
-        port: 8088,
+        port: 8082,
         autoOpenBrowser: true,
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',

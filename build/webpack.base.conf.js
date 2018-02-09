@@ -1,6 +1,6 @@
 /**
  * @file 基础 webpack 配置文件，开发环境和生产环境公用的
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 'use strict';
@@ -15,9 +15,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-    entry: {
-        app: ['babel-polyfill', './src/entry-client.js']
-    },
+    entry: utils.getEntries('./src/pages', 'entry.js'),
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
@@ -29,33 +27,24 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': resolve('src'),
-            'components': resolve('src/components'),
-            'common': resolve('src/common'),
-            'api': resolve('src/api'),
-            'base': resolve('src/base'),
+            '@': resolve('src')
         }
     },
     module: {
         rules: [
-
+            // collect routes and inject
+            {
+                resource: resolve('src/router.js'),
+                loader: 'router-loader',
+                enforce: 'pre'
+            },
             // register custom svgs
-            // {
-            //     resource: resolve('src/app.js'),
-            //     loader: 'svg-loader',
-            //     enforce: 'pre'
-            // },
-
+            {
+                resource: resolve('src/app.js'),
+                loader: 'svg-loader',
+                enforce: 'pre'
+            },
             // inject vuetify theme variables
-			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('src'), resolve('test')],
-				options: {
-				  formatter: require('eslint-friendly-formatter')
-				}
-			},
             {
                 resource: resolve('src/assets/styles/global'),
                 loader: 'theme-loader',
@@ -68,7 +57,6 @@ module.exports = {
                         loader: 'vue-loader',
                         options: vueLoaderConfig
                     },
-
                     // inject global variables in every .vue file
                     {
                         loader: 'theme-loader',
@@ -92,7 +80,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('build')]
+                include: [resolve('src'), resolve('test')]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -115,7 +103,8 @@ module.exports = {
     resolveLoader: {
         alias: {
             'svg-loader': path.join(__dirname, './loaders/svg-loader'),
-            'theme-loader': path.join(__dirname, './loaders/theme-loader')
+            'theme-loader': path.join(__dirname, './loaders/theme-loader'),
+            'router-loader': path.join(__dirname, './loaders/router-loader')
         }
     }
 };

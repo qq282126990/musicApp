@@ -1,91 +1,50 @@
 /**
  * @file router
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 import Vue from 'vue';
 import Router from 'vue-router';
 import * as types from './store/mutation-types';
-// 歌曲列表模块
-// import SongList from '@/components/song-list/song-List.vue';
-// 数字专辑音乐列表
-// import DigitalAlbumMusicList from '@/components/digital-album-music-list/digital-album-music-list.vue';
-// 新歌速递
-// import NewSongSpeed from '@/components/new-song-speed/new-song-speed.vue';
-
-
-// 定义切割点，异步加载路由组件
-let Home = () => import('@/pages/Home/Home.vue');
-// 歌曲列表模块
-let SongList = () => import('@/components/song-list/song-List.vue');
-// 热门推荐模块
-let HotRecommend = () => import('@/components/hot-recommend/hot-recommend.vue');
-// 发现模块
-let Find = () => import('@/pages/Find/Find.vue');
-// 我的模块
-let My = () => import('@/pages/My/My.vue');
-// 没有找到页面时显示的模块
-let NotFound = () => import('@/pages/NotFound.vue');
-// 数字专辑音乐列表
-let DigitalAlbumMusicList = () => import('@/components/digital-album-music-list/digital-album-music-list.vue');
-// 新歌速递模块
-let NewSongSpeed = () => import('@/components/new-song-speed/new-song-speed.vue');
+import NotFound from '@/pages/NotFound.vue';
 
 Vue.use(Router);
 
-export function createRouter () {
-    let router = new Router({
-        // history 模式，需要服务器后端配合做路由代理，将所有的前端路由同步代理到 /
+// 所有页面使用的路由path，由build/loaders/router-loader收集插入
+const allRoutes = [];
+
+/**
+ * 根据allRoutes判断当前路由路径是否有效，包括动态路由
+ *
+ * @param {string} path 路由路径
+ * @return {boolean} 是否是有效路由
+ */
+function validateRoute(path) {
+    return allRoutes.includes(path)
+        || allRoutes.some(route => {
+            // 生成路由路径对应的正则表达式 /detail/:id => /^\/detail\/[^\/]+\/?$/
+            let routeRegex = new RegExp(`^${route.replace(/\/:[^\/]*/g, '/[^\/]+')}\/?$`);
+            return routeRegex.test(path);
+        });
+}
+
+export function createRouter({routes = []}) {
+
+    const router = new Router({
         mode: 'history',
+        base: '/',
         routes: [
-            {
-                path: '/',
-                redirect: '/home'
-            },
-            {
-                path: '/home',
-                name: 'home',
-                component: Home
-            },
-            // 热门推荐模块   /热门推荐
-            {
-                path: '/hotRecommend',
-                name: 'hotRecommend',
-                component: HotRecommend
-            },
-            // 新歌速递模块
-            {
-                path: '/newSongSpeed',
-                name: 'newSongSpeed',
-                component: NewSongSpeed
-            },
-            {
-                path: '/digitalAlbumMusicList',
-                name: 'digitalAlbumMusicList',
-                component: DigitalAlbumMusicList,
-                alias: '/newSongSpeed/digitalAlbumMusicList/:id'
-            },
-            // 歌曲列表
-            {
-                path: '/songlist/:id',
-                name: 'SongList',
-                component: SongList,
-                alias: '/home/:id'
-            },
-            {
-                path: '/find',
-                name: 'find',
-                component: Find
-            },
-            {
-                path: '/my',
-                name: 'my',
-                component: My
-            },
+            ...routes,
             {
                 path: '*',
-                name: 'notFound',
-                component: NotFound
+                component: NotFound,
+                beforeEnter(to, from, next) {
+                    if (validateRoute(to.fullPath)) { // 跳转到有效路由
+                        window.location.href = to.fullPath;
+                        return;
+                    }
+                    next(); // 继续展示404页面
+                }
             }
         ]
     });
@@ -110,19 +69,16 @@ export function createRouter () {
         if (router.app.$store) {
             // 如果不需要切换动画，直接返回
             if (router.app.$store.state.appShell.needPageTransition) {
-
                 // 判断当前是前进还是后退，添加不同的动画效果
                 let pageTransitionName = isForward(to, from) ? SLIDE_LEFT : SLIDE_RIGHT;
-
                 router.app.$store.commit(`appShell/${types.SET_PAGE_TRANSITION_NAME}`, {pageTransitionName});
-
             }
         }
-
         next();
     });
 
     return router;
+
 }
 
 /**
@@ -131,8 +87,7 @@ export function createRouter () {
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_BACK_PAGE = ['my', 'HotRecommend'];
-
+const ALWAYS_BACK_PAGE = ['home'];
 
 /**
  * to 如果在这个列表中，始终采用从右到左的滑动效果
@@ -140,7 +95,7 @@ const ALWAYS_BACK_PAGE = ['my', 'HotRecommend'];
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_FORWARD_PAGE = ['find', 'SongList'];
+const ALWAYS_FORWARD_PAGE = ['search'];
 
 /**
  * 历史记录，记录访问过的页面的 fullPath
@@ -148,7 +103,7 @@ const ALWAYS_FORWARD_PAGE = ['find', 'SongList'];
  * @type {Array.<string>}
  * @const
  */
-const HISTORY_STACK = ['/home', '/home/hotRecommend'];
+const HISTORY_STACK = [];
 
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
@@ -157,37 +112,40 @@ const HISTORY_STACK = ['/home', '/home/hotRecommend'];
  * @param {Object} from 源 route
  * @return {boolean} 是否表示返回
  */
-function isForward (to, from) {
+function isForward(to, from) {
+    let res = true;
 
     // to 如果在这个列表中，始终认为是后退
     if (to.name && ALWAYS_BACK_PAGE.indexOf(to.name) !== -1) {
 
         // 清空历史
         HISTORY_STACK.length = 0;
-        return false;
+        res = false;
     }
-    if (from.name && ALWAYS_BACK_PAGE.indexOf(from.name) !== -1) {
+    else if (from.name && ALWAYS_BACK_PAGE.indexOf(from.name) !== -1) {
 
         // 如果是从 ALWAYS_BACK_PAGE 过来的，那么永远都是前进
         HISTORY_STACK.push(to.fullPath);
-        return true;
     }
-
-    if (to.name && ALWAYS_FORWARD_PAGE.indexOf(to.name) !== -1) {
+    else if (to.name && ALWAYS_FORWARD_PAGE.indexOf(to.name) !== -1) {
 
         // to 如果在这个列表中，始终认为是前进
         HISTORY_STACK.push(to.fullPath);
-        return true;
+    }
+    else {
+
+        // 根据 fullPath 判断当前页面是否访问过，如果访问过，则属于返回
+        let index = HISTORY_STACK.indexOf(to.fullPath);
+        if (index !== -1) {
+            HISTORY_STACK.length = index + 1;
+            res = false;
+        }
+        else {
+
+            // 将 to.fullPath 加到栈顶
+            HISTORY_STACK.push(to.fullPath);
+        }
     }
 
-    // 根据 fullPath 判断当前页面是否访问过，如果访问过，则属于返回
-    let index = HISTORY_STACK.indexOf(to.fullPath);
-    if (index !== -1) {
-        HISTORY_STACK.length = index + 1;
-        return false;
-    }
-
-    // 将 to.fullPath 加到栈顶
-    HISTORY_STACK.push(to.fullPath);
-    return true;
+    return res;
 }

@@ -1,7 +1,5 @@
 <template>
-    <sidebar v-model="sidebarStatus"
-        :enable="enableSidebar"
-    >
+    <sidebar v-model="sidebarStatus">
         <!-- sidebar 内容部分 -->
         <div
             class="app-sidebar-content">
@@ -10,12 +8,14 @@
                 <span class="app-sidebar-title-left-icon">
                     <img v-if="title.imageLeft" :src="title.imageLeft" :alt="title.altLeft"></img>
                     <icon v-else-if="title.svgLeft" :name="title.svgLeft"></icon>
+                    <v-icon light v-else-if="title.iconLeft">{{ title.iconLeft }}</v-icon>
                 </span>
                 <span>{{ title.text }}</span>
                 <slot name="logo" class="app-sidebar-title-right-logo">
                     <span class="app-sidebar-title-right-logo">
                         <img v-if="title.imageRight" :src="title.imageRight" :alt="title.altRight"></img>
                         <icon v-else-if="title.svgRight" :name="title.svgRight"></icon>
+                        <v-icon v-else-if="title.iconRight">{{ title.iconRight }}</v-icon>
                     </span>
                 </slot>
             </div>
@@ -23,8 +23,12 @@
             <!-- 用户信息 -->
             <div v-if="user" class="app-sidebar-user">
                  <div class="user-avatar">
+                    <v-icon light class="user-avatar-icon">face</v-icon>
                  </div>
                  <div class="user-info">
+                     <div class="user-name"><v-icon>person</v-icon>{{user.name}}</div>
+                     <div class="user-location"><v-icon>room</v-icon>{{user.location}}</div>
+                     <div class="user-email"><v-icon>email</v-icon>{{user.email}}</div>
                  </div>
             </div>
 
@@ -38,6 +42,8 @@
                             <li v-for="item in block.list" :key="item.text" @click.stop="closeAndGo(item.route)">
                                 <span v-if="item.icon || item.image || item.svg " class="app-sidebar-block-left-icon">
                                     <img v-if="item.image" :src="item.image" :alt="item.alt"></img>
+                                    <icon v-else-if="item.svg" :name="item.svg"></icon>
+                                    <v-icon v-else-if="item.icon">{{ item.icon }}</v-icon>
                                 </span>
                                 <span v-if="item.text" class="app-sidebar-block-text">{{ item.text }}</span>
                             </li>
@@ -76,10 +82,6 @@ export default {
                     this.$emit('hide-sidebar');
                 }
             }
-        },
-        enableSidebar() {
-            return this.$store.state.appShell.appHeader.show
-                && this.$store.state.appShell.appHeader.showMenu;
         }
     },
     methods: {

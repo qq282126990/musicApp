@@ -1,6 +1,6 @@
 /**
  * @file 开发环境 webpack 配置文件
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 'use strict';
@@ -11,10 +11,10 @@ const webpack = require('webpack');
 const config = require('../config');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
+const MultipageWebpackPlugin = require('multipage-webpack-plugin');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -28,11 +28,11 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 module.exports = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap})
-            .concat(SkeletonWebpackPlugin.loader({ // visit by route '/skeleton' in dev mode
+            .concat(SkeletonWebpackPlugin.loader({
                 resource: resolve('src/router.js'),
                 options: {
-                    entry: 'skeleton',
-                    routePathTemplate: '/skeleton'
+                    entry: Object.keys(utils.getEntries('./src/pages')),
+                    importTemplate: 'import [nameHash] from \'@/pages/[name]/[nameCap].skeleton.vue\';'
                 }
             }))
     },
@@ -56,13 +56,15 @@ module.exports = merge(baseWebpackConfig, {
             webpackConfig: require('./webpack.skeleton.conf')
         }),
 
-        // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            cache: false,
-            inject: true,
-            favicon: utils.assetsPath('img/icons/favicon.ico')
+        new MultipageWebpackPlugin({
+            bootstrapFilename: 'manifest',
+            templateFilename: 'index.html',
+            templatePath: '[name]',
+            htmlTemplatePath: resolve('src/pages/[name]/index.html'),
+            htmlWebpackPluginOptions: {
+                inject: true,
+                favicon: utils.assetsPath('img/icons/favicon.ico')
+            }
         }),
 
         new FriendlyErrorsPlugin()

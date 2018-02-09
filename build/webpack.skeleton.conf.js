@@ -1,6 +1,6 @@
 /**
  * @file skeleton webpack 配置文件
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 'use strict';
@@ -11,15 +11,13 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const nodeExternals = require('webpack-node-externals');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const utils = require('./utils');
 
 module.exports = merge(baseWebpackConfig, {
     target: 'node',
     devtool: false,
-    entry: {
-        app: './src/entry-skeleton.js'
-    },
+    entry: utils.getEntries('./src/pages', 'entry-skeleton.js'),
     output: Object.assign({}, baseWebpackConfig.output, {
-        filename: 'skeleton-bundle.js',
         libraryTarget: 'commonjs2'
     }),
     externals: nodeExternals({

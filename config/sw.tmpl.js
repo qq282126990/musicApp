@@ -100,6 +100,18 @@ var stripIgnoredUrlParameters = function (originalUrl,
     return url.toString();
 };
 
+var findEntryHtml = function (originalUrl) {
+    var url = new URL(originalUrl);
+
+    // /home/user => home
+    var entryName = url.pathname.split('/')[1];
+    if (entryName) {
+        url.pathname = '/' + entryName + '.html';
+    }
+    
+    return url.toString();
+};
+
 var hashParamName = '_sw-precache';
 var urlsToCacheKeys = new Map(
     precacheConfig.map(function(item) {
@@ -215,6 +227,15 @@ self.addEventListener('fetch', function(event) {
         var directoryIndex = '<%= directoryIndex %>';
         if (!shouldRespond && directoryIndex) {
             url = addDirectoryIndex(url, directoryIndex);
+            shouldRespond = urlsToCacheKeys.has(url);
+        }
+
+        /**
+         * 在多页应用中，尝试根据pathname找到当前页面的html
+         * 例如/home/user => /home.html
+         */
+        if (!shouldRespond) {
+            url = findEntryHtml(url);
             shouldRespond = urlsToCacheKeys.has(url);
         }
 
