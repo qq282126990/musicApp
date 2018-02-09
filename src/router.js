@@ -1,6 +1,6 @@
 /**
  * @file router
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
+ * @author jianzhongmin(282126990@qq.com)
  */
 
 import Vue from 'vue';
@@ -19,7 +19,7 @@ const allRoutes = [];
  * @param {string} path 路由路径
  * @return {boolean} 是否是有效路由
  */
-function validateRoute(path) {
+function validateRoute (path) {
     return allRoutes.includes(path)
         || allRoutes.some(route => {
             // 生成路由路径对应的正则表达式 /detail/:id => /^\/detail\/[^\/]+\/?$/
@@ -28,7 +28,7 @@ function validateRoute(path) {
         });
 }
 
-export function createRouter({routes = []}) {
+export function createRouter ({routes = []}) {
 
     const router = new Router({
         mode: 'history',
@@ -87,7 +87,7 @@ export function createRouter({routes = []}) {
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_BACK_PAGE = ['home'];
+const ALWAYS_BACK_PAGE = ['my'];
 
 /**
  * to 如果在这个列表中，始终采用从右到左的滑动效果
@@ -95,7 +95,7 @@ const ALWAYS_BACK_PAGE = ['home'];
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_FORWARD_PAGE = ['search'];
+const ALWAYS_FORWARD_PAGE = ['find'];
 
 /**
  * 历史记录，记录访问过的页面的 fullPath
@@ -103,7 +103,7 @@ const ALWAYS_FORWARD_PAGE = ['search'];
  * @type {Array.<string>}
  * @const
  */
-const HISTORY_STACK = [];
+const HISTORY_STACK = ['/home'];
 
 /**
  * 判断当前是否是前进，true 表示是前进，否则是回退
@@ -112,7 +112,7 @@ const HISTORY_STACK = [];
  * @param {Object} from 源 route
  * @return {boolean} 是否表示返回
  */
-function isForward(to, from) {
+function isForward (to, from) {
     let res = true;
 
     // to 如果在这个列表中，始终认为是后退

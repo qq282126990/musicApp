@@ -1,0 +1,126 @@
+// AppHeader.vue
+$btn-color: #fff; // 头部按钮颜色
+$app-header-height: 88px; // 头部导航的高度
+$app-header-bgcolor: rgba(49, 194, 124, 0.95); // 头部背景颜色  默认颜色 rgba(49, 194, 124, 0.95)
+$header-li-color: rgba(255, 255, 255, 0.8); // 头部文字颜色
+
+// search.vue
+$search-font-color: #fff; // 搜索框字体颜色
+$search-wrapper-bgcolor: rgba(49, 194, 124, 0.95); // 搜索框背景颜色 默认颜色  rgba(49, 194, 124, 0.95)
+
+// homeSlider.vue
+$dotsBgColor: rgba(20, 23, 35, 0.95); // 轮播点背景颜色
+$dotActiveBgColor-color: rgba(54, 183, 120, 0.95); // 轮播点激活时的颜色
+
+// tabRouter.vue
+$textColor: #000; // icon标题颜色
+$IconColor: rgba(49, 194, 124, 0.95); // icon 颜色
+$tab-router-bgcolor: #fff; // 导航块背景颜色  默认颜色  rgba(20, 22, 34, 0.95)
+
+// home.vue
+$list-title: #000; // 菜单列表标题颜色
+$list-data-title: #fff; // 新歌速递文字颜色
+$content-bgcolor: #fff; // 内容背景颜色 rgba(13, 12, 18, 0.95)
+
+// 图标默认颜色
+$icon-color: #fff;
+
+// mask-layer.vue    遮罩层背景色
+$mask-layer-bgcolor: rgba(0, 0, 0, .5);
+
+// music-list.vue
+$name-color: #fff; // 歌曲列表颜色
+$icon-fanhui1-copy: #fff; // 返回键颜色
+$title-color: #fff; // 标题颜色
+$list-bgcolor: #fff; // 歌曲列表背景颜色
+$error: rgba(246, 246, 246, 0.95); // 没有数据的时候文字显示的颜色
+$music-list-bgcolor: rgba(19, 21, 33, 1); // 外层背景颜色linear-gradient(to bottom, rgba(19, 21, 33, 1) 70%, #fff 40%)
+$filter-bgcolor: rgba(0, 0, 0, 1); // 模糊效果背景颜色
+$play-number-bgcolor: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%); // 播放量背景样式
+
+// song-list.vue
+$total-number-color: grey; // 总歌曲数量的字体颜色
+$play-color: #31c27c; // 播放按钮颜色
+$content-title-color: #000; // 内容标题颜色
+$content-text-color: grey; // 内容文字颜色
+$more-color: #b6b6b6; // 更多 icon颜色
+$none-more: #fff; // 没有更多背景颜色
+
+// loading.vue
+$bg-color: rgba(246, 204, 23, 0.95); // 背景颜色
+$audiotrack-color: #31c27c; // 音乐图标颜色
+$green-color: #57b45a; // 旋转圆圈颜色
+
+// player.vue
+$mini-player-color: #fff; //播放器最小化时的背景颜色 rgba(18, 21, 33, 0.95)
+$normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
+$text-name-color: #000; // 歌曲标题颜色
+$text-desc-color: #777; // 歌手颜色
+$play-color: #0dbb64; // 播放按钮图标颜色
+$playing-lyric-color: #31c27c; // 小歌词默认颜色
+$no-play-list-color: #000; // 没有歌曲列表时显示
+$sing-name-color: #fff; // 歌手名颜色
+$time-color: #fff; // 播放时间颜色
+$lyric-text-color: rgba(255, 255, 255, 0.5); // 歌词颜色
+$lyric-text-current-color: #31c27c; // 歌词行激活的颜色
+$favorite_border: #9d9d9d; // 没有收藏按钮
+$favorite: #f06868; // 收藏按钮
+$kip-previous: #31c27c; // 回到上一个
+$skip-next: #31c27c; // 下一个
+$mode-color: rgba(157, 157, 157, 1); // 切换播放模式按钮颜色
+
+// playlist.vue
+$playlist-bgcolor: rgba(0, 0, 0, .3); // 播放列表外层背景颜色
+$list-wrapper-bgcolor: rgba(24, 30, 39, 0.7); // 内容背景颜色
+$list-header-bgcolor: #1b2129; // 列表头部背景颜色
+$list-header-play-mode: #fff; // 播放模式icon颜色
+$list-header-text: #fff; // 文本文字颜色
+$list-header-text-numer: #999; // 文本歌曲数量颜色
+$list-header-icon: #999; // 列表头部icon颜色
+$list-content-bgcolor: rgba(26, 31, 40, 0.9); // 列表内容背景颜色
+$list-close-bgcolor: rgba(26, 31, 40, 0.4); // 关闭按钮背景颜色
+$list-close-color: #fff; // 关闭按钮文字颜色
+$list-content-name-color: #fff; // 歌曲名字颜色
+$list-content-name-active-color: #16c975; // 当前正在播放的歌曲的文字颜色
+
+//progress-bar.vue
+$bar-inner-color: #898989; // 播放器进度条颜色
+$progress-color: #16c975; // 进度条进度颜色
+
+// hot-recommend.vue
+$hot-recommend-bg-color: rgba(249,249,249,1); // 背景颜色 1e2326
+$title-color: #fff; // 标题颜色
+$hot-songs-title-color: #000; // hot-songs字体颜色
+$header-color: #30c27c; // 标题颜色 1b2023
+$look-more-color: #0dbb64; // 查看更多字体颜色
+$content-name-color: #000; // 歌单标题
+$user-name-color: #999; // 发布人名字颜色
+
+// homeSlider-switch.vue
+$slider-switch-dots-bg: #fff; // 滑动切换头部的背景 1b2023
+$slider-switch-name-color: #000; // 标题颜色
+$dots-bg: #0dbb64; // dots颜色
+
+// new-song-speed.vue
+$song-speed-header-color: #0dbb64; // 歌单速递路由头部标题字体颜色
+$song-speed-header-router-link-active-color: #fff; // 歌单速递路由
+
+// new-song.vue
+$new-song-header-active-color: #31c27c; // 新歌头部导航激活颜色
+
+// digital-album.vue
+$list-text2-color: #808080; // 专辑歌手名颜色
+
+// digital-album-list.vue
+$special-topic-logo: #a4721b; // 数字专辑专题栏目 logo颜色
+$comment-like-color: #808080; // 评论和点赞数量颜色
+
+// digital-album-music-list.vue
+$digital-album-music-list-content: #222222; // 数字专辑歌曲列表背景颜色
+$digital-album-music-list-content-text: #fff; // 数字专辑歌曲列表文字颜色
+$digital-album-music-list-content-text-active: #ffce6b; // 数字专辑歌曲列表文字颜色
+
+// my.vue
+$router-nav-icon-color: #30c27c; // 我的页面导航icon颜色
+$customize-song-list-header: #999; // 用户歌单头部导航字体颜色
+$customize-text-color: #000; // 用户歌单字体颜色

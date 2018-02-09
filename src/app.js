@@ -1,8 +1,3 @@
-/**
- * @file entry
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
- */
-
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import App from './App.vue';

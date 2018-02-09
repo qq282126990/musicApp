@@ -1,6 +1,6 @@
 /**
  * @file app shell mutation types
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
+ * @author jianzhongmin(282126990@qq.com)
  */
 
 export const ENABLE_PAGE_TRANSITION = 'ENABLE_PAGE_TRANSITION';
@@ -8,7 +8,8 @@ export const DISABLE_PAGE_TRANSITION = 'DISABLE_PAGE_TRANSITION';
 export const SET_PAGE_SWITCHING = 'SET_PAGE_SWITCHING';
 export const SET_PAGE_TRANSITION_NAME = 'SET_PAGE_TRANSITION_NAME';
 export const SET_APP_HEADER = 'SET_APP_HEADER';
-export const SET_APP_BOTTOM_NAV = 'SET_APP_BOTTOM_NAV';
-export const ACTIVATE_APP_BOTTOM_NAV = 'ACTIVATE_APP_BOTTOM_NAV';
 export const SET_SIDEBAR_VISIBILITY = 'SET_SIDEBAR_VISIBILITY';
 export const SAVE_SCROLLTOP = 'SAVE_SCROLLTOP';
+
+// 获取主页轮播图
+export const SET_HOME_SLIDER = 'SET_HOME_SLIDER';
