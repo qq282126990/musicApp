@@ -21,6 +21,7 @@ const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
 const webpackConfig = require('./webpack.dev.conf');
 const utils = require('./utils');
+const axios = require('axios');
 
 // 默认调试服务器端口
 let port = process.env.PORT || config.dev.port;
@@ -55,6 +56,87 @@ compiler.plugin('compilation', function (compilation) {
 let proxyTable = config.dev.proxyTable;
 
 // 代理请求
+const apiRoutes = express.Router();
+
+// 获取歌单专辑信息
+apiRoutes.get('/getSongAlbumMessage', function (req, res) {
+    var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
+    axios.get(url, {
+        headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取收藏量
+apiRoutes.get('/getCollection', function (req, res) {
+    var url = 'https://c.y.qq.com/3gmusic/fcgi-bin/3g_dir_order_uinlist';
+
+    axios.get(url, {
+        headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取歌曲播放地址
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
+apiRoutes.post('/getSongListPlayingUrl', function (req, res) {
+
+    // 获取请求的 body payload 转换成字符串
+    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+
+    axios.post(url, data).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+app.use('/api', apiRoutes);
+
+// 代理请求
 Object.keys(proxyTable).forEach(function (context) {
     let options = proxyTable[context];
     if (typeof options === 'string') {
@@ -69,6 +151,11 @@ Object.keys(proxyTable).forEach(function (context) {
 let rewrites = [];
 Object.keys(utils.getEntries('./src/pages', 'entry.js'))
     .forEach(entry => {
+        console.log(entry);
+        rewrites.push({
+            from: new RegExp('/'),
+            to: '/' + 'home' + '/index.html'
+        });
         rewrites.push({
             from: new RegExp('/' + entry),
             to: '/' + entry + '/index.html'
@@ -96,7 +183,7 @@ let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'));
 
 let uri = 'http://localhost:' + port + '/home';
-
+console.log('Listening at http://localhost:' + port + '\n');
 let newResolve;
 let readyPromise = new Promise(function (resolve) {
     newResolve = resolve;

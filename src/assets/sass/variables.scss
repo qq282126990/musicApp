@@ -12,7 +12,7 @@ $search-wrapper-bgcolor: rgba(49, 194, 124, 0.95); // 搜索框背景颜色 默�
 $dotsBgColor: rgba(20, 23, 35, 0.95); // 轮播点背景颜色
 $dotActiveBgColor-color: rgba(54, 183, 120, 0.95); // 轮播点激活时的颜色
 
-// tabRouter.vue
+// tab-router.vue
 $textColor: #000; // icon标题颜色
 $IconColor: rgba(49, 194, 124, 0.95); // icon 颜色
 $tab-router-bgcolor: #fff; // 导航块背景颜色  默认颜色  rgba(20, 22, 34, 0.95)
@@ -26,7 +26,7 @@ $content-bgcolor: #fff; // 内容背景颜色 rgba(13, 12, 18, 0.95)
 $icon-color: #fff;
 
 // mask-layer.vue    遮罩层背景色
-$mask-layer-bgcolor: rgba(0, 0, 0, .5);
+$mask-layer-bgcolor: rgba(0, 0, 0, .1);
 
 // music-list.vue
 $name-color: #fff; // 歌曲列表颜色

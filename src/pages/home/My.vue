@@ -93,6 +93,7 @@
 //    import {mapActions} from 'vuex';
 
     export default {
+        name: 'My',
         data() {
             return {
                 /*

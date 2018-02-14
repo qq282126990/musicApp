@@ -6,11 +6,11 @@
                 @click-menu="handleClickHeaderMenu"
                 @click-back="handleClickHeaderBack">
             </app-header>
-            <app-sidebar
-                @hide-sidebar="handleHideSidebar"
-                @show-sidebar="handleShowSidebar"
-            >
-            </app-sidebar>
+            <!--<app-sidebar-->
+                <!--@hide-sidebar="handleHideSidebar"-->
+                <!--@show-sidebar="handleShowSidebar"-->
+            <!--&gt;-->
+            <!--</app-sidebar>-->
             <div class="app-view-wrapper">
                 <transition
                     :name="pageTransitionName"
@@ -41,6 +41,7 @@
                         }"></router-view>
                 </transition>
             </div>
+            <player></player>
         </div>
     </div>
 </template>
@@ -50,12 +51,15 @@
     import AppHeader from '@/components/AppHeader';
     import AppSidebar from '@/components/AppSidebar';
     import AppBottomNavigator from '@/components/AppBottomNavigator';
+    // 播放器组件
+    import Player from 'components/player/player';
 
     export default {
         name: 'app',
         components: {
             AppHeader,
             AppSidebar,
+            Player
         },
         data() {
             return {};

@@ -1,8 +1,3 @@
-/**
- * @file 工具包
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
- */
-
 'use strict';
 
 const fs = require('fs');

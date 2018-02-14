@@ -2,7 +2,6 @@
  * @file theme loader
  *
  * @desc 向每个.vue文件中注入样式相关的变量，不需要手动import
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable fecs-no-require, fecs-prefer-destructure */

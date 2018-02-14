@@ -25,7 +25,6 @@ export default {
         this.setAppHeader({
             show: false
         });
-        this.hideBottomNav();
     }
 };
 </script>

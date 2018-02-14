@@ -5,7 +5,7 @@
 
 // 定义切割点，异步加载路由组
 // 主页模块
-let Home = () => import('@/pages/Home/Home.vue');
+let Home = () => import('@/pages/home/home.vue');
 // 发现模块
 let Find = () => import('./Find.vue');
 // 我的模块
@@ -15,17 +15,17 @@ export default {
     routes: [
         {
             path: '/home',
-            name: 'home',
+            name: 'Home',
             component: Home
         },
         {
             path: '/find',
-            name: 'find',
+            name: 'Find',
             component: Find
         },
         {
             path: '/my',
-            name: 'my',
+            name: 'My',
             component: My
         },
     ]

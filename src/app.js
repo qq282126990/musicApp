@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VueLazyload from 'vue-lazyload';
 import App from './App.vue';
 import {createRouter} from './router.js';
 import store from './store';
@@ -13,6 +14,13 @@ let loading = Vue.prototype.$loading = new Vue(ProgressBar).$mount();
 document.body.appendChild(loading.$el);
 
 Vue.use(Vuetify);
+
+// 懒加载图片
+Vue.use(VueLazyload, {
+    error: require('../static/img/default.jpg'),
+    loading: require('../static/img/default.jpg')
+});
+
 
 Vue.component('icon', Icon);
 

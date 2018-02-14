@@ -109,6 +109,6 @@ body {
     padding: 0 !important;
 }
 
-.title-span {
+.data-title .title-span {
     -webkit-box-orient: vertical;
 }

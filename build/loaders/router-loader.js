@@ -2,7 +2,6 @@
  * @file router loader
  *
  * @desc 收集项目中使用的所有路由规则，向router.js中注入规则全集
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable fecs-no-require, fecs-prefer-destructure */

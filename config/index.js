@@ -1,8 +1,3 @@
-/**
- * @file 项目所有的配置文件
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
- */
-
 'use strict';
 
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -17,6 +12,7 @@ module.exports = {
     swPrecache: swPrecacheConfig,
     build: {
         env: require('./prod.env'),
+        port: 9000,
         index: path.resolve(__dirname, '../dist/index.html'),
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: 'static',
@@ -38,7 +34,7 @@ module.exports = {
     },
     dev: {
         env: require('./dev.env'),
-        port: 8082,
+        port: 8088,
         autoOpenBrowser: true,
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',

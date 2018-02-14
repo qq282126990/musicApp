@@ -1,5 +1,5 @@
 <template>
-    <div class="slider" ref="slider">
+    <div class="home-slider" ref="homeSlider">
         <div class="slider-group" ref="sliderGroup">
             <slot></slot>
         </div>
@@ -31,12 +31,12 @@
             // 是否自动轮播
             autoPlay: {
                 type: Boolean,
-                default: false
+                default: true
             },
             // 切换时间
             interval: {
                 type: Number,
-                default: 2000
+                default: 4000
             },
             click: {
                 type: Boolean,
@@ -149,14 +149,14 @@
                 // 初始化宽度
                 let width = 0;
                 // 初始化轮播图当前的宽度为当前视图宽度
-                let sliderWidth = this.$refs.slider.clientWidth;
+                let sliderWidth = this.$refs.homeSlider.clientWidth;
 
                 // 循环轮播图
                 for (let i = 0; i < this.children.length; i++) {
                     // 获取每个轮播图
                     let child = this.children[i];
                     // 添加类
-                    addClass(child, 'homeSlider-item');
+                    addClass(child, 'slider-item');
                     // 设置轮播图的宽度
                     child.style.width = sliderWidth + 'px';
                     // 设置每个轮播图的宽度
@@ -173,7 +173,7 @@
             },
             // 初始化滑块
             _initSlider() {
-                this.slider = new BScroll(this.$refs.slider, {
+                this.slider = new BScroll(this.$refs.homeSlider, {
                     scrollX: true,
                     momentum: false,
                     snap: {
@@ -237,7 +237,7 @@
     @import "../../assets/sass/variables";
     @import "../../assets/sass/remAdaptive";
 
-    .slider {
+    .home-slider {
         min-height: px2rem(2px);
         .slider-group {
             position: relative;
