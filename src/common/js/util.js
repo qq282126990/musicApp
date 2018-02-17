@@ -2,6 +2,7 @@
 function getRandomIndex (min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 export function shuffle (arr) {
     // 拷贝一份数据
     let _arr = arr.slice();

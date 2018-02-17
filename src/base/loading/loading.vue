@@ -41,9 +41,13 @@
         position: relative;
         margin: 0 auto;
         border-radius: 50%;
+        /*background: url("/static/img/loading.png") no-repeat;*/
+        /*background-position: 50%;*/
+        /*background-size: cover;*/
         background: $bg-color;
         width: px2rem(60px);
         height: px2rem(59px);
+        overflow: hidden;
     }
 
     /*图标*/

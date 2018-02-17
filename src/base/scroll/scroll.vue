@@ -9,32 +9,6 @@
     import {mapState} from 'vuex';
 
     export default {
-        props: {
-            /*
-             * 设置开启X轴滚动
-             * @type {Boolean}
-             * */
-            scrollX: {
-                type: Boolean,
-                default: false
-            },
-            /*
-             * 默认设置开启Y轴滚动
-             * @type {Boolean}
-             * */
-            scrollY: {
-                type: Boolean,
-                default: true
-            },
-            /*
-             * 设置开启上啦底部加载
-             * @type {Boolean}
-             * */
-            pullUpLoad: {
-                type: null,
-                default: false
-            }
-        },
         data () {
             return {
                 isPullingDown: false
@@ -50,7 +24,8 @@
                 'beforeScroll',
                 'refreshDelay',
                 'bounce',
-                'bounceTime'
+                'bounceTime',
+                'pullUpLoad'
             ])
         },
         mounted () {
@@ -68,14 +43,12 @@
 
                 // 设置滚动
                 this.scroll = new BScroll(this.$refs.scrollWrapper, {
-//                    scrollY: this.scrollY, // 设置开启Y轴滚动
-//                    scrollX: this.scrollX, // 设置开启X轴滚动
                     bounceTime: this.bounceTime, // 设置回弹时间
                     probeType: this.probeType,
                     click: this.click, // 设置可以点击
                     bounce: this.bounce, // 是否开始回弹效果 boolean
                     HWCompositing: true, // 硬件加速
-                    pullUpLoad: this.pullUpLoad // 拉加载功能
+                    pullUpLoad: this.pullUpLoad // 上拉加载功能
                 });
 
                 // 如果监听了scroll 就派发scroll滚动事件

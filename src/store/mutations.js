@@ -4,6 +4,64 @@
 import * as types from './mutation-types';
 
 const mutations = {
+    /** *************播放组件状态********************** **/
+    /**
+     * 歌曲列表
+     * @type {Array}
+     */
+     [types.SET_SONG_LIST](state, songList) {
+        state.songList = songList;
+     },
+    /**
+     * 顺序播放列表
+     * @type {Array}
+     */
+     [types.SET_SEQUENCE_LIST](state, list) {
+        state.sequenceList = list;
+     },
+    /**
+     * 获取播放列表
+     * @type {Array}
+     */
+     [types.SET_PLAYLIST](state, list) {
+        state.playList = list;
+     },
+    /**
+     * 当前播放索引
+     * @type {Number}
+     */
+     [types.SET_CURRENT_INDEX](state, index) {
+        state.currentIndex = index;
+     },
+    /**
+     * 控制歌曲播放
+     * @type {Boolean}
+     */
+     [types.SET_PLAYING_STATE](state, flag) {
+        state.playing = flag;
+     },
+    /*
+     * 控制播发器放大缩小
+     * @type {Boolean}
+     * */
+    [types.SET_FULL_SCREEN](state, flag) {
+        state.fullScreen = flag;
+    },
+    /**
+     * 获取收藏歌曲列表
+     * @type {Array}
+     */
+     [types.SET_FAVORITE_LIST](state, list) {
+        state.favoriteList = list;
+     },
+    /*
+     * 设置歌曲播放模式
+     * @type {String}
+     * */
+    [types.SET_PLAY_MODE](state, playMode) {
+        state.playMode = playMode;
+    },
+    /*********************************************************/
     /** *************滚动组件的状态********************** **/
     /**
      * 滚动的状态
@@ -42,6 +100,13 @@ const mutations = {
      */
     [types.SET_PULLUP](state, pullup) {
         state.pullup = pullup;
+    },
+    /*
+     * 设置是否开启上拉加载
+     * @type {Boolean}
+     * */
+    [types.SET_PULLUP_LOAD](state, pullUpLoad) {
+        state.pullUpLoad = pullUpLoad;
     },
     /**
      * 开始滚动

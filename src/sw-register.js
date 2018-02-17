@@ -1,6 +1,5 @@
 /**
  * @file serviceworker register
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 // 注册的地址为 sw-precache-webpack-pulgin 生成的 service-worker.js 或者自己手动维护的 service worker 文件

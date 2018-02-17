@@ -1,7 +1,49 @@
+import {isPlayMode} from 'common/js/config';
+// 加载所有的收藏歌曲 loadFavorite
+// 获取当前播放的歌曲信息 getPlayList
+// 获取当前播放索引 getCurrentIndex
+import {loadFavorite, getPlayList, getCurrentIndex} from 'common/js/cache';
+
 /**
  * 状态管理
  */
 const state = {
+    /** *****************播放器状态****************** **/
+    /**
+     * 歌曲播放模式
+     * @type {String}
+     */
+    playMode: isPlayMode.sequence,
+    /**
+     * 顺序播放列表
+     * @type {Array}
+     */
+    sequenceList: [],
+    /**
+     * 获取当前收藏列表
+     * @type {Array}
+     */
+    favoriteList: loadFavorite(),
+    /**
+     * 播放列表
+     * @type {Array}
+     */
+    playList: getPlayList(),
+    /**
+     * 当前播放索引
+     * @type {Number}
+     */
+    currentIndex: getCurrentIndex(),
+    /**
+     * 控制歌曲播放
+     * @type {Boolean}
+     */
+    playing: false,
+    /*
+     * 控制播发器放大缩小
+     * @type {Boolean}
+     * */
+    fullScreen: false,
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态
@@ -31,6 +73,11 @@ const state = {
      * @type {Boolean}
      */
     pullup: false,
+    /*
+     * 设置是否开启上拉加载
+     * @type {Boolean}
+     * */
+    pullUpLoad: false,
     /**
      * 开始滚动
      * @type {Boolean}
@@ -45,7 +92,7 @@ const state = {
      * 是否开启回弹效果
      * @type {Boolean}
      */
-    bounce: true,
+    bounce: false,
     /**
      * 回弹时间
      * @type {Number}

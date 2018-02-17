@@ -1,6 +1,5 @@
 /**
  * @file 开发环境服务端
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable no-console */
@@ -37,7 +36,8 @@ let devMiddleware = require('webpack-dev-middleware')(compiler, {
     quiet: true
 });
 
-let noop = function () {};
+let noop = function () {
+};
 let hotMiddleware = require('webpack-hot-middleware')(compiler, {
     log: noop
 });
@@ -134,6 +134,114 @@ apiRoutes.post('/getSongListPlayingUrl', function (req, res) {
     });
 });
 
+// 获取歌曲列表的单个播放地址
+apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
+
+    var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
+
+    axios.get(url, {
+        headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+            res.json(ret);
+        }
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取歌曲歌词
+apiRoutes.get('/lyric', function (req, res) {
+
+    var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg';
+
+    axios.get(url, {
+        headers: {
+            referer: 'https://c.y.qq.com/',
+            host: 'c.y.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+            res.json(ret);
+        }
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取全部数字专辑数据
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
+
+apiRoutes.post('/getTotalDigitalAlbum', function (req, res) {
+
+    // 获取请求的 body payload 转换成字符串
+    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+
+    axios.post(url, data).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
+// 获取更多数字专辑数据
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+axios.defaults.withCredentials = true;
+
+apiRoutes.post('/getMoreAlbumList', function (req, res) {
+
+    // 获取请求的 body payload 转换成字符串
+    var data = JSON.stringify(req.body).replace(/[\\]/g, '');
+
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+
+    axios.post(url, data).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+        }
+        res.json(ret);
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
 app.use('/api', apiRoutes);
 
 // 代理请求
@@ -151,11 +259,6 @@ Object.keys(proxyTable).forEach(function (context) {
 let rewrites = [];
 Object.keys(utils.getEntries('./src/pages', 'entry.js'))
     .forEach(entry => {
-        console.log(entry);
-        rewrites.push({
-            from: new RegExp('/'),
-            to: '/' + 'home' + '/index.html'
-        });
         rewrites.push({
             from: new RegExp('/' + entry),
             to: '/' + entry + '/index.html'
@@ -183,7 +286,6 @@ let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'));
 
 let uri = 'http://localhost:' + port + '/home';
-console.log('Listening at http://localhost:' + port + '\n');
 let newResolve;
 let readyPromise = new Promise(function (resolve) {
     newResolve = resolve;

@@ -72,8 +72,9 @@
     import {setCookie, getCookie} from 'common/js/cookie';
     // 自定义歌单专辑数据
     import {createSongSingle} from 'common/js/songSingle';
-    // 保存主页选择对应歌单的数据到本地
-    import {saveSongSingle} from 'common/js/cache';
+    // 保存主页选择对应歌单的数据到本地 saveSongSingle
+    // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
+    import {saveSongSingle, saveNewSongSpeedTitle} from 'common/js/cache';
 
     export default {
         name: 'Home',
@@ -220,12 +221,15 @@
                 }
 
                 // 主页新歌模块跳转
-//                if (singer.status && bigTitle) {
-//                    this.newSongListTitle(bigTitle);
-//                    this.$router.push({
-//                        path: `/newSongSpeed`
-//                    });
-//                }
+                if (singer.status && bigTitle) {
+                    // 保存主页新歌模块跳转对应的模块的标题
+                    saveNewSongSpeedTitle(bigTitle);
+
+                    // 跳转页面
+                    this.$router.push({
+                        path: `/home/newSongSpeed`
+                    });
+                }
             },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
@@ -264,8 +268,13 @@
             this.setAppHeader({
                 show: true
             });
+
+            // 初始化标题导航向上偏移的位置
+            this.translateY = 5;
+            // 初始化轮播图背景样式
+            this.$refs.silderWrapperBg.style.opacity = 0;
         },
-        // 组件销毁
+        //
         destroyed () {
             // 设置首页头部导航
             this.setAppHeader({

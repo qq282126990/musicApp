@@ -80,13 +80,6 @@
             },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
-            ]),
-            ...mapActions('asyncAjax', [
-                /**
-                 * 请求歌单专辑信息接口
-                 * @type {Object}
-                 */
-                'getSongAlbumMessage'
             ])
         },
         activated() {

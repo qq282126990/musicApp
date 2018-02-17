@@ -1,22 +1,29 @@
 /** 映射 **/
+// 保存当前播放的歌曲信息 saveCurrentSong
+// 获取当前播放的歌曲信息 getCurrentSong
+import {saveCurrentSong, getCurrentSong, getPlayList} from 'common/js/cache'
 
-/** 滚动组件状态 **/
-// 滚动的状态
-export const probeType = state => state.probeType;
-// 分发点击事件
-export const click = state => state.click;
-// 滚动组件外部传入的数据
-export const scrollData = state => state.scrollData;
-// croll 要不要监听滚动事件
-export const listenScroll = state => state.listenScroll;
-// 是否开启滚动到到底部刷新
-export const pullup = state => state.pullup;
-// 开始滚动
-export const beforeScroll = state => state.beforeScroll;
-// 刷新延迟
-export const refreshDelay = state => state.refreshDelay;
-// 是否开启回弹效果
-export const bounce = state => state.bounce;
-// 回弹时间
-export const bounceTime = state => state.bounceTime;
+/** 播放组件状态 **/
+// 歌曲列表
+export const songList = state => state.songList;
+// 顺序播放列表
+export const sequenceList = state => state.sequenceList;
+// 控制歌曲播放
+export const playing = state => state.playing
+// 播放列表
+export const playList = state => state.playList;
+// 控制歌曲播放模式
+export const playMode = state => state.playMode;
+// 当前播放索引
+export const currentIndex = state => state.currentIndex;
+// 获取当前歌曲
+export const currentSong = (state) => {
+    // 保存当前播放的歌曲信息
+    saveCurrentSong(state.playList[state.currentIndex] || {});
+    return getCurrentSong();
+};
+// 获取收藏列表
+export const favoriteList = state => state.favoriteList;
+// 控制播发器放大缩小
+export const fullScreen = state => state.fullScreen;
 /***************/

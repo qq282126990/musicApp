@@ -5,12 +5,12 @@
             <li class="content-li" v-for="(item, index) in getSongList" @click="selectSong(item, index)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
-                    <div></div>
+                    <div :class="_getCurrentSong(item)"></div>
                 </div>
                 <div class="content-wrapper">
-                    <div class="content">
+                    <div class="content" :class="setStyle">
                         <!--歌曲名称-->
-                        <h3 class="content-title">
+                        <h3 class="content-title" :class="setStyle">
                             <span>{{item.name}}</span>
                         </h3>
                         <!--歌手名称-->
@@ -18,63 +18,87 @@
                             <span>{{item.singer}} · {{item.album}}</span>
                         </p>
                     </div>
+                    <!--更多-->
+                    <v-icon class="more" :class="setStyle">more_vert</v-icon>
                 </div>
             </li>
-            <!--没有更多了-->
-            <div class="none-more" v-show="!hasMore && getSongList.length">
-                <v-icon class="icon">sentiment_dissatisfied</v-icon>
-                <span class="title">没有更多了</span>
+            <!--下拉加载时显示的Loading效果-->
+            <div class="has-more"
+                 v-show="this.totalSongNum && this.getSongList.length > 0 && this.totalSongNum !== this.getSongList.length">
+                <loading :loadingText="loadingText"></loading>
             </div>
-            <!--播放器-->
-            <audio ref="audio"></audio>
+            <!--没有更多了-->
+            <div class="none-more"
+                 v-show="this.getSongList.length > 0 && this.totalSongNum && this.totalSongNum === this.getSongList.length">
+                <v-icon class="icon">sentiment_dissatisfied</v-icon>
+                <span class="more-title">没有更多了</span>
+            </div>
         </ul>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapState} from 'vuex';
-
-    const musicList = [
-        'http://dl.stream.qqmusic.qq.com/C200003p360d04gldH.m4a',
-        'http://dl.stream.qqmusic.qq.com/C200003p360d04gldH.m4a'
-    ]
+    import {mapState, mapGetters} from 'vuex';
+    // loading组件
+    import Loading from 'base/loading/loading';
 
     export default {
         props: {
-            // 设置是否能够加载更多
-            hasMore: {
-                type: Boolean,
-                default: false
+            /*
+             * 歌曲总数
+             * @type {Number}
+             * */
+            totalSongNum: {
+                type: Number,
+                default: null
+            },
+            // 设置样式
+            setStyle: {
+                type: String,
+                default: ''
             }
         },
-        data (){
+        data () {
             return {
-                index: 0
+                loadingText: '加载中...'
             }
         },
         computed: {
             ...mapState('asyncAjax', {
                 /*
+                 * 获取主页选择对应歌单的数据
+                 * @type {Object}
+                 * */
+                getSongAlbumMessage: 'songAlbumMessage',
+                /*
                  * 获取歌曲列表
                  * @param {Object}
                  * */
                 getSongList: 'songList'
+            }),
+            ...mapGetters('appStore', {
+                /**
+                 * 当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong'
             })
         },
         methods: {
             selectSong(item, index) {
                 this.$emit('selectSong', item, index);
-
-                this.index = (this.index + 1) % musicList.length;
-                this.url = musicList[this.index];
-
-                console.log(this.url);
-                setTimeout(() => {
-                    this.$refs.audio.src = this.url;
-                    this.$refs.audio.play();
-                }, 0);
+            },
+            // 获取当前正在播放的歌曲
+            _getCurrentSong(item) {
+                if (this.getCurrentSong.id === item.id) {
+                    return 'bg-color';
+                }
+                return '';
             }
         },
+        components: {
+            Loading
+        }
     };
 </script>
 
@@ -181,6 +205,12 @@
         }
     }
 
+    /*下拉加载时显示的Loading效果*/
+    .has-more {
+        padding: px2rem(60px) 0;
+        width: 100%;
+    }
+
     /*没有更多了*/
     .none-more {
         position: absolute;
@@ -190,7 +220,7 @@
         height: px2rem(200px);
         color: #b6b6b6;
         background: $none-more;
-        .title {
+        .more-title {
             font-size: px2rem(32px);
             vertical-align: middle;
         }
@@ -198,5 +228,10 @@
             font-size: px2rem(52px);
             color: #b6b6b6;
         }
+    }
+
+    /*白色字体*/
+    .colorWhite {
+        color: #fff !important;
     }
 </style>

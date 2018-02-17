@@ -5,7 +5,7 @@
         <div class="play-all-wrapper">
             <i class="material-icons play">play_circle_outline</i>
             <h3 class="name">全部播放</h3>
-            <span class="total-number">共{{totalSongNum}}首</span>
+            <span class="total-number" v-show="totalSongNum">共{{totalSongNum}}首</span>
         </div>
         <!--下载-->
         <div class="download">
@@ -23,10 +23,13 @@
 <script type="text/ecmascript-6">
     export default {
         props: {
-            // 歌曲总数
+            /*
+            * 歌曲总数
+            * @type {Number}
+            * */
             totalSongNum: {
                 type: Number,
-                default: 0
+                default: null
             }
         }
     };

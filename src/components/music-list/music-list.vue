@@ -106,9 +106,12 @@
             <scroll
                 class="song-list-wrapper"
                 @scroll="scroll"
+                @pullingUp="pullingUp"
                 ref="SongListScroll"
             >
                 <song-list
+                    :totalSongNum="getSongAlbumMessage.totalSongNum"
+                    @selectSong="selectSong"
                 ></song-list>
             </scroll>
         </div>
@@ -116,9 +119,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions, mapState} from 'vuex';
+    import {mapActions, mapState, mapGetters} from 'vuex';
     // 获取主页选择对应歌单的数据
     import {getSongSingle} from 'common/js/cache';
+    // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
+    import {saveNewSongSpeedTitle} from 'common/js/cache';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
     // 歌曲列表播放全部模块
     import SongListPlayAll from 'base/songListPlayAll/songListPlayAll';
     // 滚动组件
@@ -166,6 +173,11 @@
                  * */
                 translateY: 0,
                 /*
+                 * 请求歌单专辑歌曲列表页数
+                 * @type {Number}
+                 * */
+                songBegin: 0,
+                /*
                  * 滚动时设置专辑内容超出内容隐藏
                  * @type {String}
                  * */
@@ -179,7 +191,12 @@
                  * 没有图片是默认显示的图片
                  * @type {String}
                  * */
-                avatarDefault: 'http://y.gtimg.cn/music/common/upload/t_taoge_mingren/51431.jpg'
+                avatarDefault: 'http://y.gtimg.cn/music/common/upload/t_taoge_mingren/51431.jpg',
+                /*
+                 * 判断当前是否重复点击歌曲列表
+                 * @type {String}
+                 * */
+                oldSong: null
             }
         },
         mounted () {
@@ -212,18 +229,22 @@
                  * 获取主页选择对应歌单的数据
                  * @type {Object}
                  * */
-                getSongAlbumMessage: 'songAlbumMessage'
+                getSongAlbumMessage: 'songAlbumMessage',
+                /*
+                 * 获取歌曲列表
+                 * @param {Object}
+                 * */
+                getSongList: 'songList'
+            }),
+            ...mapGetters('appStore', {
+                /**
+                 * 获取当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong'
             })
         },
         methods: {
-            // 返回按钮
-            back() {
-                this.$router.back();
-            },
-            // 监听滚动
-            scroll(pos) {
-                this.scrollY = pos.y;
-            },
             // 一些初始化操作
             _initSome() {
                 // 获取图片背景的高度
@@ -245,8 +266,65 @@
                 this.setListenScroll(true);
                 this.setProbeType(3);
                 this.setBounce(true);
-                this.setPullup(true);
+                this.setPullUpLoad(true);
             },
+            // 返回按钮
+            back() {
+                this.$router.back();
+
+                // 保存主页新歌模块跳转对应的模块的标题
+                saveNewSongSpeedTitle('新碟');
+            },
+            // 监听滚动
+            scroll(pos) {
+                this.scrollY = pos.y;
+            },
+            // 选择歌曲列表
+            selectSong (item, index) {
+                this.setSelectPlay({
+                    list: this.getSongList,
+                    index
+                });
+
+                // 如果不是重复点击就初始化oldSong
+                if (this.oldSong !== item.id) {
+                    this.oldSong = null;
+                }
+
+                // 如果oldSong为空才执行
+                if (!this.oldSong) {
+                    this.oldSong = item.id;
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
+            },
+            // 上拉加载更多数字专辑方法
+            pullingUp () {
+                // 如果当前歌曲数量等于歌曲总数就不执行下拉操作
+                if (this.getSongAlbumMessage.totalSongNum === this.getSongList.length) {
+                    return;
+                }
+
+                // 页数每次+15
+                this.songBegin += 15;
+                // 请求歌单专辑信息接口
+                this.setSongAlbumMessage(this.songBegin);
+            },
+            // 上拉加载更多歌单列表完成后刷新数据方法
+            pullingUpRefresh () {
+                // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+                this.$refs.SongListScroll.finishPullUp();
+                // 数据更新时刷新滚动列表数据
+                this.$refs.SongListScroll.refresh();
+            },
+            ...mapActions('asyncAjax', {
+                /**
+                 * 请求歌单专辑信息接口
+                 * @type {Object}
+                 */
+                setSongAlbumMessage: 'getSongAlbumMessage'
+            }),
             ...mapActions('appStore', {
                 /**
                  * 滚动组件传入的数据
@@ -272,7 +350,7 @@
                  * 是否开启滚动到到底部刷新
                  * @type {Boolean}
                  */
-                setPullup: 'pullup',
+                setPullUpLoad: 'pullUpLoad',
                 /**
                  * 选择播放的歌曲
                  * @type {Boolean}
@@ -325,6 +403,14 @@
 
                     // 头部字体滚动
                     this.carouselStart = false;
+                }
+            },
+            // 监听歌曲列表变化
+            getSongList () {
+                // 页数大于15才执行
+                if (this.songBegin > 0) {
+                    // 上拉加载更多歌单列表完成后刷新数据方法
+                    this.pullingUpRefresh();
                 }
             }
         },
@@ -572,7 +658,6 @@
                     text-overflow: ellipsis;
                     display: -webkit-box;
                     -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
                 }
                 /*专辑作者外层*/
                 .author {
@@ -611,7 +696,7 @@
                 /*专辑简介*/
                 .desc {
                     position: relative;
-                    display: -webkit-box;
+                    display: block;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 1;
                     overflow: hidden;
@@ -622,6 +707,10 @@
                     line-height: px2rem(36px);
                     font-size: px2rem(24px);
                     p {
+                        margin: 0;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                         padding-right: px2rem(12px);
                     }
                 }

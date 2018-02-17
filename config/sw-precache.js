@@ -17,7 +17,7 @@ module.exports = {
      * @type {Object}
      */
     build: {
-        cacheId: 'sw-cache-*__name__*',
+        cacheId: 'sw-cache-qqmusic',
 
         filename: 'service-worker.js',
 

@@ -112,3 +112,7 @@ body {
 .data-title .title-span {
     -webkit-box-orient: vertical;
 }
+
+.music-list-content .album-message .message .album-name{
+    -webkit-box-orient: vertical;
+}
