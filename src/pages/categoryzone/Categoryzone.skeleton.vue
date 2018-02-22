@@ -34,11 +34,9 @@
             ])
         },
         activated() {
-            setTimeout(() => {
-                this.setAppHeader({
-                    show: false
-                });
-            }, 1000);
+            this.setAppHeader({
+                show: false
+            });
         },
         // 当组件停用时执行
         deactivated () {
@@ -59,7 +57,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background: $audiotrack-color;
+        background: $categoryzone-header-color;
     }
 
     /*头部*/

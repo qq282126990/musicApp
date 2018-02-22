@@ -1,6 +1,5 @@
 <template>
-    <transition
-        name="slide-down">
+    <transition name="slide">
         <div v-show="show">
             <header class="app-header-wrapper">
                 <div class="app-header-left">

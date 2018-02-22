@@ -8,7 +8,8 @@ import {shuffle} from 'common/js/util';
 // 取消收藏歌曲方法 deleteFavorite
 // 保存播放列表 savePlayList
 // 获取当前播放索引 saveCurrentIndex
-import {saveFavorite, deleteFavorite, savePlayList, saveCurrentIndex} from 'common/js/cache';
+// 保存顺序播放列表 saveSequenceList
+import {saveFavorite, deleteFavorite, savePlayList, saveCurrentIndex, saveSequenceList} from 'common/js/cache';
 
 // 找到随机列表中,对应点击选择列表的歌曲的索引
 function findIndex (list, song) {
@@ -27,7 +28,7 @@ function findIndex (list, song) {
  */
 export const selectPlay = function ({commit, state}, {list, index}) {
     // 顺序播放列表
-    commit(types.SET_SEQUENCE_LIST, list);
+    commit(types.SET_SEQUENCE_LIST, saveSequenceList(list));
     // 判断是否是点击了音乐列表随机播放按钮，在随机列表中找到对应的歌曲进行顺序播放
     if (state.playMode === isPlayMode.random) {
         // 获取随机的播放列表
@@ -77,7 +78,7 @@ export const deleteSong = function ({commit, state}, currentSong) {
     }
 
     commit(types.SET_PLAYLIST, savePlayList(playlist));
-    commit(types.SET_SEQUENCE_LIST, sequenceList);
+    commit(types.SET_SEQUENCE_LIST, saveSequenceList(sequenceList));
     commit(types.SET_CURRENT_INDEX, saveCurrentIndex(currentIndex));
 
     // 如果当前列表中没有歌曲了就设置播放器停止播放
@@ -99,7 +100,7 @@ export const deleteSongList = function ({commit}) {
     // 初始化播放列表
     commit(types.SET_PLAYLIST, savePlayList([]));
     // 初始化顺序播放列表
-    commit(types.SET_SEQUENCE_LIST, []);
+    commit(types.SET_SEQUENCE_LIST, saveSequenceList([]));
     // 初始化播放器播放状态
     commit(types.SET_PLAYING_STATE, false);
 };

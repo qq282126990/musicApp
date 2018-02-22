@@ -9,6 +9,7 @@ const CURRENT_SONG_KEY = '__currentSong__';
 const CURRENT_INDEX_KEY = '__currentIndex__';
 const PlAULIST_KEY = '__playList__';
 const PLAYURL_KEY = '__playUrl__';
+const SEQUENCE_LIST_KEY = '__sequenceList__';
 
 // 收藏歌曲最大存储长度 200
 const PLAY_MAX_LENGTH = 200;
@@ -77,6 +78,15 @@ export function savePlayUrl (url) {
 // 获取当前播放歌曲链接
 export function getPlayUrl () {
     return storage.get(PLAYURL_KEY, []);
+}
+
+// 保存顺序播放列表
+export function saveSequenceList (url) {
+    return storage.set(SEQUENCE_LIST_KEY, url);
+}
+// 获取顺序播放列表
+export function getSequenceList () {
+    return storage.get(SEQUENCE_LIST_KEY, []);
 }
 
 // 删除重复数据，插入新增数据  compare数组的查找方法

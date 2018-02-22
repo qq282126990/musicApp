@@ -14,22 +14,24 @@ let My = () => import('./My.vue');
 import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';
 // 数字专辑音乐列表
 import DigitalAlbumMusicList from 'components/digital-album-music-list/digital-album-music-list.vue';
+// 分类歌单
+import CategorySongList from 'components/category-song-list/category-song-list.vue';
 
 export default {
     routes: [
         {
             path: '/home',
-            name: 'Home',
+            name: 'home',
             component: Home
         },
         {
             path: '/find',
-            name: 'Find',
+            name: 'find',
             component: Find
         },
         {
             path: '/my',
-            name: 'My',
+            name: 'my',
             component: My
         },
         // 新歌速递模块
@@ -38,10 +40,17 @@ export default {
             name: 'newSongSpeed',
             component: NewSongSpeed
         },
+        // 数字专辑模块
         {
             path: '/home/newSongSpeed/digitalAlbum/:id',
             name: 'digitalAlbumMusicList',
             component: DigitalAlbumMusicList
         },
+        // 分类歌单模块
+        {
+            path: '/home/homeRecommend',
+            name: 'categorySongList',
+            component: CategorySongList
+        }
     ]
 };

@@ -87,14 +87,15 @@ $list-content-name-active-color: #16c975; // 当前正在播放的歌曲的文�
 $bar-inner-color: #898989; // 播放器进度条颜色
 $progress-color: #16c975; // 进度条进度颜色
 
-// hot-recommend.vue
-$hot-recommend-bg-color: rgba(249,249,249,1); // 背景颜色 1e2326
+// category-song-list.vue
+$hot-recommend-bg-color: #fff; // 背景颜色 1e2326
 $title-color: #fff; // 标题颜色
 $hot-songs-title-color: #000; // hot-songs字体颜色
 $header-color: #30c27c; // 标题颜色 1b2023
 $look-more-color: #0dbb64; // 查看更多字体颜色
 $content-name-color: #000; // 歌单标题
 $user-name-color: #999; // 发布人名字颜色
+$chosen-heade-select: #37c385; // 精选歌单头部选择颜色
 
 // homeSlider-switch.vue
 $slider-switch-dots-bg: #fff; // 滑动切换头部的背景 1b2023
@@ -124,3 +125,6 @@ $digital-album-music-list-content-text-active: #ffce6b; // 数字专辑歌曲列
 $router-nav-icon-color: #30c27c; // 我的页面导航icon颜色
 $customize-song-list-header: #999; // 用户歌单头部导航字体颜色
 $customize-text-color: #000; // 用户歌单字体颜色
+
+// Categoryzone.vue
+$categoryzone-header-color: rgba(0, 0, 0, .1);

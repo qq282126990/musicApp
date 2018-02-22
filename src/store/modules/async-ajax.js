@@ -21,7 +21,18 @@ import {normalizeSongList} from 'common/js/songList';
 // 全部数字专辑数据接口 getTotalDigitalAlbum
 // 获取更多数字专辑数据 getMoreAlbumList
 // 获取数字专辑歌曲列表 getDigitalAlbumSongList
-import {getSwitchNewSongList, getNewAlbum, getNewAlbumSongList, getTotalDigitalAlbum, getMoreAlbumList, getDigitalAlbumSongList} from 'api/newSongSpeed';
+import {
+    getSwitchNewSongList,
+    getNewAlbum,
+    getNewAlbumSongList,
+    getTotalDigitalAlbum,
+    getMoreAlbumList,
+    getDigitalAlbumSongList
+} from 'api/newSongSpeed';
+
+// 获取分类歌单导航 getCategoryNavigation
+// 获取分类歌单数据接口 getSortSongData
+import {getCategoryNavigation, getSortSongData} from 'api/categorySongList.js'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = []
@@ -81,7 +92,17 @@ let state = {
      * 获取数字专辑歌曲列表数据
      * @type {Object}
      * */
-    digitalAlbumSongList: {}
+    digitalAlbumSongList: {},
+    /*
+     * 获取分类歌单导航
+     * @type {Array}
+     * */
+    categoryNavigation: [],
+    /*
+     * 获取分类歌单推荐信息
+     * @type {Array}
+     * */
+    sortSongData: []
 };
 
 let actions = {
@@ -97,7 +118,7 @@ let actions = {
             // 获取主页热门推荐导航
             commit(types.SET_HOME_RECOMMEND, {homeRecommend: res.recomPlaylist.data.v_hot.slice(0, 6) || []});
             // 获取主页新歌导航
-            commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(0, 3)) || []});
+            commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(1, 4)) || []});
             // 新歌速递 - 新歌模块数据
             saveInitNewSongList(res.new_song.data);
         }
@@ -254,6 +275,33 @@ let actions = {
         }
     },
     /**
+     * 获取分类歌单导航信息
+     * @param {Function} commit
+     */
+    async getCategoryNavigation({commit}) {
+        let res = await getCategoryNavigation();
+        if (res.code === ERR_OK) {
+            commit(types.SET_CATEGORY_NAVIGATION, res.data.categories);
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取分类歌单歌曲信息
+     * @param {Function} commit
+     */
+    async getSortSongData({commit}, param) {
+        let res = await getSortSongData(param);
+        if (res.code === ERR_OK) {
+            // 获取分类歌单歌曲信息
+            commit(types.SET_SORT_SONG_DATA, res.data);
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -269,6 +317,11 @@ let actions = {
     songList({commit}, songList) {
         // 设置歌曲列表
         commit(types.SET_SONG_LIST, songList);
+    },
+    // 设置分类歌单歌曲信息
+    sortSongData({commit}, sortSongData) {
+        // 设置歌曲列表
+        commit(types.SET_SORT_SONG_DATA, sortSongData);
     }
 };
 
@@ -315,25 +368,54 @@ let mutations = {
     [types.SET_SONG_LIST](state, songList) {
         state.songList = songList;
     },
-    // 获取新歌速递模块点击内容标题 对应type的数据
+    /*
+     * 获取新歌速递模块点击内容标题 对应type的数据
+     * @param {Object}
+     * */
     [types.SET_SWITCH_NEW_SONG_LIST_TITLE](state, {switchNewSongList}) {
         state.switchNewSongList = switchNewSongList;
     },
-    // 获取新碟数据
+    /*
+     * 获取新碟数据
+     * @param {Object}
+     * */
     [types.SET_NEW_ALBUM](state, {newAlbum}) {
         state.newAlbum = newAlbum;
     },
-    // 获取全部数字专辑数据 音乐数字专辑相册
+    /*
+     * 获取全部数字专辑数据 音乐数字专辑相册
+     * @param {Object}
+     * */
     [types.SET_MUSIC_DIGITAL_ALBUM](state, {musicDigitalAlbum}) {
         state.musicDigitalAlbum = musicDigitalAlbum;
     },
-    // 更多数字专辑数据
+    /*
+     * 更多数字专辑数据
+     * @param {Object}
+     * */
     [types.SET_DIGITAL_MORE_ALBUM](state, {moreDigitalAlbum}) {
         state.moreDigitalAlbum = moreDigitalAlbum;
     },
-    // 获取数字专辑歌曲列表数据
+    /*
+     * 获取数字专辑歌曲列表数据
+     * @param {Object}
+     * */
     [types.SET_DIGITAL_ALBUM_SONG_LIST](state, {digitalAlbumSongList}) {
         state.digitalAlbumSongList = digitalAlbumSongList;
+    },
+    /*
+     * 获取分类歌单导航信息
+     * @param {Array}
+     * */
+    [types.SET_CATEGORY_NAVIGATION](state, categoryNavigation) {
+        state.categoryNavigation = categoryNavigation;
+    },
+    /*
+     * 获取分类歌单歌曲信息
+     * @param {Array}
+     * */
+    [types.SET_SORT_SONG_DATA](state, sortSongData) {
+        state.sortSongData = sortSongData;
     }
 };
 

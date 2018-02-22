@@ -2,7 +2,8 @@ import {isPlayMode} from 'common/js/config';
 // 加载所有的收藏歌曲 loadFavorite
 // 获取当前播放的歌曲信息 getPlayList
 // 获取当前播放索引 getCurrentIndex
-import {loadFavorite, getPlayList, getCurrentIndex} from 'common/js/cache';
+// 获取顺序播放列表 getSequenceList
+import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList} from 'common/js/cache';
 
 /**
  * 状态管理
@@ -18,7 +19,7 @@ const state = {
      * 顺序播放列表
      * @type {Array}
      */
-    sequenceList: [],
+    sequenceList: getSequenceList(),
     /**
      * 获取当前收藏列表
      * @type {Array}

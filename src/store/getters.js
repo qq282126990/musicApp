@@ -1,7 +1,7 @@
 /** 映射 **/
 // 保存当前播放的歌曲信息 saveCurrentSong
 // 获取当前播放的歌曲信息 getCurrentSong
-import {saveCurrentSong, getCurrentSong, getPlayList} from 'common/js/cache'
+import {saveCurrentSong, getCurrentSong} from 'common/js/cache'
 
 /** 播放组件状态 **/
 // 歌曲列表

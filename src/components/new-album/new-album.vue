@@ -185,8 +185,6 @@
             selectItem(singer) {
                 // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
                 if (singer.dissid) {
-                    console.log(singer);
-                    console.log(createSongSingle(singer));
                     // 把选中的专辑的数据存入 localStorage多页通讯
                     saveSongSingle(createSongSingle(singer));
 
@@ -357,6 +355,7 @@
             .play-number-wrapper {
                 position: absolute;
                 margin-top: px2rem(-50px);
+                margin-left: px2rem(-10px);
                 padding: 0 px2rem(20px);
                 box-sizing: border-box;
                 display: flex;
@@ -414,6 +413,7 @@
             }
         }
         .new-album-li:nth-child(2n + 2) {
+            /*歌单图片*/
             .li-avatar {
                 padding-left: px2rem(10px);
                 padding-right: 0;
@@ -421,6 +421,22 @@
                 border-bottom-left-radius: 0;
                 border-top-right-radius: px2rem(15px);
                 border-bottom-right-radius: px2rem(15px);
+            }
+            /*播放量*/
+            .play-number-wrapper {
+                margin-left: px2rem(10px);
+                padding-left: 0;
+                /*播放量数字*/
+                .play-number {
+                    /*icon*/
+                    .icon {
+                       padding-left: px2rem(10px);
+                    }
+                }
+                /*播放按钮*/
+                .play {
+                    padding-right: px2rem(20px);
+                }
             }
         }
     }

@@ -24,12 +24,12 @@
             </li>
             <!--下拉加载时显示的Loading效果-->
             <div class="has-more"
-                 v-show="this.totalSongNum && this.getSongList.length > 0 && this.totalSongNum !== this.getSongList.length">
+                 v-show="totalSongNum && getSongList.length > 0 && totalSongNum !== getSongList.length">
                 <loading :loadingText="loadingText"></loading>
             </div>
             <!--没有更多了-->
             <div class="none-more"
-                 v-show="this.getSongList.length > 0 && this.totalSongNum && this.totalSongNum === this.getSongList.length">
+                 v-show="getSongList.length > 0 && totalSongNum && totalSongNum === getSongList.length">
                 <v-icon class="icon">sentiment_dissatisfied</v-icon>
                 <span class="more-title">没有更多了</span>
             </div>

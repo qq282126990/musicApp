@@ -41,9 +41,7 @@
                             v-for="(frItem, index) in homeFeaturedRadio"
                             :key="index">
                             <!--icon-->
-                            <v-icon class="li-icon">
-                                play_arrow
-                            </v-icon>
+                            <v-icon class="li-icon">play_arrow</v-icon>
                             <!--电台图片-->
                             <img class="li-cover" :alt="frItem.radioImg" v-lazy="frItem.radioImg"/>
                             <!--电台标题-->
@@ -199,9 +197,9 @@
             },
             // 点击歌单导航列表头部标题
             clickListTitle(data) {
-//                this.$router.push({
-//                    path: `/${data}`
-//                });
+                this.$router.push({
+                    path: `/home/${data}`
+                });
             },
             // 选择歌单导航列表内容跳转页面
             selectSongSingle(singer, bigTitle) {
@@ -273,13 +271,6 @@
             this.translateY = 5;
             // 初始化轮播图背景样式
             this.$refs.silderWrapperBg.style.opacity = 0;
-        },
-        //
-        destroyed () {
-            // 设置首页头部导航
-            this.setAppHeader({
-                show: false
-            });
         },
         watch: {
             // 监听滚动

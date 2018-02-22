@@ -1,10 +1,9 @@
-
 /**
  * @file 页面骨架
  */
 
 import Vue from 'vue';
-import Skeleton from './Search.skeleton.vue';
+import Skeleton from './Categoryzone.skeleton.vue';
 
 export default new Vue({
     components: {
