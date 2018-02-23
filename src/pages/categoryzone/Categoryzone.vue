@@ -15,7 +15,6 @@
         <!--内容-->
         <scroll class="scroll"
                 @pullingUp="pullingUp"
-                v-show="getSortSongData.list"
                 ref="scroll"
         >
             <div class="category-content">
@@ -23,9 +22,10 @@
                 <div class="category-content-header">
                     <!--图片-->
                     <img class="category-img"
-                         src="https://y.gtimg.cn/music/common/upload/t_tag_group_set/45929.png?max_age=2592000"/>
+                         :alt="categoryImg"
+                         :src="categoryImg"/>
                     <!--标题-->
-                    <h1 class="category-header-title">英语</h1>
+                    <h1 class="category-header-title">{{categoryHeaderTitle}}</h1>
                 </div>
                 <!--歌单列表-->
                 <chosen-song-llist :sortSongData="sortSongData"
@@ -50,7 +50,7 @@
 
     export default {
         mixins: [chosenSongList],
-        data () {
+        data() {
             return {
                 /*
                  * 分类歌单id
@@ -58,10 +58,20 @@
                  * */
                 categoryId: this.$router.currentRoute.params.id,
                 /*
+                * 歌单类别标题
+                * @type {String}
+                * */
+                categoryHeaderTitle: this.$router.currentRoute.params.name,
+                /*
                  * 分类歌单专辑列表标题
                  * @type {String}
                  * */
-                chosenTitle: '精选歌单'
+                chosenTitle: null,
+                /*
+                 * 歌单类别图片
+                 * @type {String}
+                 * */
+                categoryImg: null
             };
         },
         methods: {
@@ -80,11 +90,28 @@
             });
         },
         // 当组件停用时执行
-        deactivated () {
+        deactivated() {
             // 显示头部导航
             this.setAppHeader({
                 show: false
             });
+        },
+        watch: {
+            // 监听分类歌单列表数据
+            getSortSongData(newSortSongData) {
+                if (!newSortSongData.list) {
+                    return;
+                }
+
+
+                if (!this.categoryImg) {
+                    // 设置歌单类别图片
+                    this.categoryImg = newSortSongData.list[Math.floor(Math.random() * 10)].imgurl;
+                }
+
+                // 设置分类歌单专辑列表标题
+                this.chosenTitle = `${this.$router.currentRoute.params.name}(${newSortSongData.sum})`;
+            },
         },
         components: {
             Scroll,
@@ -101,6 +128,8 @@
         position: fixed;
         top: 0;
         bottom: 0;
+        left: 0;
+        right: 0;
         height: 100%;
         overflow: hidden;
     }
@@ -155,6 +184,9 @@
             position: relative;
             width: 100%;
             height: px2rem(420px);
+            overflow: hidden;
+            background: url("../../common/img/category-header-defalut.png") no-repeat;
+            background-size: cover;
             &::before {
                 content: "";
                 position: absolute;

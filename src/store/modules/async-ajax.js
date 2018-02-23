@@ -32,10 +32,13 @@ import {
 
 // 获取分类歌单导航 getCategoryNavigation
 // 获取分类歌单数据接口 getSortSongData
-import {getCategoryNavigation, getSortSongData} from 'api/categorySongList.js'
+import {getCategoryNavigation, getSortSongData} from 'api/categorySongList'
+// 精选电台歌曲接口 getOrdinaryFeaturedRadio
+// 个性电台歌曲接口 getPersonalFeaturedRadio
+import {getOrdinaryFeaturedRadio, getPersonalFeaturedRadio} from 'api/featuredRadio';
 
 // 拼接歌单专辑歌曲列表
-let sliceSonglist = []
+let sliceSonglist = [];
 
 let state = {
     /*
@@ -74,6 +77,11 @@ let state = {
      */
     switchNewSongList: [],
     /*
+     * 获取分类歌单推荐信息
+     * @type {Array}
+     * */
+    sortSongData: [],
+    /*
      * 获取新碟数据
      * @type {Object}
      * */
@@ -99,10 +107,15 @@ let state = {
      * */
     categoryNavigation: [],
     /*
-     * 获取分类歌单推荐信息
-     * @type {Array}
+     * 获取个性电台歌曲列表
+     * @type {Object}
      * */
-    sortSongData: []
+    personalFeaturedRadio: {},
+    /*
+     * 获取普通电台歌曲列表
+     * @type {Object}
+     * */
+    ordinaryFeaturedRadio: {}
 };
 
 let actions = {
@@ -116,9 +129,9 @@ let actions = {
             // 获取主页轮播图
             commit(types.SET_HOME_SLIDER, {homeSlider: res.focus.data.content});
             // 获取主页热门推荐导航
-            commit(types.SET_HOME_RECOMMEND, {homeRecommend: res.recomPlaylist.data.v_hot.slice(0, 6) || []});
+            commit(types.SET_HOME_RECOMMEND, {homeRecommend: res.recomPlaylist.data.v_hot || []});
             // 获取主页新歌导航
-            commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(1, 4)) || []});
+            commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(0, 1), res.new_album.data.album_list.slice(0, 1))});
             // 新歌速递 - 新歌模块数据
             saveInitNewSongList(res.new_song.data);
         }
@@ -134,7 +147,7 @@ let actions = {
         let res = await getHomeFeaturedRadio();
         if (res.code === ERR_OK) {
             // 获取主页精选电台导航
-            commit(types.SET_HOME_FEATERED_RADIO, {homeFeaturedRadio: res.data.data.groupList[0].radioList.slice(0, 3) || []});
+            commit(types.SET_HOME_FEATERED_RADIO, {homeFeaturedRadio: res.data.data.groupList[0].radioList.slice(1, 4) || []});
         }
         else {
             // 错误处理
@@ -302,6 +315,34 @@ let actions = {
         }
     },
     /**
+     * 个性电台歌曲接口
+     * @param {Function} commit
+     */
+    async getPersonalFeaturedRadio({commit}) {
+        let res = await getPersonalFeaturedRadio();
+        if (res.code === ERR_OK) {
+            // 获取个性电台歌曲列表
+            commit(types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST, {personalFeaturedRadio: normalizeSongList(res.songlist) || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 普通电台歌曲接口
+     * @param {Function} commit
+     */
+    async getOrdinaryFeaturedRadio({commit}, param) {
+        let res = await getOrdinaryFeaturedRadio(param);
+        if (res.code === ERR_OK) {
+            // 获取精选电台歌曲列表
+            commit(types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST, {ordinaryFeaturedRadio: normalizeSongList(res.songlist.data.track_list) || []});
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -416,6 +457,14 @@ let mutations = {
      * */
     [types.SET_SORT_SONG_DATA](state, sortSongData) {
         state.sortSongData = sortSongData;
+    },
+    // 获取个性电台歌曲列表
+    [types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST](state, {personalFeaturedRadio}) {
+        state.personalFeaturedRadio = personalFeaturedRadio;
+    },
+    // 普通个性电台歌曲列表
+    [types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST](state, {ordinaryFeaturedRadio}) {
+        state.ordinaryFeaturedRadio = ordinaryFeaturedRadio;
     }
 };
 
@@ -423,7 +472,7 @@ let getters = {
     switchNewSongList() {
         return state.switchNewSongList;
     },
-    songList () {
+    songList() {
         return state.songList;
     }
 };

@@ -8,7 +8,7 @@
                 </div>
                 <ul class="list-data" v-if="listData.data">
                     <li class="data-li" v-for="(data, index) in listData.data" :key="index"
-                        @click="selectSongSingle(data, bigTitle[index])">
+                        @click="selectSongSingle(data)">
                         <img class="data-mark"
                              :alt="data.edge_mark"
                              :src="data.edge_mark"
@@ -17,7 +17,6 @@
                              :alt="data.cover"
                              v-lazy="data.cover"/>
                         <div class="data-title">
-                            <span class="big-title" v-show="data.status">{{bigTitle[index]}}</span>
                             <span class="title-span" v-html="data.title"></span>
                         </div>
                     </li>
@@ -34,6 +33,12 @@
                         </div>
                     </li>
                 </ul>
+                <!--换一批-->
+                <div class="replace-data" v-show="listMenu[0].listData[0].title === 'homeRecommend'">
+                    <div class="replace-button">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,8 +56,7 @@
         },
         data() {
             return {
-                loadingImg: [0, 1, 2, 3, 4, 5], // 加载图数量
-                bigTitle: ['新歌', '数字专辑', '新碟'] // 新歌速递组件 大标题
+                loadingImg: [0, 1, 2, 3, 4, 5] // 加载图数量
             };
         },
         methods: {
@@ -61,9 +65,9 @@
                 this.$emit('clickListTitle', data);
             },
             // 选择歌单派发点击事件
-            selectSongSingle(item, bigTitle) {
+            selectSongSingle(item) {
                 if (this.listMenu) {
-                    this.$emit('selectSongSingle', item, bigTitle);
+                    this.$emit('selectSongSingle', item);
                 }
             }
         }
@@ -177,6 +181,17 @@
             &:last-child{
                 margin-top: px2rem(4px);
             }
+        }
+    }
+
+    /*换一批*/
+    .replace-data{
+        width: 100%;
+        height: px2rem(50px);
+        .replace-button{
+            width: px2rem(200px);
+            height: 100%;
+            border: px2rem(2px) solid ;
         }
     }
 </style>

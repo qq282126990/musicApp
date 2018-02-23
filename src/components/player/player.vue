@@ -892,7 +892,7 @@
             // 监听播放器错误
             playError(newPlayError) {
                 // 如果播放器错误就请求备用接口
-                if (newPlayError) {
+                if (newPlayError && this.getCurrentSong.strMediaMid) {
                     // 设置歌曲播放状态
                     this.$refs.audio.pause();
 

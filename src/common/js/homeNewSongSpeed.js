@@ -1,6 +1,7 @@
 export default class HomeNewSongSpeed {
-    constructor ({id, albumName, singerName}) {
-        this.status = 'new-song';
+    constructor ({status, name, id, albumName, singerName}) {
+        this.status = status;
+        this.name = name;
         this.id = id; // 专辑id
         this.cover = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${id}.jpg?max_age=2592000`;
         this.albumName = albumName; // 专辑名称
@@ -10,48 +11,53 @@ export default class HomeNewSongSpeed {
 };
 
 // 主页新歌速递模块数据
-export function createHomeNewSongSpeed (list) {
+export function createHomeNewSongSpeed (newSong, newAlbum) {
     let ret = [];
     let items = {};
 
-    list.forEach((item) => {
-        let id = item.album_mid;
-        let name = item.album_name;
-        let singerName = item.singer_name;
+    newSong.forEach((item) => {
 
         items = (new HomeNewSongSpeed({
-            id: id,
-            albumName: name,
-            singerName: singerName
+            status: '歌单推荐',
+            name: 'newSongSpeed',
+            id: item.album.mid,
+            albumName: item.album.name,
+            singerName: filterSinger(item.singer)
         }));
 
-        if (item.singer) {
-            let id = item.album.mid;
-            let name = item.album.name;
-            let singerName = item.singer[0].name;
+        ret.push(items);
+    });
 
-            items = (new HomeNewSongSpeed({
-                id: id,
-                albumName: name,
-                singerName: singerName,
-                edge_mark: null
-            }));
-        }
+    newAlbum.forEach((item) => {
 
-        if (item.author) {
-            let id = item.album.mid;
-            let name = item.album.name;
-            let singerName = item.author[0].name;
-
-            items = (new HomeNewSongSpeed({
-                id: id,
-                albumName: name,
-                singerName: singerName
-            }));
-        }
+        items = (new HomeNewSongSpeed({
+            status: '数字专辑',
+            name: 'digitalAlbum',
+            id: item.album.mid,
+            albumName: item.album.name,
+            singerName: filterSinger(item.author)
+        }));
 
         ret.push(items);
     });
 
     return ret;
+}
+
+/*
+ * singer是一个数组  过滤出singer的name
+ * @type {String}
+ * */
+export function filterSinger(singer) {
+    let ret = [];
+
+    if (!singer) {
+        return '';
+    }
+
+    singer.forEach((s) => {
+        ret.push(s.name);
+    });
+
+    return ret.join('/');
 }

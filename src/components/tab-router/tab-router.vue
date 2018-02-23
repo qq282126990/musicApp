@@ -2,7 +2,7 @@
     <div class="tab-router">
         <!--标题列表-->
         <div class="teb-li" v-for="item in tebLi">
-            <div class="tab" v-for="item in item.tab">
+            <div class="tab" v-for="item in item.tab" @click="selectRouter(item)">
                 <!--图标-->
                 <i class="iconfont" :class="item.iconfont"></i>
                 <!--导航名称-->
@@ -21,6 +21,11 @@
             tebLi: {
                 type: Array,
                 default: []
+            }
+        },
+        methods: {
+            selectRouter(item) {
+                this.$emit('selectRouter', item);
             }
         }
     };
@@ -61,9 +66,9 @@
         height: 100%;
         /*图标*/
         .iconfont {
-            position: relative;
+            position: absolute;
             top: 10px;
-            font-size: px2rem(50px);
+            font-size: px2rem(56px);
             width: 100%;
             color: $IconColor;
         }
@@ -75,5 +80,12 @@
             font-size: px2rem(24px);
             color: $textColor;
         }
+    }
+    .icon-shipincopy{
+        font-size: px2rem(44px) !important;
+        font-weight: bold;
+    }
+    .icon-paixingbang{
+        font-size: px2rem(66px) !important;
     }
 </style>

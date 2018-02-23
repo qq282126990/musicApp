@@ -48,9 +48,10 @@ export default {
         },
         // 分类歌单模块
         {
-            path: '/home/homeRecommend',
+            path: '/home/categorySongList',
             name: 'categorySongList',
-            component: CategorySongList
+            component: CategorySongList,
+            alias: '/home/homeRecommend'
         }
     ]
 };

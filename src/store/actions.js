@@ -9,7 +9,8 @@ import {shuffle} from 'common/js/util';
 // 保存播放列表 savePlayList
 // 获取当前播放索引 saveCurrentIndex
 // 保存顺序播放列表 saveSequenceList
-import {saveFavorite, deleteFavorite, savePlayList, saveCurrentIndex, saveSequenceList} from 'common/js/cache';
+// 保存当前播放歌曲链接 savePlayUrl
+import {saveFavorite, deleteFavorite, savePlayList, saveCurrentIndex, saveSequenceList , savePlayUrl} from 'common/js/cache';
 
 // 找到随机列表中,对应点击选择列表的歌曲的索引
 function findIndex (list, song) {
@@ -103,6 +104,29 @@ export const deleteSongList = function ({commit}) {
     commit(types.SET_SEQUENCE_LIST, saveSequenceList([]));
     // 初始化播放器播放状态
     commit(types.SET_PLAYING_STATE, false);
+    savePlayUrl(null);
+};
+
+/**
+ * 播放全部
+ * @type {Object}
+ * list {Array}
+ * index {Number}
+ * SET_PLAYING_STATE {Boolean}
+ */
+export const allPlay = function ({commit}, {list}) {
+    // 切换到顺序播放模式
+    commit(types.SET_PLAY_MODE, isPlayMode.sequence);
+    // 获取顺序播放列表
+    commit(types.SET_SEQUENCE_LIST, saveSequenceList(list));
+    // 设置当前的播放列表
+    commit(types.SET_PLAYLIST, savePlayList(list));
+    // 设置当前的播放位置
+    commit(types.SET_CURRENT_INDEX, saveCurrentIndex(0));
+    // 控制播发器放大缩小
+    commit(types.SET_FULL_SCREEN, false);
+    // 控制播放
+    commit(types.SET_PLAYING_STATE, true);
 };
 
 /*

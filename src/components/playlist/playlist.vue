@@ -140,7 +140,6 @@
                     });
                 }
 
-                console.log('11');
                 // 设置当前要播放歌曲的索引进行播放
                 this.setCurrentIndex(index);
                 // 设置播放歌曲

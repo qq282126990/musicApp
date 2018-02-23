@@ -13,12 +13,11 @@
         <scroll
             class="scroll"
             @pullingUp="pullingUp"
-            v-show="categoryNavigation.length"
             ref="scroll"
         >
             <div>
                 <!--热门分类-->
-                <div class="hot-category">
+                <div class="hot-category" ref="hotCategory">
                     <!--标题-->
                     <span class="category-title">热门分类</span>
                     <!--内容-->
@@ -85,7 +84,7 @@
 
     export default {
         mixins: [chosenSongList],
-        data () {
+        data() {
             return {
                 /*
                  * 分类歌单id
@@ -110,7 +109,7 @@
                 chosenTitle: '精选歌单'
             };
         },
-        mounted () {
+        mounted() {
             // 一些初始化操作
             this._initSome();
         },
@@ -131,26 +130,27 @@
         },
         methods: {
             // 一些初始化操作
-            _initSome (){
+            _initSome() {
                 // 获取分类歌单导航请求
                 this.setCategoryNavigation();
             },
             // 返回按钮
-            back () {
+            back() {
                 this.$router.back();
             },
             // 选择歌单类型导航
-            selectCategoryNavigation (nvigation) {
+            selectCategoryNavigation(nvigation) {
+                console.log(nvigation);
                 // 跳转到对应类别歌单
                 this.$router.push({
-                    path: `/categoryzone/${nvigation.categoryId}`
+                    path: `/categoryzone/${nvigation.categoryName}/${nvigation.categoryId}`
                 });
             },
             /*
              * 自定义分类歌单导航数据
              * @param {Number}
              * */
-            _normalizeCategoryNavigation (list) {
+            _normalizeCategoryNavigation(list) {
                 let ret = [];
 
                 list.forEach((item) => {
@@ -172,17 +172,26 @@
             ])
         },
         // 当组件激活的调用
-        activated () {
+        activated() {
             // 隐藏头部导航
             this.setAppHeader({
                 show: false
             });
 
-            // 重置滚动位置
-            this.$refs.scroll.scrollTo(0, 0);
+            if (/^(\/home\/homeRecommend)/.test(this.$route.path)) {
+                // 设置滚动位置
+                this.$refs.scroll.scrollTo(0, -this.$refs.hotCategory.clientHeight);
+
+                this.$refs.scroll.refresh();
+            }
+            else {
+                // 设置滚动位置
+                this.$refs.scroll.scrollTo(0, 0, 1000);
+                this.$refs.scroll.refresh();
+            }
         },
         // 当组件停用时执行
-        deactivated () {
+        deactivated() {
             // 显示头部导航
             this.setAppHeader({
                 show: false
@@ -192,6 +201,20 @@
             // 监听歌单导航数据
             getCategoryNavigation(newCategoryNavigation) {
                 this.categoryNavigation = this._normalizeCategoryNavigation(newCategoryNavigation.slice(1, 6));
+            },
+            getSortSongData () {
+                this.$nextTick(() => {
+                    if (/^(\/home\/homeRecommend)/.test(this.$route.path)) {
+                        // 设置滚动位置
+                        this.$refs.scroll.scrollTo(0, -this.$refs.hotCategory.clientHeight, 1000);
+                        this.$refs.scroll.refresh();
+                    }
+                    else {
+                        // 设置滚动位置
+                        this.$refs.scroll.scrollTo(0, 0);
+                        this.$refs.scroll.refresh();
+                    }
+                });
             }
         },
         components: {
@@ -295,6 +318,7 @@
     .hot-category {
         box-sizing: border-box;
         width: 100%;
+        height: px2rem(490px);
         /*标题*/
         .category-title {
             display: block;

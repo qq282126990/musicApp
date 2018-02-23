@@ -143,7 +143,7 @@ export const chosenSongList = {
              * @type {Number}
              * @default 2
              * */
-            sortId: 2,
+            sortId: 5,
             /*
              * 分类歌单显示列表的起始位置
              * @type {Number}
@@ -319,4 +319,4 @@ export const chosenSongList = {
             }
         }
     }
-}
+};

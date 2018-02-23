@@ -9,7 +9,7 @@ export const songList = state => state.songList;
 // 顺序播放列表
 export const sequenceList = state => state.sequenceList;
 // 控制歌曲播放
-export const playing = state => state.playing
+export const playing = state => state.playing;
 // 播放列表
 export const playList = state => state.playList;
 // 控制歌曲播放模式

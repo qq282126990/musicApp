@@ -6,8 +6,8 @@
             <span class="chosen-title">{{chosenTitle}}</span>
             <!--选择-->
             <div class="chosen-heade-select">
-                <p :class="{'active': sortId === 2}" @click="selectNavigation(2)">最热</p>
-                <p :class="{'active': sortId === 5}" @click="selectNavigation(5)">最新</p>
+                <p :class="{'active': sortId === 5}" @click="selectNavigation(5)">最热</p>
+                <p :class="{'active': sortId === 2}" @click="selectNavigation(2)">最新</p>
             </div>
         </div>
         <!--内容-->
@@ -20,7 +20,7 @@
                     <!--头像-->
                     <img class="chosen-avatar"
                          :alt="item.imgurl"
-                         :src="item.imgurl"/>
+                         v-lazy="item.imgurl"/>
                     <!--播放量-->
                     <div class="play-number-wrapper">
                         <!--播放量数字-->
@@ -70,14 +70,27 @@
 
     export default {
         props: {
+            /*
+                 * 分类歌单专辑列表标题
+                 * @type {String}
+                 * */
             chosenTitle: {
                 type: String,
                 default: null
             },
+            /*
+             * sortId
+             * @type {Number}
+             * @default 5
+             * */
             sortId: {
                 type: Number,
-                default: 2
+                default: 5
             },
+            /*
+           * 获取分类歌单歌曲信息
+           * @types {Array}
+           * */
             sortSongData: {
                 type: Array,
                 default: [{}, {}]
@@ -215,7 +228,7 @@
                 /*歌单图片*/
                 .chosen-avatar {
                     display: block;
-                    padding-right: px2rem(10px);
+                    padding-right: px2rem(5px);
                     border-top-right-radius: px2rem(15px);
                     border-bottom-right-radius: px2rem(15px);
                     width: 100%;
@@ -299,7 +312,7 @@
             }
             li:nth-child(2n + 2) {
                 .chosen-avatar {
-                    padding-left: px2rem(10px);
+                    padding-left: px2rem(5px);
                     padding-right: 0;
                     border-top-left-radius: px2rem(15px);
                     border-bottom-left-radius: px2rem(15px);

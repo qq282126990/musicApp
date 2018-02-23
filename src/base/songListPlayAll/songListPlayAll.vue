@@ -3,7 +3,7 @@
     <div class="song-list-play-all">
         <!--播放全部-->
         <div class="play-all-wrapper">
-            <i class="material-icons play">play_circle_outline</i>
+            <i class="material-icons play" @click="allPlay">play_circle_outline</i>
             <h3 class="name">全部播放</h3>
             <span class="total-number" v-show="totalSongNum">共{{totalSongNum}}首</span>
         </div>
@@ -21,6 +21,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapActions, mapGetters, mapState} from 'vuex';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
+
     export default {
         props: {
             /*
@@ -31,6 +35,42 @@
                 type: Number,
                 default: null
             }
+        },
+        computed: {
+            ...mapState('asyncAjax', {
+                /*
+                 * 获取歌曲列表
+                 * @param {Object}
+                 * */
+                getSongList: 'songList'
+            }),
+            ...mapGetters('appStore', {
+                /**
+                 * 当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong'
+            })
+        },
+        methods: {
+            // 播放全部歌曲按钮
+            allPlay() {
+                // 播放全部
+                this.setAllPlay({
+                    list: this.getSongList
+                });
+
+
+                // 发送选择歌曲的信息总线程
+                Bus.$emit('selectSong', this.getCurrentSong);
+            },
+            ...mapActions('appStore', {
+                /**
+                 * 设置播放全部歌曲
+                 * @type {Boolean}
+                 */
+                setAllPlay: 'allPlay'
+            })
         }
     };
 </script>
