@@ -12,6 +12,10 @@
                         <!--歌曲名称-->
                         <h3 class="content-title" :class="setStyle">
                             <span>{{item.name}}</span>
+                            <!--歌曲是否有MV-->
+                            <i class="icon-mv" v-show="item.vid" title="MV"></i>
+                            <!--歌曲是否有独家-->
+                            <i class="icon-isonly" v-show="item.isonly === 1" title="isonly"></i>
                         </h3>
                         <!--歌手名称-->
                         <p class="text">
@@ -173,11 +177,30 @@
                 font-weight: 300;
                 span {
                     display: block;
+                    margin-right: px2rem(16px);
                     max-width: 100%;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     line-height: normal;
+                }
+                /*歌曲是否有MV*/
+                .icon-mv {
+                    display: inline-block;
+                    width: 33px;
+                    height: 16px;
+                    vertical-align: middle;
+                    background-image: -webkit-image-set(url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de) 1x, url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite@2x.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de&v=3a0fcc184bba8d368416bde830573668) 2x);
+                    background-position: -40px -280px;
+                }
+                /*歌曲是否是独家*/
+                .icon-isonly {
+                    display: inline-block;
+                    width: 34px;
+                    height: 16px;
+                    vertical-align: middle;
+                    background-position: -80px -280px;
+                    background-image: -webkit-image-set(url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de) 1x, url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite@2x.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de&v=3a0fcc184bba8d368416bde830573668) 2x);
                 }
             }
             /*文本*/

@@ -586,7 +586,7 @@
                 bottom: 0;
                 margin: px2rem(10px) 0;
                 box-sizing: border-box;
-                background: #000;
+                background: rgba(199,199,199,1);
             }
             &::after {
                 content: '';
@@ -597,7 +597,7 @@
                 bottom: 0;
                 margin: px2rem(20px) 0;
                 box-sizing: border-box;
-                background: #999;
+                background: rgba(227,227,227,1);
             }
             /*icon*/
             .icon {

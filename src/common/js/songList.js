@@ -1,6 +1,6 @@
 // 自定义定义歌曲信息
 export default class SongList {
-    constructor ({id, mid, strMediaMid, singer, name, album, duration, image, url, spare}) {
+    constructor ({id, mid, strMediaMid, singer, name, album, duration, image, url, spare, vid, isonly}) {
         this.id = id;
         this.mid = mid;
         this.strMediaMid = strMediaMid;
@@ -11,6 +11,8 @@ export default class SongList {
         this.image = image;
         this.url = url;
         this.spare = spare;
+        this.vid = vid;
+        this.isonly = isonly
     };
 };
 
@@ -36,7 +38,11 @@ export function createSongList (musicData) {
             // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
+            // MV id
+            vid: musicData.mv.vid,
+            // 是否是独家
+            isonly: musicData.isonly
         });
     }
     else {
@@ -59,7 +65,11 @@ export function createSongList (musicData) {
             // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
+            // MV id
+            vid: musicData.mv.vid,
+            // 是否是独家
+            isonly: musicData.isonly
         });
     }
 };
