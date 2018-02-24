@@ -18,6 +18,7 @@ export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND'; // 获取主页热门推
 export const SET_HOME_NEW_SONG_SPEED = 'SET_HOME_NEW_SONG_SPEED'; // 获取主页热门推荐导航
 export const SET_HOME_FEATERED_RADIO = 'SET_HOME_FEATERED_RADIO'; // 获取主页精选电台导航
 export const SET_SONG_ALBUM_MESSAGE = 'SET_SONG_ALBUM_MESSAGE'; // 获取歌单专辑信息
+export const SET_SHOW_SEARCH = 'SET_SHOW_SEARCH'; // 是否显示搜索框
 
 // 新歌速递模块状态
 export const SET_NEW_SONG_LIST = 'SET_NEW_SONG_LIST'; // 新歌速递模块数据

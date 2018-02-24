@@ -1,6 +1,5 @@
 /**
  * @file 生产环境构建入口
- * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 /* eslint-disable no-console */

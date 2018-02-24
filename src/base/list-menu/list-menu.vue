@@ -6,8 +6,11 @@
                     <h1 class="name">{{listData.name}}</h1>
                     <i class="iconfont icon-prev_arrow-copy"></i>
                 </div>
-                <ul class="list-data" v-if="listData.data">
-                    <li class="data-li" v-for="(data, index) in listData.data" :key="index"
+                <transition-group tag="ul" name="fade" class="list-data" v-if="listData.data">
+                    <li class="data-li"
+                        v-for="(data, index) in listData.data"
+                        :key="index"
+                        v-show="showLi"
                         @click="selectSongSingle(data)">
                         <img class="data-mark"
                              :alt="data.edge_mark"
@@ -16,11 +19,22 @@
                         <img class="data-cover"
                              :alt="data.cover"
                              v-lazy="data.cover"/>
+                        <!--播放量-->
+                        <div class="play-number-wrapper">
+                            <!--播放量数字-->
+                            <div class="play-number">
+                                <i class="iconfont icon-erji"></i>
+                                <span class="number">{{computedPlayNumber(data.listen_num)}}</span>
+                            </div>
+                            <!--播放按钮-->
+                            <v-icon class="play">play_circle_outline</v-icon>
+                        </div>
+                        <!--歌单标题-->
                         <div class="data-title">
                             <span class="title-span" v-html="data.title"></span>
                         </div>
                     </li>
-                </ul>
+                </transition-group>
                 <!--加载图-->
                 <ul class="list-data" v-else>
                     <li class="data-li" v-for="item in loadingImg">
@@ -35,8 +49,9 @@
                 </ul>
                 <!--换一批-->
                 <div class="replace-data" v-show="listMenu[0].listData[0].title === 'homeRecommend'">
-                    <div class="replace-button">
-
+                    <div class="replace-button" @click="clickReplaceData">
+                        <v-icon class="icon">cached</v-icon>
+                        <p class="name">换一批</p>
                     </div>
                 </div>
             </div>
@@ -45,7 +60,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions} from 'vuex';
+    import {mapState,mapActions} from 'vuex';
 
     export default {
         props: {
@@ -56,19 +71,64 @@
         },
         data() {
             return {
-                loadingImg: [0, 1, 2, 3, 4, 5] // 加载图数量
+                /*
+                * 加载图数量
+                * @type {Number}
+                * */
+                loadingImg: [0, 1, 2, 3, 4, 5],
+                /*
+                * 设置是否显示列表
+                * @type {Boolean}
+                * */
+                showLi: true
             };
+        },
+        computed: {
+            ...mapState('asyncAjax', {
+                getHomeRecommend: 'homeRecommend'
+            })
         },
         methods: {
             // 标题点击事件
             clickListTitle(data) {
                 this.$emit('clickListTitle', data);
             },
+            // 计算播放量
+            computedPlayNumber(playNumber) {
+                // 如果当前播放量是1万才进行计算
+                if (playNumber > 1e4) {
+                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+                }
+                return playNumber;
+            },
             // 选择歌单派发点击事件
             selectSongSingle(item) {
                 if (this.listMenu) {
                     this.$emit('selectSongSingle', item);
                 }
+            },
+            // 点击换一批按钮更换数据
+            clickReplaceData() {
+                // 设置随机数据
+                let random = Math.floor(Math.random() * 10);
+
+                // 请求刷新歌单推荐数据
+                this.setReplaceHomeRecomPlaylist(random);
+            },
+            ...mapActions('asyncAjax', {
+                // 请求刷新歌单推荐数据
+                setReplaceHomeRecomPlaylist: 'getReplaceHomeRecomPlaylist'
+            })
+        },
+        watch: {
+            getHomeRecommend (newData) {
+                if (!newData) {
+                    return;
+                }
+                this.showLi = false;
+                setTimeout(() => {
+                    this.showLi = true;
+                }, 500);
             }
         }
     };
@@ -77,6 +137,13 @@
 <style lang="scss" scoped>
     @import "../../assets/sass/variables";
     @import "../../assets/sass/remAdaptive";
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-leave-to{
+        opacity: 0;
+    }
 
     /*列表外层*/
     .list-title {
@@ -123,7 +190,47 @@
             width: 30%;
         }
         .data-li:nth-child(3n + 2) {
-            margin: 0 px2rem(10px);
+            margin: 0 px2rem(5px);
+        }
+        /*播放量*/
+        .play-number-wrapper {
+            position: relative;
+            margin-top: px2rem(-56px);
+            padding: 0 px2rem(10px);
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-end;
+            width: 100%;
+            height: px2rem(50px);
+            color: $title-color;
+            background: $play-number-bgcolor;
+            z-index: 2;
+            /*播放量数字*/
+            .play-number {
+                display: flex;
+                flex: 1;
+                padding: 0 px2rem(20px) px2rem(10px) 0;
+                /*title*/
+                .number {
+                    flex: 1;
+                    text-align: left;
+                    padding-left: px2rem(15px);
+                    font-size: px2rem(24px);
+                    line-height: px2rem(32px);
+                }
+                /*icon*/
+                .icon-erji {
+                    position: relative;
+                    top: px2rem(2px);
+                    flex: 0 0 px2rem(24px);
+                    font-size: px2rem(24px);
+                }
+            }
+            /*播放按钮*/
+            .play {
+                padding-bottom: px2rem(4px);
+                font-size: px2rem(48px);
+            }
         }
     }
 
@@ -136,7 +243,7 @@
 
     /*歌单图片*/
     .data-cover {
-        border-radius: px2rem(10px);
+        /*border-radius: px2rem(10px);*/
         width: 100%;
         min-width: 118.5px;
         height: px2rem(244px);
@@ -145,7 +252,7 @@
     /*歌单标题*/
     .data-title {
         position: relative;
-        padding: 0 5px;
+        padding: px2rem(10px) px2rem(10px) 0 px2rem(10px);
         text-align: left;
         line-height: px2rem(32px);
         font-size: px2rem(24px);
@@ -173,25 +280,39 @@
             color: $list-data-title;
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
         }
-        hr{
+        hr {
             margin-left: px2rem(-10px);
             height: px2rem(20px);
             border: 0;
-            background: rgba(236,236,236,0.95);
-            &:last-child{
+            background: rgba(236, 236, 236, 0.95);
+            &:last-child {
                 margin-top: px2rem(4px);
             }
         }
     }
 
     /*换一批*/
-    .replace-data{
+    .replace-data {
         width: 100%;
-        height: px2rem(50px);
-        .replace-button{
-            width: px2rem(200px);
-            height: 100%;
-            border: px2rem(2px) solid ;
+        .replace-button {
+            position: relative;
+            margin: px2rem(40px) auto;
+            line-height: px2rem(50px);
+            width: px2rem(220px);
+            height: px2rem(50px);
+            border-radius: px2rem(5px);
+            border: px2rem(2px) solid rgba(152, 152, 152, .5);
+        }
+        .icon {
+            position: absolute;
+            left: px2rem(50px);
+            line-height: 25px;
+            font-size: px2rem(36px);
+        }
+        .name {
+            margin-bottom: 0;
+            padding-left: px2rem(80px);
+            font-size: px2rem(24px);
         }
     }
 </style>

@@ -1,56 +1,71 @@
 <template>
-    <transition name="slide">
-        <div v-show="show">
-            <header class="app-header-wrapper">
-                <div class="app-header-left">
-                    <!--右侧菜单-->
-                    <div v-if="showMenu"
-                         @click="handleClick('menu')" class="app-header-icon">
-                        <i class="iconfont icon-zhankai"></i>
+    <div>
+        <transition name="slide">
+            <div v-show="show">
+                <header class="app-header-wrapper">
+                    <div class="app-header-left">
+                        <!--右侧菜单-->
+                        <div v-if="showMenu"
+                             @click="handleClick('menu')" class="app-header-icon">
+                            <i class="iconfont icon-zhankai"></i>
+                        </div>
+                        <!--返回上一页-->
+                        <div v-if="showBack"
+                             @click="handleClick('back')" class="app-header-icon">
+                            <i class="iconfont icon-fanhui1-copy"></i>
+                        </div>
                     </div>
-                    <!--返回上一页-->
-                    <div v-if="showBack"
-                         @click="handleClick('back')" class="app-header-icon">
-                        <i class="iconfont icon-fanhui1-copy"></i>
+                    <div class="app-header-middle" v-cloak>
+                        <!--没有title时显示-->
+                        <ul>
+                            <li class="header-li">
+                                <router-link to="/my" tag="span" class="myIndex">我的</router-link>
+                            </li>
+                            <router-link to="/home" tag="li" class="header-li">
+                                <span class="musician">音乐馆</span>
+                            </router-link>
+                            <li class="header-li">
+                                <router-link to="/find" tag="span" class="find">发现</router-link>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-                <div class="app-header-middle" v-cloak>
-                    <!--没有title时显示-->
-                    <ul>
-                        <li class="header-li">
-                            <router-link to="/my" tag="span" class="myIndex">我的</router-link>
-                        </li>
-                        <router-link to="/home" tag="li" class="header-li">
-                            <span class="musician">音乐馆</span>
-                        </router-link>
-                        <li class="header-li">
-                            <router-link to="/find" tag="span" class="find">发现</router-link>
-                        </li>
-                    </ul>
-                </div>
-                <div class="search">
-                    <i class="iconfont icon-sousuo2 search-icon"></i>
-                </div>
-            </header>
-            <!--搜索输入框-->
-            <div class="search-input-wrapper">
-                <div class="search-content">
-                    <div class="search-input">
+                    <div class="search">
                         <i class="iconfont icon-sousuo2 search-icon"></i>
-                        <span>搜索</span>
                     </div>
+                </header>
+                <!--搜索输入框-->
+                <div class="search-input-wrapper" @click="clickShowSearch">
+                    <transition name="search-fade">
+                        <div class="search-content" v-show="!getShowSearch">
+                            <div class="search-input">
+                                <i class="iconfont icon-sousuo2 search-icon"></i>
+                                <span>搜索</span>
+                            </div>
+                        </div>
+                    </transition>
                 </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+        <search v-show="getShowSearch"></search>
+    </div>
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+    import {mapState, mapActions} from 'vuex';
     import EventBus from '@/event-bus';
+    // 搜索框组件
+    import Search from 'components/search/search';
 
     export default {
         name: 'appHeader',
+        data() {
+            return {
+                /*
+                * 设置是否显示搜索框
+                * */
+                showSearch: false
+            }
+        },
         computed: {
             ...mapState('appShell/appHeader', [
                 'show',
@@ -61,10 +76,12 @@
             ]),
             ...mapState('appShell', [
                 'isPageSwitching'
-            ])
+            ]),
+            ...mapState('appStore', {
+                getShowSearch: 'showSearch'
+            })
         },
         methods: {
-
             /**
              * 处理按钮点击事件
              *
@@ -94,7 +111,22 @@
                 if (route) {
                     this.$router.push(route);
                 }
-            }
+            },
+            /*
+            * 设置显示搜索框
+            * */
+            clickShowSearch() {
+                this.setShowSeach(true);
+            },
+            ...mapActions('appStore', {
+                /*
+                 * 设置显示搜索框
+                 * */
+                setShowSeach: 'showSearch'
+            })
+        },
+        components: {
+            Search
         }
     };
 </script>
@@ -115,6 +147,14 @@
     .slide-leave-active {
         transform: translate3d(-100%, 0, 0);
         z-index: -1;
+    }
+
+    .search-fade-enter-active, .search-fade-leave-active {
+        transition: all .5s;
+    }
+
+    .search-fade-leave-to {
+        padding: 0 px2rem(40px) !important;
     }
 
     /*激活当前导航按钮*/

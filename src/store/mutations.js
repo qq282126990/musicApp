@@ -4,6 +4,13 @@
 import * as types from './mutation-types';
 
 const mutations = {
+    /**
+     * 设置是否显示搜索框
+     * @type {Array}
+     */
+     [types.SET_SHOW_SEARCH](state, showSearch) {
+        state.showSearch = showSearch;
+     },
     /** *************播放组件状态********************** **/
     /**
      * 歌曲列表

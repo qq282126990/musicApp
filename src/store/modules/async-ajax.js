@@ -2,13 +2,16 @@ import * as types from '../mutation-types';
 import {ERR_OK} from 'api/config';
 // 计算播放量方法 computedPlayNumber
 import {computedPlayNumber} from 'common/js/util';
-// 自定义首页新歌速递导航数据
-import {createHomeNewSongSpeed} from 'common/js/homeNewSongSpeed';
+// 自定义首页新歌速递导航数据 createHomeNewSongSpeed
+// 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
+import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
 // 获取主页选择对应歌单的数据 getSongSingle
 // 保存一开始的新歌数据 saveInitNewSongList
 import {getSongSingle, saveInitNewSongList} from 'common/js/cache';
-// 请求主页数据 getHomeMessage  主页精选电台导航 getHomeFeaturedRadio
-import {getHomeMessage, getHomeFeaturedRadio} from 'api/homeAjax';
+// 请求主页数据 getHomeMessage
+// 主页精选电台导航 getHomeFeaturedRadio
+// 主页歌单推荐数据 getHomeRecomPlaylist
+import {getHomeMessage, getHomeFeaturedRadio, getReplaceHomeRecomPlaylist} from 'api/homeAjax';
 // 获取歌单专辑信息 getSongAlbumMessage
 import {getSongAlbumMessage} from 'api/songAlbumMessage';
 // 获取歌曲列表播放MP4地址方法
@@ -134,6 +137,23 @@ let actions = {
             commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(0, 1), res.new_album.data.album_list.slice(0, 1))});
             // 新歌速递 - 新歌模块数据
             saveInitNewSongList(res.new_song.data);
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 点击换一批刷新歌单推荐数据
+     * @param {Function} commit
+     */
+    async getReplaceHomeRecomPlaylist({commit}, param) {
+        let res = await getReplaceHomeRecomPlaylist(param);
+        if (res.code === ERR_OK) {
+            if (!res.playlist.data.v_playlist.length) {
+                return;
+            }
+            // 获取主页热门推荐导航
+            commit(types.SET_HOME_RECOMMEND, {homeRecommend: createReplaceHomeRecomPlaylist(res.playlist.data.v_playlist) || []});
         }
         else {
             // 错误处理

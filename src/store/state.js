@@ -9,6 +9,11 @@ import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList} from 'commo
  * 状态管理
  */
 const state = {
+    /**
+     * 是否显示搜索层
+     * @type {String}
+     */
+    showSearch: false,
     /** *****************播放器状态****************** **/
     /**
      * 歌曲播放模式

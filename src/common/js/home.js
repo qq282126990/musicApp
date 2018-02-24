@@ -1,5 +1,5 @@
-export default class HomeNewSongSpeed {
-    constructor ({status, name, id, albumName, singerName}) {
+class HomeNewSongSpeed {
+    constructor({status, name, id, albumName, singerName}) {
         this.status = status;
         this.name = name;
         this.id = id; // 专辑id
@@ -11,7 +11,7 @@ export default class HomeNewSongSpeed {
 };
 
 // 主页新歌速递模块数据
-export function createHomeNewSongSpeed (newSong, newAlbum) {
+export function createHomeNewSongSpeed(newSong, newAlbum) {
     let ret = [];
     let items = {};
 
@@ -60,4 +60,48 @@ export function filterSinger(singer) {
     });
 
     return ret.join('/');
+}
+
+
+// 创建主页歌单推荐刷新后的数据
+class ReplaceHomeRecomPlaylist {
+    constructor({album_pic_mid, content_id, cover, creator, edge_mark, listen_num, pic_mid, rcmdcontent, rcmdtemplate, title, username}) {
+        this.album_pic_mid = album_pic_mid;
+        this.content_id = content_id;
+        this.cover = cover;
+        this.creator = creator;
+        this.edge_mark = '';
+        this.listen_num = listen_num;
+        this.pic_mid = pic_mid;
+        this.rcmdcontent = rcmdcontent;
+        this.rcmdtemplate = rcmdtemplate;
+        this.title = title;
+        this.username = username;
+    }
+};
+
+// 歌单推荐刷新后的数据
+export function createReplaceHomeRecomPlaylist(list) {
+    let ret = [];
+    let items = {};
+
+    list.forEach((item) => {
+        items = (new ReplaceHomeRecomPlaylist({
+            album_pic_mid: item.album_pic_mid,
+            content_id: item.tid,
+            cover: item.cover_url_medium,
+            creator: item.creator_uin,
+            listen_num: item.access_num,
+            pic_mid: item.pic_mid,
+            rcmdcontent: `编辑推荐：${item.title}`,
+            rcmdtemplate: "编辑推荐",
+            title: item.title,
+            username: item.creator_info.nick
+        }));
+
+        ret.push(items);
+    });
+
+
+    return ret;
 }

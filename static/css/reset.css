@@ -24,8 +24,23 @@ time, mark, audio, video, input {
     font-family: "hiragino sans gb", arial;
 }
 
+input{
+    text-indent: 0;
+    background: transparent;
+    border: 0 none;
+    resize:none;
+    outline:none;
+    -webkit-appearance:none;
+    line-height: normal;
+}
+
 input, button:focus {
-    outline: 0;
+    outline: none;
+}
+
+/*禁用 Lavas app 的下拉刷新*/
+html {
+    touch-action: none;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -113,6 +128,6 @@ body {
     -webkit-box-orient: vertical;
 }
 
-.music-list-content .album-message .message .album-name{
+.music-list-content .album-message .message .album-name {
     -webkit-box-orient: vertical;
 }

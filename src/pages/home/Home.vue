@@ -89,12 +89,12 @@
 
 <script>
     import {mapActions, mapState, mapGetters} from 'vuex';
+    // 标签导航导航
+    import TabRouter from 'components/tab-router/tab-router';
     // 轮播图组件
     import HomeSlider from 'base/homeSlider/homeSlider';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
-    // 标签导航导航
-    import TabRouter from 'components/tab-router/tab-router';
     // 歌单导航列表导航
     import ListMenu from 'base/list-menu/list-menu';
     // 设置cookie setCookie  获取cookie getCookie
@@ -692,7 +692,7 @@
         }
         /*导航数据*/
         .radio-data {
-            padding: 0 px2rem(40px);
+            padding: px2rem(20px) px2rem(40px) 0 px2rem(40px);
             display: flex;
             flex-wrap: wrap;
             min-height: px2rem(330px);
@@ -705,6 +705,7 @@
                     position: absolute;
                     padding: px2rem(80px);
                     color: #fff;
+                    opacity: .8;
                 }
                 .li-cover {
                     border-radius: 50%;

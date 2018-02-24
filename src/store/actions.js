@@ -19,6 +19,14 @@ function findIndex (list, song) {
     });
 }
 
+/**
+ * 设置是否显示搜索框
+ * @type {Array}
+ */
+export const showSearch = function ({commit}, showSearch) {
+    commit(types.SET_SHOW_SEARCH, showSearch);
+};
+
 /** *************** 播放组件状态 ***************** **/
 /**
  * 选择播放
