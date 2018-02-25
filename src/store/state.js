@@ -3,7 +3,9 @@ import {isPlayMode} from 'common/js/config';
 // 获取当前播放的歌曲信息 getPlayList
 // 获取当前播放索引 getCurrentIndex
 // 获取顺序播放列表 getSequenceList
-import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList} from 'common/js/cache';
+// 获取搜索历史 loadSearchHistory
+// 获取播放历史 loadPlayHistory
+import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList, loadSearchHistory, loadPlayHistory} from 'common/js/cache';
 
 /**
  * 状态管理
@@ -50,6 +52,8 @@ const state = {
      * @type {Boolean}
      * */
     fullScreen: false,
+    // 播放历史 读取缓存的初始值
+    playHistory: loadPlayHistory(),
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态
@@ -104,6 +108,20 @@ const state = {
      * @type {Number}
      */
     bounceTime: 300,
+    /*********************************************/
+    /** *****************搜索框组件状态****************** **/
+    /*
+    * 获取搜索历史
+    * @type {Array}
+    * */
+    searchHistory: loadSearchHistory(),
+    /*********************************************/
+    /** *****************排行榜组件状态****************** **/
+    /*
+     * 排行榜歌单Id
+     * @type {Array}
+     * */
+    rankingId: {}
     /*********************************************/
 };
 

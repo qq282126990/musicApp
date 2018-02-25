@@ -68,6 +68,13 @@ const mutations = {
     [types.SET_PLAY_MODE](state, playMode) {
         state.playMode = playMode;
     },
+    /*
+     * 播放历史
+     * @type {String}
+     * */
+    [types.SET_PLAY_HISTORY](state, history) {
+        state.playHistory = history
+    },
     /*********************************************************/
     /** *************滚动组件的状态********************** **/
     /**
@@ -143,6 +150,24 @@ const mutations = {
     [types.SET_BOUNCE_TIME](state, bounceTime) {
         state.bounceTime = bounceTime;
     },
+    /*********************************************************/
+    /** *************搜索框组件状态********************** **/
+    /**
+     * 获取搜索历史
+     * @type {Array}
+     */
+    [types.SET_SEARCH_HISTORY](state, history) {
+        state.searchHistory = history
+    },
+    /*********************************************************/
+    /** *************排行榜组件状态********************** **/
+    /**
+     * 排行榜歌单
+     * @type {Array}
+     */
+     [types.SET_RANKING_ID](state, data) {
+        state.rankingId = data
+     }
     /*********************************************************/
 };
 

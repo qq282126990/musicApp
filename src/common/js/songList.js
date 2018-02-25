@@ -45,7 +45,7 @@ export function createSongList (musicData) {
             isonly: musicData.isonly
         });
     }
-    else {
+    else if (musicData.strMediaMid) {
         return new SongList({
             id: musicData.songid,
             mid: musicData.songmid,
@@ -72,6 +72,60 @@ export function createSongList (musicData) {
             isonly: musicData.isonly
         });
     }
+    else {
+        return new SongList({
+            id: musicData.songid,
+            mid: musicData.songmid,
+            strMediaMid: musicData.songmid,
+            // 歌手名称
+            singer: filterSinger(musicData.singer),
+            // 歌名
+            name: musicData.songname,
+            // 专辑名称
+            album: musicData.albumname,
+            // 播放时间
+            duration: musicData.interval,
+            // 专辑图片
+            image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+            // 音乐链接
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // 第4个备用接口
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // 是否是独家
+            isonly: musicData.isonly
+        });
+    }
+};
+
+// 创建排行榜歌曲列表
+export function createRankSongList (musicData) {
+        return new SongList({
+            id: musicData.songid,
+            mid: musicData.songmid,
+            strMediaMid: musicData.songmid,
+            // 歌手名称
+            singer: filterSinger(musicData.singer),
+            // 歌名
+            name: musicData.songname,
+            // 专辑名称
+            album: musicData.albumname,
+            // 播放时间
+            duration: musicData.interval,
+            // 专辑图片
+            image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+            // 音乐链接
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // 第4个备用接口
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // MV id
+            vid: musicData.vid,
+            // 是否是独家
+            isonly: musicData.isonly
+        });
 };
 
 /*
@@ -103,6 +157,26 @@ export function normalizeSongList (list, playingUrl) {
     list.forEach((musicData, index) => {
         if (musicData) {
             ret.push(createSongList(musicData, playingUrl, index));
+        }
+    });
+
+    return ret;
+}
+
+
+/**
+ * 对排行榜数据做处理
+ * @type {Array}  list
+ */
+export function normalizeRankSongList (list, playingUrl) {
+    let ret = [];
+
+    list.forEach((item, index) => {
+        // 保存item.data
+        const musicData = item.data;
+        // 数据中有id和名字才返回
+        if (musicData.songid && musicData.albummid) {
+            ret.push(createRankSongList(musicData, playingUrl, index));
         }
     });
 

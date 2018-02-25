@@ -6,7 +6,7 @@
         </transition>
         <!--输入框-->
         <input class="box"
-               spellcheck="true"
+               spellcheck="false"
                :placeholder="placeholder"
                v-show="getShowSearch"
                v-model="query"
@@ -58,6 +58,7 @@
             setQuery(query) {
                 this.query = query
             },
+            // 获取输入框焦点
             blur() {
                 this.$refs.query.blur()
             },

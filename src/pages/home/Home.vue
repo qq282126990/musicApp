@@ -127,14 +127,14 @@
                  * */
                 translateY: 5,
                 /*
-                * 获取点击的电台的id
-                * @type {Number}
-                * */
+                 * 获取点击的电台的id
+                 * @type {Number}
+                 * */
                 featuredRadioId: null,
                 /*
-                * 保存当前电台歌曲列表
-                * @type {Array}
-                * */
+                 * 保存当前电台歌曲列表
+                 * @type {Array}
+                 * */
                 featuredSongList: [],
                 /*
                  * 保存当前的歌曲index
@@ -412,6 +412,10 @@
             this.translateY = 5;
             // 初始化轮播图背景样式
             this.$refs.silderWrapperBg.style.opacity = 0;
+            // 刷新滚动组件
+            this.$refs.scroll.refresh();
+            // 重置滚动位置
+            this.$refs.scroll.scrollTo(0, 0);
         },
         watch: {
             // 监听滚动
@@ -586,7 +590,7 @@
                 bottom: 0;
                 margin: px2rem(10px) 0;
                 box-sizing: border-box;
-                background: rgba(199,199,199,1);
+                background: rgba(199, 199, 199, 1);
             }
             &::after {
                 content: '';
@@ -597,7 +601,7 @@
                 bottom: 0;
                 margin: px2rem(20px) 0;
                 box-sizing: border-box;
-                background: rgba(227,227,227,1);
+                background: rgba(227, 227, 227, 1);
             }
             /*icon*/
             .icon {

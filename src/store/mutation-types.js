@@ -58,3 +58,13 @@ export const SET_FULL_SCREEN = 'SET_FULL_SCREEN'; // 控制播发器放大缩小
 export const SET_PLAY_MODE = 'SET_PLAY_MODE'; // 设置歌曲播放模式
 export const SET_FAVORITE_LIST = 'SET_FAVORITE_LIST'; // 获取收藏歌曲列表
 export const SET_PULLUP_LOAD = 'SET_PULLUP_LOAD'; // 设置是否开启上拉加载
+export const SET_PLAY_HISTORY = 'SET_PLAY_HISTORY'; // 保存播放历史
+
+// 搜索组件状态
+export const SET_SEARCH_HOT = 'SET_SEARCH_HOT'; // 热门搜索数据
+export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'; // 设置搜索历史
+
+// 排行榜组件状态
+export const SET_RANKING_LIST = 'SET_RANKING_LIST'; // 获取排行榜数据
+export const SET_RANKING_ID = 'SET_RANKING_ID'; // 排行榜歌单Id
+export const SET_RANKING_SONG_LIST = 'SET_RANKING_SONG_LIST'; // 排行榜歌单列表

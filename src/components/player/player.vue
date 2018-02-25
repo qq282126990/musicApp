@@ -577,6 +577,8 @@
             // 播放准备状态
             ready() {
                 this.songReady = true;
+                // 保存播放历史
+                this.setSavePlayHistorys(this.getCurrentSong);
             },
             // 播放器错误事件
             error() {
@@ -871,7 +873,12 @@
                  * 滚动组件数据
                  * @type {Boolean}
                  */
-                setScrollData: 'scrollData'
+                setScrollData: 'scrollData',
+                /**
+                 * 保存播放历史
+                 * @type {Boolean}
+                 */
+                setSavePlayHistorys: 'savePlayHistorys'
             })
         },
         watch: {

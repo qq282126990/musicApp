@@ -1,7 +1,7 @@
 <template>
     <div class="song-single-wrapper">
         <transition name="slide">
-            <music-list :collection="collection" v-show="show">
+            <music-list :collection="collection" v-show="showList">
             </music-list>
         </transition>
     </div>
@@ -29,7 +29,7 @@
                  * 设置显示歌单列表
                  * @type {Boolean}
                  * */
-                show: false,
+                showList: false,
                 /*
                  * 专辑收藏量
                  * @type {Number}
@@ -49,9 +49,6 @@
             });
         },
         mounted () {
-            // 设置显示歌单列表
-            this.show = true;
-
             // 获取歌单专辑信息
             this.songAlbumMessage();
         },
@@ -74,6 +71,8 @@
                     getCollection(this.getSongSingle.contentId || this.getSongSingle.dissid).then((res) => {
                         if (res.code === ERR_OK) {
                             this.collection = res.totalnum;
+                            // 设置显示歌单列表
+                            this.showList = true;
                         }
                     });
                 }

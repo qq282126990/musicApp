@@ -200,9 +200,9 @@
             }
         },
         mounted () {
-            this.$nextTick(() => {
+            setTimeout(() => {
                 this._initSome();
-            });
+            }, 60);
         },
         computed: {
             // 获取主页选择对应歌单的数据

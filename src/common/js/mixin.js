@@ -7,6 +7,8 @@ import {shuffle} from 'common/js/util';
 import {saveSongSingle} from 'common/js/cache';
 // 自定义歌单专辑数据
 import {createSongSingle} from 'common/js/songSingle';
+// 设置歌曲信息总线程
+import Bus from '../../event-bus';
 
 // 播放器mixin
 export const playerMixin = {
@@ -320,3 +322,102 @@ export const chosenSongList = {
         }
     }
 };
+
+// 歌曲列表mixin
+export const songListMixin = {
+    data () {
+        return {
+            /*
+             * 判断当前是否重复点击歌曲列表
+             * @type {String}
+             * */
+            oldSong: null
+        }
+    },
+    computed: {
+        ...mapState('asyncAjax', {
+            /*
+             * 获取歌曲列表
+             * @param {Object}
+             * */
+            getSongList: 'songList'
+        }),
+        ...mapGetters('appStore', {
+            /**
+             * 获取当前收藏列表
+             * @type {Array}
+             */
+            getFavoriteList: 'favoriteList',
+            /**
+             * 获取播放历史
+             * @type {Array}
+             */
+            getPlayHistory: 'playHistory',
+            /**
+             * 获取当前播放的歌曲信息
+             * @type {Object}
+             */
+            getCurrentSong: 'currentSong'
+        })
+    },
+    methods: {
+        // 返回按钮
+        back() {
+            this.$router.back();
+        },
+        // 选择歌曲列表
+        selectSong (item, index) {
+            this.setSelectPlay({
+                list: this.getSongList,
+                index
+            });
+
+            // 如果不是重复点击就初始化oldSong
+            if (this.oldSong !== item.id) {
+                this.oldSong = null;
+            }
+
+            // 如果oldSong为空才执行
+            if (!this.oldSong) {
+                this.oldSong = item.id;
+
+                // 发送选择歌曲的信息总线程
+                Bus.$emit('selectSong', this.getCurrentSong);
+            }
+        },
+        ...mapActions('appShell/appHeader', [
+            'setAppHeader'
+        ]),
+        ...mapActions('asyncAjax', {
+            /**
+             * 设置歌曲列表
+             * @param {Function} commit
+             */
+            setSongList: 'songList'
+        }),
+        ...mapActions('appStore', {
+            /**
+             * 滚动组件传入的数据
+             * @type {Array}
+             */
+            setScrollData: 'scrollData',
+            /**
+             * 选择播放的歌曲
+             * @type {Boolean}
+             */
+            setSelectPlay: 'selectPlay'
+        })
+    },
+    // 组件激活
+    activated() {
+        // 设置首页头部导航
+        this.setAppHeader({
+            show: false
+        });
+
+        // 刷新滚动组件
+        this.$refs.scroll.refresh();
+        // 重置滚动位置
+        this.$refs.scroll.scrollTo(0, 0);
+    }
+}

@@ -16,6 +16,14 @@ import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';
 import DigitalAlbumMusicList from 'components/digital-album-music-list/digital-album-music-list.vue';
 // 分类歌单
 import CategorySongList from 'components/category-song-list/category-song-list.vue';
+// 我的喜欢组件
+import UserFavoriteList from 'components/user-favorite-list/user-favorite-list.vue';
+// 最近播放组件
+import RecentPlay from 'components/recent-play/recent-play.vue';
+// 排行榜组件
+import Ranking from 'components/ranking/ranking.vue';
+// 排行榜歌曲列表组件
+import RankingSongList from 'components/rankingSongList/rankingSongList.vue';
 
 export default {
     routes: [
@@ -27,12 +35,26 @@ export default {
         {
             path: '/find',
             name: 'find',
-            component: Find
+            component: Find,
+            alias: '/home/find'
         },
         {
             path: '/my',
             name: 'my',
-            component: My
+            component: My,
+            alias: '/home/my'
+        },
+        // 排行榜模块
+        {
+            path: '/home/ranking',
+            name: 'ranking',
+            component: Ranking,
+        },
+        // 排行榜歌曲列表组件
+        {
+            path: '/home/ranking/:id',
+            name: 'rankingSongList',
+            component: RankingSongList,
         },
         // 新歌速递模块
         {
@@ -52,6 +74,20 @@ export default {
             name: 'categorySongList',
             component: CategorySongList,
             alias: '/home/homeRecommend'
+        },
+        // 我的喜欢模块
+        {
+            path: '/my/myFavorite',
+            name: 'userFavoriteList',
+            component: UserFavoriteList,
+            alias: '/home/my/myFavorite'
+        },
+        // 最近播放模块
+        {
+            path: '/my/playHistory',
+            name: 'recentPlay',
+            component: RecentPlay,
+            alias: '/home/my/playHistory'
         }
     ]
 };

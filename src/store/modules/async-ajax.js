@@ -39,6 +39,11 @@ import {getCategoryNavigation, getSortSongData} from 'api/categorySongList'
 // 精选电台歌曲接口 getOrdinaryFeaturedRadio
 // 个性电台歌曲接口 getPersonalFeaturedRadio
 import {getOrdinaryFeaturedRadio, getPersonalFeaturedRadio} from 'api/featuredRadio';
+// 获取热门搜索
+import {getSearchHot} from 'api/search';
+// 获取排行榜数据接口 getRankingList
+// 获取排行榜歌曲数据接口 getRankingSongList
+import {getRankingList, getRankingSongList} from 'api/rank'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -118,7 +123,22 @@ let state = {
      * 获取普通电台歌曲列表
      * @type {Object}
      * */
-    ordinaryFeaturedRadio: {}
+    ordinaryFeaturedRadio: {},
+    /*
+     * 获取热门搜索数据
+     * @type {Object}
+     * */
+    searchHot: {},
+    /*
+     * 获取排行榜数据
+     * @type {Array}
+     * */
+    rankingList: [],
+    /*
+     * 获取排行榜歌曲数据接口
+     * @type {Array}
+     * */
+    rankingSongList: []
 };
 
 let actions = {
@@ -363,6 +383,46 @@ let actions = {
         }
     },
     /**
+     * 获取热门搜索
+     * @param {Function} commit
+     */
+    async getSearchHot({commit}, param) {
+        let res = await getSearchHot(param);
+        if (res.code === ERR_OK) {
+            // 获取精选电台歌曲列表
+            commit(types.SET_SEARCH_HOT, res.data.hotkey.slice(0, 10));
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取排行榜数据接口
+     * @param {Function} commit
+     */
+    async getRankingList({commit}, param) {
+        let res = await getRankingList(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_RANKING_LIST, res.data.topList);
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
+     * 获取排行榜歌曲数据接口
+     * @param {Function} commit
+     */
+    async getRankingSongList({commit}, param) {
+        let res = await getRankingSongList(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_RANKING_SONG_LIST, res);
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -485,6 +545,18 @@ let mutations = {
     // 普通个性电台歌曲列表
     [types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST](state, {ordinaryFeaturedRadio}) {
         state.ordinaryFeaturedRadio = ordinaryFeaturedRadio;
+    },
+    // 获取热门搜索数据
+    [types.SET_SEARCH_HOT](state, searchHot) {
+        state.searchHot = searchHot;
+    },
+    // 获取排行榜数据
+    [types.SET_RANKING_LIST](state, rankingList) {
+        state.rankingList = rankingList;
+    },
+    // 获取排行榜歌曲数据接口
+    [types.SET_RANKING_SONG_LIST](state, rankingSongList) {
+        state.rankingSongList = rankingSongList;
     }
 };
 
