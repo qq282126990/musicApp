@@ -133,7 +133,7 @@
     // 歌曲列表组件
     import SongList from 'base/song-list/song-list';
 
-    export default{
+    export default {
         props: {
             // 专辑收藏数量
             collection: {
@@ -141,7 +141,7 @@
                 default: 0
             }
         },
-        data () {
+        data() {
             return {
                 // 判断是否已经滚动了
                 isScroll: false,
@@ -199,14 +199,12 @@
                 oldSong: null
             }
         },
-        mounted () {
-            setTimeout(() => {
-                this._initSome();
-            }, 60);
+        mounted() {
+            this._initSome();
         },
         computed: {
             // 获取主页选择对应歌单的数据
-            getSongSingle () {
+            getSongSingle() {
                 return getSongSingle();
             },
             // 专辑内容移动的位置
@@ -280,7 +278,7 @@
                 this.scrollY = pos.y;
             },
             // 选择歌曲列表
-            selectSong (item, index) {
+            selectSong(item, index) {
                 this.setSelectPlay({
                     list: this.getSongList,
                     index
@@ -300,7 +298,7 @@
                 }
             },
             // 上拉加载更多数字专辑方法
-            pullingUp () {
+            pullingUp() {
                 // 如果当前歌曲数量等于歌曲总数就不执行下拉操作
                 if (this.getSongAlbumMessage.totalSongNum === this.getSongList.length) {
                     return;
@@ -312,7 +310,7 @@
                 this.setSongAlbumMessage(this.songBegin);
             },
             // 上拉加载更多歌单列表完成后刷新数据方法
-            pullingUpRefresh () {
+            pullingUpRefresh() {
                 // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
                 this.$refs.SongListScroll.finishPullUp();
                 // 数据更新时刷新滚动列表数据
@@ -406,7 +404,7 @@
                 }
             },
             // 监听歌曲列表变化
-            getSongList () {
+            getSongList() {
                 // 页数大于15才执行
                 if (this.songBegin > 0) {
                     // 上拉加载更多歌单列表完成后刷新数据方法

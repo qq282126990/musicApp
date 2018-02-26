@@ -23,7 +23,6 @@
     import {mapActions} from 'vuex';
 
     export default {
-        name: 'skeleton',
         methods: {
             // 返回按钮
             back() {
@@ -108,6 +107,7 @@
     /*loading*/
     .loading-wrapper {
         padding-top: 50%;
+        text-align: center;
         img{
             width: px2rem(200px);
             height: px2rem(200px);

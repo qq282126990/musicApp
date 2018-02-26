@@ -8,7 +8,6 @@ c
     import {mapActions} from 'vuex';
 
     export default {
-        name: 'skeleton',
         methods: {
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
@@ -29,6 +28,7 @@ c
         right: 0;
         top: 0;
         bottom: 0;
+        text-align: center;
         img {
             width: 100%;
             height: 100%;

@@ -39,10 +39,8 @@
         margin: 0 px2rem(20px);
         box-sizing: border-box;
         height: px2rem(160px);
-        /*box-shadow: 0px 2px 6px #999;*/
         background: $tab-router-bgcolor;
         transition: all .2s;
-        // transform: translate3d(0, px2rem(-10px), 0);
     }
 
     /*标题列表*/

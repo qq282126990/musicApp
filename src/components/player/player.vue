@@ -270,6 +270,8 @@
 
             // 监听选择歌曲事件
             Bus.$on('selectSong', (data) => {
+                console.log(data);
+                console.log(this.$refs.audio);
                 if (!this.getCurrentSong.id) {
                     return;
                 }
@@ -292,8 +294,10 @@
                     clearTimeout(this.playTimer);
                     // 设置歌曲播放
                     this.playTimer = setTimeout(() => {
+                        console.log('播放');
+                        console.log(this.$refs.audio.play());
                         this.$refs.audio.play();
-                    }, 500);
+                    }, 1000);
                 }
             });
         },

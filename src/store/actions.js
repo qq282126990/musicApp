@@ -28,7 +28,7 @@ import {
 } from 'common/js/cache';
 
 // 找到随机列表中,对应点击选择列表的歌曲的索引
-function findIndex (list, song) {
+function findIndex(list, song) {
     return list.findIndex((item) => {
         return item.id === song.id;
     });
@@ -262,6 +262,9 @@ export const saveFavoriteList = function ({commit}, currentSong) {
 
 // 保存播放历史
 export const savePlayHistorys = function ({commit}, song) {
+    if (!song.id) {
+        return;
+    }
     commit(types.SET_PLAY_HISTORY, savePlayHistory(song));
 }
 

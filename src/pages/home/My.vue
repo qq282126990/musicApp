@@ -47,11 +47,23 @@
                                     <v-icon class="timeIcon" @click="goPlayHistory">query_builder</v-icon>
                                     <p class="text">最近播放</p>
                                     <p class="number">{{getPlayHistory.length}}</p>
+                                    <transition name="fade">
+                                        <!--提示-->
+                                        <div class="prompt" v-if="showPlayPrompt">
+                                            <span>请先播放歌曲</span>
+                                        </div>
+                                    </transition>
                                 </li>
                                 <li class="router-nav-li">
                                     <v-icon class="likeIcon" @click="goFavorite">favorite_border</v-icon>
                                     <p class="text">我的喜欢</p>
                                     <p class="number">{{getFavoriteList.length}}</p>
+                                    <transition name="fade">
+                                        <!--提示-->
+                                        <div class="prompt" v-if="showFavoritePrompt">
+                                            <span>请先收藏歌曲</span>
+                                        </div>
+                                    </transition>
                                 </li>
                                 <li class="router-nav-li">
                                     <v-icon class="timeIcon">album</v-icon>
@@ -96,14 +108,23 @@
     import Scroll from 'base/scroll/scroll';
 
     export default {
-        name: 'My',
         data() {
             return {
                 /*
                  * 获取Y轴滚动
                  * @type {Number}
                  * */
-                scrollY: 0
+                scrollY: 0,
+                /*
+                 * 设置显示提示
+                 * @type {Boolean}
+                 * */
+                showFavoritePrompt: false,
+                /*
+                * 设置显示提示
+                * @type {Boolean}
+                * */
+                showPlayPrompt: false
             };
         },
         mounted() {
@@ -136,13 +157,28 @@
                 this.scrollY = pos.y;
             },
             // 跳转到我的喜欢路由
-            goFavorite () {
+            goFavorite() {
+                if (!this.getFavoriteList.length) {
+                    this.showFavoritePrompt = true;
+                    setTimeout(() => {
+                        this.showFavoritePrompt = false;
+                    }, 500);
+                    return;
+                }
                 this.$router.push({
                     path: '/my/myFavorite'
                 });
             },
             // 跳转到最近播放路由
             goPlayHistory() {
+                if (!this.getPlayHistory.length) {
+                    this.showPlayPrompt = true;
+                    setTimeout(() => {
+                        this.showPlayPrompt = false;
+                    }, 500);
+                    return;
+                }
+
                 this.$router.push({
                     path: '/my/playHistory'
                 });
@@ -193,6 +229,14 @@
 <style lang="scss" scoped>
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to{
+        opacity: 0;
+    }
+
     /*滚动层样式*/
     .scroll-wrapper {
         height: 100%;
@@ -254,6 +298,7 @@
             position: relative;
             flex-basis: 50%;
             .text {
+                padding-top: px2rem(10px);
                 margin: 0 auto;
                 .iconfont {
                     padding-right: px2rem(10px);
@@ -264,6 +309,7 @@
                     font-size: px2rem(28px);
                 }
                 p {
+                    padding-top: px2rem(10px);
                     margin: 0;
                     font-size: px2rem(24px);
                     color: #999999;
@@ -272,7 +318,7 @@
             &::after {
                 content: "";
                 position: absolute;
-                top: px2rem(40px);
+                top: px2rem(24px);
                 right: px2rem(-3px);
                 width: px2rem(5px);
                 height: px2rem(40px);
@@ -283,6 +329,7 @@
         .member-center {
             flex-basis: 50%;
             .text {
+                padding-top: px2rem(10px);
                 margin: 0 auto;
                 .iconfont {
                     padding-right: px2rem(10px);
@@ -293,6 +340,8 @@
                     font-size: px2rem(28px);
                 }
                 p {
+                    padding-top: px2rem(10px);
+                    margin: 0;
                     font-size: px2rem(24px);
                     color: #999999;
                 }
@@ -425,4 +474,25 @@
             line-height: px2rem(300px);
         }
     }
+
+    /*提示*/
+    .prompt {
+        position: fixed;
+        bottom: px2rem(100px);
+        line-height: px2rem(50px);
+        width: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        height: px2rem(50px);
+        border-radius: px2rem(6px);
+        background: rgba(0, 0, 0, .5);
+        span {
+            font-size: px2rem(26px);
+            text-align: center;
+            display: block;
+            color: #fff;
+        }
+    }
+
 </style>

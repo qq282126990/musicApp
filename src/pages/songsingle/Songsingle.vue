@@ -1,7 +1,7 @@
 <template>
     <div class="song-single-wrapper">
         <transition name="slide">
-            <music-list :collection="collection" v-show="showList">
+            <music-list :collection="collection">
             </music-list>
         </transition>
     </div>
@@ -18,18 +18,12 @@
     import {getCollection} from 'api/songAlbumMessage';
 
     export default {
-        name: 'songsingle',
         async asyncData({store}) {
             // 请求歌单专辑信息接口
             await store.dispatch('asyncAjax/getSongAlbumMessage', this.songBegin);
         },
         data() {
             return {
-                /*
-                 * 设置显示歌单列表
-                 * @type {Boolean}
-                 * */
-                showList: false,
                 /*
                  * 专辑收藏量
                  * @type {Number}
@@ -71,8 +65,6 @@
                     getCollection(this.getSongSingle.contentId || this.getSongSingle.dissid).then((res) => {
                         if (res.code === ERR_OK) {
                             this.collection = res.totalnum;
-                            // 设置显示歌单列表
-                            this.showList = true;
                         }
                     });
                 }

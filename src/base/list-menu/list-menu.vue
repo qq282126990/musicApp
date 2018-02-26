@@ -164,15 +164,12 @@
             margin: 0;
             letter-spacing: 5px;
             line-height: px2rem(80px);
-            /*float: left;*/
             font-size: px2rem(32px);
         }
         /*icon*/
         .iconfont {
             position: absolute;
             right: 0;
-            /*text-align: right;*/
-            /*float: right;*/
             font-size: px2rem(40px);
             color: #999;
         }
@@ -243,7 +240,6 @@
 
     /*歌单图片*/
     .data-cover {
-        /*border-radius: px2rem(10px);*/
         width: 100%;
         min-width: 118.5px;
         height: px2rem(244px);

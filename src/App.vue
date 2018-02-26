@@ -7,8 +7,8 @@
                 @click-back="handleClickHeaderBack">
             </app-header>
             <!--<app-sidebar-->
-                <!--@hide-sidebar="handleHideSidebar"-->
-                <!--@show-sidebar="handleShowSidebar"-->
+            <!--@hide-sidebar="handleHideSidebar"-->
+            <!--@show-sidebar="handleShowSidebar"-->
             <!--&gt;-->
             <!--</app-sidebar>-->
             <div class="app-view-wrapper">
@@ -50,7 +50,6 @@
     import {mapState, mapActions} from 'vuex';
     import AppHeader from '@/components/AppHeader';
     import AppSidebar from '@/components/AppSidebar';
-    import AppBottomNavigator from '@/components/AppBottomNavigator';
     // 播放器组件
     import Player from 'components/player/player';
 
@@ -105,17 +104,16 @@
     };
 </script>
 
-<style lang="stylus">
-    #app
-        font-family 'Avenir', Helvetica, Arial, sans-serif
-        -webkit-font-smoothing antialiased
-        -moz-osx-font-smoothing grayscale
-        text-align center
-</style>
-
 <style lang="scss" scoped>
     @import "assets/sass/remAdaptive";
     @import "assets/sass/variables";
+
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+    }
 
     .app-shell {
         position: absolute;
@@ -128,7 +126,6 @@
         display: flex;
         flex-direction: column;
         transform: translate3d(0, 0, 0);
-        /*background: rgba(13, 12, 18, 1);*/
     }
 
     .app-shell-header {
@@ -162,7 +159,7 @@
         -webkit-overflow-scrolling: touch;
         // 隐藏掉scrollbar
         &::-webkit-scrollbar {
-            width: 0px;
+            width: 0;
             background: transparent;
         }
         &.app-view-with-header {

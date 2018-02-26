@@ -13,7 +13,6 @@
 import {mapActions} from 'vuex';
 
 export default {
-    name: 'notFound',
     methods: {
         ...mapActions('appShell/appHeader', [
             'setAppHeader'

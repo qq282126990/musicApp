@@ -1,25 +1,57 @@
 <template>
-    <div class="ranking-song-list">
-        <!--榜单图片-->
-        <div class="bg-image" :style="bgImage">
-            <!--返回按钮-->
-            <div class="back" @click="back">
-                <i class="iconfont icon-fanhui1-copy"></i>
+    <scroll ref="scroll">
+        <div class="ranking-song-list">
+            <!--榜单图片-->
+            <div class="bg-image" :style="bgImage" ref="bgImage">
+                <!--返回按钮-->
+                <div class="back" @click="back">
+                    <i class="iconfont icon-fanhui1-copy"></i>
+                </div>
+                <!--标题-->
+                <h1 class="bg-image-title">
+                    {{`${rankingTile} 第${rankingDate}天`}}
+                </h1>
+                <!--时间-->
+                <p class="bg-image-time">{{`${rankingUpdate}更新`}}</p>
             </div>
-            <!--标题-->
-            <h1 class="bg-image-title">
-                {{`${rankingTile} 第${rankingDate}天`}}
-            </h1>
-            <!--时间-->
-            <p class="bg-image-time">{{`${rankingUpdate}更新`}}</p>
+            <!--内容-->
+            <div class="ranking-content">
+                <slider-switch :dotsTitle="dotsTitle"
+                               @pageIndex="pageIndex"
+                >
+                    <div v-for="(item, index) in dotsTitle" :key="index">
+                        <!--歌曲列表-->
+                        <div class="content" v-if="index === 0">
+                            <song-list-play-all></song-list-play-all>
+                            <song-list :totalSongNum="rankingSongList.length"
+                                       @selectSong="selectSong"
+                            ></song-list>
+                        </div>
+                        <!--详情-->
+                        <div class="content" v-if="index === 1">
+
+                        </div>
+                    </div>
+                </slider-switch>
+            </div>
         </div>
-    </div>
+    </scroll>
 </template>
 
 <script type="text/ecmascript-6">
     import {mapActions, mapState, mapGetters} from 'vuex';
     // 对歌曲列表数据做处理
     import {normalizeRankSongList} from 'common/js/songList';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
+    // 滚动切换
+    import SliderSwitch from 'base/slider-switch/slider-switch';
+    // 歌曲列表播放全部模块
+    import SongListPlayAll from 'base/songListPlayAll/songListPlayAll';
+    // 歌曲列表组件
+    import SongList from 'base/song-list/song-list';
+    // 滚动组件
+    import Scroll from 'base/scroll/scroll';
 
     export default {
         data () {
@@ -40,14 +72,34 @@
                  * */
                 rankingUpdate: null,
                 /*
+                 * 判断当前是否重复点击歌曲列表
+                 * @type {String}
+                 * */
+                oldSong: null,
+                /*
                  * 榜单歌曲列表
                  * @type {Array}
                  * */
-                rankingSongList: []
+                rankingSongList: [],
+                /*
+                 * 切换的头部
+                 * @type {Array}
+                 * */
+                dotsTitle: [{name: '歌曲'}, {name: '详情'}],
+                /*
+                 * 当前页面的页数
+                 * @type {Number}
+                 * */
+                newPageIndex: 0,
+                /*
+                * 获取Y轴滚动数值
+                * @type {Number}
+                * */
+                scrollY: null
             }
         },
         computed: {
-            bgImage() {
+            bgImage () {
                 if (this.rankingSongList.length) {
                     return `background-image:url(${this.rankingSongList[0].image})`
                 }
@@ -58,7 +110,12 @@
                  * 排行榜歌单
                  * @type {Array}
                  * */
-                getRankingSongList: 'rankingSongList'
+                getRankingSongList: 'rankingSongList',
+                /*
+               * 获取歌曲列表
+               * @param {Object}
+               * */
+                getSongList: 'songList'
             }),
             ...mapState('appStore', {
                 /*
@@ -66,6 +123,13 @@
                  * @type {Array}
                  * */
                 setRankingId: 'rankingId'
+            }),
+            ...mapGetters('appStore', {
+                /**
+                 * 获取当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong'
             })
         },
         methods: {
@@ -81,14 +145,56 @@
                 this.rankingSongList = [];
             },
             // 返回按钮
-            back() {
+            back () {
                 this.$router.back();
+            },
+            /*
+           * 监听左右滑动的页数
+           * @param {Number}
+           * */
+            pageIndex (index) {
+                // 获取当前显示的页数
+                this.newPageIndex = index;
+                // 重置滚动位置
+                this.$refs.scroll.scrollTo(0, 0);
+            },
+            // 选择歌曲列表
+            selectSong (item, index) {
+                this.setSelectPlay({
+                    list: this.getSongList,
+                    index
+                });
+
+                // 如果不是重复点击就初始化oldSong
+                if (this.oldSong !== item.id) {
+                    this.oldSong = null;
+                }
+
+                // 如果oldSong为空才执行
+                if (!this.oldSong) {
+                    this.oldSong = item.id;
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
             },
             ...mapActions('asyncAjax', {
                 /*
                  * 获取排行榜歌曲数据接口
                  * */
-                setRankingSongList: 'getRankingSongList'
+                setRankingSongList: 'getRankingSongList',
+                /**
+                 * 设置歌曲列表
+                 * @param {Function} commit
+                 */
+                setSongList: 'songList'
+            }),
+            ...mapActions('appStore', {
+                /**
+                 * 选择播放的歌曲
+                 * @type {Boolean}
+                 */
+                setSelectPlay: 'selectPlay'
             })
         },
         // 组件激活
@@ -99,6 +205,7 @@
             this.setRankingSongList(this.setRankingId.id);
         },
         watch: {
+            // 监听榜单歌曲列表数据变化
             getRankingSongList (newSongList) {
                 // 榜单标题
                 this.rankingTile = newSongList.topinfo.ListName;
@@ -108,7 +215,17 @@
                 this.rankingUpdate = newSongList.update_time;
                 // 榜单歌曲列表
                 this.rankingSongList = normalizeRankSongList(newSongList.songlist);
+
+                // 设置歌曲列表
+                this.setSongList(this.rankingSongList);
             }
+
+        },
+        components: {
+            SliderSwitch,
+            SongListPlayAll,
+            SongList,
+            Scroll
         }
     };
 </script>
@@ -118,12 +235,6 @@
     @import "../../assets/sass/remAdaptive";
 
     .ranking-song-list {
-        position: fixed;
-        z-index: 100;
-        top: 0;
-        left: 0;
-        bottom: px2rem(120px);
-        right: 0;
         /*返回按钮*/
         .back {
             position: absolute;
@@ -166,4 +277,15 @@
         background-size: cover;
     }
 
+    /*内容*/
+    .ranking-content {
+        .content {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: red;
+            overflow: hidden;
+            text-decoration: none;
+        }
+    }
 </style>
