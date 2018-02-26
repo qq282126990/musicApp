@@ -381,6 +381,9 @@ export const songListMixin = {
             if (!this.oldSong) {
                 this.oldSong = item.id;
 
+                // 设置播放器播放
+                document.getElementsByTagName('audio')[0].play();
+
                 // 发送选择歌曲的信息总线程
                 Bus.$emit('selectSong', this.getCurrentSong);
             }

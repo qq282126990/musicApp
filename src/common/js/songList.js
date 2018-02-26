@@ -67,7 +67,7 @@ export function createSongList (musicData) {
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // MV id
-            vid: musicData.mv.vid,
+            vid: musicData.vid,
             // 是否是独家
             isonly: musicData.isonly
         });

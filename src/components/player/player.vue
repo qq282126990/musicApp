@@ -270,8 +270,6 @@
 
             // 监听选择歌曲事件
             Bus.$on('selectSong', (data) => {
-                console.log(data);
-                console.log(this.$refs.audio);
                 if (!this.getCurrentSong.id) {
                     return;
                 }
@@ -290,14 +288,10 @@
                     savePlayUrl(data);
                     this.playUrl = getPlayUrl();
 
-                    // 每次执行前先清除time
-                    clearTimeout(this.playTimer);
                     // 设置歌曲播放
-                    this.playTimer = setTimeout(() => {
-                        console.log('播放');
-                        console.log(this.$refs.audio.play());
+                    setTimeout(() => {
                         this.$refs.audio.play();
-                    }, 1000);
+                    }, 500);
                 }
             });
         },
@@ -630,9 +624,10 @@
             // 切换到放大的播放器
             open() {
                 // 如果没有播放歌曲就不能点击放大播放器
-                if (this.getPlayList.length === 0) {
+                if (this.getPlayList.length === 0 && !this.getCurrentSong.id) {
                     return;
                 }
+
                 // 默认显示cd
                 this.currentShow = 'cd';
                 // 设置歌词偏移的位置
@@ -664,6 +659,9 @@
                     // 设置上一首歌曲的索引
                     this.setCurrentIndex(index);
 
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
                     // 发送选择歌曲的信息总线程
                     Bus.$emit('selectSong', this.getCurrentSong);
                 }
@@ -691,6 +689,9 @@
                     }
                     // 设置下一首歌曲的索引
                     this.setCurrentIndex(index);
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
 
                     // 发送选择歌曲的信息总线程
                     Bus.$emit('selectSong', this.getCurrentSong);
@@ -905,7 +906,8 @@
                 // 如果播放器错误就请求备用接口
                 if (newPlayError && this.getCurrentSong.strMediaMid) {
                     // 设置歌曲播放状态
-                    this.$refs.audio.pause();
+//                    this.$refs.audio.pause();
+                    this.$refs.audio.play();
 
                     // 请求歌曲播放链接地址
                     this._getSinglePlayingUrl(this.getCurrentSong.strMediaMid, null);

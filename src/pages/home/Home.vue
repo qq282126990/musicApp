@@ -1,9 +1,5 @@
 <template>
     <div>
-        <div>
-            <audio ref="audio"></audio>
-            <button @click="changeUrl">click me</button>
-        </div>
         <scroll class="scroll" ref="scroll" @scroll="scroll">
             <div>
                 <!--轮播图-->
@@ -111,13 +107,6 @@
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
 
-    const musicList = [
-        'https://dl.stream.qqmusic.qq.com/C400000Hyuia2AvvP1.m4a?vkey=570FE54DCA396FAD36F7B71143CCD3B053136A1A733AA3CDAC25C880688F8312620FF94EAE4F2218A502E017E66E8C8FD677B00923EB9AAF&guid=2339089975&uin=0&fromtag=66',
-        'https://dl.stream.qqmusic.qq.com/C400000Hyuia2AvvP1.m4a?vkey=570FE54DCA396FAD36F7B71143CCD3B053136A1A733AA3CDAC25C880688F8312620FF94EAE4F2218A502E017E66E8C8FD677B00923EB9AAF&guid=2339089975&uin=0&fromtag=66',
-        'https://dl.stream.qqmusic.qq.com/C400000Hyuia2AvvP1.m4a?vkey=570FE54DCA396FAD36F7B71143CCD3B053136A1A733AA3CDAC25C880688F8312620FF94EAE4F2218A502E017E66E8C8FD677B00923EB9AAF&guid=2339089975&uin=0&fromtag=66'
-    ]
-
-
     export default {
         async asyncData({store}) {
             // 调用 vuex action，在异步操作完成之前有顶部进度条提示
@@ -162,10 +151,12 @@
                         {'name': '电台', 'iconfont': 'icon-ziyuan', 'title': 'radio'},
                         {'name': '视频', 'iconfont': 'icon-shipincopy', 'title': 'video'}
                     ]
-                }],
-                index: 0,
-                url: ''
+                }]
             };
+        },
+        mounted() {
+            // 一些初始化操作
+            this._initSome();
         },
         computed: {
             // 歌单导航模块数据
@@ -242,21 +233,7 @@
                 getCurrentIndex: 'currentIndex'
             })
         },
-        mounted() {
-            // 一些初始化操作
-            this._initSome();
-        },
         methods: {
-            changeUrl() {
-                this.index = (this.index + 1) % musicList.length;
-                this.url = musicList[this.index];
-
-                addEventListener('message', () => {
-                    this.$refs.audio.src = this.url;
-                    this.$refs.audio.play();
-                }, false);
-                postMessage(1, '*');
-            },
             // 一些初始化操作
             _initSome() {
                 // 设置滚动组件滚动的状态
@@ -343,6 +320,9 @@
                     return;
                 }
 
+                // 设置播放器播放
+                document.getElementsByTagName('audio')[0].play();
+
                 // 初始化电台歌曲列表
                 this.featuredSongList = [];
 
@@ -357,10 +337,8 @@
                 // 获取点击的电台的id
                 this.featuredRadioId = item.radioId;
 
-                // 如果停止了播放就不执行下面操作
-                if (!this.getPlaying) {
-                    return;
-                }
+                // 设置播放器播放
+                document.getElementsByTagName('audio')[0].play();
             },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'

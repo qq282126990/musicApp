@@ -23,7 +23,7 @@ Vue.use(VueLazyload, {
 
 
 /* eslint-disable no-unused-vars */
-import vConsole from 'vconsole';
+// import vConsole from 'vconsole';
 
 Vue.component('icon', Icon);
 

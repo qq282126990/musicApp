@@ -169,7 +169,7 @@
                 this.headerSelect = item.id;
 
                 // 判断是否已经请求过歌曲列表了
-                if (this.newSongListData[this.headerSelect].length > 0) {
+                if (this.newSongListData[this.headerSelect] && this.newSongListData[this.headerSelect].length > 0) {
                     this.setSongList(this.newSongListData[this.headerSelect]);
                     return;
                 }
@@ -197,6 +197,9 @@
                 // 如果oldSong为空才执行
                 if (!this.oldSong) {
                     this.oldSong = item.id;
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
 
                     // 发送选择歌曲的信息总线程
                     Bus.$emit('selectSong', this.getCurrentSong);
