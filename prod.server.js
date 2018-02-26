@@ -29,17 +29,13 @@ let rewrites = [];
 Object.keys(utils.getEntries('./src/pages', 'entry.js'))
     .forEach(entry => {
         rewrites.push({
-            from: new RegExp('/'),
-            to: '/' + home + '/index.html'
-        });
-        rewrites.push({
             from: new RegExp('/' + entry),
-            to: '/' + entry + '/index.html'
+            to: '/' + entry + '.html'
         });
         // 额外插入skeleton路由
         rewrites.push({
             from: new RegExp('/skeleton-' + entry),
-            to: '/' + entry + '/index.html'
+            to: '/' + entry + '.html'
         });
     });
 
