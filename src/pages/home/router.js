@@ -5,14 +5,14 @@
 
 // 定义切割点，异步加载路由组
 // 主页模块
-// let Home = () => import('@/pages/home/home.vue');
+let Home = () => import('@/pages/home/home.vue');
 // 发现模块
-// let Find = () => import('./Find.vue');
+let Find = () => import('./Find.vue');
 // 我的模块
-// let My = () => import('./My.vue');
-import Home from '@/pages/home/home.vue';
-import Find from '@/pages/home/Find.vue';
-import My from '@/pages/home/My.vue';
+let My = () => import('./My.vue');
+// import Home from '@/pages/home/home.vue';
+// import Find from '@/pages/home/Find.vue';
+// import My from '@/pages/home/My.vue';
 
 // 新歌速递模块
 import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';
@@ -28,6 +28,8 @@ import RecentPlay from 'components/recent-play/recent-play.vue';
 import Ranking from 'components/ranking/ranking.vue';
 // 排行榜歌曲列表组件
 import RankingSongList from 'components/rankingSongList/rankingSongList.vue';
+// 歌手组件
+import Singer from 'components/singer/singer.vue';
 
 export default {
     routes: [
@@ -47,6 +49,12 @@ export default {
             name: 'my',
             component: My,
             alias: '/home/my'
+        },
+        // 歌手模块
+        {
+            path: '/home/singer',
+            name: 'singer',
+            component: Singer
         },
         // 排行榜模块
         {

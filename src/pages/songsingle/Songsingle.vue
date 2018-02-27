@@ -18,6 +18,7 @@
     import {getCollection} from 'api/songAlbumMessage';
 
     export default {
+        name: 'songsingle',
         async asyncData({store}) {
             // 请求歌单专辑信息接口
             await store.dispatch('asyncAjax/getSongAlbumMessage', this.songBegin);

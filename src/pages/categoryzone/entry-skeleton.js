@@ -3,11 +3,11 @@
  */
 
 import Vue from 'vue';
-import Skeleton from './Categoryzone.skeleton.vue';
+import CategoryzoneSkeleton from './Categoryzone.skeleton.vue';
 
 export default new Vue({
     components: {
-        Skeleton
+        CategoryzoneSkeleton
     },
-    template: '<skeleton />'
+    template: '<categoryzone-skeleton />'
 });

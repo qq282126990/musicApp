@@ -68,3 +68,6 @@ export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'; // 设置搜索历史
 export const SET_RANKING_LIST = 'SET_RANKING_LIST'; // 获取排行榜数据
 export const SET_RANKING_ID = 'SET_RANKING_ID'; // 排行榜歌单Id
 export const SET_RANKING_SONG_LIST = 'SET_RANKING_SONG_LIST'; // 排行榜歌单列表
+
+// 歌手组件状态
+export const SET_SINGGER_LIST = 'SET_SINGGER_LIST'; // 获取歌手列表

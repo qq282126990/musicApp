@@ -8,6 +8,7 @@ c
     import {mapActions} from 'vuex';
 
     export default {
+        name: 'home-skeleton',
         methods: {
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'

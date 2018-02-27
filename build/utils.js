@@ -25,7 +25,7 @@ exports.cssLoaders = function (options) {
     };
 
     // generate loader string to be used with extract text plugin
-    function generateLoaders(loader, loaderOptions) {
+    function generateLoaders (loader, loaderOptions) {
         let loaders = [cssLoader];
         if (loader) {
             loaders.push({
@@ -80,7 +80,7 @@ exports.getEntries = function (pageDir, entryPath) {
     var entry = {};
     var pageDirPath = path.join(__dirname, '..', pageDir);
     fs.readdirSync(pageDirPath)
-        // 发现文件夹，就认为是页面模块
+    // 发现文件夹，就认为是页面模块
         .filter(function (f) {
             return fs.statSync(path.join(pageDirPath, f)).isDirectory();
         })

@@ -108,6 +108,7 @@
     import Scroll from 'base/scroll/scroll';
 
     export default {
+        name: 'my',
         data() {
             return {
                 /*

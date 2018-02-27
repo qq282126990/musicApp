@@ -108,6 +108,7 @@
     import Bus from '../../event-bus';
 
     export default {
+        name: 'home',
         async asyncData({store}) {
             // 调用 vuex action，在异步操作完成之前有顶部进度条提示
             await store.dispatch('asyncAjax/getHomeMessage'); // 主页数据接口

@@ -3,11 +3,11 @@
  */
 
 import Vue from 'vue';
-import Skeleton from './Songsingle.skeleton.vue';
+import SongsingleSkeleton from './Songsingle.skeleton.vue';
 
 export default new Vue({
     components: {
-        Skeleton
+        SongsingleSkeleton
     },
-    template: '<skeleton />'
+    template: '<songsingle-skeleton />'
 });

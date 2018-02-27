@@ -2,12 +2,16 @@ import * as types from '../mutation-types';
 import {ERR_OK} from 'api/config';
 // 计算播放量方法 computedPlayNumber
 import {computedPlayNumber} from 'common/js/util';
-// 自定义首页新歌速递导航数据 createHomeNewSongSpeed
-// 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
-import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
 // 获取主页选择对应歌单的数据 getSongSingle
 // 保存一开始的新歌数据 saveInitNewSongList
 import {getSongSingle, saveInitNewSongList} from 'common/js/cache';
+// 自定义首页新歌速递导航数据 createHomeNewSongSpeed
+// 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
+import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
+// 对歌曲列表数据做处理
+import {normalizeSongList} from 'common/js/songList';
+// 自定义歌手数据
+import {normalizeSinger} from 'common/js/singer';
 // 请求主页数据 getHomeMessage
 // 主页精选电台导航 getHomeFeaturedRadio
 // 主页歌单推荐数据 getHomeRecomPlaylist
@@ -16,8 +20,6 @@ import {getHomeMessage, getHomeFeaturedRadio, getReplaceHomeRecomPlaylist} from 
 import {getSongAlbumMessage} from 'api/songAlbumMessage';
 // 获取歌曲列表播放MP4地址方法
 import {getSongListPlayingUrl} from 'api/songListPlayUrl';
-// 对歌曲列表数据做处理
-import {normalizeSongList} from 'common/js/songList';
 // 新歌速递模块点击内容标题对应type的数据 getSwitchNewSongList
 // 新碟接口 getNewAlbum
 // 新碟专辑歌曲列表接口 getNewAlbumSongList
@@ -44,6 +46,8 @@ import {getSearchHot} from 'api/search';
 // 获取排行榜数据接口 getRankingList
 // 获取排行榜歌曲数据接口 getRankingSongList
 import {getRankingList, getRankingSongList} from 'api/rank'
+// 获取歌手列表接口 getSingerList
+import {getSingerList} from 'api/singer'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -138,7 +142,12 @@ let state = {
      * 获取排行榜歌曲数据接口
      * @type {Array}
      * */
-    rankingSongList: []
+    rankingSongList: [],
+    /*
+     * 获取歌手数据列表
+     * @type {Array}
+     * */
+    singerList: []
 };
 
 let actions = {
@@ -146,7 +155,7 @@ let actions = {
      * 获取主页请求信息
      * @param {Function} commit
      */
-    async getHomeMessage({commit}) {
+    async getHomeMessage ({commit}) {
         let res = await getHomeMessage();
         if (res.code === ERR_OK) {
             // 获取主页轮播图
@@ -166,7 +175,7 @@ let actions = {
      * 点击换一批刷新歌单推荐数据
      * @param {Function} commit
      */
-    async getReplaceHomeRecomPlaylist({commit}, param) {
+    async getReplaceHomeRecomPlaylist ({commit}, param) {
         let res = await getReplaceHomeRecomPlaylist(param);
         if (res.code === ERR_OK) {
             if (!res.playlist.data.v_playlist.length) {
@@ -183,7 +192,7 @@ let actions = {
      * 获取精选电台导航
      * @param {Function} commit
      */
-    async getHomeFeaturedRadio({commit}) {
+    async getHomeFeaturedRadio ({commit}) {
         let res = await getHomeFeaturedRadio();
         if (res.code === ERR_OK) {
             // 获取主页精选电台导航
@@ -197,7 +206,7 @@ let actions = {
      * 获取歌单专辑信息
      * @param {Function} commit
      */
-    async getSongAlbumMessage({commit}, songBegin) {
+    async getSongAlbumMessage ({commit}, songBegin) {
         // 获取歌单dssid
         let dissid = getSongSingle().contentId || getSongSingle().dissid;
 
@@ -262,7 +271,7 @@ let actions = {
      * 获取新歌速递模块点击内容标题 对应type的数据
      * @param {Function} commit
      */
-    async getSwitchNewSongList({commit}, type) {
+    async getSwitchNewSongList ({commit}, type) {
         let res = await getSwitchNewSongList(type);
         if (res.code === ERR_OK) {
             commit(types.SET_SWITCH_NEW_SONG_LIST_TITLE, {switchNewSongList: res.new_song.data || []});
@@ -275,7 +284,7 @@ let actions = {
      * 获取新碟数据
      * @param {Function} commit
      */
-    async getNewAlbum({commit}, param) {
+    async getNewAlbum ({commit}, param) {
         let res = await getNewAlbum(param);
         if (res.code === ERR_OK) {
             // 获取数字专辑歌曲列表数据
@@ -289,7 +298,7 @@ let actions = {
      * 获取全部数字专辑数据
      * @param {Function} commit
      */
-    async getTotalDigitalAlbum({commit}, type) {
+    async getTotalDigitalAlbum ({commit}, type) {
         let res = await getTotalDigitalAlbum(type);
         if (res.code === ERR_OK) {
             // 获取全部数字专辑数据 音乐数字专辑相册
@@ -303,7 +312,7 @@ let actions = {
      * 获取更多数字专辑数据
      * @param {Function} commit
      */
-    async getMoreAlbumList({commit}, start) {
+    async getMoreAlbumList ({commit}, start) {
         let res = await getMoreAlbumList(start);
         if (res.code === ERR_OK) {
             // 更多数字专辑数据
@@ -317,7 +326,7 @@ let actions = {
      * 获取数字专辑歌曲列表
      * @param {Function} commit
      */
-    async getDigitalAlbumSongList({commit}, id) {
+    async getDigitalAlbumSongList ({commit}, id) {
         let res = await getDigitalAlbumSongList(id);
         if (res.code === ERR_OK) {
             // 获取数字专辑歌曲列表数据
@@ -331,7 +340,7 @@ let actions = {
      * 获取分类歌单导航信息
      * @param {Function} commit
      */
-    async getCategoryNavigation({commit}) {
+    async getCategoryNavigation ({commit}) {
         let res = await getCategoryNavigation();
         if (res.code === ERR_OK) {
             commit(types.SET_CATEGORY_NAVIGATION, res.data.categories);
@@ -344,7 +353,7 @@ let actions = {
      * 获取分类歌单歌曲信息
      * @param {Function} commit
      */
-    async getSortSongData({commit}, param) {
+    async getSortSongData ({commit}, param) {
         let res = await getSortSongData(param);
         if (res.code === ERR_OK) {
             // 获取分类歌单歌曲信息
@@ -358,7 +367,7 @@ let actions = {
      * 个性电台歌曲接口
      * @param {Function} commit
      */
-    async getPersonalFeaturedRadio({commit}) {
+    async getPersonalFeaturedRadio ({commit}) {
         let res = await getPersonalFeaturedRadio();
         if (res.code === ERR_OK) {
             // 获取个性电台歌曲列表
@@ -372,7 +381,7 @@ let actions = {
      * 普通电台歌曲接口
      * @param {Function} commit
      */
-    async getOrdinaryFeaturedRadio({commit}, param) {
+    async getOrdinaryFeaturedRadio ({commit}, param) {
         let res = await getOrdinaryFeaturedRadio(param);
         if (res.code === ERR_OK) {
             // 获取精选电台歌曲列表
@@ -386,7 +395,7 @@ let actions = {
      * 获取热门搜索
      * @param {Function} commit
      */
-    async getSearchHot({commit}, param) {
+    async getSearchHot ({commit}, param) {
         let res = await getSearchHot(param);
         if (res.code === ERR_OK) {
             // 获取精选电台歌曲列表
@@ -400,7 +409,7 @@ let actions = {
      * 获取排行榜数据接口
      * @param {Function} commit
      */
-    async getRankingList({commit}, param) {
+    async getRankingList ({commit}, param) {
         let res = await getRankingList(param);
         if (res.code === ERR_OK) {
             commit(types.SET_RANKING_LIST, res.data.topList);
@@ -413,7 +422,7 @@ let actions = {
      * 获取排行榜歌曲数据接口
      * @param {Function} commit
      */
-    async getRankingSongList({commit}, param) {
+    async getRankingSongList ({commit}, param) {
         let res = await getRankingSongList(param);
         if (res.code === ERR_OK) {
             commit(types.SET_RANKING_SONG_LIST, res);
@@ -423,10 +432,23 @@ let actions = {
         }
     },
     /**
+     * 获取歌手列表接口
+     * @param {Function} commit
+     */
+    async getSingerList ({commit}) {
+        let res = await getSingerList();
+        if (res.code === ERR_OK) {
+            commit(types.SET_SINGGER_LIST, normalizeSinger(res.data.list));
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
-    getSongListPlayingUrl({commit}, param) {
+    getSongListPlayingUrl ({commit}, param) {
         getSongListPlayingUrl(param).then((res) => {
             if (res.code === ERR_OK) {
                 // 设置歌曲列表
@@ -435,12 +457,12 @@ let actions = {
         });
     },
     // 设置歌曲列表
-    songList({commit}, songList) {
+    songList ({commit}, songList) {
         // 设置歌曲列表
         commit(types.SET_SONG_LIST, songList);
     },
     // 设置分类歌单歌曲信息
-    sortSongData({commit}, sortSongData) {
+    sortSongData ({commit}, sortSongData) {
         // 设置歌曲列表
         commit(types.SET_SORT_SONG_DATA, sortSongData);
     }
@@ -451,120 +473,124 @@ let mutations = {
      * 获取主页轮播图
      * @param {Array}
      * */
-    [types.SET_HOME_SLIDER](state, {homeSlider}) {
+    [types.SET_HOME_SLIDER] (state, {homeSlider}) {
         state.homeSlider = homeSlider;
     },
     /*
      * 获取主页热门推荐导航
      * @param {Array}
      * */
-    [types.SET_HOME_RECOMMEND](state, {homeRecommend}) {
+    [types.SET_HOME_RECOMMEND] (state, {homeRecommend}) {
         state.homeRecommend = homeRecommend;
     },
     /*
      * 获取主页热门推荐导航
      * @param {Array}
      * */
-    [types.SET_HOME_NEW_SONG_SPEED](state, {homeNewSongSpeed}) {
+    [types.SET_HOME_NEW_SONG_SPEED] (state, {homeNewSongSpeed}) {
         state.homeNewSongSpeed = homeNewSongSpeed;
     },
     /*
      * 获取精选电台导航
      * @param {Array}
      * */
-    [types.SET_HOME_FEATERED_RADIO](state, {homeFeaturedRadio}) {
+    [types.SET_HOME_FEATERED_RADIO] (state, {homeFeaturedRadio}) {
         state.homeFeaturedRadio = homeFeaturedRadio;
     },
     /*
      * 获取歌单专辑信息
      * @param {Array}
      * */
-    [types.SET_SONG_ALBUM_MESSAGE](state, songAlbumMessage) {
+    [types.SET_SONG_ALBUM_MESSAGE] (state, songAlbumMessage) {
         state.songAlbumMessage = songAlbumMessage;
     },
     /*
      * 获取歌曲列表
      * @param {Array}
      * */
-    [types.SET_SONG_LIST](state, songList) {
+    [types.SET_SONG_LIST] (state, songList) {
         state.songList = songList;
     },
     /*
      * 获取新歌速递模块点击内容标题 对应type的数据
      * @param {Object}
      * */
-    [types.SET_SWITCH_NEW_SONG_LIST_TITLE](state, {switchNewSongList}) {
+    [types.SET_SWITCH_NEW_SONG_LIST_TITLE] (state, {switchNewSongList}) {
         state.switchNewSongList = switchNewSongList;
     },
     /*
      * 获取新碟数据
      * @param {Object}
      * */
-    [types.SET_NEW_ALBUM](state, {newAlbum}) {
+    [types.SET_NEW_ALBUM] (state, {newAlbum}) {
         state.newAlbum = newAlbum;
     },
     /*
      * 获取全部数字专辑数据 音乐数字专辑相册
      * @param {Object}
      * */
-    [types.SET_MUSIC_DIGITAL_ALBUM](state, {musicDigitalAlbum}) {
+    [types.SET_MUSIC_DIGITAL_ALBUM] (state, {musicDigitalAlbum}) {
         state.musicDigitalAlbum = musicDigitalAlbum;
     },
     /*
      * 更多数字专辑数据
      * @param {Object}
      * */
-    [types.SET_DIGITAL_MORE_ALBUM](state, {moreDigitalAlbum}) {
+    [types.SET_DIGITAL_MORE_ALBUM] (state, {moreDigitalAlbum}) {
         state.moreDigitalAlbum = moreDigitalAlbum;
     },
     /*
      * 获取数字专辑歌曲列表数据
      * @param {Object}
      * */
-    [types.SET_DIGITAL_ALBUM_SONG_LIST](state, {digitalAlbumSongList}) {
+    [types.SET_DIGITAL_ALBUM_SONG_LIST] (state, {digitalAlbumSongList}) {
         state.digitalAlbumSongList = digitalAlbumSongList;
     },
     /*
      * 获取分类歌单导航信息
      * @param {Array}
      * */
-    [types.SET_CATEGORY_NAVIGATION](state, categoryNavigation) {
+    [types.SET_CATEGORY_NAVIGATION] (state, categoryNavigation) {
         state.categoryNavigation = categoryNavigation;
     },
     /*
      * 获取分类歌单歌曲信息
      * @param {Array}
      * */
-    [types.SET_SORT_SONG_DATA](state, sortSongData) {
+    [types.SET_SORT_SONG_DATA] (state, sortSongData) {
         state.sortSongData = sortSongData;
     },
     // 获取个性电台歌曲列表
-    [types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST](state, {personalFeaturedRadio}) {
+    [types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST] (state, {personalFeaturedRadio}) {
         state.personalFeaturedRadio = personalFeaturedRadio;
     },
     // 普通个性电台歌曲列表
-    [types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST](state, {ordinaryFeaturedRadio}) {
+    [types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST] (state, {ordinaryFeaturedRadio}) {
         state.ordinaryFeaturedRadio = ordinaryFeaturedRadio;
     },
     // 获取热门搜索数据
-    [types.SET_SEARCH_HOT](state, searchHot) {
+    [types.SET_SEARCH_HOT] (state, searchHot) {
         state.searchHot = searchHot;
     },
     // 获取排行榜数据
-    [types.SET_RANKING_LIST](state, rankingList) {
+    [types.SET_RANKING_LIST] (state, rankingList) {
         state.rankingList = rankingList;
     },
     // 获取排行榜歌曲数据接口
-    [types.SET_RANKING_SONG_LIST](state, rankingSongList) {
+    [types.SET_RANKING_SONG_LIST] (state, rankingSongList) {
         state.rankingSongList = rankingSongList;
+    },
+    // 获取歌手列表接口
+    [types.SET_SINGGER_LIST] (state, singerList) {
+        state.singerList = singerList;
     }
 };
 
 let getters = {
-    switchNewSongList() {
+    switchNewSongList () {
         return state.switchNewSongList;
     },
-    songList() {
+    songList () {
         return state.songList;
     }
 };

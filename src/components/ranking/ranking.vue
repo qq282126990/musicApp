@@ -14,12 +14,15 @@
         <!--内容-->
         <div class="ranking-content" v-show="getRankingList.length">
             <!--滚动组件-->
-            <scroll class="scroll">
+            <scroll class="scroll" ref="scroll">
                 <div>
                     <!--内容标题-->
                     <h1 class="content-title">QQ音乐巅峰榜</h1>
                     <ul>
-                        <li class="item" v-for="item in getRankingList" :key="item.picUrl" @click="selectItem(item)">
+                        <li class="item" v-for="item in getRankingList"
+                            :key="item.picUrl"
+                            @click="selectItem(item)"
+                            v-if="item.id !== 201">
                             <!--图片-->
                             <div class="item-img">
                                 <img width="100%" height="100%" v-lazy="item.picUrl" :alt="item.picUrl"/>
@@ -58,7 +61,7 @@
     // loading组件
     import Loading from 'base/loading/loading';
 
-    export default{
+    export default {
         data () {
             return {
                 /*
@@ -82,11 +85,11 @@
             })
         },
         methods: {
-            back() {
+            back () {
                 this.$router.back();
             },
             // 选择榜单
-            selectItem(item) {
+            selectItem (item) {
                 this.$router.push({
                     path: `/home/ranking/${item.id}`
                 })
@@ -118,15 +121,29 @@
                 /*
                  * 设置排行榜歌单id
                  * */
-                setRankingId: 'rankingId'
+                setRankingId: 'rankingId',
+                /**
+                 * 滚动组件外部传入的数据
+                 * @type {Array}
+                 */
+                setScrollData: 'scrollData'
             })
         },
         // 组件激活
-        activated() {
+        activated () {
+            setTimeout(() => {
+                this.$refs.scroll.refresh();
+            }, 50);
+
             // 设置首页头部导航
             this.setAppHeader({
                 show: false
             });
+        },
+        watch: {
+            getRankingList (newRankingList) {
+                this.setScrollData(newRankingList);
+            }
         },
         components: {
             Scroll,
@@ -190,7 +207,7 @@
     .ranking-content {
         position: fixed;
         top: px2rem(84px);
-        bottom: px2rem(130px);
+        bottom: px2rem(120px);
         left: 0;
         right: 0;
         width: 100%;

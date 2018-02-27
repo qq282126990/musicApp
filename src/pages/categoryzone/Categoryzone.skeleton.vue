@@ -23,6 +23,7 @@
     import {mapActions} from 'vuex';
 
     export default {
+        name: 'categoryzone-skeleton',
         methods: {
             // 返回按钮
             back() {

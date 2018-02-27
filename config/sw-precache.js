@@ -101,6 +101,50 @@ module.exports = {
          */
         runtimeCaching: [
             {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/qzone/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/3gmusic/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/base/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/lyric/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/rcmusic2/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/v8\/fcg-bin/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud\/fcgi-bin/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/soso\/fcgi-bin/,
+                handler: 'networkFirst'
+            },
+            {
+                urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/,
+                handler: 'networkFirst'
+            },
+            {
                 urlPattern: /\/material-design-icon/,
                 // 五种：caheOnly cacheFirst fastest networkFirst networkOnly
                 handler: 'networkFirst'

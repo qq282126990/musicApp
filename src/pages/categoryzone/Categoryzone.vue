@@ -49,6 +49,7 @@
     import ChosenSongLlist from 'base/chosen-song-list/chosen-song-list';
 
     export default {
+        name: 'categoryzone',
         mixins: [chosenSongList],
         data() {
             return {

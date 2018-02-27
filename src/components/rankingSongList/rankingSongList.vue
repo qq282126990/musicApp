@@ -1,41 +1,47 @@
 <template>
-    <scroll ref="scroll">
-        <div class="ranking-song-list">
-            <!--榜单图片-->
-            <div class="bg-image" :style="bgImage" ref="bgImage">
-                <!--返回按钮-->
-                <div class="back" @click="back">
-                    <i class="iconfont icon-fanhui1-copy"></i>
-                </div>
-                <!--标题-->
-                <h1 class="bg-image-title">
-                    {{`${rankingTile} 第${rankingDate}天`}}
-                </h1>
-                <!--时间-->
-                <p class="bg-image-time">{{`${rankingUpdate}更新`}}</p>
-            </div>
-            <!--内容-->
-            <div class="ranking-content">
-                <slider-switch :dotsTitle="dotsTitle"
-                               @pageIndex="pageIndex"
-                >
-                    <div v-for="(item, index) in dotsTitle" :key="index">
-                        <!--歌曲列表-->
-                        <div class="content" v-if="index === 0">
-                            <song-list-play-all></song-list-play-all>
-                            <song-list :totalSongNum="rankingSongList.length"
-                                       @selectSong="selectSong"
-                            ></song-list>
-                        </div>
-                        <!--详情-->
-                        <div class="content" v-if="index === 1">
-
-                        </div>
+    <div>
+        <scroll class="scroll-wrapper" ref="scroll" v-if="rankingSongList.length">
+            <div class="ranking-song-list">
+                <!--榜单图片-->
+                <div class="bg-image" :style="bgImage" ref="bgImage">
+                    <!--返回按钮-->
+                    <div class="back" @click="back">
+                        <v-icon class="icon">arrow_back</v-icon>
                     </div>
-                </slider-switch>
+                    <!--标题-->
+                    <h1 class="bg-image-title">
+                        {{rankingTile}}{{rankingDate ? ` 第${rankingDate}天` : ''}}
+                    </h1>
+                    <!--时间-->
+                    <p class="bg-image-time">{{`${rankingUpdate}更新`}}</p>
+                </div>
+                <!--内容-->
+                <div class="ranking-content">
+                    <slider-switch :dotsTitle="dotsTitle"
+                                   @pageIndex="pageIndex"
+                    >
+                        <div v-for="(item, index) in dotsTitle" :key="index">
+                            <!--歌曲列表-->
+                            <div class="content" v-if="index === 0">
+                                <song-list-play-all></song-list-play-all>
+                                <song-list :totalSongNum="rankingSongList.length"
+                                           @selectSong="selectSong"
+                                ></song-list>
+                            </div>
+                            <!--详情-->
+                            <div class="content" v-if="index === 1">
+                                <p v-html="info" class="text"></p>
+                            </div>
+                        </div>
+                    </slider-switch>
+                </div>
             </div>
+        </scroll>
+        <!--loading-->
+        <div class="loading-wrapper" v-if="!rankingSongList.length">
+            <loading :loadingText="loadingText"></loading>
         </div>
-    </scroll>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -52,6 +58,8 @@
     import SongList from 'base/song-list/song-list';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
+    // loading组件
+    import Loading from 'base/loading/loading';
 
     export default {
         data () {
@@ -77,6 +85,11 @@
                  * */
                 oldSong: null,
                 /*
+                * 详情信息
+                * @type {String}
+                * */
+                info: null,
+                /*
                  * 榜单歌曲列表
                  * @type {Array}
                  * */
@@ -92,10 +105,10 @@
                  * */
                 newPageIndex: 0,
                 /*
-                * 获取Y轴滚动数值
-                * @type {Number}
+                * loading显示的文字
+                * @type {String}
                 * */
-                scrollY: null
+                loadingText: '加载中...'
             }
         },
         computed: {
@@ -135,6 +148,10 @@
         methods: {
             // 一些初始化操作
             _initSome () {
+                // 如果没有id就返回上一页
+                if (!this.setRankingId.id) {
+                    this.$router.back();
+                }
                 // 榜单标题
                 this.rankingTile = null;
                 // 榜单时间
@@ -155,8 +172,8 @@
             pageIndex (index) {
                 // 获取当前显示的页数
                 this.newPageIndex = index;
-                // 重置滚动位置
-                this.$refs.scroll.scrollTo(0, 0);
+
+                this.$refs.scroll.refresh();
             },
             // 选择歌曲列表
             selectSong (item, index) {
@@ -197,7 +214,12 @@
                  * 选择播放的歌曲
                  * @type {Boolean}
                  */
-                setSelectPlay: 'selectPlay'
+                setSelectPlay: 'selectPlay',
+                /**
+                 * 滚动组件外部传入的数据
+                 * @type {Array}
+                 */
+                setScrollData: 'scrollData'
             })
         },
         // 组件激活
@@ -218,9 +240,12 @@
                 this.rankingUpdate = newSongList.update_time;
                 // 榜单歌曲列表
                 this.rankingSongList = normalizeRankSongList(newSongList.songlist);
-
+                // 详情信息
+                this.info = newSongList.topinfo.info;
                 // 设置歌曲列表
                 this.setSongList(this.rankingSongList);
+                // 滚动组件外部传入的数据
+                this.setScrollData(newSongList);
             }
 
         },
@@ -228,7 +253,8 @@
             SliderSwitch,
             SongListPlayAll,
             SongList,
-            Scroll
+            Scroll,
+            Loading
         }
     };
 </script>
@@ -237,16 +263,30 @@
     @import "../../assets/sass/variables";
     @import "../../assets/sass/remAdaptive";
 
+    /*loading*/
+    .loading-wrapper {
+        position: fixed;
+        left: 0;
+        right: 0;
+        padding-top: 50%;
+        z-index: 10;
+    }
+
+    .scroll-wrapper {
+        height: 100%;
+        overflow: hidden;
+    }
+
     .ranking-song-list {
         /*返回按钮*/
         .back {
             position: absolute;
             top: px2rem(20px);
             z-index: 50;
-            .icon-fanhui1-copy {
+            .icon {
                 display: block;
-                padding: px2rem(20px);
-                font-size: px2rem(44px);
+                padding: 0 px2rem(20px) px2rem(20px) px2rem(20px);
+                font-size: px2rem(60px);
                 color: $icon-fanhui1-copy;
             }
         }
@@ -258,6 +298,7 @@
             width: 100%;
             text-align: center;
             font-size: px2rem(36px);
+            font-weight: 100;
             color: #fff;
         }
         /*时间*/
@@ -268,6 +309,7 @@
             width: 100%;
             text-align: center;
             font-size: px2rem(24px);
+            font-weight: 100;
             color: #fff;
         }
     }
@@ -286,9 +328,16 @@
             display: block;
             width: 100%;
             height: 100%;
-            background: red;
             overflow: hidden;
             text-decoration: none;
+            .text {
+                padding: 0 px2rem(30px) px2rem(400px) px2rem(30px);
+                margin-bottom: 0;
+                font-size: px2rem(28px);
+                text-align: left;
+                color: #999;
+                line-height: 20px;
+            }
         }
     }
 </style>

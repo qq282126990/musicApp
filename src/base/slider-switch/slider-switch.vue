@@ -118,7 +118,7 @@
                     // 禁用回弹效果
                     bounce: false,
                     // Bscroll 类型为3
-                    probeType: 3,
+                    probeType: 1,
                     snap: {
                         // 是否循环播放
                         loop: this.loop,
@@ -134,7 +134,6 @@
                     let movingDirectionX = this.sliderSwitch.movingDirectionX;
                     // 设置dots 滑动的距离
                     this.dotsScrollX = Math.abs(pos.x / 5);
-
                     // 发送滚动事件
                     this.$emit('scroll', pos, movingDirectionX);
                 });
@@ -147,6 +146,14 @@
                 let pageIndex = this.sliderSwitch.getCurrentPage().pageX;
                 // 当前的页面的数量
                 this.currentPageIndex = pageIndex;
+
+                if (this.currentPageIndex > 0) {
+                    this.$refs.sliderSwitchGroup.style.height = this.$refs.sliderSwitchGroup.children[1].clientHeight + 'px'
+                }
+                else if (this.currentPageIndex === 0) {
+                    this.$refs.sliderSwitchGroup.style.height = this.$refs.sliderSwitchGroup.children[0].clientHeight + 'px'
+                }
+
                 // 发送当前的页数
                 this.$emit('pageIndex', this.currentPageIndex);
             },
@@ -191,7 +198,7 @@
             .dots-wrapper {
                 display: flex;
                 background: $slider-switch-dots-bg;
-                border-bottom: px2rem(1px) solid #818181;
+                border-bottom: px2rem(1px) solid #999;
                 .dots {
                     line-height: px2rem(40px);
                     display: flex;

@@ -10,7 +10,7 @@ const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
 // 提取css文件
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+// const webpack = require('webpack');
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
@@ -24,6 +24,14 @@ module.exports = {
             ? config.build.assetsPublicPath
             : config.dev.assetsPublicPath
     },
+    // plugins: [
+    //     new webpack.optimize.CommonsChunkPlugin({
+    //         name: [
+    //             "vue-style-loader/lib/addStylesClient",
+    //             "css-loader/lib/css-base",
+    //         ]
+    //     })
+    // ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
