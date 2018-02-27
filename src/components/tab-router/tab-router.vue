@@ -83,6 +83,11 @@
         font-size: px2rem(44px) !important;
         font-weight: bold;
     }
+
+    .icon-flyme_icon-{
+        font-size: px2rem(80px) !important;
+        font-weight: bold;
+    }
     .icon-paixingbang{
         font-size: px2rem(66px) !important;
     }

@@ -131,3 +131,7 @@ body {
 .music-list-content .album-message .message .album-name {
     -webkit-box-orient: vertical;
 }
+
+.introduction .text .txt p{
+    -webkit-box-orient: vertical;
+}

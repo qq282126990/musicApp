@@ -323,6 +323,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                line-height: px2rem(80px);
                 &.active {
                     color: $list-content-name-active-color;
                 }

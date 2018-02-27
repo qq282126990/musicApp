@@ -122,9 +122,9 @@
                  * */
                 showFavoritePrompt: false,
                 /*
-                * 设置显示提示
-                * @type {Boolean}
-                * */
+                 * 设置显示提示
+                 * @type {Boolean}
+                 * */
                 showPlayPrompt: false
             };
         },
@@ -231,10 +231,12 @@
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
 
+    /*提示显示时的动画*/
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
-    .fade-enter, .fade-leave-to{
+
+    .fade-enter, .fade-leave-to {
         opacity: 0;
     }
 

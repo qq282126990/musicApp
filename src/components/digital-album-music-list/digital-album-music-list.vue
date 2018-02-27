@@ -63,6 +63,8 @@
     import {mapState, mapActions, mapGetters} from 'vuex';
     // 创建数字专辑歌曲列表信息
     import {createDigitalAlbumSongListMessage} from 'common/js/totalDigitalAlbum';
+    // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
+    import {saveNewSongSpeedTitle} from 'common/js/cache';
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
     // 歌曲列表
@@ -115,6 +117,9 @@
             // 返回按钮
             back () {
                 this.$router.back();
+
+                // 保存主页新歌模块跳转对应的模块的标题
+                saveNewSongSpeedTitle('数字专辑');
             },
             // 选择要播放的歌曲
             selectSong(item, index) {
@@ -410,11 +415,11 @@
                 width: 100%;
                 height: px2rem(128px);
                 p {
+                    margin: 0;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
                     font-size: px2rem(28px);
                     line-height: 1.6;
                 }

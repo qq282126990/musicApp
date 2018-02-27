@@ -171,6 +171,12 @@
                @error="error"
                @timeupdate="updateTime"
                @ended="end"></audio>
+        <transition name="fade">
+            <!--提示-->
+            <div class="prompt" v-show="promptShow">
+                <span>歌曲加载中请稍后...</span>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -261,7 +267,12 @@
                  * 设置切换cd和歌词的 dot 的显示
                  * @type {String}
                  * */
-                currentShow: 'cd'
+                currentShow: 'cd',
+                /**
+                 * 设置是否显示提示
+                 * @type {Boolean}
+                 * */
+                promptShow: false
             };
         },
         created() {
@@ -574,6 +585,13 @@
             },
             // 播放准备状态
             ready() {
+                clearTimeout(time);
+                // 设置歌曲播放
+                let time = setTimeout(() => {
+                    this.promptShow = true;
+                }, 500);
+
+                // 设置歌曲准备完成
                 this.songReady = true;
                 // 保存播放历史
                 this.setSavePlayHistorys(this.getCurrentSong);
@@ -737,6 +755,10 @@
             // 获取当前播放时间
             updateTime(e) {
                 this.currentTime = e.target.currentTime;
+
+                if (e.target.currentTime > 0) {
+                    this.promptShow = false;
+                }
             },
             // 计算时间搓
             formatTime(interval) {
@@ -893,6 +915,12 @@
                     this.$refs.audio.pause();
                 }
             },
+            getCurrentSong (newCurrentSong) {
+              if (!newCurrentSong.id) {
+                  // 设置歌曲播放状态
+                  this.setPlaying(false);
+              }
+            },
             // 监听播放器播放
             getPlaying(newPlaying) {
                 if (!this.songReady && !this.playUrl) {
@@ -993,6 +1021,15 @@
     .mini-enter, .mini-leave-to {
         opacity: 0;
     }
+
+    /*提示显示时的动画*/
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to{
+        opacity: 0;
+    }
+
 
     /*左右滑动wrapper*/
     .slide {
@@ -1386,6 +1423,27 @@
                     text-align: right;
                 }
             }
+        }
+    }
+
+    /*提示*/
+    .prompt {
+        position: fixed;
+        bottom: px2rem(100px);
+        line-height: px2rem(50px);
+        width: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        height: px2rem(50px);
+        border-radius: px2rem(6px);
+        background: rgba(0, 0, 0, .5);
+        z-index: 1000;
+        span {
+            font-size: px2rem(26px);
+            text-align: center;
+            display: block;
+            color: #fff;
         }
     }
 

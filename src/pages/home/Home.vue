@@ -26,7 +26,7 @@
                 <!--综合-->
                 <div class="complex-wrapper">
                     <!--个性电台-->
-                    <div class="individuality-radio" @click="clickPersonalFeaturedRadio(99)">
+                    <div class="individuality-radio" @click="clickPersonalFeaturedRadio(99)" :key="99">
                         <!--icon-->
                         <i class="material-icons icon">
                             {{getPlaying && featuredRadioId === 99 ? 'pause' : 'play_arrow'}}

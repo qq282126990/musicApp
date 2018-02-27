@@ -3,7 +3,7 @@
             @pullingUp="pullingUp"
             ref="scroll">
         <div>
-            <div v-if="getMusicDigitalAlbum.focus">
+            <div v-if="albumList.length">
                 <!--轮播图-->
                 <div class="silder-wrapper">
                     <div>
@@ -65,7 +65,7 @@
                  * @type {Array}
                  * */
                 tebLi: [{
-                    tab: [{'name': '畅销榜', 'iconfont': 'icon-paixingbang1'},
+                    tab: [{'name': '畅销榜', 'iconfont': 'icon-paixingbang'},
                         {'name': '金唱片', 'iconfont': 'icon-changpianCD'},
                         {'name': '分类', 'iconfont': 'icon-leimupinleifenleileibie2'},
                         {'name': '已购', 'iconfont': 'icon-flyme_icon-'}
@@ -248,6 +248,11 @@
                  */
                 setSongList: 'songList'
             })
+        },
+        // 组件激活
+        activated () {
+            // 刷新滚动列表数据
+             this.$refs.scroll.refresh();
         },
         watch: {
             // 监听数字专辑变化

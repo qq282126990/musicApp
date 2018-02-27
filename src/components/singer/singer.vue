@@ -3,7 +3,7 @@
         <!--头部-->
         <div class="singer-wrapper-header">
             <!--返回按钮-->
-            <div class="back">
+            <div class="back" @click="back">
                 <v-icon class="icon">arrow_back</v-icon>
             </div>
             <!--标题-->
@@ -28,6 +28,21 @@
                     </ul>
                 </li>
             </ul>
+            <!--右侧导航-->
+            <div class="singer-list-shortcut">
+                <ul>
+                    <li class="shortcut-item"
+                        v-for="(item, index) in shortcutList"
+                        :data-index="index"
+                        :class="{'current':currentIndex===index}">
+                        {{item}}
+                    </li>
+                </ul>
+            </div>
+            <!--浮动标题-->
+            <div class="singer-list-fixed" ref="fixed" v-show="fixedTitle">
+                <div class="fixed-title">{{fixedTitle}}</div>
+            </div>
         </scroll>
     </div>
 </template>
@@ -38,23 +53,52 @@
     import Scroll from 'base/scroll/scroll'
 
     export default {
-        computed: {
-            ...mapState('asyncAjax', {
-                getSingerList: 'singerList'
-            })
+        data() {
+            return {
+                /*
+                 * 获取当前Y轴滚动数值
+                 * @type {Number}
+                 * */
+                scrollY: -1,
+                /*
+                 * 获取当前浮动标题index
+                 * @type {Number}
+                 * */
+                currentIndex: 0,
+                diff: -1
+            }
         },
         mounted () {
             // 获取歌手列表接口
             this.setSingerList();
         },
+        computed: {
+            fixedTitle() {
+                if (this.scrollY > 0) {
+                    return ''
+                }
+                return this.getSingerList[this.currentIndex] ? this.getSingerList[this.currentIndex].title : ''
+            },
+            shortcutList() {
+                return this.getSingerList.map((item) => {
+                    return item.title.substr(0, 1)
+                })
+            },
+            ...mapState('asyncAjax', {
+                getSingerList: 'singerList'
+            })
+        },
         methods: {
+            back() {
+                this.$router.back();
+            },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),
             ...mapActions('asyncAjax', {
                 /*
-                * 获取歌手列表接口
-                * */
+                 * 获取歌手列表接口
+                 * */
                 setSingerList: 'getSingerList'
             }),
             ...mapActions('appStore', {
@@ -136,7 +180,7 @@
 
     /*歌手列表*/
     .singer-list {
-        padding-bottom: px2rem(60px);
+        /*padding-bottom: px2rem(60px);*/
         /*标题*/
         .list-title {
             text-align: left;
@@ -146,6 +190,10 @@
             font-size: px2rem(26px);
             color: $singer-list-title;
         }
+        ul {
+            position: relative;
+            top: px2rem(-10px);
+        }
         /*歌手列表*/
         .list-singer-item {
             display: flex;
@@ -154,7 +202,6 @@
             /*头像*/
             .avatar {
                 width: px2rem(80px);
-                height: px2rem(80px);
                 border-radius: 50%;
             }
             /*名称*/
@@ -167,6 +214,42 @@
                 height: px2rem(120px);
                 border-bottom: px2rem(1px) solid rgba(223, 223, 223, .8);
             }
+        }
+    }
+
+    /*右侧导航*/
+    .singer-list-shortcut {
+        position: absolute;
+        right: px2rem(20px);
+        top: 40%;
+        transform: translateY(-50%);
+        width: px2rem(40px);
+        padding: px2rem(40px) 0;
+        border-radius: px2rem(20px);
+        text-align: center;
+        z-index: 30;
+        background: #F0F0F0;
+        .shortcut-item{
+            padding: px2rem(6px);
+            line-height: 1;
+            color: #858585;
+            font-size: px2rem(24px);
+        }
+    }
+
+    /*浮动标题*/
+    .singer-list-fixed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        .fixed-title {
+            text-align: left;
+            height: px2rem(60px);
+            line-height: px2rem(60px);
+            padding-left: px2rem(40px);
+            font-size: px2rem(26px);
+            color: $singer-list-title;
         }
     }
 
