@@ -40,7 +40,11 @@
 
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
-    import FileSaver from 'file-saver';
+    import {isPlayMode} from 'common/js/config';
+    // 下载文件方法 downloadFile
+    import {downloadFile} from 'common/js/util';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
 
     export default {
         data () {
@@ -60,7 +64,27 @@
                  * 获取显示更多按钮
                  * @type {Object}
                  */
-                getShowMore: 'showMore'
+                getShowMore: 'showMore',
+                /**
+                 * 播放列表
+                 * @type {Array}
+                 */
+                getPlayList: 'playList',
+                /**
+                 * 当前播放歌曲索引
+                 * @type {Number}
+                 */
+                getCurrentIndex: 'currentIndex',
+                /**
+                 * 当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong',
+                /**
+                 * 顺序播放列表
+                 * @type {Array}
+                 */
+                getSequenceList: 'sequenceList'
             })
         },
         methods: {
@@ -72,20 +96,108 @@
             selectItem (name) {
                 switch (name) {
                     case '下载': {
-                        console.log(this.getShowMore.currentSong.spare);
-                        let file = new File([this.getShowMore.currentSong.spare],{disableAutoBOM: true});
-                        console.log(new File([this.getShowMore.currentSong.spare],{disableAutoBOM: true}));
-//                        FileSaver.saveAs(this.getShowMore.currentSong.spare);
+                        console.log(this.getCurrentSong);
+                        try {
+                            // 下载文件方法
+                            throw downloadFile(this.getShowMore.currentSong.download, `${this.getShowMore.currentSong.name}.mp3`);
+                        }
+                        catch (e){
+                            console.log(this.getShowMore.currentSong.downloadSpare);
+                            downloadFile(this.getShowMore.currentSong.downloadSpare, `${this.getShowMore.currentSong.name}.mp3`);
+                        }
+
                     }
-                    break;
+                        break;
+                    case '下一首播放': {
+                        this.nextSong();
+                    }
                 }
             },
+            // 播放下一首歌曲
+            nextSong () {
+                // 判断如果只有一首歌曲
+                if (this.getPlayList.length === 1) {
+                    // 设置为循环播放
+                    this.loopPlay();
+                }
+                // 否则设置播放下一首
+                else {
+                    let index = this.getCurrentIndex + 1;
+                    if (index === this.getPlayList.length) {
+                        index = 0;
+                    }
+                    // 设置下一首歌曲的索引
+                    this.setCurrentIndex(index);
+
+                    // 设置歌曲播放状态
+                    this.setPlaying(true);
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
+
+                // 设置播放模式
+                this.setPlayMode(isPlayMode.sequence);
+                // 重新设置当前播放歌曲
+                this.resetCurrentIndex(this.getSequenceList);
+                // 重新设置播放列表
+                this.setPlayList(this.getSequenceList);
+
+                // 设置是否显示更多按钮
+                this.setShowMore({
+                    start: true,
+                    currentSong: this.getCurrentSong
+                });
+            },
+            // 重置当前播放歌曲
+            resetCurrentIndex(list) {
+                // 获取当前歌曲索引
+                let index = list.findIndex((item) => {
+                    return item.id === this.getCurrentSong.id;
+                });
+
+                // 设置当前播放歌曲索引
+                this.setCurrentIndex(index);
+            },
+            // 单曲循环模式执行的播放方法
+            loopPlay () {
+                // 重置当前播放时间
+                document.getElementsByTagName('audio')[0].currentTime = 0;
+                // 设置播放器播放
+                document.getElementsByTagName('audio')[0].play();
+
+                // 设置歌曲播放状态
+                this.setPlaying(true);
+            },
             ...mapActions('appStore', {
+                /**
+                 * 控制歌曲播放
+                 * @type {Boolean}
+                 */
+                setPlaying: 'playing',
                 /**
                  * 设置是否显示更多按钮
                  * @type {Object}
                  */
-                setShowMore: 'showMore'
+                setShowMore: 'showMore',
+                /**
+                 * 设置当前播放歌曲索引
+                 * @type {Boolean}
+                 */
+                setCurrentIndex: 'currentIndex',
+                /**
+                 * 设置是否显示更多按钮
+                 * @type {Object}
+                 */
+                setShowMore: 'showMore',
+                /**
+                 * 控制歌曲播放模式
+                 * @type {Boolean}
+                 */
+                setPlayMode: 'playMode',
             })
         }
     }

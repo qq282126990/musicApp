@@ -1,6 +1,6 @@
 // 自定义定义歌曲信息
 export default class SongList {
-    constructor ({id, mid, strMediaMid, singer, name, album, duration, image, url, spare, vid, isonly}) {
+    constructor ({id, mid, strMediaMid, singer, name, album, duration, image, url, spare,download, downloadSpare, vid, isonly}) {
         this.id = id;
         this.mid = mid;
         this.strMediaMid = strMediaMid;
@@ -13,6 +13,8 @@ export default class SongList {
         this.spare = spare;
         this.vid = vid;
         this.isonly = isonly
+        this.download = download
+        this.downloadSpare = downloadSpare
     };
 };
 
@@ -39,6 +41,10 @@ export function createSongList (musicData) {
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
+            // 下载地址
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
+            // 下载备用地址
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
             // MV id
             vid: musicData.mv.vid,
             // 是否是独家
@@ -66,6 +72,10 @@ export function createSongList (musicData) {
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
+            // 下载地址
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
+            // 下载备用地址
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
             // MV id
             vid: musicData.vid,
             // 是否是独家
@@ -93,6 +103,10 @@ export function createSongList (musicData) {
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // 下载地址
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            // 下载备用地址
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // 是否是独家
             isonly: musicData.isonly
         });
@@ -121,6 +135,10 @@ export function createRankSongList (musicData) {
             url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            // 下载地址
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            // 下载备用地址
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // MV id
             vid: musicData.vid,
             // 是否是独家

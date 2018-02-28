@@ -74,7 +74,6 @@ export const playerMixin = {
 
             // 设置当前播放歌曲索引
             this.setCurrentIndex(index);
-
         },
         // 切换收藏图标
         getFavoriteIcon(currentSong) {
