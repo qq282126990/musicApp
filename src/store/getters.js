@@ -27,13 +27,20 @@ export const favoriteList = state => state.favoriteList;
 // 控制播发器放大缩小
 export const fullScreen = state => state.fullScreen;
 // 获取播放历史
-export const playHistory = state => state.playHistory
+export const playHistory = state => state.playHistory;
 /***************/
 
 /** 搜索框组件状态 **/
 // 获取搜索历史
-export const searchHistory = state => state.searchHistory
+export const searchHistory = state => state.searchHistory;
+/***************/
 
 /** 排行榜组件状态 **/
 // 获取搜索历史
-export const rankingSongList = state => state.rankingSongList
+export const rankingSongList = state => state.rankingSongList;
+/***************/
+
+/** 歌曲列表组件状态 **/
+// 获取搜索历史
+export const showMore = state => state.showMore;
+/***************/

@@ -11,6 +11,13 @@ const mutations = {
      [types.SET_SHOW_SEARCH](state, showSearch) {
         state.showSearch = showSearch;
      },
+    /**
+     * 是否显示更多按钮
+     * @type {Array}
+     */
+     [types.SET_SHOW_MORE](state, showMore) {
+        state.showMore = showMore;
+     },
     /** *************播放组件状态********************** **/
     /**
      * 歌曲列表

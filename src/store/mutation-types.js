@@ -11,7 +11,6 @@ export const SET_APP_HEADER = 'SET_APP_HEADER';
 export const SET_SIDEBAR_VISIBILITY = 'SET_SIDEBAR_VISIBILITY';
 export const SAVE_SCROLLTOP = 'SAVE_SCROLLTOP';
 
-
 // 主页状态
 export const SET_HOME_SLIDER = 'SET_HOME_SLIDER'; // 获取主页轮播图
 export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND'; // 获取主页热门推荐导航
@@ -71,3 +70,6 @@ export const SET_RANKING_SONG_LIST = 'SET_RANKING_SONG_LIST'; // 排行榜歌单
 
 // 歌手组件状态
 export const SET_SINGGER_LIST = 'SET_SINGGER_LIST'; // 获取歌手列表
+
+// 歌曲列表
+export const SET_SHOW_MORE = 'SET_SHOW_MORE'; // 是否显示更多按钮

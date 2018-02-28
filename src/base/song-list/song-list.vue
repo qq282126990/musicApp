@@ -23,7 +23,7 @@
                         </p>
                     </div>
                     <!--更多-->
-                    <v-icon class="more" :class="setStyle">more_vert</v-icon>
+                    <v-icon class="more" :class="setStyle" @click.stop="clickShowMore(item)">more_vert</v-icon>
                 </div>
             </li>
             <!--下拉加载时显示的Loading效果-->
@@ -42,7 +42,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapState, mapGetters} from 'vuex';
+    import {mapState, mapGetters, mapActions} from 'vuex';
     // loading组件
     import Loading from 'base/loading/loading';
 
@@ -64,6 +64,10 @@
         },
         data () {
             return {
+                /*
+                * loading文字
+                * @type {String}
+                * */
                 loadingText: '加载中...'
             }
         },
@@ -85,20 +89,41 @@
                  * 当前播放的歌曲信息
                  * @type {Object}
                  */
-                getCurrentSong: 'currentSong'
+                getCurrentSong: 'currentSong',
+                /**
+                 * 获取显示更多按钮
+                 * @type {Object}
+                 */
+                getShowMore: 'showMore'
             })
         },
         methods: {
-            selectSong(item, index) {
+            // 选择歌曲播放
+            selectSong (item, index) {
                 this.$emit('selectSong', item, index);
             },
+            // 显示更多
+            clickShowMore (item) {
+                // 设置是否显示更多按钮
+                this.setShowMore({
+                    start: true,
+                    currentSong: item
+                });
+            },
             // 获取当前正在播放的歌曲
-            _getCurrentSong(item) {
+            _getCurrentSong (item) {
                 if (this.getCurrentSong.id === item.id) {
                     return 'bg-color';
                 }
                 return '';
-            }
+            },
+            ...mapActions('appStore', {
+                /**
+                 * 设置是否显示更多按钮
+                 * @type {Object}
+                 */
+                setShowMore: 'showMore'
+            })
         },
         components: {
             Loading
@@ -226,6 +251,18 @@
             font-size: px2rem(42px);
             color: $more-color;
         }
+    }
+
+    /*更多列表*/
+    .more-list {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: red;
     }
 
     /*下拉加载时显示的Loading效果*/

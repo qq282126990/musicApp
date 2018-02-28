@@ -42,6 +42,14 @@ export const showSearch = function ({commit}, showSearch) {
     commit(types.SET_SHOW_SEARCH, showSearch);
 };
 
+/**
+ * 是否显示更多按钮
+ * @type {Array}
+ */
+export const showMore = function ({commit}, showMore) {
+    commit(types.SET_SHOW_MORE, showMore);
+};
+
 /** *************** 播放组件状态 ***************** **/
 /**
  * 选择播放

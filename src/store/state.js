@@ -13,9 +13,15 @@ import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList, loadSearchH
 const state = {
     /**
      * 是否显示搜索层
-     * @type {String}
+     * @type {Boolean}
      */
     showSearch: false,
+    /** *****************歌曲列表状态****************** **/
+    /**
+     * 是否显示更多按钮和信息
+     * @type {Boolean}
+     */
+    showMore: [],
     /** *****************播放器状态****************** **/
     /**
      * 歌曲播放模式

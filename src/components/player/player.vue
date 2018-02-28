@@ -177,6 +177,8 @@
                 <span>歌曲加载中请稍后...</span>
             </div>
         </transition>
+        <!--更多按钮组件-->
+        <more-button></more-button>
     </div>
 </template>
 
@@ -209,6 +211,8 @@
     import Scroll from 'base/scroll/scroll';
     // 播放歌曲进度条组件
     import ProgressBar from 'base/progress-bar/progress-bar';
+    // 更多按钮组件
+    import MoreButton from 'base/more-button/more-button';
     // 歌曲播放列表组件
     import Playlist from 'components/playlist/playlist';
 
@@ -221,7 +225,7 @@
 
     export default {
         mixins: [playerMixin],
-        data() {
+        data () {
             return {
                 /**
                  * 判断歌曲是否准备好播放了
@@ -275,7 +279,7 @@
                 promptShow: false
             };
         },
-        created() {
+        created () {
             // 用于保存手指触摸移动的坐标
             this.touch = {};
 
@@ -308,15 +312,15 @@
         },
         computed: {
             // 控制歌曲图片旋转
-            cdCls() {
+            cdCls () {
                 return this.getPlaying ? 'play' : 'play pause';
             },
             // 获取进度条进度
-            progressBar() {
+            progressBar () {
                 return this.currentTime / this.getCurrentSong.duration;
             },
             // 自动校正歌词文字
-            autoRegulateLyricTexT() {
+            autoRegulateLyricTexT () {
                 if (this.getCurrentSong.lyric || this.currentLyric) {
                     if (typeof this.currentLyric.lrc === 'string') {
                         return this.currentLyric.lrc.slice(10) === '此歌曲为没有填词的纯音乐，请您欣赏' ? '此歌曲为没有填词的纯音乐，请您欣赏' : '点击自动校正歌词';
@@ -324,7 +328,7 @@
                 }
             },
             //  计算cdWrapper宽度
-            cdWrapperWidth() {
+            cdWrapperWidth () {
                 if (window.innerWidth >= 1024) {
                     return Math.min(600, window.innerWidth - 75);
                 }
@@ -355,12 +359,17 @@
                  * 播放列表
                  * @type {Array}
                  */
-                getPlayList: 'playList'
+                getPlayList: 'playList',
+                /**
+                 * 获取显示更多按钮
+                 * @type {Object}
+                 */
+                getShowMore: 'showMore'
             })
         },
         methods: {
             // 初始化操作
-            _initSome() {
+            _initSome () {
                 // 默认显示cd
                 this.currentShow = 'cd';
                 // 设置歌词偏移的位置
@@ -395,7 +404,7 @@
                 }
             },
             // 播放器放大时执行的动画 开始
-            enter(el, done) {
+            enter (el, done) {
                 // 获取放大和缩小时播放器的位置
                 const {x, y, scale} = this._getPosAndScale();
 
@@ -425,13 +434,13 @@
                 animations.runAnimation(this.$refs.cdWrapper, 'move', done);
             },
             // 播放器放大时执行的动画 开始后
-            afterEnter() {
+            afterEnter () {
                 // 结束动画
                 animations.unregisterAnimation('move');
                 this.$refs.cdWrapper.style.animation = '';
             },
             // 播放器放大时执行的动画 离开
-            leave(el, done) {
+            leave (el, done) {
                 // 获取放大和缩小时播放器的位置
                 const {x, y, scale} = this._getPosAndScale();
 
@@ -440,13 +449,13 @@
                 this.$refs.cdWrapper.addEventListener('transitionend', done);
             },
             // 播放器放大时执行的动画 离开后
-            afterleave() {
+            afterleave () {
                 // 结束动画
                 this.$refs.cdWrapper.style.transition = '';
                 this.$refs.cdWrapper.style[transform] = '';
             },
             // 切换cd和歌词的动画 开始
-            middleTouchStart(e) {
+            middleTouchStart (e) {
                 // 设置手指触摸了的状态
                 this.touch.initiated = true;
                 // 用来判断是否是一次移动
@@ -458,7 +467,7 @@
                 this.touch.startY = touch.pageY;
             },
             // 切换cd和歌词的动画 移动中
-            middleTouchMove(e) {
+            middleTouchMove (e) {
                 // 判断手指有没有触摸有才执行下一步
                 if (!this.touch.initiated) {
                     return;
@@ -493,7 +502,7 @@
                 this.$refs.middleL.style[transitionDuration] = 0;
             },
             // 切换cd和歌词的动画 结束
-            middleTouchEnd() {
+            middleTouchEnd () {
                 if (!this.touch.moved) {
                     return;
                 }
@@ -538,7 +547,7 @@
                 this.touch.initiated = false;
             },
             // 获取当前进度条的位置设置歌曲播放时间进度
-            onPercentChange(percent) {
+            onPercentChange (percent) {
                 // 歌曲准备好播放了才能对播放器进行操作
                 if (!this.songReady) {
                     return;
@@ -562,7 +571,7 @@
                 }
             },
             // 播放器放大动画执行时调用，获取放大和缩小时播放器的位置
-            _getPosAndScale() {
+            _getPosAndScale () {
                 // 返回元素的大小及其相对于视口的位置
                 const cdWrapper = this.$refs.cdWrapper.getBoundingClientRect();
                 const miniAvatar = this.$refs.miniAvatar.getBoundingClientRect();
@@ -584,7 +593,7 @@
                 return {x, y, scale};
             },
             // 播放准备状态
-            ready() {
+            ready () {
                 clearTimeout(time);
                 // 设置歌曲播放
                 let time = setTimeout(() => {
@@ -597,7 +606,7 @@
                 this.setSavePlayHistorys(this.getCurrentSong);
             },
             // 播放器错误事件
-            error() {
+            error () {
                 console.log('播放出错了');
                 // 歌曲准备状态设置为false
                 this.songReady = false;
@@ -609,7 +618,7 @@
                 this.playErrorCounter++;
             },
             // 控制播放
-            togglePlaying() {
+            togglePlaying () {
                 // 判断是否准备好播放
 //                if (!this.songReady) {
 //                    return;
@@ -629,18 +638,18 @@
                 this.setPlaying(!this.getPlaying);
             },
             // 显示播放列表
-            showPlaylist() {
+            showPlaylist () {
                 if (!this.getPlayList.length) {
                     return;
                 }
                 this.$refs.playList.show();
             },
             // 切换到缩小的播放器
-            back() {
+            back () {
                 this.setFullScreen(false);
             },
             // 切换到放大的播放器
-            open() {
+            open () {
                 // 如果没有播放歌曲就不能点击放大播放器
                 if (this.getPlayList.length === 0 && !this.getCurrentSong.id) {
                     return;
@@ -657,7 +666,7 @@
                 this.setFullScreen(true);
             },
             // 播放上一首
-            prevPlay() {
+            prevPlay () {
                 // 判断歌曲是否准备好播放
 //                if (!this.songReady) {
 //                    return;
@@ -688,7 +697,7 @@
                 this.songReady = false;
             },
             // 播发下一首
-            nextPlay() {
+            nextPlay () {
                 // 判断歌曲是否准备好播放
 //                if (!this.songReady) {
 //                    return;
@@ -719,7 +728,7 @@
                 this.songReady = false;
             },
             // 歌曲播放完后执行
-            end() {
+            end () {
                 // 判断播放模式执行那个方法，如果是当前模式是单曲循环就执行循环播放
                 if (this.getPlayMode === isPlayMode.loop) {
                     this.loopPlay();
@@ -730,7 +739,7 @@
                 }
             },
             // 单曲循环模式执行的播放方法
-            loopPlay() {
+            loopPlay () {
                 // 重置当前播放时间
                 this.$refs.audio.currentTime = 0;
                 // 设置播放器播放
@@ -745,7 +754,7 @@
                 }
             },
             // 设置播放器播放
-            audioPlay(data) {
+            audioPlay (data) {
                 const audio = this.$refs.audio;
 
                 this.$nextTick(() => {
@@ -753,7 +762,7 @@
                 });
             },
             // 获取当前播放时间
-            updateTime(e) {
+            updateTime (e) {
                 this.currentTime = e.target.currentTime;
 
                 if (e.target.currentTime > 0) {
@@ -761,7 +770,7 @@
                 }
             },
             // 计算时间搓
-            formatTime(interval) {
+            formatTime (interval) {
                 // 向下取整 | 0 = Math.floor
                 interval = interval | 0;
                 // 分
@@ -773,7 +782,7 @@
                 return `${minute}:${second}`;
             },
             // 计算计算搓 补位两位数
-            _pad(num, n = 2) {
+            _pad (num, n = 2) {
                 // 先获取字符串的长度
                 let len = num.toString().length;
 
@@ -786,7 +795,7 @@
                 return num;
             },
             // 点击自动校正歌词
-            autoRegulateLyric() {
+            autoRegulateLyric () {
                 if (!this.getCurrentSong) {
                     return;
                 }
@@ -816,7 +825,7 @@
                 }, 1000);
             },
             // 获取歌词
-            getLyric(mid) {
+            getLyric (mid) {
                 // 设置当前没有自动校正
                 if (!this.getCurrentSong) {
                     return;
@@ -839,7 +848,7 @@
                 });
             },
             // 处理歌词方法
-            handleLyric({lineNum, txt}) {
+            handleLyric ({lineNum, txt}) {
                 if (!lineNum) {
                     return;
                 }
@@ -858,7 +867,7 @@
                 this.playingLyric = txt;
             },
             // 获取播放歌曲的播放链接
-            _getSinglePlayingUrl(strMediaMid, songmid) {
+            _getSinglePlayingUrl (strMediaMid, songmid) {
                 // 两种情况 如果请求找不到歌曲就执行以下个接口
                 // 默认播放器没有错误
                 if (strMediaMid) {
@@ -916,13 +925,13 @@
                 }
             },
             getCurrentSong (newCurrentSong) {
-              if (!newCurrentSong.id) {
-                  // 设置歌曲播放状态
-                  this.setPlaying(false);
-              }
+                if (!newCurrentSong.id) {
+                    // 设置歌曲播放状态
+                    this.setPlaying(false);
+                }
             },
             // 监听播放器播放
-            getPlaying(newPlaying) {
+            getPlaying (newPlaying) {
                 if (!this.songReady && !this.playUrl) {
                     return;
                 }
@@ -930,7 +939,7 @@
                 this.audioPlay(newPlaying);
             },
             // 监听播放器错误
-            playError(newPlayError) {
+            playError (newPlayError) {
                 // 如果播放器错误就请求备用接口
                 if (newPlayError && this.getCurrentSong.strMediaMid) {
                     // 设置歌曲播放状态
@@ -956,7 +965,7 @@
                 }
             },
             // 监听错误次数
-            playErrorCounter(newCounter) {
+            playErrorCounter (newCounter) {
                 // 歌曲链接报错2次以上请求新的歌曲播放地址
                 if (newCounter === 2) {
                     // 设置播放器播放地址
@@ -976,6 +985,7 @@
         components: {
             ProgressBar,
             Playlist,
+            MoreButton,
             Scroll
         }
     }
@@ -1026,10 +1036,10 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
-    .fade-enter, .fade-leave-to{
+
+    .fade-enter, .fade-leave-to {
         opacity: 0;
     }
-
 
     /*左右滑动wrapper*/
     .slide {
