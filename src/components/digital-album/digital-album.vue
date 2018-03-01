@@ -10,7 +10,7 @@
                         <home-slider :showDots="false">
                             <div v-for="item in getMusicDigitalAlbum.focus">
                                 <a :href="item.jumpurl">
-                                    <img :alt="item.picurl" :src="item.picurl">
+                                    <img :alt="item.picurl" v-lazy="item.picurl">
                                 </a>
                             </div>
                         </home-slider>

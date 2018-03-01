@@ -2,10 +2,11 @@ const HOT_SINGER_LEN = 10;
 const HOT_NAME = '热';
 
 export default class Singer {
-    constructor ({id, name}) {
+    constructor ({id, mid, name}) {
         this.id = id;
+        this.mid = mid;
         this.name = name;
-        this.avatar = `https://y.gtimg.cn/music/photo_new/T001R500x500M000${id}.jpg?max_age=2592000`;
+        this.avatar = `https://y.gtimg.cn/music/photo_new/T001R500x500M000${mid}.jpg?max_age=2592000`;
     }
 }
 
@@ -24,7 +25,8 @@ export function normalizeSinger (list) {
         if (index < HOT_SINGER_LEN) {
             map.hot.items.push(new Singer({
                 name: item.Fsinger_name,
-                id: item.Fsinger_mid
+                id: item.Fsinger_id,
+                mid: item.Fsinger_mid
             }));
         }
 
@@ -40,7 +42,8 @@ export function normalizeSinger (list) {
 
         map[key].items.push(new Singer({
             name: item.Fsinger_name,
-            id: item.Fsinger_mid
+            id: item.Fsinger_id,
+            mid: item.Fsinger_mid
         }));
     });
 

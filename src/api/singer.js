@@ -36,14 +36,3 @@ export function getSingerDetail (singerId) {
 
     return jsonp(url, data, options)
 }
-
-format:json
-inCharset:utf-8
-outCharset:utf-8
-notice:0
-platform:h5page
-needNewCode:1
-order:listen
-from:h5
-num:15
-begin:0

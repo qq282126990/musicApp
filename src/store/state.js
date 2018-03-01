@@ -80,7 +80,7 @@ const state = {
      */
     scrollData: null,
     /**
-     * scroll 要不要监听滚动事件
+     * 设置scroll组件要不要监听滚动事件
      * @type {Boolean}
      */
     listenScroll: false,

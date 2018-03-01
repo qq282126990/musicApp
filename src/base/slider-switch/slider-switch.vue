@@ -9,6 +9,7 @@
             <!--标题名称-->
             <div class="title">
                 <span class="name"
+                      :class="{active: currentPageIndex === index}"
                       v-for="(item,index) in dotsTitle"
                 >{{item.name}}</span>
             </div>
@@ -193,6 +194,9 @@
                     font-size: px2rem(28px);
                     color: $slider-switch-name-color;
                 }
+                .active {
+                    color: $dots-bg;
+                }
             }
             /*dots*/
             .dots-wrapper {
@@ -219,7 +223,7 @@
         /*内容*/
         .slider-switch-group {
             position: relative;
-            padding-top: px2rem(100px);
+            padding-top: px2rem(80px);
             padding-bottom: px2rem(120px);
             overflow: hidden;
             .slider-switch-item {

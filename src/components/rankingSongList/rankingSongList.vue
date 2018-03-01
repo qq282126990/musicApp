@@ -15,6 +15,8 @@
                     <!--时间-->
                     <p class="bg-image-time">{{`${rankingUpdate}更新`}}</p>
                 </div>
+                <!--背景滤镜效果-->
+                <div class="filter"></div>
                 <!--内容-->
                 <div class="ranking-content">
                     <slider-switch :dotsTitle="dotsTitle"
@@ -166,9 +168,9 @@
                 this.$router.back();
             },
             /*
-           * 监听左右滑动的页数
-           * @param {Number}
-           * */
+             * 监听左右滑动的页数
+             * @param {Number}
+             * */
             pageIndex (index) {
                 // 获取当前显示的页数
                 this.newPageIndex = index;
@@ -275,6 +277,21 @@
     .scroll-wrapper {
         height: 100%;
         overflow: hidden;
+    }
+
+    /*过滤层*/
+    .filter {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 70%;
+        width: 100%;
+        height: 0;
+        opacity: .6;
+        object-fit: cover;
+        filter: blur(px2rem(72px));
+        background: #fff;
+        z-index: 0;
     }
 
     .ranking-song-list {

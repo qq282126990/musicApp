@@ -12,9 +12,9 @@ export default class SongList {
         this.url = url;
         this.spare = spare;
         this.vid = vid;
-        this.isonly = isonly;
-        this.download = download;
-        this.downloadSpare = downloadSpare;
+        this.isonly = isonly
+        this.download = download
+        this.downloadSpare = downloadSpare
     };
 };
 
@@ -73,9 +73,9 @@ export function createSongList (musicData) {
             // 第4个备用接口
             spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // 下载地址
-            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
             // 下载备用地址
-            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
             // MV id
             vid: musicData.vid,
             // 是否是独家
@@ -200,7 +200,6 @@ export function normalizeRankSongList (list, playingUrl) {
 
     return ret;
 }
-
 
 /**
  * 对歌手歌曲数据做处理

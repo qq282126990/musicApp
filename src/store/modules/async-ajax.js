@@ -9,8 +9,7 @@ import {getSongSingle, saveInitNewSongList} from 'common/js/cache';
 // 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
 import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
 // 对歌曲列表数据做处理 normalizeSongList
-// 对歌手歌曲数据做处理 normalizeSingerSongList
-import {normalizeSongList, normalizeSingerSongList} from 'common/js/songList';
+import {normalizeSongList} from 'common/js/songList';
 // 自定义歌手数据
 import {normalizeSinger} from 'common/js/singer';
 // 请求主页数据 getHomeMessage
@@ -458,7 +457,7 @@ let actions = {
     async getSingerDetail ({commit}, param) {
         let res = await getSingerDetail(param);
         if (res.code === ERR_OK) {
-            commit(types.SET_SINGGER_DETAIL, normalizeSingerSongList(res.data.list));
+            commit(types.SET_SINGGER_DETAIL, res.data);
         }
         else {
             // 错误处理
