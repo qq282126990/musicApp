@@ -30,6 +30,8 @@ import Ranking from 'components/ranking/ranking.vue';
 import RankingSongList from 'components/rankingSongList/rankingSongList.vue';
 // 歌手组件
 import Singer from 'components/singer/singer.vue';
+// 歌手专辑组件
+import SingerDetail from 'components/singer-detail/singer-detail.vue';
 
 export default {
     routes: [
@@ -55,6 +57,12 @@ export default {
             path: '/home/singer',
             name: 'singer',
             component: Singer
+        },
+        // 歌手专辑模块
+        {
+            path: '/home/singer/:id',
+            name: 'singerDetail',
+            component: SingerDetail
         },
         // 排行榜模块
         {

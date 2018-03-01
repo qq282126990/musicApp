@@ -201,7 +201,8 @@
     import {getCookie} from 'common/js/cookie';
     // 播放器mixin
     import {playerMixin} from 'common/js/mixin';
-    // 获取歌曲播放链接 getSinglePlayingUrl 获取歌词 getLyric
+    // 获取歌曲播放链接 getSinglePlayingUrl
+    // 获取歌词 getLyric
     import {getSinglePlayingUrl, getLyric} from 'api/songListPlayUrl';
     import {ERR_OK} from 'api/config';
     // 设置歌曲信息总线程

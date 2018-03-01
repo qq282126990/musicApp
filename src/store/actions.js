@@ -392,3 +392,9 @@ export const rankingId = function ({commit}, data) {
     commit(types.SET_RANKING_ID, data);
 }
 /********************************************/
+
+/** *****************歌手组件的状态*********************** **/
+export const singerMessage = function ({commit}, singerMessage) {
+    commit(types.SET_SINGGER_Message, singerMessage);
+}
+/********************************************/

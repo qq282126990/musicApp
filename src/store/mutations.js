@@ -174,7 +174,16 @@ const mutations = {
      */
      [types.SET_RANKING_ID](state, data) {
         state.rankingId = data
-     }
+     },
+    /*********************************************************/
+    /** *************歌手组件状态********************** **/
+    /**
+     * 歌手信息
+     * @type {Object}
+     */
+        [types.SET_SINGGER_Message](state, singerMessage) {
+        state.singerMessage = singerMessage
+    }
     /*********************************************************/
 };
 

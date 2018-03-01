@@ -44,3 +44,8 @@ export const rankingSongList = state => state.rankingSongList;
 // 获取搜索历史
 export const showMore = state => state.showMore;
 /***************/
+
+/** 歌手组件状态 **/
+// 获取歌手信息
+export const singerMessage = state => state.singerMessage;
+/***************/

@@ -49,10 +49,16 @@ export function computedPlayNumber (playNumber) {
  * @param  {String} url 目标文件地址
  * @param  {String} filename 想要保存的文件名称
  */
-export function downloadFile (url, filename) {
-    getBlob(url).then(blob => {
-        saveAs(blob, filename);
-    });
+export function downloadFile (downloadUrl, filename) {
+    var saveLink = document.createElement( 'a');
+    saveLink.href = downloadUrl;
+    saveLink.download = filename;
+    saveLink.click();
+
+
+    // let blob = new Blob([downloadUrl], {type: 'audio/mpeg'});
+    //
+    // saveAs(blob, filename);
 }
 
 /**

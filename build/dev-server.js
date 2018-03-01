@@ -268,6 +268,34 @@ apiRoutes.get('/sortSongData', function (req, res) {
     });
 });
 
+
+// 获取歌曲列表的单个播放地址
+apiRoutes.get('/getSongDownloadUrl', function (req, res) {
+
+    var url = 'http://isure.stream.qqmusic.qq.com/';
+
+    axios.get(url, {
+        responseType: 'blob',
+        headers: {
+            referer: 'http://isure.stream.qqmusic.qq.com/',
+            host: 'isure.stream.qqmusic.qq.com'
+        },
+        params: req.query
+    }).then((response) => {
+        var ret = response.data;
+        if (typeof ret === 'string') {
+            var reg = /^\w+\(({[^()]+})\)$/;
+            var matches = ret.match(reg);
+            if (matches) {
+                ret = JSON.parse(matches[1]);
+            }
+            res.json(ret);
+        }
+    }).catch((e) => {
+        console.log(e);
+    });
+});
+
 app.use('/api', apiRoutes);
 
 // 代理请求

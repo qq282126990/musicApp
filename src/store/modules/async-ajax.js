@@ -8,8 +8,9 @@ import {getSongSingle, saveInitNewSongList} from 'common/js/cache';
 // 自定义首页新歌速递导航数据 createHomeNewSongSpeed
 // 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
 import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
-// 对歌曲列表数据做处理
-import {normalizeSongList} from 'common/js/songList';
+// 对歌曲列表数据做处理 normalizeSongList
+// 对歌手歌曲数据做处理 normalizeSingerSongList
+import {normalizeSongList, normalizeSingerSongList} from 'common/js/songList';
 // 自定义歌手数据
 import {normalizeSinger} from 'common/js/singer';
 // 请求主页数据 getHomeMessage
@@ -47,7 +48,8 @@ import {getSearchHot} from 'api/search';
 // 获取排行榜歌曲数据接口 getRankingSongList
 import {getRankingList, getRankingSongList} from 'api/rank'
 // 获取歌手列表接口 getSingerList
-import {getSingerList} from 'api/singer'
+// 获取歌手歌曲列表请求 getSingerDetail
+import {getSingerList, getSingerDetail} from 'api/singer'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -147,7 +149,12 @@ let state = {
      * 获取歌手数据列表
      * @type {Array}
      * */
-    singerList: []
+    singerList: [],
+    /*
+    * 获取歌手歌曲数据列表
+    * @type {Array}
+    * */
+    singerDetail: []
 };
 
 let actions = {
@@ -445,6 +452,19 @@ let actions = {
         }
     },
     /**
+     * 获取歌手歌曲列表接口
+     * @param {Function} commit
+     */
+    async getSingerDetail ({commit}, param) {
+        let res = await getSingerDetail(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_SINGGER_DETAIL, normalizeSingerSongList(res.data.list));
+        }
+        else {
+            // 错误处理
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -583,6 +603,10 @@ let mutations = {
     // 获取歌手列表接口
     [types.SET_SINGGER_LIST] (state, singerList) {
         state.singerList = singerList;
+    },
+    // 获取歌手列表接口
+    [types.SET_SINGGER_DETAIL] (state, singerDetail) {
+        state.singerDetail = singerDetail;
     }
 };
 
