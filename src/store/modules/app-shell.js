@@ -9,24 +9,28 @@ let state = {
 
     /**
      * 是否需要页面切换动画
+     *
      * @type {boolean}
      */
     needPageTransition: true,
 
     /**
      * 多个页面是否处于切换中
+     *
      * @type {boolean}
      */
     isPageSwitching: false,
 
     /**
      * 多个页面切换效果名称
+     *
      * @type {string}
      */
     pageTransitionName: '',
 
     /**
      * 上个页面 scroll 的信息
+     *
      * @type {Object}
      */
     historyPageScrollTop: {}
@@ -36,16 +40,16 @@ let actions = {
 
     /**
      * 开启页面切换动画
+     *
      * @param {Function} commit commit
      */
     enablePageTransition({commit}) {
         commit(types.ENABLE_PAGE_TRANSITION, true);
     },
-    homeSonglist({commit}, homeSonglist) {
-        commit(types.SET_HOME_SONG_LIST, homeSonglist);
-    },
+
     /**
      * 关闭页面切换动画
+     *
      * @param {Function} commit commit
      */
     disablePageTransition({commit}) {
@@ -54,6 +58,7 @@ let actions = {
 
     /**
      * 设置页面是否处于切换中
+     *
      * @param {Function} commit commit
      * @param {boolean} isPageSwitching isPageSwitching
      */
@@ -63,18 +68,13 @@ let actions = {
 
     /**
      * 保存页面 scroll 高度
+     *
      * @param {[type]} options.commit [description]
      * @param {string} options.path path
      * @param {number} options.scrollTop scrollTop
      */
     saveScrollTop({commit}, {path, scrollTop}) {
         commit(types.SAVE_SCROLLTOP, {path, scrollTop});
-    },
-    /**
-     * 设置动画名称
-     */
-    setPageTransitionName({commit}, {pageTransitionName}) {
-        commit(types.SET_PAGE_TRANSITION_NAME, {pageTransitionName});
     }
 };
 
@@ -87,12 +87,6 @@ let mutations = {
     },
     [types.SAVE_SCROLLTOP](state, {path, scrollTop}) {
         state.historyPageScrollTop[path] = scrollTop;
-    },
-    [types.DISABLE_PAGE_TRANSITION](state, flg) {
-        state.needPageTransition = flg;
-    },
-    [types.ENABLE_PAGE_TRANSITION](state, flg) {
-        state.needPageTransition = flg;
     }
 };
 
@@ -107,6 +101,7 @@ export default {
 
         /**
          * 顶部导航栏的数据
+         *
          * @type {Object}
          */
         appHeader: {
@@ -115,41 +110,49 @@ export default {
 
                 /**
                  * 是否展示顶部导航栏
+                 *
                  * @type {boolean}
                  */
-                show: true,
+                show: false,
 
                 /**
                  * 标题内容
+                 *
                  * @type {string}
                  */
                 title: '',
+
                 /**
                  * logo图标名称
+                 *
                  * @type {string}
                  */
                 logoIcon: '',
 
                 /**
                  * 是否展示左侧菜单图标
+                 *
                  * @type {boolean}
                  */
                 showMenu: true,
 
                 /**
                  * 是否展示左侧返回图标
+                 *
                  * @type {boolean}
                  */
                 showBack: false,
 
                 /**
                  * 是否展示左侧logo
+                 *
                  * @type {boolean}
                  */
                 showLogo: true,
 
                 /**
                  * 右侧操作按钮数组
+                 *
                  * @type {Array}
                  */
                 actions: []
@@ -158,6 +161,7 @@ export default {
 
                 /**
                  * 设置顶部导航条
+                 *
                  * @param {Function} commit commit
                  * @param {Object} appHeader appHeader
                  */
@@ -167,19 +171,21 @@ export default {
             },
             mutations: {
                 [types.SET_APP_HEADER](state, appHeader) {
-                    state = Object.assign(state, appHeader);
+                    state.appHeader = Object.assign(state, appHeader);
                 }
             }
         },
 
         /**
          * 左侧侧边栏的数据
+         *
          * @type {Object}
          */
         appSidebar: {
             namespaced: true,
             state: {
                 show: false, // 是否显示sidebar
+                slideFrom: 'left', // 划出的方向
 
                 // 头部条的相关配置
                 title: {
@@ -194,6 +200,12 @@ export default {
                     iconRight: ''
                 },
 
+                // 最大宽度，可以是百分比，也可以以px为单位
+                width: 0.75,
+
+                // 滑动距离展示阈值
+                showWidthThreshold: 0.25,
+
                 // 分块组
                 blocks: [
                     {
@@ -201,13 +213,17 @@ export default {
                         sublistTitle: 'Sublist1',
                         list: [
                             {
-                                text: 'Detail Page 1'
+                                text: 'Detail Page 1',
+                                icon: 'sentiment_satisfied',
                             },
                             {
-                                text: 'Detail Page 2'
+                                text: 'Detail Page 2',
+                                alt: 'mood-bad',
+                                route: '/detail/2'
                             },
                             {
-                                text: 'Detail Page 3'
+                                text: 'Detail Page 3',
+                                route: '/detail/3'
                             }
                         ]
                     }
@@ -217,6 +233,7 @@ export default {
 
                 /**
                  * 展示侧边栏
+                 *
                  * @param {Function} commit commit
                  */
                 showSidebar({commit}) {
@@ -225,6 +242,7 @@ export default {
 
                 /**
                  * 隐藏侧边栏
+                 *
                  * @param {Function} commit commit
                  */
                 hideSidebar({commit}) {

@@ -2,10 +2,10 @@ import jsonp from 'common/js/jsonp';
 import {commonParams, options} from 'api/config';
 
 /*
-* 精选电台歌曲接口
+* 普通电台歌曲接口
 * @param id 电台id
 * */
-export function getFeaturedRadio(param) {
+export function getOrdinaryFeaturedRadio(param) {
     const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
 
     const stringData = {

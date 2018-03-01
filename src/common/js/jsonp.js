@@ -6,7 +6,6 @@ export default function jsonp(url, data, option) {
     // 返回请求
     return new Promise((resolve, reject) => {
         originJsonp(url, option, (error, data) => {
-
             if (!error) {
                 resolve(data);
             }

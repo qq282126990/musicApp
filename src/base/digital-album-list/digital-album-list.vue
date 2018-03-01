@@ -2,7 +2,7 @@
     <div>
         <div v-for="item in albumList" v-show="item.data.length > 0 && item.title !== '专题栏目'">
             <!--标题-->
-            <h2 class="title">
+            <h2 class="album-title">
                 <span class="txt">{{item.title === '热门推荐' ? '最新上架' : item.title}}</span>
                 <i class="iconfont icon-prev_arrow-copy"></i>
             </h2>
@@ -29,7 +29,7 @@
         <!--专题栏目-->
         <div class="special-topic" v-for="item in albumList" v-show="item.data.length > 0 && item.title === '专题栏目'">
             <!--标题-->
-            <h2 class="title">
+            <h2 class="special-topic-title">
                 <span class="txt">{{item.title}}</span>
                 <i class="iconfont icon-prev_arrow-copy"></i>
             </h2>
@@ -94,11 +94,11 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     /*标题*/
-    .title {
+    .album-title {
         position: relative;
         display: block;
         height: px2rem(110px);
@@ -107,16 +107,19 @@
         overflow: hidden;
         text-align: center;
         .txt {
+            display: inline-block;
             margin-left: px2rem(10px);
             overflow: hidden;
             line-height: 1.2;
             white-space: nowrap;
+            text-overflow: ellipsis;
             letter-spacing: 5px;
             font-size: px2rem(36px);
+            max-width: 90%;
         }
         .iconfont {
             position: absolute;
-            top: px2rem(6px);
+            top: 0;
             right: 0;
             line-height: px2rem(110px);
             margin-right: px2rem(40px);
@@ -211,7 +214,7 @@
     /*专题栏目*/
     .special-topic {
         /*标题*/
-        .title {
+        .special-topic-title {
             position: relative;
             display: block;
             height: px2rem(110px);

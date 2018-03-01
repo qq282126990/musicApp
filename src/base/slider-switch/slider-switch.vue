@@ -9,13 +9,14 @@
             <!--标题名称-->
             <div class="title">
                 <span class="name"
+                      :class="{active: currentPageIndex === index}"
                       v-for="(item,index) in dotsTitle"
-                      >{{item.categoryName}}</span>
+                >{{item.name}}</span>
             </div>
             <!--dots-->
             <div class="dots-wrapper">
-                <div class="dots" :style="{transform: `translate3d(${dotsScrollX}px, 0, 0)`}" ref="dots">
-                    <span class="icon active"></span>
+                <div class="dots" ref="dots">
+                    <span class="icon" v-for="(item,index) in dots" :class="{active: currentPageIndex === index}"></span>
                 </div>
             </div>
         </div>
@@ -49,7 +50,7 @@
                 default: true
             }
         },
-        data () {
+        data() {
             return {
                 // 原点数量
                 dots: [],
@@ -59,13 +60,13 @@
                 dotsScrollX: 0
             };
         },
-        mounted () {
+        mounted() {
             // 更新数据
             this.update();
         },
         methods: {
             // 更新数据
-            update () {
+            update() {
                 if (this.sliderSwitch) {
                     // 销毁 better-scroll，解绑事件
                     this.sliderSwitch.destroy();
@@ -76,11 +77,9 @@
                 });
             },
             // 初始化方法
-            init () {
-
+            init() {
                 // 设置当前页数为0
                 this.currentPageIndex = 0;
-
                 // 设置滑动的宽度
                 this._setSliderSwitchWidth();
                 // 初始化滑动
@@ -89,15 +88,13 @@
                 this._initDots();
             },
             // 设置滑动的宽度
-            _setSliderSwitchWidth () {
+            _setSliderSwitchWidth() {
                 // 获取所有图片
                 this.children = this.$refs.sliderSwitchGroup.children;
-
                 // 初始化宽度
                 let width = 0;
                 // 初始化当前的宽度为当前视图宽度
                 let sliderSwitchWidth = this.$refs.sliderSwitch.clientWidth;
-
                 // 循环滑动内容
                 for (let i = 0; i < this.children.length; i++) {
                     // 获取每个滑动内容
@@ -109,20 +106,20 @@
                     // 设置每个轮播图的宽度
                     width += sliderSwitchWidth;
                 }
-
                 // 设置整个滑动区域的宽度
                 this.$refs.sliderSwitchGroup.style.width = width + 'px';
             },
             // 初始化滑动
-            _initSliderSwitch () {
+            _initSliderSwitch() {
                 this.sliderSwitch = new BScroll(this.$refs.sliderSwitch, {
                     // 开启向左滑动
                     scrollX: true,
+                    scrollY: false,
                     momentum: false,
                     // 禁用回弹效果
                     bounce: false,
                     // Bscroll 类型为3
-                    probeType: 3,
+                    probeType: 1,
                     snap: {
                         // 是否循环播放
                         loop: this.loop,
@@ -132,35 +129,37 @@
                     // 设置可以点击
                     click: this.click
                 });
-
                 // 向外层派发滚动事件
                 this.sliderSwitch.on('scroll', (pos) => {
                     // 判断向左向右滑动 -1 向右 1 向左
                     let movingDirectionX = this.sliderSwitch.movingDirectionX;
-
                     // 设置dots 滑动的距离
                     this.dotsScrollX = Math.abs(pos.x / 5);
-
                     // 发送滚动事件
                     this.$emit('scroll', pos, movingDirectionX);
                 });
-
                 // 滑动结束触发的事件
                 this.sliderSwitch.on('scrollEnd', this._onScrollEnd);
             },
             // 滑动结束事件
-            _onScrollEnd () {
+            _onScrollEnd() {
                 // 获取页面的数量
                 let pageIndex = this.sliderSwitch.getCurrentPage().pageX;
-
                 // 当前的页面的数量
                 this.currentPageIndex = pageIndex;
+
+                if (this.currentPageIndex > 0) {
+                    this.$refs.sliderSwitchGroup.style.height = this.$refs.sliderSwitchGroup.children[1].clientHeight + 'px'
+                }
+                else if (this.currentPageIndex === 0) {
+                    this.$refs.sliderSwitchGroup.style.height = this.$refs.sliderSwitchGroup.children[0].clientHeight + 'px'
+                }
 
                 // 发送当前的页数
                 this.$emit('pageIndex', this.currentPageIndex);
             },
             // 初始化dots
-            _initDots () {
+            _initDots() {
                 this.dots = this.$refs.sliderSwitchGroup.children.length;
             }
         }
@@ -168,8 +167,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/variables";
-    @import "../../common/sass/remAdaptive";
+    @import "../../assets/sass/variables";
+    @import "../../assets/sass/remAdaptive";
 
     .slider-switch {
         position: relative;
@@ -191,37 +190,41 @@
                 height: px2rem(40px);
                 .name {
                     line-height: px2rem(40px);
-                    flex-basis: 20%;
+                    flex: 1;
                     font-size: px2rem(28px);
                     color: $slider-switch-name-color;
+                }
+                .active {
+                    color: $dots-bg;
                 }
             }
             /*dots*/
             .dots-wrapper {
                 display: flex;
-                height: px2rem(40px);
                 background: $slider-switch-dots-bg;
+                border-bottom: px2rem(1px) solid #999;
                 .dots {
                     line-height: px2rem(40px);
-                    flex-basis: 20%;
+                    display: flex;
+                    width: 100%;
                     .icon {
+                        flex: 0 0 px2rem(90px);
                         margin: px2rem(15px) auto 0 auto;
                         display: block;
                         width: px2rem(40px);
-                        height: px2rem(6px);
+                        height: px2rem(8px);
                     }
                     .active {
                         background: $dots-bg;
                     }
                 }
-
             }
         }
         /*内容*/
         .slider-switch-group {
             position: relative;
-            padding-top: px2rem(100px);
-            padding-bottom: px2rem(200px);
+            padding-top: px2rem(80px);
+            padding-bottom: px2rem(120px);
             overflow: hidden;
             .slider-switch-item {
                 position: relative;

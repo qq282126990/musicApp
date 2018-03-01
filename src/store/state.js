@@ -1,40 +1,65 @@
 import {isPlayMode} from 'common/js/config';
-import {loadFavorite} from 'common/js/cache';
+// 加载所有的收藏歌曲 loadFavorite
+// 获取当前播放的歌曲信息 getPlayList
+// 获取当前播放索引 getCurrentIndex
+// 获取顺序播放列表 getSequenceList
+// 获取搜索历史 loadSearchHistory
+// 获取播放历史 loadPlayHistory
+import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList, loadSearchHistory, loadPlayHistory} from 'common/js/cache';
 
 /**
  * 状态管理
  */
 const state = {
     /**
-     * 主页 选择的的歌曲列表
-     * @type {Object}
-     */
-    homeSonglist: {},
-    /**
-     * 设置遮罩层显示隐藏
+     * 是否显示搜索层
      * @type {Boolean}
      */
-    maskLayer: false,
+    showSearch: false,
+    /** *****************歌曲列表状态****************** **/
     /**
-     * 歌曲列表接口一次请求的页数 一次 +15
-     * @type {Number}
+     * 是否显示更多按钮和信息
+     * @type {Boolean}
      */
-    songBegin: 0,
+    showMore: [],
+    /** *****************播放器状态****************** **/
     /**
-     * 歌曲列表信息
-     * @type {Object}
+     * 歌曲播放模式
+     * @type {String}
      */
-    songListMessage: {},
+    playMode: isPlayMode.sequence,
     /**
-     * 歌曲列表
+     * 顺序播放列表
      * @type {Array}
      */
-    songList: [],
+    sequenceList: getSequenceList(),
+    /**
+     * 获取当前收藏列表
+     * @type {Array}
+     */
+    favoriteList: loadFavorite(),
+    /**
+     * 播放列表
+     * @type {Array}
+     */
+    playList: getPlayList(),
+    /**
+     * 当前播放索引
+     * @type {Number}
+     */
+    currentIndex: getCurrentIndex(),
+    /**
+     * 控制歌曲播放
+     * @type {Boolean}
+     */
+    playing: false,
     /*
-    * 新歌速递模块点击内容标题
-    * @type {String}
-    * */
-    newSongListTitle: null,
+     * 控制播发器放大缩小
+     * @type {Boolean}
+     * */
+    fullScreen: false,
+    // 播放历史 读取缓存的初始值
+    playHistory: loadPlayHistory(),
     /** *****************滚动组件状态****************** **/
     /**
      * 滚动的状态
@@ -50,12 +75,12 @@ const state = {
      */
     click: true,
     /**
-     * 外部传入的数据
+     * 滚动组件外部传入的数据
      * @type {Array}
      */
-    data: null,
+    scrollData: null,
     /**
-     * scroll 要不要监听滚动事件
+     * 设置scroll组件要不要监听滚动事件
      * @type {Boolean}
      */
     listenScroll: false,
@@ -64,6 +89,11 @@ const state = {
      * @type {Boolean}
      */
     pullup: false,
+    /*
+     * 设置是否开启上拉加载
+     * @type {Boolean}
+     * */
+    pullUpLoad: false,
     /**
      * 开始滚动
      * @type {Boolean}
@@ -78,50 +108,34 @@ const state = {
      * 是否开启回弹效果
      * @type {Boolean}
      */
-    bounce: true,
+    bounce: false,
     /**
      * 回弹时间
      * @type {Number}
      */
     bounceTime: 300,
     /*********************************************/
-    /** *****************播放组件状态************************** **/
-    /**
-     * 歌曲播放模式
-     * @type {String}
-     */
-    playMode: isPlayMode.sequence,
+    /** *****************搜索框组件状态****************** **/
     /*
-     * 控制播发器放大缩小
-     * @type {Boolean}
+    * 获取搜索历史
+    * @type {Array}
+    * */
+    searchHistory: loadSearchHistory(),
+    /*********************************************/
+    /** *****************排行榜组件状态****************** **/
+    /*
+     * 排行榜歌单Id
+     * @type {Array}
      * */
-    fullScreen: false,
-    /**
-     * 控制歌曲播放
-     * @type {Boolean}
-     */
-    playing: false,
-    /**
-     * 播放列表
+    rankingId: {},
+    /*********************************************/
+    /** *****************歌手组件状态****************** **/
+    /*
+     * 歌手信息
      * @type {Array}
-     */
-    playList: [],
-    /**
-     * 顺序播放列表
-     * @type {Array}
-     */
-    sequenceList: [],
-    /**
-     * 当前播放索引
-     * @type {Number}
-     */
-    currentIndex: -1,
-    /**
-     * 获取当前收藏列表
-     * @type {Array}
-     */
-    favoriteList: loadFavorite()
-    /****************************************/
+     * */
+    singerMessage: {}
+    /*********************************************/
 };
 
 export default state;

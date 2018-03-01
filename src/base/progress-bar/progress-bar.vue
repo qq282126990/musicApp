@@ -95,6 +95,10 @@
                 // 偏移的位置
                 const percent = this.$refs.progress.clientWidth / barWidth;
 
+                if (!percent) {
+                    return;
+                }
+
                 // 派发当前进度条的百分比事件
                 this.$emit('percentChange', percent);
             }
@@ -116,8 +120,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     /*外层*/
     .progress-bar {

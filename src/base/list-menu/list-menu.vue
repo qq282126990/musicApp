@@ -1,118 +1,151 @@
 <template>
     <div>
-        <div v-for="items in List" v-show="List">
-            <ul v-show="items.recommend">
-                <li v-for="(recommend, index) in items.recommend" :key="recommend.name">
-                    <div class="list-title" @click="clickTitle(recommend.title)">
-                        <h1 class="name">{{recommend.name}}</h1>
-                        <i class="iconfont icon-prev_arrow-copy"></i>
+        <div v-show="items.listData" v-for="items in listMenu">
+            <div v-for="(listData, index) in items.listData" :key="listData.name">
+                <div class="list-title" @click="clickListTitle(listData.title)">
+                    <h1 class="name">{{listData.name}}</h1>
+                    <i class="iconfont icon-prev_arrow-copy"></i>
+                </div>
+                <transition-group tag="ul" name="fade" class="list-data" v-if="listData.data">
+                    <li class="data-li"
+                        v-for="(data, index) in listData.data"
+                        :key="index"
+                        v-show="showLi"
+                        @click="selectSongSingle(data)">
+                        <img class="data-mark"
+                             :alt="data.edge_mark"
+                             :src="data.edge_mark"
+                             v-show="data.edge_mark"/>
+                        <img class="data-cover"
+                             :alt="data.cover"
+                             v-lazy="data.cover"/>
+                        <!--播放量-->
+                        <div class="play-number-wrapper">
+                            <!--播放量数字-->
+                            <div class="play-number">
+                                <i class="iconfont icon-erji"></i>
+                                <span class="number">{{computedPlayNumber(data.listen_num)}}</span>
+                            </div>
+                            <!--播放按钮-->
+                            <v-icon class="play">play_circle_outline</v-icon>
+                        </div>
+                        <!--歌单标题-->
+                        <div class="data-title">
+                            <span class="title-span" v-html="data.title"></span>
+                        </div>
+                    </li>
+                </transition-group>
+                <!--加载图-->
+                <ul class="list-data" v-else>
+                    <li class="data-li" v-for="item in loadingImg">
+                        <img class="data-cover"
+                             alt="default"
+                             src="../../../static/img/default.jpg"/>
+                        <div class="data-title">
+                            <hr>
+                            <hr width="50%" align="left">
+                        </div>
+                    </li>
+                </ul>
+                <!--换一批-->
+                <div class="replace-data" v-show="listMenu[0].listData[0].title === 'homeRecommend'">
+                    <div class="replace-button" @click="clickReplaceData">
+                        <v-icon class="icon">cached</v-icon>
+                        <p class="name">换一批</p>
                     </div>
-                    <ul class="list-data" v-if="recommend.data.length">
-                        <li v-for="(data, index) in recommend.data" :key="index"
-                            @click="selectItem(data, bigTitle[index])">
-                            <img class="mark"
-                                 :alt="data.edge_mark"
-                                 :src="data.edge_mark"
-                                 v-show="data.edge_mark"/>
-                            <img class="cover"
-                                 :alt="data.cover"
-                                 v-lazy="data.cover"/>
-                            <div class="title">
-                                <span class="bigTitle" v-show="data.status">{{bigTitle[index]}}</span>
-                                <span v-html="data.title"></span>
-                            </div>
-                        </li>
-                    </ul>
-                    <!--加载图-->
-                    <ul class="list-data" v-if="_showLondImg">
-                        <li v-for="item in loadingImg">
-                            <img class="cover"
-                                 alt="default"
-                                 src="../../../static/img/default.jpg"/>
-                            <div class="title">
-                                <hr>
-                                <hr width="50%" align="left">
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
-        <mask-layer></mask-layer>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions} from 'vuex';
-    import maskLayer from '../mask-layer/mask-layer';
+    import {mapState,mapActions} from 'vuex';
 
     export default {
         props: {
-            List: {
+            listMenu: {
                 type: Array,
                 default: null
             }
         },
         data() {
             return {
-                showLondImg: false, // 是否显示图片 loading
-                loadingImg: [0, 1, 2, 3, 4, 5], // 加载图数量
-                bigTitle: ['新歌', '数字专辑', '新碟'] // 新歌速递组件 大标题
+                /*
+                * 加载图数量
+                * @type {Number}
+                * */
+                loadingImg: [0, 1, 2, 3, 4, 5],
+                /*
+                * 设置是否显示列表
+                * @type {Boolean}
+                * */
+                showLi: true
             };
         },
-        created() {
-            // 初始化时隐藏遮罩层
-            this.maskLayer(false);
-        },
         computed: {
-            // 判断显示 图片 loading
-            _showLondImg() {
-                if (!this.List[0].recommend[0].data.length || !this.List[0].recommend[0].data[0].edge_mark) {
-                    this.showLondImg = true;
-                }
-                else {
-                    this.showLondImg = false;
-                }
-                return this.showLondImg;
-            }
+            ...mapState('asyncAjax', {
+                getHomeRecommend: 'homeRecommend'
+            })
         },
         methods: {
             // 标题点击事件
-            clickTitle(data) {
-                this.$emit('clickTitle', data);
-                // 显示遮罩层
-                this.maskLayer(true);
+            clickListTitle(data) {
+                this.$emit('clickListTitle', data);
             },
-            // 派发点击事件
-            selectItem(item, bigTitle) {
-                if (this.List) {
-                    this.$emit('select', item, bigTitle);
-                    // 显示遮罩层
-                    this.maskLayer(true);
+            // 计算播放量
+            computedPlayNumber(playNumber) {
+                // 如果当前播放量是1万才进行计算
+                if (playNumber > 1e4) {
+                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+                }
+                return playNumber;
+            },
+            // 选择歌单派发点击事件
+            selectSongSingle(item) {
+                if (this.listMenu) {
+                    this.$emit('selectSongSingle', item);
                 }
             },
-            ...mapActions('appStore', [
-                'maskLayer'
-            ])
+            // 点击换一批按钮更换数据
+            clickReplaceData() {
+                // 设置随机数据
+                let random = Math.floor(Math.random() * 10);
+
+                // 请求刷新歌单推荐数据
+                this.setReplaceHomeRecomPlaylist(random);
+            },
+            ...mapActions('asyncAjax', {
+                // 请求刷新歌单推荐数据
+                setReplaceHomeRecomPlaylist: 'getReplaceHomeRecomPlaylist'
+            })
         },
-        // 组件激活时隐藏遮罩层
-        activated() {
-            this.maskLayer(false);
-        },
-        // 组件销毁时显示遮罩层
-        destroyed() {
-            this.maskLayer(true);
-        },
-        components: {
-            maskLayer
+        watch: {
+            getHomeRecommend (newData) {
+                if (!newData) {
+                    return;
+                }
+                this.showLi = false;
+                setTimeout(() => {
+                    this.showLi = true;
+                }, 500);
+            }
         }
     };
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/variables";
-    @import "../../common/sass/remAdaptive";
+    @import "../../assets/sass/variables";
+    @import "../../assets/sass/remAdaptive";
 
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-leave-to{
+        opacity: 0;
+    }
+
+    /*列表外层*/
     .list-title {
         position: relative;
         display: flex;
@@ -123,6 +156,7 @@
         line-height: px2rem(80px);
         height: px2rem(80px);
         color: $list-title;
+        /*大标题*/
         .name {
             flex: 1;
             display: inline-block;
@@ -130,81 +164,151 @@
             margin: 0;
             letter-spacing: 5px;
             line-height: px2rem(80px);
-            /*float: left;*/
             font-size: px2rem(32px);
         }
+        /*icon*/
         .iconfont {
             position: absolute;
             right: 0;
-            /*text-align: right;*/
-            /*float: right;*/
             font-size: px2rem(40px);
             color: #999;
         }
     }
 
-    ul {
-        padding: 0;
+    /*歌单导航数据*/
+    .list-data {
+        padding: 0 5px;
         display: flex;
         flex-wrap: wrap;
         min-height: px2rem(330px);
+        .data-li {
+            flex: 1;
+            flex-basis: 30%;
+            width: 30%;
+        }
+        .data-li:nth-child(3n + 2) {
+            margin: 0 px2rem(5px);
+        }
+        /*播放量*/
+        .play-number-wrapper {
+            position: relative;
+            margin-top: px2rem(-56px);
+            padding: 0 px2rem(10px);
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-end;
+            width: 100%;
+            height: px2rem(50px);
+            color: $title-color;
+            background: $play-number-bgcolor;
+            z-index: 2;
+            /*播放量数字*/
+            .play-number {
+                display: flex;
+                flex: 1;
+                padding: 0 px2rem(20px) px2rem(10px) 0;
+                /*title*/
+                .number {
+                    flex: 1;
+                    text-align: left;
+                    padding-left: px2rem(15px);
+                    font-size: px2rem(24px);
+                    line-height: px2rem(32px);
+                }
+                /*icon*/
+                .icon-erji {
+                    position: relative;
+                    top: px2rem(2px);
+                    flex: 0 0 px2rem(24px);
+                    font-size: px2rem(24px);
+                }
+            }
+            /*播放按钮*/
+            .play {
+                padding-bottom: px2rem(4px);
+                font-size: px2rem(48px);
+            }
+        }
     }
 
-    .list-data {
-        padding: 0 5px;
-    }
-
-    li {
-        flex: 1;
-        flex-basis: 30%;
-        width: 30%;
-    }
-
-    .mark {
+    /*最新*/
+    .data-mark {
         position: absolute;
         width: px2rem(80px);
         border-radius: px2rem(10px) 0 0 0;
     }
 
-    .cover {
-        border-radius: px2rem(10px);
+    /*歌单图片*/
+    .data-cover {
         width: 100%;
+        min-width: 118.5px;
         height: px2rem(244px);
     }
 
-    .title {
+    /*歌单标题*/
+    .data-title {
         position: relative;
-        padding: 0 5px;
+        padding: px2rem(10px) px2rem(10px) 0 px2rem(10px);
         text-align: left;
         line-height: px2rem(32px);
         font-size: px2rem(24px);
         color: $list-title;
         height: px2rem(80px);
-        span {
+        -webkit-box-orient: vertical;
+        .title-span {
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
+        }
+        /*新歌速递标题*/
+        .big-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            overflow: visible;
+            margin-top: px2rem(-70px);
+            font-size: px2rem(40px);
+            font-weight: bold;
+            line-height: px2rem(60px);
+            height: px2rem(60px);
+            color: $list-data-title;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+        hr {
+            margin-left: px2rem(-10px);
+            height: px2rem(20px);
+            border: 0;
+            background: rgba(236, 236, 236, 0.95);
+            &:last-child {
+                margin-top: px2rem(4px);
+            }
         }
     }
 
-    .bigTitle {
-        position: absolute;
-        left: 0;
-        right: 0;
-        text-align: center;
-        overflow: visible !important;
-        margin-top: px2rem(-70px);
-        font-size: px2rem(40px);
-        font-weight: bold;
-        line-height: px2rem(60px);
-        height: px2rem(60px);
-        color: $list-data-title;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
-    }
-
-    li:nth-child(3n + 2) {
-        margin: 0 px2rem(10px);
+    /*换一批*/
+    .replace-data {
+        width: 100%;
+        .replace-button {
+            position: relative;
+            margin: px2rem(40px) auto;
+            line-height: px2rem(50px);
+            width: px2rem(220px);
+            height: px2rem(50px);
+            border-radius: px2rem(5px);
+            border: px2rem(2px) solid rgba(152, 152, 152, .5);
+        }
+        .icon {
+            position: absolute;
+            left: px2rem(50px);
+            line-height: 25px;
+            font-size: px2rem(36px);
+        }
+        .name {
+            margin-bottom: 0;
+            padding-left: px2rem(80px);
+            font-size: px2rem(24px);
+        }
     }
 </style>

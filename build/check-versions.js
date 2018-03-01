@@ -1,6 +1,5 @@
 /**
  * @file 检查版本更新
- * @author jianzhongmin(282126990@qq.com)
  */
 
 /* eslint-disable no-console */

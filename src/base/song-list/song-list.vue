@@ -1,54 +1,60 @@
 <template>
-    <div class="list-wrapper">
+    <div class="song-list">
         <!--歌曲列表-->
-        <v-list class="list-content" v-show="songs">
-            <v-list-tile ripple v-for="(item, index) in songs" @click="selectItem(item, index)" :key="index">
+        <ul class="list-content">
+            <li class="content-li" v-for="(item, index) in getSongList" @click="selectSong(item, index)" :key="index">
                 <!--选中列表实出现-->
                 <div class="selected">
-                    <div :class="getCurrentSong(item)"></div>
+                    <div :class="_getCurrentSong(item)"></div>
                 </div>
-                <!--内容-->
                 <div class="content-wrapper">
                     <div class="content" :class="setStyle">
-                        <h3 class="title" :class="setStyle">
+                        <!--歌曲名称-->
+                        <h3 class="content-title" :class="setStyle">
                             <span>{{item.name}}</span>
+                            <!--歌曲是否有MV-->
+                            <i class="icon-mv" v-show="item.vid" title="MV"></i>
+                            <!--歌曲是否有独家-->
+                            <i class="icon-isonly" v-show="item.isonly === 1" title="isonly"></i>
                         </h3>
+                        <!--歌手名称-->
                         <p class="text">
                             <span>{{item.singer}} · {{item.album}}</span>
                         </p>
                     </div>
                     <!--更多-->
-                    <v-icon class="more" :class="setStyle">more_vert</v-icon>
+                    <v-icon class="more" :class="setStyle" @click.stop="clickShowMore(item)">more_vert</v-icon>
                 </div>
-            </v-list-tile>
+            </li>
             <!--下拉加载时显示的Loading效果-->
-            <div class="has-more" v-show="hasMore && songs.length">
-                <loading></loading>
+            <div class="has-more"
+                 v-show="totalSongNum && getSongList.length > 0 && totalSongNum !== getSongList.length">
+                <loading :loadingText="loadingText"></loading>
             </div>
-
             <!--没有更多了-->
-            <div class="none-more" v-show="!hasMore && songs.length">
+            <div class="none-more"
+                 v-show="getSongList.length > 0 && totalSongNum && totalSongNum === getSongList.length">
                 <v-icon class="icon">sentiment_dissatisfied</v-icon>
-                <span class="title">没有更多了</span>
+                <span class="more-title">没有更多了</span>
             </div>
-        </v-list>
-        <!--加载中显示的效果-->
-        <div class="loading-container" v-show="!songs.length">
-            <loading></loading>
-        </div>
+        </ul>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+    import {mapState, mapGetters, mapActions} from 'vuex';
+    // loading组件
     import Loading from 'base/loading/loading';
-    import {mapGetters} from 'vuex';
 
     export default {
         props: {
-            // 设置是否能够加载更多
-            hasMore: {
-                type: Boolean,
-                default: false
+            /*
+             * 歌曲总数
+             * @type {Number}
+             * */
+            totalSongNum: {
+                type: Number,
+                default: null
             },
             // 设置样式
             setStyle: {
@@ -56,36 +62,68 @@
                 default: ''
             }
         },
-        data() {
+        data () {
             return {
-                select: false
-            };
+                /*
+                * loading文字
+                * @type {String}
+                * */
+                loadingText: '加载中...'
+            }
         },
         computed: {
-            ...mapGetters('appStore', {
+            ...mapState('asyncAjax', {
                 /*
-                 * 歌曲列表
-                 * @param {Array}
+                 * 获取主页选择对应歌单的数据
+                 * @type {Object}
                  * */
-                songs: 'songList',
+                getSongAlbumMessage: 'songAlbumMessage',
+                /*
+                 * 获取歌曲列表
+                 * @param {Object}
+                 * */
+                getSongList: 'songList'
+            }),
+            ...mapGetters('appStore', {
                 /**
                  * 当前播放的歌曲信息
                  * @type {Object}
                  */
-                currentSong: 'currentSong'
+                getCurrentSong: 'currentSong',
+                /**
+                 * 获取显示更多按钮
+                 * @type {Object}
+                 */
+                getShowMore: 'showMore'
             })
         },
         methods: {
-            selectItem(item, index) {
-                this.$emit('select', item, index);
+            // 选择歌曲播放
+            selectSong (item, index) {
+                this.$emit('selectSong', item, index);
+            },
+            // 显示更多
+            clickShowMore (item) {
+                // 设置是否显示更多按钮
+                this.setShowMore({
+                    start: true,
+                    currentSong: item
+                });
             },
             // 获取当前正在播放的歌曲
-            getCurrentSong(item) {
-                if (this.currentSong.id === item.id) {
-                   return 'bg-color';
+            _getCurrentSong (item) {
+                if (this.getCurrentSong.id === item.id) {
+                    return 'bg-color';
                 }
-               return '';
-            }
+                return '';
+            },
+            ...mapActions('appStore', {
+                /**
+                 * 设置是否显示更多按钮
+                 * @type {Object}
+                 */
+                setShowMore: 'showMore'
+            })
         },
         components: {
             Loading
@@ -94,86 +132,15 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     /*歌曲列表外层*/
-    .list-wrapper {
+    .song-list {
         padding: 0;
         min-height: 100%;
         background: $list-bgcolor;
         z-index: 100;
-    }
-
-    /* 列表头部*/
-    .list-header {
-        display: flex;
-        padding: 0 px2rem(32px);
-        border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
-        height: px2rem(108px);
-    }
-
-    /*播放全部*/
-    .play-all-wrapper {
-        flex: 1;
-        position: relative;
-        display: -webkit-box;
-        -webkit-box-align: center;
-        line-height: px2rem(108px);
-        height: px2rem(108px);
-        // 播放按钮
-        .play {
-            display: block;
-            margin-right: px2rem(30px);
-            font-size: px2rem(52px);
-            color: $play-color;
-        }
-        .title {
-            display: block;
-            font-size: px2rem(28px);
-        }
-        // 歌曲总数
-        .total-number {
-            display: block;
-            position: relative;
-            top: px2rem(4px);
-            margin-left: px2rem(20px);
-            font-size: px2rem(24px);
-            color: $total-number-color;
-        }
-    }
-
-    /*下载*/
-    .download {
-        display: -webkit-box;
-        -webkit-box-align: center;
-        margin-right: px2rem(40px);
-        .icon-xiazai {
-            display: block;
-            font-size: px2rem(44px);
-            color: $play-color;
-        }
-        .title {
-            margin-left: px2rem(10px);
-            display: block;
-            font-size: px2rem(28px);
-        }
-    }
-
-    /*多选*/
-    .multiple-select {
-        display: -webkit-box;
-        -webkit-box-align: center;
-        .icon {
-            display: block;
-            font-size: px2rem(44px);
-            color: $play-color;
-        }
-        .title {
-            margin-left: px2rem(10px);
-            display: block;
-            font-size: px2rem(28px);
-        }
     }
 
     /*列表内容*/
@@ -181,7 +148,7 @@
         padding: 0;
         min-height: 100%;
         overflow: hidden;
-        li {
+        .content-li {
             display: flex;
             height: px2rem(124px);
         }
@@ -209,8 +176,6 @@
             height: px2rem(124px);
             border-bottom: px2rem(1px) solid rgba(227, 227, 227, 0.95);
         }
-        .content-wrapper:last-child {
-        }
         /*内容*/
         .content {
             flex: 1;
@@ -224,7 +189,7 @@
             height: px2rem(124px);
             color: $content-text-color;
             /*标题*/
-            .title {
+            .content-title {
                 display: -webkit-box;
                 -webkit-box-align: center;
                 flex: 1;
@@ -237,15 +202,35 @@
                 font-weight: 300;
                 span {
                     display: block;
+                    margin-right: px2rem(16px);
                     max-width: 100%;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     line-height: normal;
                 }
+                /*歌曲是否有MV*/
+                .icon-mv {
+                    display: inline-block;
+                    width: 33px;
+                    height: 16px;
+                    vertical-align: middle;
+                    background-image: -webkit-image-set(url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de) 1x, url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite@2x.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de&v=3a0fcc184bba8d368416bde830573668) 2x);
+                    background-position: -40px -280px;
+                }
+                /*歌曲是否是独家*/
+                .icon-isonly {
+                    display: inline-block;
+                    width: 34px;
+                    height: 16px;
+                    vertical-align: middle;
+                    background-position: -80px -280px;
+                    background-image: -webkit-image-set(url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de) 1x, url(https://y.gtimg.cn/mediastyle/yqq/img/icon_sprite@2x.png?max_age=2592000&v=f5857796791605d0757c4a057644a4de&v=3a0fcc184bba8d368416bde830573668) 2x);
+                }
             }
             /*文本*/
             .text {
+                margin: 0;
                 display: -webkit-box;
                 -webkit-box-align: center;
                 flex: 1;
@@ -268,12 +253,16 @@
         }
     }
 
-    /*loading*/
-    .loading-container {
-        position: absolute;
+    /*更多列表*/
+    .more-list {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         width: 100%;
-        top: px2rem(208px);
-        transform: translateY(-50%)
+        height: 100%;
+        background: red;
     }
 
     /*下拉加载时显示的Loading效果*/
@@ -291,7 +280,7 @@
         height: px2rem(200px);
         color: #b6b6b6;
         background: $none-more;
-        .title {
+        .more-title {
             font-size: px2rem(32px);
             vertical-align: middle;
         }

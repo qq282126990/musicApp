@@ -2,7 +2,6 @@
  * @file theme loader
  *
  * @desc 向每个.vue文件中注入样式相关的变量，不需要手动import
- * @author jianzhongmin(282126990@qq.com)
  */
 
 /* eslint-disable fecs-no-require, fecs-prefer-destructure */
@@ -89,10 +88,8 @@ let injectedTemplate = importVariablesTemplate
     + themeColorTemplate + materialDesignTemplate;
 
 module.exports = function (source) {
-    this.cacheable();
     let options = loaderUtils.getOptions(this);
     if (options && options.injectInVueFile) {
-
         // 向每一个.vue文件的<style>块中注入
         return source.replace(STYLE_TAG_REG, `$1${injectedTemplate}$2$3`);
     }

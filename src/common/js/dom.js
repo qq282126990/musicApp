@@ -58,3 +58,12 @@ export function prefixStyle (style) {
 
     return vendor + style.charAt(0).toUpperCase() + style.substr(1);
 }
+
+// 获取设置data-方法
+export function getData (el, name,val) {
+    const prefix = 'data-';
+    if (val) {
+        return el.setAttribute(prefix + name, val);
+    }
+    return el.getAttribute(prefix + name);
+}

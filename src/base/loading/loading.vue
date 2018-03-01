@@ -1,20 +1,27 @@
 <template>
     <div class="loading">
         <div class="bg-color">
-            <!--<img width="45" height="45" src="https://y.gtimg.cn/mediastyle/yqq/img/loading.gif"/>-->
-            <v-icon class="audiotrack">audiotrack</v-icon>
-            <v-progress-circular indeterminate class="green"></v-progress-circular>
+            <i class="material-icons audiotrack">audiotrack</i>
+            <v-progress-circular indeterminate class="circular"></v-progress-circular>
         </div>
+        <span class="name">{{loadingText}}</span>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    export default {};
+    export default {
+        props: {
+            loadingText: {
+                type: String,
+                default: null
+            }
+        }
+    };
 </script>
 
 <style lang="scss" scoped>
-    @import '../../common/sass/remAdaptive';
-    @import '../../common/sass/variables';
+    @import '../../assets/sass/remAdaptive';
+    @import '../../assets/sass/variables';
 
     /*外层*/
     .loading {
@@ -22,31 +29,44 @@
         text-align: center;
     }
 
+    /*名称*/
+    .name {
+        box-sizing: border-box;
+        font-size: px2rem(30px);
+        margin: px2rem(20px) 0 0 px2rem(20px);
+    }
+
     /*背景颜色*/
     .bg-color {
         position: relative;
         margin: 0 auto;
         border-radius: 50%;
+        /*background: url("/static/img/loading.png") no-repeat;*/
+        /*background-position: 50%;*/
+        /*background-size: cover;*/
         background: $bg-color;
         width: px2rem(60px);
         height: px2rem(59px);
+        overflow: hidden;
     }
 
     /*图标*/
     .audiotrack {
         position: absolute;
-        padding: px2rem(12px);
+        left: 0;
+        right: 0;
+        padding: px2rem(6px);
         font-size: px2rem(40px);
         color: $audiotrack-color;
-        z-index:1;
+        z-index: 1;
     }
 
     /*旋转圆圈*/
-    .green {
+    .circular {
         left: px2rem(-3px);
         top: px2rem(-3px);
         width: px2rem(66px) !important;
         height: px2rem(66px) !important;
-        color: #57b45a;
+        color: $audiotrack-color;
     }
 </style>

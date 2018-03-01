@@ -2,6 +2,7 @@
     <div class="app-not-found-page">
         <div class="app-not-found-title text-xs-center">
             <div class="not-found-avatar">
+                <v-icon class="not-found-avatar-icon">info</v-icon>
             </div>
             <p>页面未找到</p>
         </div>
@@ -12,7 +13,6 @@
 import {mapActions} from 'vuex';
 
 export default {
-    name: 'notFound',
     methods: {
         ...mapActions('appShell/appHeader', [
             'setAppHeader'

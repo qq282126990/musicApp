@@ -1,6 +1,5 @@
 /**
  * @file vue-loader 配置文件
- * @author jianzhongmin(282126990@qq.com)
  */
 
 'use strict';

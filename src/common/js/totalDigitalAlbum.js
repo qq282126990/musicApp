@@ -105,7 +105,7 @@ export function createAlbumSongTableMessage (data) {
 }
 
 // 创建数字专辑歌曲列表信息
-export function createDigitalAlbumMusListMessage (data) {
+export function createDigitalAlbumSongListMessage (data) {
     return new DigitalAlbumMusListMessage({
         cover: data.headpiclist[0].picurl, // 图片
         albumName: data.album_name, // 专辑名称

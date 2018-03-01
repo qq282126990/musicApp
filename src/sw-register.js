@@ -1,6 +1,5 @@
 /**
  * @file serviceworker register
- * @author jianzhongmin(282126990@qq.com)
  */
 
 // 注册的地址为 sw-precache-webpack-pulgin 生成的 service-worker.js 或者自己手动维护的 service worker 文件
@@ -9,7 +8,6 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
 
         // service-worker.js 如果更新成功会 postMessage 给页面，内容为 'sw.update'
         if (e.data === 'sw.update') {
-
             // 开发者这自定义处理函数，也可以使用默认提供的用户提示，引导用户刷新
             // 这里建议引导用户 reload 处理，详细查看项目具体文件
             // location.reload();
@@ -18,7 +16,7 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
             // let dom = document.createElement('div');
             // let themeColor = document.querySelector('meta[name=theme-color]');
             //
-            // themeColor && (themeColor.content = 'rgba(49, 194, 124, 1)');
+            // themeColor && (themeColor.content = '#000');
             //
             // /* eslint-disable max-len */
             // dom.innerHTML = `

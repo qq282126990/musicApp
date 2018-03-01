@@ -3,19 +3,20 @@
         <!--新歌速递头部-->
         <div class="song-speed-header">
             <!--返回按钮-->
-            <div class="back" @click.stop="back">
+            <div class="back" @click="back">
                 <i class="iconfont icon-fanhui1-copy"></i>
             </div>
             <!--导航-->
             <div class="router-link">
                 <div class="link-conent">
-                    <div @click="newSongGO" class="title" :class="{'title-active': newSongListTitle === '新歌'}">
+                    <div @click="newSongGO" class="link-title" :class="{'title-active': newSongSpeedTitle === '新歌'}">
                         <span>新歌</span>
                     </div>
-                    <div @click="digitalAlbumGO" class="title" :class="{'title-active': newSongListTitle === '数字专辑'}">
+                    <div @click="digitalAlbumGO" class="link-title"
+                         :class="{'title-active': newSongSpeedTitle === '数字专辑'}">
                         <span>数字专辑</span>
                     </div>
-                    <div @click="newAlbumGO" class="title" :class="{'title-active': newSongListTitle === '新碟'}">
+                    <div @click="newAlbumGO" class="link-title" :class="{'title-active': newSongSpeedTitle === '新碟'}">
                         <span>新碟</span>
                     </div>
                 </div>
@@ -29,71 +30,68 @@
 
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
+    // 获取主页新歌模块跳转对应的模块的标题 getNewSongSpeedTitle
+    import {getNewSongSpeedTitle} from 'common/js/cache';
     // 新歌组件
-    import newSong from 'components/newSong/newSong';
+    import NewSong from 'components/new-song/new-song';
     // 新碟组件
-    import newAlbum from 'components/newAlbum/newAlbum';
+    import NewAlbum from 'components/new-album/new-album';
     // 数字专辑组件
-    import digitalAlbum from 'components/digital-album/digital-album';
+    import DigitalAlbum from 'components/digital-album/digital-album';
 
     export default {
-        data() {
+        data () {
             return {
+                /*
+                 * 主页新歌模块跳转对应的模块的标题
+                 * @type {String}
+                 * */
+                newSongSpeedTitle: null,
                 /*
                  * 要显示的组件
                  * @type {String}
                  * */
                 componentId: ''
-            };
-        },
-        computed: {
-            ...mapGetters('appStore', [
-                /*
-                 * 获取歌单速递头部导航
-                 * */
-                'newSongListTitle',
-                /*
-                 * 获取歌曲列表
-                 * @type {Object}
-                 * */
-                'songList'
-            ])
-        },
-        mounted () {
-            // 如果没有数据就返回上一页
-            if (!this.newSongListTitle) {
-                this.$router.back();
-            }
-            // 判断头部导航
-            if (this.newSongListTitle === '新歌') {
-                this.componentId = 'newSong';
-            }
-            else if (this.newSongListTitle === '数字专辑') {
-                this.componentId = 'digitalAlbum';
-            }
-            else if (this.newSongListTitle === '新碟') {
-                this.componentId = 'newAlbum';
             }
         },
         methods: {
+            // 进入页面判断需要切换到的组件
+            switchComponent () {
+                // 主页新歌模块跳转对应的模块的标题
+                this.newSongSpeedTitle = getNewSongSpeedTitle();
+                // 如果没有数据就返回上一页
+                if (!this.newSongSpeedTitle) {
+                    this.$router.back();
+                }
+                // 判断头部导航
+                if (this.newSongSpeedTitle === '新歌') {
+                    this.componentId = 'new-song';
+                }
+                else if (this.newSongSpeedTitle === '数字专辑') {
+                    this.componentId = 'digital-album';
+                }
+                else if (this.newSongSpeedTitle === '新碟') {
+                    this.componentId = 'newAlbum';
+                }
+            },
             // 切换新歌组件
             newSongGO() {
                 // 设置对应的标题
-                this.setNewSongListTitle('新歌');
+                this.newSongSpeedTitle = '新歌';
                 // 设置显示组件
-                this.componentId = 'newSong';
+                this.componentId = 'new-song';
             },
             // 切换数字专辑组件
             digitalAlbumGO() {
                 // 设置对应的标题
-                this.setNewSongListTitle('数字专辑');
+                this.newSongSpeedTitle = '数字专辑';
                 // 设置显示组件
-                this.componentId = 'digitalAlbum';
+                this.componentId = 'digital-album';
             },
             // 切换新碟组件
             newAlbumGO() {
                 // 设置对应的标题
-                this.setNewSongListTitle('新碟');
+                this.newSongSpeedTitle = '新碟';
                 // 设置显示组件
                 this.componentId = 'newAlbum';
             },
@@ -101,23 +99,15 @@
             back() {
                 this.$router.back();
             },
-            ...mapActions('appStore', {
-                /*
-                 * 设置新歌速递模块标题
-                 * @type {String}
-                 * */
-                setNewSongListTitle: 'newSongListTitle'
-            }),
             ...mapActions('appShell/appHeader', [
-                /*
-                 * 隐藏首页头部导航
-                 * @type {Boolean}
-                 * */
                 'setAppHeader'
             ])
         },
         // 当组件激活的调用
         activated() {
+            // 进入页面判断需要切换到的组件
+            this.switchComponent();
+
             // 隐藏头部导航
             this.setAppHeader({
                 show: false
@@ -130,36 +120,24 @@
                 show: true
             });
         },
-        watch: {
-            newSongListTitle (newTitle) {
-                // 判断头部导航
-                if (newTitle === '新歌') {
-                    this.componentId = 'newSong';
-                }
-                else if (newTitle === '数字专辑') {
-                    this.componentId = 'digitalAlbum';
-                }
-                else if (newTitle === '新碟') {
-                    this.componentId = 'newAlbum';
-                }
-            }
-        },
         components: {
-            newSong,
-            newAlbum,
-            digitalAlbum
+            NewSong,
+            NewAlbum,
+            DigitalAlbum
         }
     };
 </script>
 
-<style scoped lang="scss">
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
 
-    .wrapper{
+<style scoped lang="scss">
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
+
+    .wrapper {
         overflow: hidden;
         height: 100%;
     }
+
     /*头部*/
     .song-speed-header {
         display: flex;
@@ -193,7 +171,7 @@
                 margin: 0 auto;
                 border-radius: px2rem(5px);
             }
-            .title {
+            .link-title {
                 display: inline-block;
                 padding: px2rem(10px) px2rem(25px);
                 font-size: px2rem(30px);
@@ -214,6 +192,7 @@
         }
     }
 
+    /*内容*/
     .content {
         position: fixed;
         top: 0;

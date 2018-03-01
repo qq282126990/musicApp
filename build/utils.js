@@ -1,10 +1,6 @@
-/**
- * @file 工具包
- * @author jianzhongmin(282126990@qq.com)
- */
-
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const config = require('../config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -29,7 +25,7 @@ exports.cssLoaders = function (options) {
     };
 
     // generate loader string to be used with extract text plugin
-    function generateLoaders(loader, loaderOptions) {
+    function generateLoaders (loader, loaderOptions) {
         let loaders = [cssLoader];
         if (loader) {
             loaders.push({
@@ -70,10 +66,26 @@ exports.styleLoaders = function (options) {
     let loaders = exports.cssLoaders(options);
 
     Object.keys(loaders).forEach(function (extension) {
+        let loader = loaders[extension];
         output.push({
             test: new RegExp('\\.' + extension + '$'),
-            use: loaders[extension]
+            use: loader
         });
     });
     return output;
+};
+
+// 在pageDir中寻找各个页面入口
+exports.getEntries = function (pageDir, entryPath) {
+    var entry = {};
+    var pageDirPath = path.join(__dirname, '..', pageDir);
+    fs.readdirSync(pageDirPath)
+    // 发现文件夹，就认为是页面模块
+        .filter(function (f) {
+            return fs.statSync(path.join(pageDirPath, f)).isDirectory();
+        })
+        .forEach(function (f) {
+            entry[path.basename(f)] = [pageDir, f, entryPath].join('/');
+        });
+    return entry;
 };

@@ -4,7 +4,7 @@
         <div class="back" @click="back">
             <i class="iconfont icon-fanhui1-copy"></i>
         </div>
-        <scroll class="scroll">
+        <scroll class="scroll-warpper">
             <div v-show="albumMessage.cover">
                 <!--专辑图片-->
                 <div class="cover-wrapper">
@@ -24,7 +24,7 @@
                         <span class="cd_ornament"></span>
                     </div>
                     <!--专辑标题-->
-                    <h1 class="title">{{albumMessage.album_name}}</h1>
+                    <h1 class="album-title">{{albumMessage.album_name}}</h1>
                 </div>
                 <!--歌曲内容列表-->
                 <div class="content">
@@ -36,7 +36,7 @@
                     </div>
                     <!--专辑介绍-->
                     <div class="introduction">
-                        <div class="title">
+                        <div class="introduction-title">
                             <h2>简介</h2>
                         </div>
                         <div class="text">
@@ -52,34 +52,27 @@
                             <span class="show-all">[展开全文]</span>
                         </div>
                     </div>
-                    <!--歌曲列表-->
-                    <song-list @select="selectSong" :setStyle="setStyle"></song-list>
+                    <song-list :setStyle="setStyle" @selectSong="selectSong"></song-list>
                 </div>
-            </div>
-            <!--loading-->
-            <div class="loading-wrapper" v-show="!albumMessage.cover">
-                <loading></loading>
-                <span class="text">加载中...</span>
             </div>
         </scroll>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapState, mapGetters, mapActions} from 'vuex';
+    import {mapState, mapActions, mapGetters} from 'vuex';
     // 创建数字专辑歌曲列表信息
-    import {createDigitalAlbumMusListMessage} from 'common/js/totalDigitalAlbum';
-    // 应用mixins
-    import {createdSongList} from 'common/js/mixin';
-    // 滚动组件
-    import Scroll from 'base/scroll/scroll';
+    import {createDigitalAlbumSongListMessage} from 'common/js/totalDigitalAlbum';
+    // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
+    import {saveNewSongSpeedTitle} from 'common/js/cache';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
     // 歌曲列表
     import SongList from 'base/song-list/song-list';
-    // Loading组件
-    import Loading from 'base/loading/loading';
+    // 滚动组件
+    import Scroll from 'base/scroll/scroll';
 
     export default {
-        mixins: [createdSongList],
         data () {
             return {
                 /*
@@ -89,45 +82,44 @@
                 /*
                  * 设置歌曲列表字体样式
                  * */
-                setStyle: 'colorWhite'
+                setStyle: 'colorWhite',
+                /*
+                 * 判断当前是否重复点击歌曲列表
+                 * @type {String}
+                 * */
+                oldSong: null
             };
         },
-        mounted () {
-            // 如果没有id 就返回上一页
-            if (!this.getHomeSonglist.id) {
-                this.$router.back();
-                // 设置新歌速递模块标题
-                this.setNewSongListTitle('数字专辑');
-            }
-
-            // 是否开启回弹效果
-            this.bounce(false);
-        },
         computed: {
-            ...mapGetters('appStore', {
+            ...mapState('asyncAjax', {
                 /*
-                 * 选择的的歌曲列表数据
-                 * @param {Object}
+                 * 获取数字专辑歌曲列表数据
+                 * @type {Object}
                  * */
-                getHomeSonglist: 'homeSonglist',
+                getDigitalAlbumSongList: 'digitalAlbumSongList'
+            }),
+            ...mapGetters('asyncAjax', {
                 /*
                  * 获取歌曲列表
                  * @type {Object}
                  * */
                 getSongList: 'songList'
             }),
-            ...mapState('asyncAjax', [
-                /*
-                 * 获取数字专辑歌曲列表数据
+            ...mapGetters('appStore', {
+                /**
+                 * 获取当前播放的歌曲信息
                  * @type {Object}
-                 * */
-                'digitalAlbumMusicList'
-            ])
+                 */
+                getCurrentSong: 'currentSong',
+            })
         },
         methods: {
             // 返回按钮
             back () {
                 this.$router.back();
+
+                // 保存主页新歌模块跳转对应的模块的标题
+                saveNewSongSpeedTitle('数字专辑');
             },
             // 选择要播放的歌曲
             selectSong(item, index) {
@@ -135,30 +127,42 @@
                     list: this.getSongList,
                     index
                 });
-            },
 
-            ...mapActions('asyncAjax', [
+                // 如果不是重复点击就初始化oldSong
+                if (this.oldSong !== item.id) {
+                    this.oldSong = null;
+                }
+
+                // 如果oldSong为空才执行
+                if (!this.oldSong) {
+                    this.oldSong = item.id;
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
+            },
+            ...mapActions('appShell/appHeader', [
+                'setAppHeader'
+            ]),
+            ...mapActions('asyncAjax', {
                 /*
                  * 获取数字专辑歌曲列表数据
                  * */
-                'getDigitalAlbumMusicList'
-            ]),
-            ...mapActions('appStore', {
-                /*
-                 * 设置滚动组件数据
-                 * @type {Array}
-                 * */
-                setScrollData: 'data',
+                setDigitalAlbumSongList: 'getDigitalAlbumSongList',
                 /**
-                 * 是否开启回弹效果
-                 * @type {Boolean}
+                 * 获取歌曲列表播放地址
                  */
-                bounce: 'bounce',
-                /*
-                 * 设置新歌速递模块标题
-                 * @type {String}
-                 * */
-                setNewSongListTitle: 'newSongListTitle',
+                setSongListPlayingUrl: 'getSongListPlayingUrl'
+            }),
+            ...mapActions('appStore', {
+                /**
+                 * 滚动组件传入的数据
+                 * @type {Array}
+                 */
+                setScrollData: 'scrollData',
                 /**
                  * 选择播放的歌曲
                  * @type {Boolean}
@@ -173,54 +177,38 @@
                 show: false
             });
 
-            // 设置滚动组件数据
-            this.setScrollData(this.getHomeSonglist);
-
-            // 获取数字专辑音乐列表数据
-            this.getDigitalAlbumMusicList(this.getHomeSonglist.id);
-        },
-        // 当组件停用时执行
-        deactivated() {
-            // 显示头部导航
-            this.setAppHeader({
-                show: true
-            });
+            if (!this.getSongList.id) {
+                this.$router.back();
+            }
+            // 获取数字专辑歌曲列表数据
+            this.setDigitalAlbumSongList(this.getSongList.id);
         },
         watch: {
-            digitalAlbumMusicList (albumMessage) {
-                if (!albumMessage.songlist) {
+            getDigitalAlbumSongList (newSongList) {
+                // 滚动组件传入的数据
+                this.setScrollData(newSongList);
+
+                if (!newSongList.songlist) {
                     return;
                 }
 
                 // 获取专辑信息
-                this.albumMessage = createDigitalAlbumMusListMessage(albumMessage);
+                this.albumMessage = createDigitalAlbumSongListMessage(newSongList);
 
                 // 请求歌曲列表播放地址
-                this.getSongPlayingUrl(albumMessage.songlist);
+                this.setSongListPlayingUrl(newSongList.songlist);
             }
         },
         components: {
-            Scroll,
             SongList,
-            Loading
+            Scroll
         }
     };
 </script>
 
 <style lang="scss" scoped>
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
-
-    /*滚动组件*/
-    .scroll {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: px2rem(120px);
-        box-sizing: border-box;
-        overflow: hidden;
-    }
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     .wrapper {
         height: 100%;
@@ -270,6 +258,17 @@
         }
     }
 
+    /*滚动组件*/
+    .scroll-warpper {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: px2rem(120px);
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
     /*专辑图片*/
     .cover-wrapper {
         position: relative;
@@ -294,7 +293,7 @@
         .cd-box {
             position: relative;
             left: px2rem(-20px);
-            margin-bottom: px2rem(52px);
+            margin: 0 auto px2rem(52px) auto;
             width: px2rem(516px);
             height: px2rem(516px);
             z-index: 1;
@@ -308,7 +307,7 @@
                 height: 100%;
                 border-style: solid;
                 border-width: px2rem(4px) px2rem(4px) px2rem(4px) px2rem(20px);
-                border-image: url('../../common/image/cd_gold.png') 2 2 2 10;
+                border-image: url('../../common/img/cd_gold.png') 2 2 2 10;
             }
             .cd-box-cove {
                 display: block;
@@ -321,12 +320,12 @@
                 right: px2rem(-96px);
                 width: px2rem(96px);
                 height: 100%;
-                background: url("../../common/image/cd_ornament.png") no-repeat left center;
+                background: url("../../common/img/cd_ornament.png") no-repeat left center;
                 background-size: auto 100%;
             }
         }
         /*专辑标题*/
-        .title {
+        .album-title {
             position: relative;
             left: px2rem(-20px);
             margin: 0;
@@ -370,7 +369,7 @@
     .introduction {
         padding: px2rem(64px) px2rem(20px);
         /*标题*/
-        .title {
+        .introduction-title {
             position: relative;
             display: -webkit-box;
             -webkit-box-align: center;
@@ -416,11 +415,11 @@
                 width: 100%;
                 height: px2rem(128px);
                 p {
+                    margin: 0;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
                     font-size: px2rem(28px);
                     line-height: 1.6;
                 }
@@ -436,8 +435,8 @@
     }
 
     /*歌曲列表*/
-    .list-wrapper {
-        background: $digital-album-music-list-content;
+    .song-list {
+        background: $digital-album-music-list-content !important;
     }
 
     /*loading*/

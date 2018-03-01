@@ -1,6 +1,5 @@
 /**
  * @file 页面骨架
- * @author jianzhongmin(282126990@qq.com)
  */
 
 import Vue from 'vue';

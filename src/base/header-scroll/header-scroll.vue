@@ -28,8 +28,8 @@
             * @type {Array}
             * */
             newSongList: {
-                type: Array,
-                default: []
+                type: null,
+                default: null
             },
             /*
              * 设置头部导航那个激活了
@@ -50,7 +50,7 @@
         methods: {
             // 设置头部导航滑动的宽度
             _setHeaderScroll() {
-                if (this.newSongList.length) {
+                if (this.newSongList && this.newSongList.length) {
                     // 获取所有内容标签
                     this.children = this.$refs.headerList.children;
                     // 初始化宽度
@@ -103,19 +103,15 @@
 
 
 <style lang="stylus" scoped>
-    @import '../../assets/styles/global.styl';
-
     .btn {
         margin: 0;
         min-width: inherit;
     }
-
 </style>
 
-
 <style scoped lang="scss">
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     /*头部导航*/
     .header-router {

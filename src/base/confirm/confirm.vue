@@ -79,8 +79,8 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../common/sass/variables";
-    @import "../../common/sass/remAdaptive";
+    @import "../../assets/sass/variables";
+    @import "../../assets/sass/remAdaptive";
 
     .confirm-fade-enter-active, .confirm-fade-leave-active {
         transition: all .5s;

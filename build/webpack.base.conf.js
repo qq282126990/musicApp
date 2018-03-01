@@ -1,6 +1,5 @@
 /**
  * @file 基础 webpack 配置文件，开发环境和生产环境公用的
- * @author jianzhongmin(282126990@qq.com)
  */
 
 'use strict';
@@ -9,15 +8,15 @@ const path = require('path');
 const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
-
+// 提取css文件
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const webpack = require('webpack');
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
 module.exports = {
-    entry: {
-        app: ['babel-polyfill', './src/entry-client.js']
-    },
+    entry: utils.getEntries('./src/pages', 'entry.js'),
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
@@ -25,6 +24,14 @@ module.exports = {
             ? config.build.assetsPublicPath
             : config.dev.assetsPublicPath
     },
+    // plugins: [
+    //     new webpack.optimize.CommonsChunkPlugin({
+    //         name: [
+    //             "vue-style-loader/lib/addStylesClient",
+    //             "css-loader/lib/css-base",
+    //         ]
+    //     })
+    // ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
@@ -34,28 +41,24 @@ module.exports = {
             'common': resolve('src/common'),
             'api': resolve('src/api'),
             'base': resolve('src/base'),
+            'assets': resolve('src/assets')
         }
     },
     module: {
         rules: [
-
+            // collect routes and inject
+            {
+                resource: resolve('src/router.js'),
+                loader: 'router-loader',
+                enforce: 'pre'
+            },
             // register custom svgs
-            // {
-            //     resource: resolve('src/app.js'),
-            //     loader: 'svg-loader',
-            //     enforce: 'pre'
-            // },
-
+            {
+                resource: resolve('src/app.js'),
+                loader: 'svg-loader',
+                enforce: 'pre'
+            },
             // inject vuetify theme variables
-			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('src'), resolve('test')],
-				options: {
-				  formatter: require('eslint-friendly-formatter')
-				}
-			},
             {
                 resource: resolve('src/assets/styles/global'),
                 loader: 'theme-loader',
@@ -68,7 +71,6 @@ module.exports = {
                         loader: 'vue-loader',
                         options: vueLoaderConfig
                     },
-
                     // inject global variables in every .vue file
                     {
                         loader: 'theme-loader',
@@ -92,7 +94,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: [resolve('src'), resolve('build')]
+                include: [resolve('src'), resolve('test')]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -115,7 +117,8 @@ module.exports = {
     resolveLoader: {
         alias: {
             'svg-loader': path.join(__dirname, './loaders/svg-loader'),
-            'theme-loader': path.join(__dirname, './loaders/theme-loader')
+            'theme-loader': path.join(__dirname, './loaders/theme-loader'),
+            'router-loader': path.join(__dirname, './loaders/router-loader')
         }
     }
 };

@@ -1,6 +1,5 @@
 /**
  * @file 生产环境构建入口
- * @author jianzhongmin(282126990@qq.com)
  */
 
 /* eslint-disable no-console */

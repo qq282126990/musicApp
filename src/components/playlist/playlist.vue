@@ -11,7 +11,7 @@
                         <!--当前播放模式名称-->
                         <span class="name">{{playModeText}}</span>
                         <!--歌曲数量-->
-                        <span class="numer">({{sequenceList.length}}首)</span>
+                        <span class="numer">({{getSequenceList.length}}首)</span>
                     </div>
                     <!--删除全部-->
                     <v-btn flat icon color="grey" class="delete-all" @click="showConfirm">
@@ -23,19 +23,24 @@
                     <transition-group name="list" tag="ul" ref="list">
                         <li class="item"
                             :key="item.id"
-                            v-for="(item, index) in sequenceList"
+                            v-for="(item, index) in getSequenceList"
                             @click="selectItem(item,index)"
                         >
                             <!--歌曲名字-->
-                            <span class="name" :class="getCurrentSong(item)">{{item.name}}-{{item.singer}}</span>
+                            <span class="name" :class="_getCurrentSong(item)">{{item.name}}-{{item.singer}}</span>
                             <!--收藏歌曲-->
                             <span class="like">
                                     <v-icon :class="getFavoriteIcon(item)"
-                                            @click.stop="toggleFavorite(item)">{{getFavoriteIcon(item)}}</v-icon>
+                                            @click.stop="toggleFavorite(item)"
+                                    >
+                                        {{getFavoriteIcon(item)}}
+                                    </v-icon>
                                 </span>
                             <!--删除歌曲-->
                             <span class="delete" @click.stop="deleteOne(item)">
-                                    <v-icon>clear</v-icon>
+                                    <v-btn flat icon color="grey" @click="">
+                                       <v-icon>clear</v-icon>
+                                    </v-btn>
                             </span>
                         </li>
                     </transition-group>
@@ -53,12 +58,16 @@
 
 <script type="text/ecmascript-6">
     import {mapActions} from 'vuex';
-    import Scroll from 'base/scroll/scroll';
     // 获取控制歌曲播放模式
     import {isPlayMode} from 'common/js/config';
     // 播放器mixin
     import {playerMixin} from 'common/js/mixin';
+    // 滚动组件
+    import Scroll from 'base/scroll/scroll';
+    // 弹出框
     import Confirm from 'base/confirm/confirm';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
 
     export default {
         mixins: [playerMixin],
@@ -70,14 +79,14 @@
         },
         mounted() {
             // 设置滚动组件数据.
-            this.setScrollData(this.sequenceList);
+            this.setScrollData(this.getSequenceList);
             // 设置滚动组件刷新数据延迟
             this.setRefreshDelay(120);
         },
         computed: {
             // 当前播放模式显示的文字
             playModeText() {
-                return this.playMode === isPlayMode.sequence ? '顺序播放' : this.playMode === isPlayMode.random ? '随机播放' : '单曲循环';
+                return this.getPlayMode === isPlayMode.sequence ? '顺序播放' : this.getPlayMode === isPlayMode.random ? '随机播放' : '单曲循环';
             }
         },
         methods: {
@@ -88,7 +97,7 @@
                     // 刷新滚动组件
                     this.$refs.listContent.refresh();
                     // 自动滚动到当前播放歌曲的位置
-                    this.scrollToCurrent(this.currentSong);
+                    this.scrollToCurrent(this.getCurrentSong);
                 }, 20);
             },
             // 隐藏播放列表
@@ -109,15 +118,15 @@
             // 设置自动滚动到当前播放歌曲的位置
             scrollToCurrent(currentSong) {
                 // 寻找当前歌曲在播放列表中的位置
-                const index = this.sequenceList.findIndex((song) => {
+                const index = this.getSequenceList.findIndex((song) => {
                     return currentSong.id === song.id;
                 });
                 // 设置滚动到当前播放歌曲的位置
                 this.$refs.listContent.scrollToElement(this.$refs.list.$el.children[index], 300);
             },
             // 获取当前正在播放的歌曲
-            getCurrentSong(item) {
-                if (this.currentSong.id === item.id) {
+            _getCurrentSong(item) {
+                if (this.getCurrentSong.id === item.id) {
                     return 'active';
                 }
                 return '';
@@ -125,8 +134,8 @@
             // 选择播放歌曲
             selectItem(item, index) {
                 // 如果当前是随机歌曲就寻找要播放的歌曲在随机歌曲列表中的索引
-                if (this.playMode === isPlayMode.random) {
-                    index = this.playList.findIndex((currentSong) => {
+                if (this.getPlayMode === isPlayMode.random) {
+                    index = this.getPlayList.findIndex((currentSong) => {
                         return currentSong.id === item.id;
                     });
                 }
@@ -135,13 +144,38 @@
                 this.setCurrentIndex(index);
                 // 设置播放歌曲
                 this.setPlaying(true);
+
+                // 如果不是重复点击就初始化oldSong
+                if (this.oldSong !== item.id) {
+                    this.oldSong = null;
+                }
+
+                // 如果oldSong为空才执行
+                if (!this.oldSong) {
+                    this.oldSong = item.id;
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
             },
             // 删除当前歌曲按钮
             deleteOne(item) {
                 // 删除歌曲
                 this.setDeleteSong(item);
+
+                if (this.getCurrentSong.id) {
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
+
                 // 如果当前播放列表没有歌词就隐藏播放列表
-                if (!this.playList.length) {
+                if (!this.getPlayList.length) {
                     this.hide();
                 }
             },
@@ -150,7 +184,7 @@
                  * 设置滚动组件数据
                  * @type {Array}
                  * */
-                setScrollData: 'data',
+                setScrollData: 'scrollData',
                 /*
                  * 设置滚动组件刷新数据延迟时间l
                  * @type {Array}
@@ -175,13 +209,9 @@
     };
 </script>
 
-<style lang="stylus" scoped>
-    @import '../../assets/styles/global.styl';
-</style>
-
 <style lang="scss" scoped>
-    @import "../../common/sass/remAdaptive";
-    @import "../../common/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     // 播放列表出现动画
     .list-fade-enter-active, .list-fade-leave-active {
@@ -293,6 +323,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                line-height: px2rem(80px);
                 &.active {
                     color: $list-content-name-active-color;
                 }

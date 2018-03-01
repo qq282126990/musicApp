@@ -1,20 +1,20 @@
 /**
  * @file store index
- * @author jianzhongmin(282126990@qq.com)
+ * @author *__ author __*{% if: *__ email __* %}(*__ email __*){% /if %}
  */
 
 import Vue from 'vue';
 import Vuex from 'vuex';
 import appShell from './modules/app-shell';
-import appStore from './modules/app-store';
-import asyncAjax from './modules/async-ajax';
+import asyncAjax from './modules/async-ajax.js';
+import appStore from './modules/app-store.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
         appShell,
-        appStore,
-        asyncAjax
+        asyncAjax,
+        appStore
     }
 });
