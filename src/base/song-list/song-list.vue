@@ -203,7 +203,7 @@
                 span {
                     display: block;
                     margin-right: px2rem(16px);
-                    max-width: 100%;
+                    max-width: 70%;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;

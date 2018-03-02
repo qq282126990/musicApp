@@ -1,17 +1,23 @@
 <template>
     <div class="scroll-wrapper">
         <div class="singer-message">
+            <!--返回按钮-->
+            <div class="back" @click="back" ref="back">
+                <v-icon class="icon">arrow_back</v-icon>
+            </div>
             <!--榜单图片-->
-            <div class="bg-image" :style="bgImage" ref="bgImage">
-                <!--返回按钮-->
-                <div class="back" @click="back">
-                    <v-icon class="icon">arrow_back</v-icon>
-                </div>
+            <div class="bg-image" ref="bgImage">
+                <img class="img" :src="this.getSingerMessage.avatar">
                 <!--标题-->
                 <h1 class="bg-image-title">{{getSingerMessage.name}}</h1>
                 <!--粉丝数-->
                 <p class="fans-number">{{computedPlayNumber(getSingerDetail.fans)}}粉丝</p>
             </div>
+            <!--背景滤镜效果-->
+            <div class="filter" :style="{opacity: filterOpacity}" ref="filter">
+                <img :src="this.getSingerMessage.avatar">
+            </div>
+            <!--滚动-->
             <scroll class="content-scroll-wrapper" @scroll="scroll" ref="contentScrollWrapper">
                 <div>
                     <!--内容-->
@@ -42,8 +48,6 @@
     import {normalizeSingerSongList} from 'common/js/songList';
     // 计算播放量 computedPlayNumber
     import {computedPlayNumber} from 'common/js/util';
-    // 样式兼容方法
-    import {prefixStyle} from 'common/js/dom';
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
     // 滚动组件
@@ -56,9 +60,6 @@
     import SliderSwitch from 'base/slider-switch/slider-switch';
     // 歌曲列表播放全部模块
     import SongListPlayAll from 'base/songListPlayAll/songListPlayAll';
-
-    // transform 兼容
-    const transform = prefixStyle('transform');
 
     export default {
         data () {
@@ -81,7 +82,12 @@
                 /*
                  * 获取Y轴滚动数值
                  * */
-                scrollY: 0
+                scrollY: 0,
+                /*
+                * 图片模糊效果透明度
+                * @type {Number}
+                * */
+                filterOpacity: 0
             }
         },
         mounted () {
@@ -99,12 +105,6 @@
             });
         },
         computed: {
-            bgImage () {
-                if (this.getSingerMessage.id) {
-                    return `background-image:url(${this.getSingerMessage.avatar})`
-                }
-                return ''
-            },
             ...mapGetters('appStore', {
                 getSingerMessage: 'singerMessage'
             }),
@@ -114,7 +114,7 @@
         },
         methods: {
             // 一些初始化操作
-            _initSome() {
+            _initSome () {
                 // 设置scroll组件要不要监听滚动事件
                 this.setListenScroll(true);
                 // 设置滚动的状态
@@ -123,7 +123,10 @@
                 // 获取图片高度
                 this.bgImageHeight = this.$refs.bgImage.clientHeight;
                 // 设置歌曲列表的位置
-                this.$refs.contentScrollWrapper.$el.style.transform = `translate3d(0,${this.bgImageHeight}px,0)`;
+                this.$refs.contentScrollWrapper.$el.style.top = `${this.bgImageHeight}px`;
+
+                // 设置最小移动数 minTransalteY
+                this.minTransalteY = -this.bgImageHeight + this.$refs.back.clientHeight;
             },
             // 返回按钮
             back () {
@@ -137,7 +140,7 @@
                 // 获取当前显示的页数
                 this.newPageIndex = index;
             },
-            scroll(pos) {
+            scroll (pos) {
                 this.scrollY = pos.y;
             },
             /**
@@ -182,8 +185,7 @@
         },
         watch: {
             // 监听歌手信息请求
-            getSingerDetail(newSingerDetail) {
-                console.log(normalizeSingerSongList(newSingerDetail.list));
+            getSingerDetail (newSingerDetail) {
                 // 滚动组件外部传入的数据
                 this.setScrollData(newSingerDetail);
                 // 设置歌曲列表
@@ -193,8 +195,25 @@
                 this.dotsTitle = [{name: `歌曲 ${this.getSingerDetail.total}`}, {name: '详情'}];
             },
             // 监听Y轴滚动
-            scrollY(newScrollY) {
-                console.log(newScrollY);
+            scrollY (newScrollY) {
+
+                // 设置想上滚模糊层的透明度
+                const percent = Math.abs(newScrollY / this.bgImageHeight);
+
+                // 如果滚动距离小于this.minTransalteY就设置为0 大于this.minTransalteY就开始计算
+                if (newScrollY < this.minTransalteY) {
+                    // 初始化专辑内容的透明度
+                    this.filterOpacity = 1;
+
+                    this.$refs.filter.style.zIndex = 40;
+                    this.$refs.filter.style.height = `${this.$refs.back.clientHeight}px`;
+                    this.$refs.filter.style.top = '-1px';
+                }
+                else {
+                    // 设置专辑内容的透明度
+                    this.filterOpacity = Math.min(1, percent);
+                }
+
             }
         },
         components: {
@@ -234,23 +253,34 @@
         z-index: 10;
     }
 
+    /*歌手信息*/
     .singer-message {
+        overflow: hidden;
+        height: 100%;
         /*榜单图片*/
         .bg-image {
             position: relative;
             width: 100%;
             height: px2rem(548px);
-            background-size: cover;
-            background-position: center;
+            overflow: hidden;
+            .img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
         }
         /*返回按钮*/
         .back {
             position: absolute;
-            top: px2rem(20px);
+            top: 0;
+            line-height: px2rem(84px);
+            height: px2rem(84px);
             z-index: 50;
             .icon {
                 display: block;
-                padding: 0 px2rem(20px) px2rem(20px) px2rem(20px);
+                padding: 0 0 0 px2rem(20px);
+                line-height: px2rem(84px);
                 font-size: px2rem(60px);
                 color: $icon-fanhui1-copy;
             }
@@ -275,6 +305,26 @@
             font-size: px2rem(28px);
             color: #fff;
         }
+        /*过滤层*/
+        .filter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: px2rem(548px);
+            width: 100%;
+            overflow: hidden;
+            object-fit: cover;
+            filter: blur(px2rem(2px));
+            background: #fff;
+            z-index: 0;
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: auto;
+                width: 100%;
+            }
+        }
     }
 
     /*内容*/
@@ -284,8 +334,9 @@
         height: 100%;
         overflow: hidden;
         text-decoration: none;
+        background: #fff;
         .text {
-            padding: 0 px2rem(30px) px2rem(400px) px2rem(30px);
+            padding: px2rem(30px) px2rem(20px) px2rem(20px) px2rem(20px);
             margin-bottom: 0;
             font-size: px2rem(28px);
             text-align: left;
