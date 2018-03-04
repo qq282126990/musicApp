@@ -226,6 +226,7 @@
             padding-top: px2rem(80px);
             padding-bottom: px2rem(120px);
             overflow: hidden;
+            box-sizing: content-box;
             .slider-switch-item {
                 position: relative;
                 float: left;

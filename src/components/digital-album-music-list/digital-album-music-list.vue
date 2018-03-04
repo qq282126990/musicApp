@@ -4,8 +4,8 @@
         <div class="back" @click="back">
             <i class="iconfont icon-fanhui1-copy"></i>
         </div>
-        <scroll class="scroll-warpper">
-            <div v-show="albumMessage.cover">
+        <scroll class="scroll-warpper" v-show="getSongList.length">
+            <div>
                 <!--专辑图片-->
                 <div class="cover-wrapper">
                     <!--背景-->
@@ -56,6 +56,10 @@
                 </div>
             </div>
         </scroll>
+        <!--loading-->
+        <div class="loading-wrapper" v-show="!getSongList.length">
+            <loading :loadingText="loadingText"></loading>
+        </div>
     </div>
 </template>
 
@@ -71,6 +75,8 @@
     import SongList from 'base/song-list/song-list';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
+    // loading组件
+    import Loading from 'base/loading/loading';
 
     export default {
         data () {
@@ -87,7 +93,12 @@
                  * 判断当前是否重复点击歌曲列表
                  * @type {String}
                  * */
-                oldSong: null
+                oldSong: null,
+                /*
+                 * loading显示的文字
+                 * @type {String}
+                 * */
+                loadingText: '加载中...'
             };
         },
         computed: {
@@ -201,7 +212,8 @@
         },
         components: {
             SongList,
-            Scroll
+            Scroll,
+            Loading
         }
     };
 </script>

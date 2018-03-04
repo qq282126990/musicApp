@@ -1,13 +1,13 @@
 <template>
     <div class="scroll-wrapper">
-        <div class="singer-message">
+        <div class="singer-message" v-show="getSongList.length">
             <!--返回按钮-->
             <div class="back" @click="back" ref="back">
                 <v-icon class="icon">arrow_back</v-icon>
             </div>
             <!--榜单图片-->
             <div class="bg-image" ref="bgImage">
-                <img class="img" :src="this.getSingerMessage.avatar">
+                <img class="img" v-lazy="this.getSingerMessage.avatar">
                 <!--标题-->
                 <h1 class="bg-image-title">{{getSingerMessage.name}}</h1>
                 <!--粉丝数-->
@@ -18,26 +18,38 @@
                 <img :src="this.getSingerMessage.avatar">
             </div>
             <!--滚动-->
-            <scroll class="content-scroll-wrapper" @scroll="scroll" ref="contentScrollWrapper">
+            <scroll class="content-scroll-wrapper"
+                    @scroll="scroll"
+                    @pullingUp="pullingUp"
+                    ref="contentScrollWrapper">
                 <div>
                     <!--内容-->
-                    <slider-switch :dotsTitle="dotsTitle"
-                                   @pageIndex="pageIndex"
-                    >
-                        <div v-for="(item, index) in dotsTitle" :key="index" v-if="dotsTitle.length">
-                            <!--歌曲列表-->
-                            <div class="singer-content" v-if="index === 0">
-                                <song-list-play-all></song-list-play-all>
-                                <song-list :totalSongNum="getSingerDetail.total"></song-list>
-                            </div>
-                            <!--详情-->
-                            <div class="singer-content" v-if="index === 1">
-                                <p v-html="getSingerDetail.SingerDesc" class="text"></p>
-                            </div>
-                        </div>
-                    </slider-switch>
+                    <!--<slider-switch :dotsTitle="dotsTitle"-->
+                                   <!--@pageIndex="pageIndex"-->
+                    <!--&gt;-->
+                        <!--<div v-for="(item, index) in dotsTitle" :key="index" v-if="dotsTitle.length">-->
+                            <!--&lt;!&ndash;歌曲列表&ndash;&gt;-->
+                            <!--<div class="singer-content" v-if="index === 0">-->
+                                <!--<song-list-play-all></song-list-play-all>-->
+                                <!--<song-list :totalSongNum="getSingerDetail.total"-->
+                                           <!--@selectSong="selectSong"></song-list>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;详情&ndash;&gt;-->
+                            <!--<div class="singer-content" v-if="index === 1">-->
+                                <!--<p v-html="getSingerDetail.SingerDesc" class="text"></p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</slider-switch>-->
+                    <div class="singer-content">
+                        <song-list-play-all></song-list-play-all>
+                        <song-list :totalSongNum="getSingerDetail.total"
+                                   @selectSong="selectSong"></song-list>
+                    </div>
                 </div>
             </scroll>
+        </div>
+        <div class="loading-wrapper"  v-show="!getSongList.length">
+            <loading :loadingText="loadingText"></loading>
         </div>
     </div>
 </template>
@@ -75,19 +87,34 @@
                  * */
                 newPageIndex: 0,
                 /*
+                 * 获取Y轴滚动数值
+                 * */
+                scrollY: 0,
+                /*
+                 * 图片模糊效果透明度
+                 * @type {Number}
+                 * */
+                filterOpacity: 0,
+                /*
+                 * 歌手歌曲列表数量
+                 * @type {Number}
+                 * */
+                songBegin: 30,
+                /*
                  * 歌手粉丝数量
                  * @type {Number}
                  * */
                 fansNumber: null,
                 /*
-                 * 获取Y轴滚动数值
+                 * 判断当前是否重复点击歌曲列表
+                 * @type {String}
                  * */
-                scrollY: 0,
+                oldSong: null,
                 /*
-                * 图片模糊效果透明度
-                * @type {Number}
-                * */
-                filterOpacity: 0
+                 * loading文字
+                 * @type {String}
+                 * */
+                loadingText: '加载中...'
             }
         },
         mounted () {
@@ -96,9 +123,6 @@
                 this.$router.back();
             }
 
-            // 获取歌手歌曲列表接口
-            this.setSingerDetail(this.getSingerMessage.id);
-
             this.$nextTick(() => {
                 // 一些初始化操作
                 this._initSome();
@@ -106,10 +130,28 @@
         },
         computed: {
             ...mapGetters('appStore', {
-                getSingerMessage: 'singerMessage'
+                /*
+                 * 获取歌手ID
+                 * @param {Object}
+                 * */
+                getSingerMessage: 'singerMessage',
+                /**
+                 * 获取当前播放的歌曲信息
+                 * @type {Object}
+                 */
+                getCurrentSong: 'currentSong'
             }),
             ...mapState('asyncAjax', {
-                getSingerDetail: 'singerDetail'
+                /*
+                 * 获取歌手歌曲列表
+                 * @param {Object}
+                 * */
+                getSingerDetail: 'singerDetail',
+                /*
+                 * 获取歌曲列表
+                 * @param {Object}
+                 * */
+                getSongList: 'songList'
             })
         },
         methods: {
@@ -119,11 +161,11 @@
                 this.setListenScroll(true);
                 // 设置滚动的状态
                 this.setProbeType(3);
+                // 是否开启滚动到到底部刷新
+                this.setPullUpLoad(true);
 
                 // 获取图片高度
                 this.bgImageHeight = this.$refs.bgImage.clientHeight;
-                // 设置歌曲列表的位置
-                this.$refs.contentScrollWrapper.$el.style.top = `${this.bgImageHeight}px`;
 
                 // 设置最小移动数 minTransalteY
                 this.minTransalteY = -this.bgImageHeight + this.$refs.back.clientHeight;
@@ -142,6 +184,52 @@
             },
             scroll (pos) {
                 this.scrollY = pos.y;
+            },
+            // 选择歌曲列表
+            selectSong(item, index) {
+                this.setSelectPlay({
+                    list: this.getSongList,
+                    index
+                });
+
+                // 如果不是重复点击就初始化oldSong
+                if (this.oldSong !== item.id) {
+                    this.oldSong = null;
+                }
+
+                // 如果oldSong为空才执行
+                if (!this.oldSong) {
+                    this.oldSong = item.id;
+
+                    // 设置播放器播放
+                    document.getElementsByTagName('audio')[0].play();
+
+                    // 发送选择歌曲的信息总线程
+                    Bus.$emit('selectSong', this.getCurrentSong);
+                }
+            },
+            // 上拉加载更多数字专辑方法
+            pullingUp() {
+                // 如果当前歌曲数量等于歌曲总数就不执行下拉操作
+                if (this.getSingerDetail.total === this.getSongList.length) {
+                    return;
+                }
+
+                // 页数每次+15
+                this.songBegin += 15;
+
+                // 获取歌手歌曲列表接口
+                this.setSingerDetail({
+                    singerid: this.getSingerMessage.id,
+                    num: this.songBegin
+                });
+            },
+            // 上拉加载更多歌单列表完成后刷新数据方法
+            pullingUpRefresh() {
+                // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+                this.$refs.contentScrollWrapper.finishPullUp();
+                // 数据更新时刷新滚动列表数据
+                this.$refs.contentScrollWrapper.refresh();
             },
             /**
              * 计算播放量
@@ -181,7 +269,25 @@
                  * @type {Number}
                  */
                 setProbeType: 'probeType',
+                /**
+                 * 是否开启滚动到到底部刷新
+                 * @type {Boolean}
+                 */
+                setPullUpLoad: 'pullUpLoad',
+                /**
+                 * 选择播放的歌曲
+                 * @type {Boolean}
+                 */
+                setSelectPlay: 'selectPlay'
             })
+        },
+        // 选择歌手
+        activated () {
+            // 获取歌手歌曲列表接口
+            this.setSingerDetail({
+                singerid: this.getSingerMessage.id,
+                num: this.songBegin
+            });
         },
         watch: {
             // 监听歌手信息请求
@@ -213,7 +319,14 @@
                     // 设置专辑内容的透明度
                     this.filterOpacity = Math.min(1, percent);
                 }
-
+            },
+            // 监听歌曲列表变化
+            getSongList() {
+                // 页数大于15才执行
+                if (this.songBegin > 0) {
+                    // 上拉加载更多歌单列表完成后刷新数据方法
+                    this.pullingUpRefresh();
+                }
             }
         },
         components: {
@@ -246,8 +359,8 @@
 
     .content-scroll-wrapper {
         position: fixed;
-        top: 0;
-        bottom: 0;
+        top: px2rem(548px);
+        bottom: px2rem(120px);
         left: 0;
         right: 0;
         z-index: 10;
@@ -336,12 +449,18 @@
         text-decoration: none;
         background: #fff;
         .text {
-            padding: px2rem(30px) px2rem(20px) px2rem(20px) px2rem(20px);
+            margin: px2rem(30px) px2rem(20px) 0 px2rem(20px);
             margin-bottom: 0;
             font-size: px2rem(28px);
             text-align: left;
             color: #999;
             line-height: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            /* autoprefixer: off */
+            -webkit-box-orient: vertical;
+            /* autoprefixer: no */
+            overflow: hidden;
         }
     }
 </style>

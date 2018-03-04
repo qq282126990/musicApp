@@ -20,19 +20,17 @@ export function getSingerList () {
 }
 
 // 歌手歌曲列表
-export function getSingerDetail (singerId) {
+export function getSingerDetail (param) {
     const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
 
     const data = Object.assign({}, commonParams, {
-        singerid: singerId,
         uin: 0,
         platform: 'h5page',
         needNewCode: 1,
         order: 'listen',
         from: 'h5',
-        num: 15,
         begin: 0
-    });
+    }, param);
 
     return jsonp(url, data, options)
 }

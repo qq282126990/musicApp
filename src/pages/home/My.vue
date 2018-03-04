@@ -8,7 +8,7 @@
                         <!--头像-->
                         <img class="cove" src="../../../static/img/default_avater.png"/>
                         <!--用户名-->
-                        <h2 class="user-name">未登录</h2>
+                        <h2 class="user-name">立即登录，资产云同步</h2>
                     </div>
                     <!--中心-->
                     <div class="center">
@@ -264,7 +264,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: px2rem(20px);
             box-sizing: border-box;
             height: px2rem(100px);
         }
@@ -279,16 +278,13 @@
         }
         /*用户名*/
         .user-name {
-            margin-left: px2rem(40px);
+            margin-left: px2rem(20px);
             font-size: px2rem(28px);
-            font-weight: 400;
-            line-height: 50px;
+            line-height: px2rem(80px);
             text-align: left;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: px2rem(100px);
-            height: 100%;
         }
         /*中心*/
         .center {

@@ -6,11 +6,10 @@
                 @click-menu="handleClickHeaderMenu"
                 @click-back="handleClickHeaderBack">
             </app-header>
-            <!--<app-sidebar-->
-            <!--@hide-sidebar="handleHideSidebar"-->
-            <!--@show-sidebar="handleShowSidebar"-->
-            <!--&gt;-->
-            <!--</app-sidebar>-->
+            <app-sidebar @hide-sidebar="handleHideSidebar"
+                         @show-sidebar="handleShowSidebar"
+            >
+            </app-sidebar>
             <div class="app-view-wrapper">
                 <transition
                     :name="pageTransitionName"
@@ -48,18 +47,13 @@
 
 <script>
     import {mapState, mapActions} from 'vuex';
-    import AppHeader from '@/components/AppHeader';
-    import AppSidebar from '@/components/AppSidebar';
+    import AppHeader from 'components/app-header/app-header';
+    import AppSidebar from 'components/app-sidebar/app-sidebar';
     // 播放器组件
     import Player from 'components/player/player';
 
     export default {
         name: 'app',
-        components: {
-            AppHeader,
-            AppSidebar,
-            Player
-        },
         data() {
             return {};
         },
@@ -100,6 +94,11 @@
             handleShowSidebar() {
                 this.showSidebar();
             }
+        },
+        components: {
+            AppHeader,
+            AppSidebar,
+            Player
         }
     };
 </script>

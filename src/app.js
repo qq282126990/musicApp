@@ -13,7 +13,10 @@ import '@/assets/styles/global.styl';
 let loading = Vue.prototype.$loading = new Vue(ProgressBar).$mount();
 document.body.appendChild(loading.$el);
 
+// ui组件库
 Vue.use(Vuetify);
+// 图标库
+Vue.component('icon', Icon);
 
 // 懒加载图片
 Vue.use(VueLazyload, {
@@ -24,8 +27,6 @@ Vue.use(VueLazyload, {
 
 /* eslint-disable no-unused-vars */
 // import vConsole from 'vconsole';
-
-Vue.component('icon', Icon);
 
 Vue.config.productionTip = false;
 

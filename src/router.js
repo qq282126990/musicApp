@@ -95,7 +95,7 @@ const ALWAYS_BACK_PAGE = ['my'];
  * @type {Array.<string>}
  * @const
  */
-const ALWAYS_FORWARD_PAGE = ['find', 'songsingle', 'rankingSongList'];
+const ALWAYS_FORWARD_PAGE = ['find', 'songsingle', 'rankingSongList', 'singerDetail'];
 
 /**
  * 历史记录，记录访问过的页面的 fullPath

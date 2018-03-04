@@ -555,6 +555,7 @@
         overflow: hidden;
         width: 100%;
         height: px2rem(300px);
+        background: #999;
     }
 
     /*轮播图背景*/

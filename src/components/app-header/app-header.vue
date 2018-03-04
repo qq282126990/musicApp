@@ -132,8 +132,8 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../assets/sass/remAdaptive";
-    @import "../assets/sass/variables";
+    @import "../../assets/sass/remAdaptive";
+    @import "../../assets/sass/variables";
 
     .slide-enter-active, .slide-leave-active {
         transition: transform 0.4s cubic-bezier(.55, 0, .1, 1);

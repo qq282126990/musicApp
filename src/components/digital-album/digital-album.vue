@@ -140,6 +140,8 @@
                 this.setListenScroll(true);
                 // 设置开启上拉加载
                 this.setPullUpLoad(true);
+                // 重置音乐歌曲列表
+                this.setSongList([]);
             },
             // 初始化专辑列表数据
             _normalizeAlbumList (data) {

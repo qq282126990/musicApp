@@ -11,7 +11,7 @@
                 <span>歌手</span>
             </div>
         </div>
-        <scroll class="scroll-wrapper" @scroll="scroll" ref="scroll">
+        <scroll class="scroll-wrapper" @scroll="scroll" v-show="getSingerList.length" ref="scroll">
             <ul class="singer-list-wrapper">
                 <!--列表-->
                 <li class="singer-list" v-for="list in getSingerList" ref="singerList">
@@ -21,7 +21,7 @@
                     <ul>
                         <li class="list-singer-item"
                             v-for="item in list.items"
-                            @click="selectSinger(item)" >
+                            @click="selectSinger(item)">
                             <!--头像-->
                             <img class="avatar" v-lazy="item.avatar">
                             <!--名称-->
@@ -51,6 +51,9 @@
                 <div class="fixed-title">{{fixedTitle}}</div>
             </div>
         </scroll>
+        <div class="loading-wrapper" v-show="!getSingerList.length">
+            <loading :loadingText="loadingText"></loading>
+        </div>
     </div>
 </template>
 
@@ -61,6 +64,8 @@
     import {prefixStyle, getData} from 'common/js/dom';
     // 滚动组件
     import Scroll from 'base/scroll/scroll'
+    // loading组件
+    import Loading from 'base/loading/loading';
 
     // transform 兼容
     const transform = prefixStyle('transform');
@@ -79,19 +84,24 @@
                  * */
                 currentIndex: 0,
                 /*
-                * 记录触摸的位置
-                * @type {Object}
-                * */
+                 * 浮动标题离开时的位置
+                 * @type {Number}
+                 * */
+                diff: -1,
+                /*
+                 * 记录触摸的位置
+                 * @type {Object}
+                 * */
                 touch: {},
                 /*
-                * 获取每个歌手类型的高度a-z
-                * */
+                 * 获取每个歌手类型的高度a-z
+                 * */
                 listHeight: [],
                 /*
-               * 浮动标题离开时的位置
-               * @type {Number}
-               * */
-                diff: -1
+                 * loading文字
+                 * @type {String}
+                 * */
+                loadingText: '加载中...'
             }
         },
         mounted () {
@@ -131,6 +141,9 @@
             },
             // 选择歌手
             selectSinger (singer) {
+                // 重置歌手歌曲列表
+                this.setSongList([]);
+
                 // 跳转路由
                 this.$router.push({
                     path: `/home/singer/${singer.id}`
@@ -205,7 +218,12 @@
                     /*
                      * 获取歌手列表接口
                      * */
-                    setSingerList: 'getSingerList'
+                    setSingerList: 'getSingerList',
+                    /**
+                     * 设置歌曲列表
+                     * @param {Function} commit
+                     */
+                    setSongList: 'songList'
                 }
             ),
             ...mapActions('appStore', {
@@ -238,8 +256,10 @@
             this.setAppHeader({
                 show: false
             });
-        }
-        ,
+
+            // 刷新滚动组件
+            this.$refs.scroll.refresh();
+        },
         watch: {
             // 监听歌手列表数据变化
             getSingerList (newSingerList) {
@@ -288,7 +308,8 @@
             }
         },
         components: {
-            Scroll
+            Scroll,
+            Loading
         }
     }
 </script>
@@ -422,6 +443,15 @@
             font-size: px2rem(26px);
             color: $singer-list-title;
         }
+    }
+
+    /*loading*/
+    .loading-wrapper {
+        position: fixed;
+        left: 0;
+        right: 0;
+        padding-top: 50%;
+        z-index: 10;
     }
 
 </style>

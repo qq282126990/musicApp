@@ -135,3 +135,7 @@ body {
 .introduction .text .txt p{
     -webkit-box-orient: vertical;
 }
+
+.application--wrap{
+    min-height: auto !important;
+}
