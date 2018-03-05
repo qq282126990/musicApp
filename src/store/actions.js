@@ -398,3 +398,10 @@ export const singerMessage = function ({commit}, singerMessage) {
     commit(types.SET_SINGGER_Message, singerMessage);
 }
 /********************************************/
+
+/** *****************登录组件状态*********************** **/
+export const showLogin = function ({commit}, showLogin) {
+    commit(types.SET_SHOW_LOGIN, showLogin);
+}
+/********************************************/
+

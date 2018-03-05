@@ -8,7 +8,7 @@
                         <!--头像-->
                         <img class="cove" src="../../../static/img/default_avater.png"/>
                         <!--用户名-->
-                        <h2 class="user-name">立即登录，资产云同步</h2>
+                        <h2 class="user-name" @click="showLogin">立即登录，资产云同步</h2>
                     </div>
                     <!--中心-->
                     <div class="center">
@@ -105,6 +105,7 @@
 
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
+    // 滚动组件
     import Scroll from 'base/scroll/scroll';
 
     export default {
@@ -157,6 +158,10 @@
             scroll(pos) {
                 this.scrollY = pos.y;
             },
+            // 显示登录界面
+            showLogin () {
+                this.setShowLogin(true);
+            },
             // 跳转到我的喜欢路由
             goFavorite() {
                 if (!this.getFavoriteList.length) {
@@ -207,7 +212,12 @@
                  * 设置滚动列表不回弹
                  * @type {Boolean}
                  */
-                setBounce: 'bounce'
+                setBounce: 'bounce',
+                /**
+                 * 是否显示登录组件
+                 * @type {Boolean}
+                 */
+                setShowLogin: 'showLogin'
             })
         },
         // 组件激活

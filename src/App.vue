@@ -41,6 +41,7 @@
                 </transition>
             </div>
             <player></player>
+            <login></login>
         </div>
     </div>
 </template>
@@ -51,6 +52,8 @@
     import AppSidebar from 'components/app-sidebar/app-sidebar';
     // 播放器组件
     import Player from 'components/player/player';
+    // 登录组件
+    import Login from 'components/login/login';
 
     export default {
         name: 'app',
@@ -98,7 +101,8 @@
         components: {
             AppHeader,
             AppSidebar,
-            Player
+            Player,
+            Login
         }
     };
 </script>

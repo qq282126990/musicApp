@@ -1069,7 +1069,7 @@
         position: fixed;
         left: 0;
         bottom: 0;
-        z-index: 200;
+        z-index: 145;
         width: 100%;
         height: px2rem(120px);
         box-shadow: 0 0 10px #999;

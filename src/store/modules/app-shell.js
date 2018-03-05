@@ -113,7 +113,7 @@ export default {
                  *
                  * @type {boolean}
                  */
-                show: false,
+                show: true,
 
                 /**
                  * 标题内容

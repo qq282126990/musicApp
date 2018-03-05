@@ -48,7 +48,7 @@
             },
             width: {
                 'type': [Array, Number],
-                'default': 300
+                'default': window.innerWidth - 75
             }
         },
         data() {
@@ -265,7 +265,7 @@
     @import "../../assets/sass/variables";
 
     .sidebar-wrapper {
-        z-index: 9999;
+        z-index: 155;
         .sidebar-main {
             overflow-y: auto;
             overflow-x: hidden;

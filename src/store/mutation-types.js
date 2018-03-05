@@ -73,5 +73,8 @@ export const SET_SINGGER_LIST = 'SET_SINGGER_LIST'; // 获取歌手列表
 export const SET_SINGGER_Message = 'SET_SINGGER_Message'; // 获取歌手信息
 export const SET_SINGGER_DETAIL = 'SET_SINGGER_DETAIL'; // 获取歌手歌曲信息
 
-// 歌曲列表
+// 歌曲列表状态
 export const SET_SHOW_MORE = 'SET_SHOW_MORE'; // 是否显示更多按钮
+
+// 登录组件状态
+export const SET_SHOW_LOGIN = 'SET_SHOW_LOGIN'; // 是否显示登录组件

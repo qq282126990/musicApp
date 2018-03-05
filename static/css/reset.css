@@ -79,8 +79,7 @@ li {
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    display: none;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -138,4 +137,8 @@ body {
 
 .application--wrap{
     min-height: auto !important;
+}
+
+.input-group{
+     flex-wrap: initial !important;
 }
