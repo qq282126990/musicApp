@@ -6,7 +6,7 @@
 ## 安装
 
 手机APP安装点击一下链接获取安卓APK
-https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1518104735085/lavas.app.music.apk
+> https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1518104735085/lavas.app.music.apk
 
 手机浏览器网页浏览
-https://linfengzhuiyi.cn
+> https://linfengzhuiyi.cn
