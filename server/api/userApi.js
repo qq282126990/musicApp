@@ -2,6 +2,7 @@ const models = require('../db');
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const uuid = require('node-uuid');
 const sql = require('../sqlMap.js');
 
 // 链接数据库
@@ -37,15 +38,27 @@ router.post('/addUser', (req, res) => {
         if (result[0] === undefined) {
             conn.query(sql_add, [params.username, params.password], function (err, result) {
                 if (err) {
-                    console.log(err);
+                    res.send({
+                        error: -1
+                    }); // //查询不出username，data返回-1
                 }
                 else {
-                    jsonWrite(res, result);
+                    // jsonWrite(res, result);
+                    let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+
+                    // jsonWrite(res, result);
+                    res.send({
+                        code: 0,
+                        username: params.username,
+                        userip: ip
+                    });
                 }
             })
         }
         else {
-            res.send('-1');    //当前注册username与数据库重复时，data返回-1
+            res.send({
+                error: -1
+            });    //当前注册username与数据库重复时，data返回-1
         }
     });
 });

@@ -66,7 +66,7 @@
                 * 是否显示登录输入
                 * @type {Boolean}
                 * */
-                setShowInput: true,
+                setShowInput: false,
                 /*
                 * 注册用户名
                 * @type {String}

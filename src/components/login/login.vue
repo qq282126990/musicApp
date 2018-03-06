@@ -98,6 +98,9 @@
                 alertPromptTxt: ''
             }
         },
+        mounted () {
+            this._initSome();
+        },
         computed: {
             ...mapState('appStore', {
                 /**
@@ -120,6 +123,14 @@
             })
         },
         methods: {
+            // 一些初始化操作
+            _initSome () {
+                this.loginUsername = '';
+                this.loginPassword = '';
+                this.registeredUsername = '';
+                this.registeredPassword = '';
+                this.registeredAgainPassword = '';
+            },
             // 取消按钮
             back () {
                 this.setShowLogin(false);
@@ -243,6 +254,10 @@
 
                         // 登录成功返回页面
                         this.$refs.loginInput.hide();
+                        // 隐藏登录
+                        this.setShowLogin(false);
+                        // 初始化
+                        this._initSome();
                     }, 500);
                 }
                 else {
@@ -265,7 +280,11 @@
                         this.successPrompt = false;
 
                         // 注册成功返回页面
-                        this.$refs.loginInput.hide();
+                        this.$refs.registeredInput.hide();
+                        // 隐藏登录
+                        this.setShowLogin(false);
+                        // 初始化
+                        this._initSome();
                     }, 500);
                 }
                 else {
