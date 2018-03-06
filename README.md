@@ -7,18 +7,13 @@
 
 手机APP安装点击一下链接获取安卓APK
 > https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1518104735085/lavas.app.music.apk
-<<<<<<< HEAD
+
 
 手机扫码获取安卓APK
-> ![image](https://github.com/qq282126990/musicApp/mpa/images/androidAPK.png)
+> ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/androidAPK.png)
 
 手机浏览器网页浏览
 > https://linfengzhuiyi.cn
 
 手机浏览器扫码网页浏览
-> ![image](https://github.com/qq282126990/musicApp/mpa/images/web.jpg)
-=======
-
-手机浏览器网页浏览
-> https://linfengzhuiyi.cn
->>>>>>> refs/remotes/origin/mpa
+> ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/web.png)
