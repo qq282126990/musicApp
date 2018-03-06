@@ -16,4 +16,4 @@
 > https://linfengzhuiyi.cn
 
 手机浏览器扫码网页浏览
-> ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/web.png)
+> ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/web.jpg)
