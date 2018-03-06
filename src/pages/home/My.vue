@@ -8,7 +8,7 @@
                         <!--头像-->
                         <img class="cove" src="../../../static/img/default_avater.png"/>
                         <!--用户名-->
-                        <h2 class="user-name" @click="showLogin">立即登录，资产云同步</h2>
+                        <h2 class="user-name" @click="showLogin">{{getUserMessage.username || '立即登录，资产云同步'}}</h2>
                     </div>
                     <!--中心-->
                     <div class="center">
@@ -151,6 +151,13 @@
                  * @type {Array}
                  */
                 getPlayHistory: 'playHistory'
+            }),
+            ...mapGetters('asyncAjax', {
+                /**
+                 * 获取用户信息
+                 * @type {Array}
+                 */
+                getUserMessage: 'userMessage',
             })
         },
         methods: {

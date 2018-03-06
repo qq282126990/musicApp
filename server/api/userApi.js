@@ -12,7 +12,7 @@ const conn = mysql.createConnection(models.mysql);
 let jsonWrite = function (res, ret) {
     if (typeof ret === 'undefined') {
         res.send({
-            error: -1
+            code: -1
         });
     }
     else {
@@ -39,25 +39,32 @@ router.post('/addUser', (req, res) => {
             conn.query(sql_add, [params.username, params.password], function (err, result) {
                 if (err) {
                     res.send({
-                        error: -1
+                        code: -1
                     }); // //查询不出username，data返回-1
                 }
                 else {
                     // jsonWrite(res, result);
                     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
+                    // 生成UID
+                    let uid = uuid.v1();
+                    uid = uid.replace(/\-/g,'');
+
                     // jsonWrite(res, result);
                     res.send({
                         code: 0,
-                        username: params.username,
-                        userip: ip
+                        data: {
+                            username: params.username,
+                            userip: ip,
+                            uid: uid
+                        }
                     });
                 }
             })
         }
         else {
             res.send({
-                error: -1
+                code: -1
             });    //当前注册username与数据库重复时，data返回-1
         }
     });
@@ -78,7 +85,7 @@ router.post('/selectUser', (req, res) => {
         }
         if (result[0] === undefined) {
             res.send({
-                error: -1
+                code: -1
             }); // //查询不出username，data返回-1
         }
         else {
@@ -89,11 +96,18 @@ router.post('/selectUser', (req, res) => {
                 else {
                     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
+                    // 生成UID
+                    let uid = uuid.v1();
+                    uid = uid.replace(/\-/g,'');
+
                     // jsonWrite(res, result);
                     res.send({
                         code: 0,
-                        username: params.username,
-                        userip: ip
+                        data: {
+                            username: params.username,
+                            userip: ip,
+                            uid: uid
+                        }
                     });
                 }
             })

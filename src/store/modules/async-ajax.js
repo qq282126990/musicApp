@@ -4,7 +4,10 @@ import {ERR_OK} from 'api/config';
 import {computedPlayNumber} from 'common/js/util';
 // 获取主页选择对应歌单的数据 getSongSingle
 // 保存一开始的新歌数据 saveInitNewSongList
-import {getSongSingle, saveInitNewSongList} from 'common/js/cache';
+// 保存用户信息 saveUserMessage
+// 获取用户信息 loadUserMessage
+// 删除用户信息 clearUserMessage
+import {getSongSingle, saveInitNewSongList, saveUserMessage, loadUserMessage, clearUserMessage} from 'common/js/cache';
 // 自定义首页新歌速递导航数据 createHomeNewSongSpeed
 // 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
 import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
@@ -153,20 +156,25 @@ let state = {
      * */
     singerList: [],
     /*
-    * 获取歌手歌曲数据列表
-    * @type {Array}
-    * */
+     * 获取歌手歌曲数据列表
+     * @type {Array}
+     * */
     singerDetail: [],
     /*
-    * 查找用户是否登录成功
-    * @type {Array}
-    * */
+     * 查找用户是否登录成功
+     * @type {Array}
+     * */
     selectUser: -1,
     /*
      * 获取用户是否注册成功
      * @type {Array}
      * */
-    addUser: -1
+    addUser: -1,
+    /*
+     * 用户信息
+     * @type {String}
+     * */
+    userMessage: loadUserMessage()
 };
 
 let actions = {
@@ -483,11 +491,15 @@ let actions = {
     async getSelectUser ({commit}, param) {
         let res = await getSelectUser(param);
         if (res.code === ERR_OK) {
-            commit(types.SET_SELECT_USER, `${res.code}`);
+            // 保存用户信息
+            commit(types.SET_USER_MESSAGE, saveUserMessage(res.data));
+
+            // 获取用户是否登录成功
+            commit(types.SET_SELECT_USER, res);
         }
         else {
             // 错误处理
-            commit(types.SET_SELECT_USER, `${res.error}`);
+            commit(types.SET_SELECT_USER, res.code);
         }
     },
     /**
@@ -497,11 +509,15 @@ let actions = {
     async getAddUser ({commit}, param) {
         let res = await getAddUser(param);
         if (res.code === ERR_OK) {
-            commit(types.SET_ADD_USER, `${res.code}`);
+            // 保存用户信息
+            commit(types.SET_USER_MESSAGE, saveUserMessage(res.data));
+
+            // 获取用户是否注册成功
+            commit(types.SET_ADD_USER, res);
         }
         else {
             // 错误处理
-            commit(types.SET_ADD_USER, `${res.error}`);
+            commit(types.SET_ADD_USER, res.code);
         }
     },
     /**
@@ -525,6 +541,11 @@ let actions = {
     sortSongData ({commit}, sortSongData) {
         // 设置歌曲列表
         commit(types.SET_SORT_SONG_DATA, sortSongData);
+    },
+    // 设置用户退出
+    exitUser ({commit}) {
+        // 设置歌曲列表
+        commit(types.SET_USER_MESSAGE, clearUserMessage());
     }
 };
 
@@ -655,6 +676,10 @@ let mutations = {
     // 获取用户是否注册成功
     [types.SET_ADD_USER] (state, addUser) {
         state.addUser = addUser;
+    },
+    // 获取用户信息
+    [types.SET_USER_MESSAGE] (state, userMessage) {
+        state.userMessage = userMessage;
     }
 };
 
@@ -664,6 +689,10 @@ let getters = {
     },
     songList () {
         return state.songList;
+    },
+    // 获取用户信息
+    userMessage () {
+        return state.userMessage;
     }
 };
 

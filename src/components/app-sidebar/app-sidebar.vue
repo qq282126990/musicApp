@@ -77,17 +77,23 @@
                 <!--图标-->
                 <v-icon class="icon-exit">exit_to_app</v-icon>
                 <!--名称-->
-                <span class="name">退出登录/关闭</span>
+                <span class="name" @click="exitUser">{{getUserMessage.username ? '退出登录/关闭' : '关闭'}}</span>
             </div>
+        </div>
+        <!--loading-->
+        <div class="loding-wrapper" ref="lodingWrapper" v-show="loadingShow">
+            <loading></loading>
         </div>
     </sidebar>
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+    import {mapState, mapGetters, mapActions} from 'vuex';
     import Sidebar from './Sidebar';
     // 滚动组件
     import Scroll from 'base/scroll/scroll';
+    // Loading组件
+    import Loading from 'base/loading/loading';
 
     export default {
         data () {
@@ -95,6 +101,10 @@
                 switchOne: ['switchOne'],
                 switchTwo: ['switchTwo'],
                 switchThree: ['switchThree'],
+                /*
+                 * 侧边栏内容
+                 * @type {Object}
+                 * */
                 ulData: {
                     one: [{title: '个性装扮', name: '未开放'},
                         {title: '消息中心', name: '未开放'},
@@ -104,19 +114,33 @@
                         {title: '清理空间', name: '未开放'},
                         {title: '帮助与返馈', name: '未开放'},
                         {title: '关于QQ音乐破解版'}]
-                }
+                },
+                /*
+                 * 是否显示loading
+                 * @tyep {Boolean}
+                 * */
+                loadingShow: false
             }
         },
         computed: {
             ...mapState('appShell/appSidebar', [
                 'show',
             ]),
+            ...mapGetters('asyncAjax', {
+                /**
+                 * 获取用户信息
+                 * @type {Array}
+                 */
+                getUserMessage: 'userMessage',
+            }),
             sidebarStatus: {
                 get () {
                     return this.show;
                 },
                 set (val) {
                     if (val) {
+                        // 设置loading宽度
+                        this.$refs.lodingWrapper.style.width = `${window.innerWidth}px`;
                         this.$emit('show-sidebar');
                     }
                     else {
@@ -125,9 +149,32 @@
                 }
             }
         },
+        methods: {
+            // 退出用户
+            exitUser () {
+                this.loadingShow = true;
+                setTimeout(() => {
+                    this.loadingShow = false
+                    this.$emit('hide-sidebar');
+                }, 300);
+                if (!this.getUserMessage.username) {
+                    return;
+                }
+                // 设置用户退出
+                this.setExitUser();
+            },
+            ...mapActions('asyncAjax', {
+                /**
+                 * 设置用户退出
+                 * @type {Array}
+                 */
+                setExitUser: 'exitUser'
+            })
+        },
         components: {
             Sidebar,
-            Scroll
+            Scroll,
+            Loading
         }
     };
 </script>
@@ -138,6 +185,15 @@
 
     .application.theme--light {
         background: none;
+    }
+
+    /*loading组件*/
+    .loding-wrapper {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        right: 0;
+        z-index: 10;
     }
 
     /*滚动组件*/

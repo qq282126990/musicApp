@@ -185,15 +185,12 @@
             // 注册确认按钮
             RegisteredEndBtn () {
                 // 用户名正则匹配
-                let userNameReg = /^[0-9a-zA-Z]+$/;
-
-                console.log(this.registeredUsername);
-                console.log(userNameReg.test(this.registeredUsername));
+                let userNameReg = /^[0-9a-zA-Z\u4e00-\u9fa5]+$/;
                 if (!this.registeredUsername.length || !this.registeredPassword.length) {
                     clearTimeout(alterTime);
 
                     this.infoPrompt = true;
-                    this.alertPromptTxt = '请先输入用户名或密码';
+                    this.alertPromptTxt = '请先输入账号或密码';
 
                     let alterTime = setTimeout(() => {
                         this.infoPrompt = false
@@ -201,7 +198,7 @@
                 }
                 else if (!userNameReg.test(this.registeredUsername)) {
                     this.infoPrompt = true;
-                    this.alertPromptTxt = '请输入正确的用户名';
+                    this.alertPromptTxt = '请勿输入特殊字符的账号或密码';
 
                     let alterTime = setTimeout(() => {
                         this.infoPrompt = false
@@ -244,18 +241,16 @@
         },
         watch: {
             // 监听用户是否登录成功
-            getSelectUser (code) {
-                if (code === '0') {
+            getSelectUser (data) {
+                if (data.code === 0) {
                     this.successPrompt = true;
+                    this.setShowLogin(false);
                     this.alertPromptTxt = '登录成功';
 
                     setTimeout(() => {
                         this.successPrompt = false;
-
                         // 登录成功返回页面
                         this.$refs.loginInput.hide();
-                        // 隐藏登录
-                        this.setShowLogin(false);
                         // 初始化
                         this._initSome();
                     }, 500);
@@ -265,34 +260,31 @@
                     this.alertPromptTxt = '请输入正确的账号或密码';
 
                     setTimeout(() => {
-                        this.infoPrompt = false
+                        this.infoPrompt = false;
                     }, 1000);
                 }
             },
             // 监听用户是否注册成功
-            getAddUser (code) {
-                console.log(code);
-                if (code === '0') {
+            getAddUser (data) {
+                if (data.code === 0) {
                     this.successPrompt = true;
+                    this.setShowLogin(false);
                     this.alertPromptTxt = '注册成功';
 
                     setTimeout(() => {
                         this.successPrompt = false;
-
                         // 注册成功返回页面
                         this.$refs.registeredInput.hide();
-                        // 隐藏登录
-                        this.setShowLogin(false);
                         // 初始化
                         this._initSome();
-                    }, 500);
+                    }, 1000);
                 }
                 else {
                     this.infoPrompt = true;
                     this.alertPromptTxt = '账号已被注册，请重新输入';
 
                     setTimeout(() => {
-                        this.infoPrompt = false
+                        this.infoPrompt = false;
                     }, 1000);
                 }
             }

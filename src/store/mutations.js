@@ -181,18 +181,18 @@ const mutations = {
      * 歌手信息
      * @type {Object}
      */
-        [types.SET_SINGGER_Message](state, singerMessage) {
+     [types.SET_SINGGER_Message](state, singerMessage) {
         state.singerMessage = singerMessage
-    },
+     },
     /*********************************************************/
     /** *************登录组件组件状态********************** **/
     /**
      * 是否显示登录组件
      * @type {Array}
      */
-        [types.SET_SHOW_LOGIN](state, flag) {
+     [types.SET_SHOW_LOGIN](state, flag) {
         state.showLogin = flag
-    },
+     }
     /*********************************************************/
 };
 

@@ -209,6 +209,10 @@ export function loadPlayHistory () {
     return storage.get(PLAU_HISTORY_KEY, [])
 }
 
+// 保存用户信息
+export function saveUserMessage (data) {
+    return storage.set(USER_MESSAGE_KEY, data);
+}
 // 获取用户信息
 export function loadUserMessage () {
     return storage.get(USER_MESSAGE_KEY, [])

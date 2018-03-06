@@ -5,7 +5,7 @@ import {isPlayMode} from 'common/js/config';
 // 获取顺序播放列表 getSequenceList
 // 获取搜索历史 loadSearchHistory
 // 获取播放历史 loadPlayHistory
-import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList, loadSearchHistory, loadPlayHistory} from 'common/js/cache';
+import {loadFavorite, getPlayList, getCurrentIndex, getSequenceList, loadSearchHistory, loadPlayHistory, } from 'common/js/cache';
 
 /**
  * 状态管理
