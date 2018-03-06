@@ -78,3 +78,5 @@ export const SET_SHOW_MORE = 'SET_SHOW_MORE'; // 是否显示更多按钮
 
 // 登录组件状态
 export const SET_SHOW_LOGIN = 'SET_SHOW_LOGIN'; // 是否显示登录组件
+export const SET_SELECT_USER = 'SET_SELECT_USER'; // 获取用户是否登录成功
+export const SET_ADD_USER = 'SET_ADD_USER'; // 获取用户是否注册成功

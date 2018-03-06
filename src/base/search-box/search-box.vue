@@ -51,7 +51,7 @@
             back() {
                 this.setShowSeach(false);
             },
-            // 请求输入框数据
+            // 清除输入框数据
             clear() {
                 this.query = ''
             },

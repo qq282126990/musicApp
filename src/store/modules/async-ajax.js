@@ -49,6 +49,9 @@ import {getRankingList, getRankingSongList} from 'api/rank'
 // 获取歌手列表接口 getSingerList
 // 获取歌手歌曲列表请求 getSingerDetail
 import {getSingerList, getSingerDetail} from 'api/singer'
+// 获取用户登录请求 getSelectUser
+// 获取用户注册请求 getAddUser
+import {getSelectUser, getAddUser} from 'api/login'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -153,7 +156,17 @@ let state = {
     * 获取歌手歌曲数据列表
     * @type {Array}
     * */
-    singerDetail: []
+    singerDetail: [],
+    /*
+    * 查找用户是否登录成功
+    * @type {Array}
+    * */
+    selectUser: -1,
+    /*
+     * 获取用户是否注册成功
+     * @type {Array}
+     * */
+    addUser: -1
 };
 
 let actions = {
@@ -464,6 +477,34 @@ let actions = {
         }
     },
     /**
+     * 获取用户登录接口
+     * @param {Function} commit
+     */
+    async getSelectUser ({commit}, param) {
+        let res = await getSelectUser(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_SELECT_USER, `${res.code}`);
+        }
+        else {
+            // 错误处理
+            commit(types.SET_SELECT_USER, `${res.error}`);
+        }
+    },
+    /**
+     * 获取用户注册接口
+     * @param {Function} commit
+     */
+    async getAddUser ({commit}, param) {
+        let res = await getAddUser(param);
+        if (res.code === ERR_OK) {
+            commit(types.SET_ADD_USER, `${res.code}`);
+        }
+        else {
+            // 错误处理
+            commit(types.SET_ADD_USER, `${res.error}`);
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -606,6 +647,14 @@ let mutations = {
     // 获取歌手列表接口
     [types.SET_SINGGER_DETAIL] (state, singerDetail) {
         state.singerDetail = singerDetail;
+    },
+    // 获取用户是否登录成功
+    [types.SET_SELECT_USER] (state, selectUser) {
+        state.selectUser = selectUser;
+    },
+    // 获取用户是否注册成功
+    [types.SET_ADD_USER] (state, addUser) {
+        state.addUser = addUser;
     }
 };
 

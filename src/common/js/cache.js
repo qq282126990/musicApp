@@ -11,14 +11,15 @@ const PlAULIST_KEY = '__playList__';
 const PLAYURL_KEY = '__playUrl__';
 const SEQUENCE_LIST_KEY = '__sequenceList__';
 const SEARCH_HISTORY_KEY = '__searchHistory__';
-const PLAU_HISTORY_KEY = '__playHistory__'
+const PLAU_HISTORY_KEY = '__playHistory__';
+const USER_MESSAGE_KEY = '__usermessage__';
 
 // 收藏歌曲最大存储长度 200
 const FAVORITE_MAX_LENGTH = 200;
 // 搜索历史最大存储15条数据
 const SEARCH_HISTORY_MAX_LENGTH = 15;
 // 保存播放历史最大存储200条数据
-const PLAY_HISTORY_MAX_LENGTH = 200
+const PLAY_HISTORY_MAX_LENGTH = 200;
 
 
 // 保存主页选择对应歌单的数据到本地
@@ -206,4 +207,15 @@ export function savePlayHistory (song) {
 // 获取播放历史的本地记录
 export function loadPlayHistory () {
     return storage.get(PLAU_HISTORY_KEY, [])
+}
+
+// 获取用户信息
+export function loadUserMessage () {
+    return storage.get(USER_MESSAGE_KEY, [])
+}
+
+// 清除用户信息
+export function clearUserMessage () {
+    storage.remove(USER_MESSAGE_KEY);
+    return [];
 }
