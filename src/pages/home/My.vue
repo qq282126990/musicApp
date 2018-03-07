@@ -226,7 +226,17 @@
                  * 是否显示登录组件
                  * @type {Boolean}
                  */
-                setShowLogin: 'showLogin'
+                setShowLogin: 'showLogin',
+                /**
+                 * 收藏当前歌曲
+                 * @type {Array}
+                 */
+                setSaveFavoriteList: 'saveFavoriteList',
+                /**
+                 * 保存播放历史
+                 * @type {Array}
+                 */
+                setSavePlayHistorys: 'savePlayHistorys'
             })
         },
         // 组件激活
@@ -239,6 +249,28 @@
             this.$refs.scroll.refresh();
             // 重置滚动位置
             this.$refs.scroll.scrollTo(0, 0);
+        },
+        watch: {
+            // 监听用户数据变化
+            getUserMessage (newUserMessage) {
+                if (!newUserMessage.username) {
+                  return;
+                }
+
+                if (newUserMessage.favorite) {
+                    // 设置该用户的收藏歌曲列表
+                    let getFavoriteList = newUserMessage.favorite;
+                    getFavoriteList = JSON.parse(getFavoriteList.replace(/\[/g, '').slice(0, -1));
+                    this.setSaveFavoriteList(getFavoriteList);
+                }
+
+                if (newUserMessage.playHistory) {
+                    // 设置用户最近播放列表
+                    let getPlayHistory = newUserMessage.playHistory;
+                    getPlayHistory = JSON.parse(getPlayHistory.replace(/\[/g, '').slice(0, -1));
+                    this.setSavePlayHistorys(getPlayHistory);
+                }
+            }
         },
         components: {
             Scroll

@@ -130,7 +130,6 @@ router.post('/addUserSongList', (req, res) => {
     const params = req.body;
 
     conn.query(sql_name, params.username, function (err, result) {
-        console.log(params.username)
         if (err) {
             console.log(err);
         }
@@ -140,20 +139,21 @@ router.post('/addUserSongList', (req, res) => {
             }); // //查询不出username，data返回-1
         }
         else {
+            let favorite = JSON.stringify(params.favorite);
             // 更新用户喜欢列表
-            conn.query(`update userData set favorite = '${params.favorite}' where username = '${params.username}'`, function (err, result) {
+            conn.query(`update userData set favorite = '${favorite}' where username = '${params.username}'`, function (err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
 
+            let playHistory = JSON.stringify(params.playHistory);
             // 更新用户最近收听列表
-            conn.query(`update userData set playHistory = '${params.playHistory}' where username = '${params.username}'`, function (err, result) {
+            conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`, function (err, result) {
                 if (err) {
                     console.log(err);
                 }
             });
-
 
             // 更新用户完成查找该用户
             conn.query(sql_name, params.username, function (err, result) {
@@ -163,7 +163,13 @@ router.post('/addUserSongList', (req, res) => {
                 else {
                     res.send({
                         code: 0,
-                        data: result[0]
+                        data: {
+                            username : result[0].username,
+                            password: result[0].password,
+                            uid: result[0].uid,
+                            favorite: result[0].favorite,
+                            playHistory: result[0].playHistory
+                        }
                     });
                 }
             });

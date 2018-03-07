@@ -531,7 +531,6 @@ let actions = {
     async getUserSongList ({commit}, param) {
         let res = await getUserSongList(param);
         if (res.code === ERR_OK) {
-            console.log(res);
             // 保存用户信息
             commit(types.SET_USER_MESSAGE, saveUserMessage(res.data));
         }
