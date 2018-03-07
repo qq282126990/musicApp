@@ -54,7 +54,8 @@ import {getRankingList, getRankingSongList} from 'api/rank'
 import {getSingerList, getSingerDetail} from 'api/singer'
 // 获取用户登录请求 getSelectUser
 // 获取用户注册请求 getAddUser
-import {getSelectUser, getAddUser} from 'api/login'
+// 同步用户收藏歌曲和最近播放歌曲到数据库 getUserSongList
+import {getSelectUser, getAddUser, getUserSongList} from 'api/login'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -516,8 +517,26 @@ let actions = {
             commit(types.SET_ADD_USER, res);
         }
         else {
-            // 错误处理
-            commit(types.SET_ADD_USER, res.code);
+            commit(types.SET_ADD_USER, `${res.code}`);
+
+            setTimeout(() => {
+                commit(types.SET_ADD_USER, 'error');
+            }, 1000);
+        }
+    },
+    /**
+     * 同步用户收藏歌曲和最近播放歌曲到数据库接口
+     * @param {Function} commit
+     */
+    async getUserSongList ({commit}, param) {
+        let res = await getUserSongList(param);
+        if (res.code === ERR_OK) {
+            console.log(res);
+            // 保存用户信息
+            commit(types.SET_USER_MESSAGE, saveUserMessage(res.data));
+        }
+        else {
+            // 错误提示
         }
     },
     /**

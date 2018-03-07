@@ -1,6 +1,6 @@
 <template>
     <transition name="silder-login">
-        <div class="login-input-wrapper" v-show="setShowInput">
+        <div class="login-input-wrapper" v-if="setShowInput">
             <!--返回按钮-->
             <div class="back" @click="back">
                 <!--图标-->
@@ -72,6 +72,10 @@
             },
             // 显示
             show () {
+                // 初始化输入框
+                this.loginUsername = '';
+                this.loginPassword = '';
+
                 this.setShowInput = true;
             },
             // 隐藏

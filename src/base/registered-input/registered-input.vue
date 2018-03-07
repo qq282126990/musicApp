@@ -91,6 +91,11 @@
             },
             // 显示
             show () {
+                // 初始化输入框
+                this.registeredUsername = '';
+                this.registeredPassword = '';
+                this.registeredAgainPassword = '';
+
                 this.setShowInput = true;
             },
             // 隐藏

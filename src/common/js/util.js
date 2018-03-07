@@ -17,7 +17,7 @@ export function shuffle (arr) {
     return _arr;
 }
 
-// 节流函数
+// 函数防抖
 export function debounce (func, delay) {
     let timer;
 

@@ -1,9 +1,11 @@
 const sqlMap = {
     user: {
-        add: 'insert into userData(username, password) value (?,?)',
-        select_name: 'SELECT * from userData where username = ?', // 查询 用户名
-        select_password: 'SELECT * from userData where password = ?', // 查询 用户密码
-        select_playHistory: 'SELECT * from userData where username = ? and playHistory' // 查询 用户播放历史
+        add: 'insert into userData(username, password) value (?,?)', // 添加用户
+        update_uid: 'update userData set uid = ? where username = ?', // 更新uid
+        update_favorite: 'update userData set favorite = ? where username = ?', // 更新用户喜欢列表
+        update_playHistory: 'update userData set playHistory = ? where username = ?', // 更新用户最近收听列表
+        select_name: 'select * from userData where username = ?', // 查询 用户名
+        select_password: 'select * from userData where password = ?', // 查询 用户密码
     }
 };
 module.exports = sqlMap;

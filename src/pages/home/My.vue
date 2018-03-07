@@ -110,7 +110,7 @@
 
     export default {
         name: 'my',
-        data() {
+        data () {
             return {
                 /*
                  * 获取Y轴滚动
@@ -129,7 +129,7 @@
                 showPlayPrompt: false
             };
         },
-        mounted() {
+        mounted () {
             // 设置滚动组件数据
             this.setScrollData([]);
             // 设置scroll组件 要不要监听滚动事件
@@ -162,15 +162,17 @@
         },
         methods: {
             // 监听滚动
-            scroll(pos) {
+            scroll (pos) {
                 this.scrollY = pos.y;
             },
             // 显示登录界面
             showLogin () {
-                this.setShowLogin(true);
+                if (!this.getUserMessage.username) {
+                    this.setShowLogin(true);
+                }
             },
             // 跳转到我的喜欢路由
-            goFavorite() {
+            goFavorite () {
                 if (!this.getFavoriteList.length) {
                     this.showFavoritePrompt = true;
                     setTimeout(() => {
@@ -183,7 +185,7 @@
                 });
             },
             // 跳转到最近播放路由
-            goPlayHistory() {
+            goPlayHistory () {
                 if (!this.getPlayHistory.length) {
                     this.showPlayPrompt = true;
                     setTimeout(() => {
@@ -228,7 +230,7 @@
             })
         },
         // 组件激活
-        activated() {
+        activated () {
             // 设置首页头部导航
             this.setAppHeader({
                 show: true

@@ -32,7 +32,7 @@
                           ref="registeredInput"></registered-input>
         <!--弹出提示框-->
         <transition name="alert-prompt">
-            <!--警告弹框-->
+            <!--信息弹框-->
             <v-alert color="info" icon="info" v-show="infoPrompt" class="alert-Prompt">
                 {{alertPromptTxt}}
             </v-alert>
@@ -41,6 +41,12 @@
             <!--成功弹框-->
             <v-alert color="success" icon="check_circle" v-show="successPrompt" class="alert-Prompt">
                 {{alertPromptTxt}}
+            </v-alert>
+        </transition>
+        <transition name="alert-prompt">
+            <!--警告弹框-->
+            <v-alert color="error" icon="warning" v-show="warningPrompt" class="alert-Prompt">
+                {{warningPromptTxt}}
             </v-alert>
         </transition>
     </div>
@@ -57,45 +63,75 @@
         data () {
             return {
                 /*
-                 * 警告弹框
-                 * @type {String}
+                 * 信息弹框
+                 * @type {Boolean}
                  * */
                 infoPrompt: false,
                 /*
                  * 成功弹框
-                 * @type {String}
+                 * @type {Boolean}
                  * */
                 successPrompt: false,
                 /*
-                * 登录用户名
-                * @type {String}
+                 * 警告弹框
+                 * @type {Boolean}
+                 * */
+                warningPrompt: false,
+                /*
+                * 设置暂时不能请求
+                * @type {Boolean}
                 * */
+                noClickBtn: true,
+                /*
+                 * 登录用户名
+                 * @type {String}
+                 * */
                 loginUsername: '',
                 /*
-                * 登录密码
-                * @type {String}
-                * */
+                 * 登录密码
+                 * @type {String}
+                 * */
                 loginPassword: '',
                 /*
-               * 注册用户名
-               * @type {String}
-               * */
+                 * 注册用户名
+                 * @type {String}
+                 * */
                 registeredUsername: '',
                 /*
-                * 注册密码
-                * @type {String}
-                * */
+                 * 注册密码
+                 * @type {String}
+                 * */
                 registeredPassword: '',
                 /*
-                * 再次输入注册密码
-                * @type {String}
-                * */
+                 * 再次输入注册密码
+                 * @type {String}
+                 * */
                 registeredAgainPassword: '',
                 /*
-                * 弹出提示框文字
-                * @type {String}
-                * */
-                alertPromptTxt: ''
+                 * 弹出提示框文字
+                 * @type {String}
+                 * */
+                alertPromptTxt: '',
+                /*
+                 * 警告提示框文字
+                 * @type {String}
+                 * */
+                warningPromptTxt: '',
+                /*
+                 * 记录按钮点击次数
+                 * @type {Number}
+                 * */
+                btnClickNumber: -1,
+                /*
+                 * 设置按钮点击限制次数
+                 * @type {Number}
+                 * */
+                btnClickRangeNumber: 10,
+                /*
+                 * 延迟时间
+                 * @type {Number}
+                 * */
+                delayTime: 60000
             }
         },
         mounted () {
@@ -107,7 +143,17 @@
                  * 是否显示登录组件
                  * @type {Boolean}
                  */
-                getShowLogin: 'showLogin'
+                getShowLogin: 'showLogin',
+                /**
+                 * 获取当前收藏列表
+                 * @type {Array}
+                 */
+                getFavoriteList: 'favoriteList',
+                /**
+                 * 获取播放历史
+                 * @type {Array}
+                 */
+                getPlayHistory: 'playHistory'
             }),
             ...mapState('asyncAjax', {
                 /**
@@ -130,10 +176,18 @@
                 this.registeredUsername = '';
                 this.registeredPassword = '';
                 this.registeredAgainPassword = '';
+
+                this.btnClickNumber = -1;
+                this.btnClickRangeNumber = 10;
+                this.delayTime = 60000;
+                this.noClickBtn = true;
             },
             // 取消按钮
             back () {
                 this.setShowLogin(false);
+
+                // 一些初始化操作
+                this._initSome();
             },
             // 登录按钮
             loginBtn () {
@@ -144,11 +198,11 @@
                 this.$refs.registeredInput.show();
             },
             // 获取登录用户名输入框信息
-            LoginPassword (username) {
+            LoginUsername (username) {
                 this.loginUsername = username;
             },
             // 获取登录密码输入框信息
-            LoginUsername (password) {
+            LoginPassword (password) {
                 this.loginPassword = password;
             },
             // 点击登录按钮
@@ -164,10 +218,54 @@
                     }, 500);
                 }
                 else {
-                    let data = {'username': this.loginUsername, 'password': this.loginPassword};
+                    // 获取延迟时间
+                    let delayTime = parseInt((this.delayTime % (1000 * 60 * 60)) / (1000 * 60));
+                    // 获取输入框数据
+                    let loginUser = {'username': this.loginUsername, 'password': this.loginPassword};
+
+                    if (this.noClickBtn) {
+                        // 增加点击次数
+                        this.btnClickNumber++;
+                    }
+                    if (this.btnClickNumber === this.btnClickRangeNumber && this.noClickBtn) {
+                        this.noClickBtn = false;
+
+                        // 弹出框
+                        clearTimeout(alterTime);
+                        this.warningPrompt = false;
+                        this.warningPromptTxt = `请求过于频繁请${delayTime}分钟后再试`;
+                        let alterTime = setTimeout(() => {
+                            this.warningPrompt = true
+                        }, 500);
+                    }
+                    if (!this.noClickBtn && this.btnClickNumber === this.btnClickRangeNumber) {
+                        // 触发次数
+                        this.number = 0;
+
+                        clearTimeout(clearDelay);
+                        // 延迟时间
+                        let clearDelay = setTimeout(() => {
+                            // 触发次数 > 0 直接return
+                            if (this.number > 0) {
+                                return;
+                            }
+                            this.number++;
+
+                            // 设置可以点击
+                            this.noClickBtn = true;
+
+                            // 设置按钮点击限制次数 * 2
+                            this.btnClickRangeNumber = this.btnClickRangeNumber * 2;
+
+                            // 设置限制时间
+                            this.delayTime = this.delayTime * 2
+                        }, this.delayTime);
+
+                        return;
+                    }
 
                     // 获取用户是否登录成功
-                    this.setSelectUser(data);
+                    this.setSelectUser(loginUser);
                 }
             },
             // 获取注册用户名
@@ -197,6 +295,8 @@
                     }, 500);
                 }
                 else if (!userNameReg.test(this.registeredUsername)) {
+                    clearTimeout(alterTime);
+
                     this.infoPrompt = true;
                     this.alertPromptTxt = '请勿输入特殊字符的账号或密码';
 
@@ -204,7 +304,19 @@
                         this.infoPrompt = false
                     }, 500);
                 }
+                else if (this.registeredPassword.length < 6) {
+                    clearTimeout(alterTime);
+
+                    this.infoPrompt = true;
+                    this.alertPromptTxt = '请请输入长度大于6位的密码';
+
+                    let alterTime = setTimeout(() => {
+                        this.infoPrompt = false
+                    }, 500);
+                }
                 else if (this.registeredPassword !== this.registeredAgainPassword) {
+                    clearTimeout(alterTime);
+
                     this.infoPrompt = true;
                     this.alertPromptTxt = '请输入两个相同的密码';
 
@@ -213,10 +325,56 @@
                     }, 500);
                 }
                 else {
-                    let data = {'username': this.registeredUsername, 'password': this.registeredPassword};
+                    // 获取延迟时间
+                    let delayTime = parseInt((this.delayTime % (1000 * 60 * 60)) / (1000 * 60));
+                    // 获取输入框数据
+                    let registeredUser = {'username': this.registeredUsername, 'password': this.registeredPassword};
+
+
+                    if (this.noClickBtn) {
+                        // 增加点击次数
+                        this.btnClickNumber++;
+                    }
+                    if (this.btnClickNumber === this.btnClickRangeNumber && this.noClickBtn) {
+                        this.noClickBtn = false;
+
+                        // 弹出框
+                        clearTimeout(alterTime);
+                        this.warningPrompt = false;
+                        this.warningPromptTxt = `请求过于频繁请${delayTime}分钟后再试`;
+                        let alterTime = setTimeout(() => {
+                            this.warningPrompt = true
+                        }, 500);
+                    }
+
+                    if (!this.noClickBtn && this.btnClickNumber === this.btnClickRangeNumber) {
+                        // 触发次数
+                        this.number = 0;
+
+                        clearTimeout(clearDelay);
+                        // 延迟时间
+                        let clearDelay = setTimeout(() => {
+                            // 触发次数 > 0 直接return
+                            if (this.number > 0) {
+                                return;
+                            }
+                            this.number++;
+
+                            // 设置可以点击
+                            this.noClickBtn = true;
+
+                            // 设置按钮点击限制次数 * 2
+                            this.btnClickRangeNumber = this.btnClickRangeNumber * 2;
+
+                            // 设置限制时间
+                            this.delayTime = this.delayTime * 2
+                        }, this.delayTime);
+
+                        return;
+                    }
 
                     // 获取用户注册接口
-                    this.setAddUser(data);
+                    this.setAddUser(registeredUser);
                 }
             },
             ...mapActions('appStore', {
@@ -229,14 +387,19 @@
             ...mapActions('asyncAjax', {
                 /**
                  * 获取用户登录接口
-                 * @type {String}
+                 * @type {Object}
                  */
                 setSelectUser: 'getSelectUser',
                 /**
                  * 获取用户注册接口
-                 * @type {String}
+                 * @type {Object}
                  */
-                setAddUser: 'getAddUser'
+                setAddUser: 'getAddUser',
+                /**
+                 * 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                 * @type {Object}
+                 */
+                setUserSongList: 'getUserSongList'
             })
         },
         watch: {
@@ -246,6 +409,10 @@
                     this.successPrompt = true;
                     this.setShowLogin(false);
                     this.alertPromptTxt = '登录成功';
+
+                    // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                    let setUserSongList = {'username': this.loginUsername, 'favorite': JSON.stringify(this.getFavoriteList), 'playHistory': JSON.stringify(this.getPlayHistory)};
+                    this.setUserSongList(setUserSongList);
 
                     setTimeout(() => {
                         this.successPrompt = false;
