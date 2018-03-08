@@ -211,19 +211,6 @@
                     path: '/my/playHistory'
                 });
             },
-            // 保存用户云歌曲
-            setUserCloudSongList () {
-                // 如果有喜欢列表 或者 播放历史才会去同步
-                if (this.getFavoriteList.length || this.getPlayHistory.length) {
-                    // 同步用户收藏歌曲和最近播放歌曲到数据库接口
-                    let setUserSongList = {
-                        'username': this.getUserMessage.username,
-                        'favorite': this.getFavoriteList,
-                        'playHistory': this.getPlayHistory
-                    };
-                    this.setUserSongList(setUserSongList);
-                }
-            },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),
@@ -266,18 +253,19 @@
             }),
             ...mapActions('asyncAjax', {
                 /**
-                 * 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                 * 同步用户收藏歌曲
                  * @type {Object}
                  */
-                setUserSongList: 'getUserSongList'
+                setAddFavorite: 'getAddFavorite',
+                /**
+                 * 同步用户最近播放歌曲
+                 * @type {Object}
+                 */
+                setAddPlayHistory: 'getAddPlayHistory'
             })
         },
         // 组件激活
         activated () {
-            // 保存用户云歌曲
-            this.setUserCloudSongList();
-
-
             // 设置首页头部导航
             this.setAppHeader({
                 show: true
@@ -294,18 +282,42 @@
                     return;
                 }
 
-                if (newUserMessage) {
+                if (newUserMessage.favorite.length) {
                     // 设置该用户的收藏歌曲列表
                     let getFavoriteList = JSON.parse(newUserMessage.favorite);
                     // 覆盖收藏收藏歌曲列表
                     this.setCoverUserMessageList(getFavoriteList);
                 }
 
-                if (newUserMessage.playHistory) {
+                if (newUserMessage.playHistory.length) {
                     // 设置用户最近播放列表
                     let getPlayHistory = JSON.parse(newUserMessage.playHistory);
                     // 覆盖用户最近播放列表
                     this.setCoverPlayHistorys(getPlayHistory);
+                }
+            },
+            // 监听收藏列表变化
+            getFavoriteList (newFavoriteList) {
+                // 喜欢列表变回会自动同步云数据库
+                if (newFavoriteList.length > 0) {
+                    // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                    let data = {
+                        'username': this.getUserMessage.username,
+                        'favorite': newFavoriteList
+                    };
+                    this.setAddFavorite(data);
+                }
+            },
+            // 监听播放历史变换
+            getPlayHistory (newPlayHistory) {
+                // 喜欢列表变回会自动同步云数据库
+                if (newPlayHistory.length > 0) {
+                    // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                    let data = {
+                        'username': this.getUserMessage.username,
+                        'playHistory': newPlayHistory
+                    };
+                    this.setAddPlayHistory(data);
                 }
             }
         },

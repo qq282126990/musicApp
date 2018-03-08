@@ -53,7 +53,7 @@
     /*图标*/
     .audiotrack {
         position: absolute;
-        top: px2rem(5px);
+        top: 0;
         left: 0;
         right: 0;
         padding: px2rem(8px);

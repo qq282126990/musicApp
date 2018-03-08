@@ -53,7 +53,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapActions, mapState} from 'vuex';
+    import {mapActions, mapState, mapGetters} from 'vuex';
     // 用户登录输入框
     import LoginInput from 'base/login-input/login-input';
     // 用户注册输入框
@@ -166,6 +166,13 @@
                  * @type {String}
                  */
                 getAddUser: 'addUser'
+            }),
+            ...mapGetters('asyncAjax', {
+                /**
+                 * 获取用户信息
+                 * @type {Array}
+                 */
+                getUserMessage: 'userMessage',
             })
         },
         methods: {
@@ -394,24 +401,13 @@
                  * 获取用户注册接口
                  * @type {Object}
                  */
-                setAddUser: 'getAddUser',
-                /**
-                 * 同步用户收藏歌曲和最近播放歌曲到数据库接口
-                 * @type {Object}
-                 */
-                setUserSongList: 'getUserSongList'
+                setAddUser: 'getAddUser'
             })
         },
         watch: {
             // 监听用户是否登录成功
             getSelectUser (data) {
                 if (data.code === 0) {
-                    // 如果有喜欢列表 或者 播放历史才会去同步
-                    if (this.getFavoriteList.length || this.getPlayHistory.length) {
-                        // 同步用户收藏歌曲和最近播放歌曲到数据库接口
-                        let setUserSongList = {'username': this.loginUsername, 'favorite': this.getFavoriteList, 'playHistory': this.getPlayHistory};
-                        this.setUserSongList(setUserSongList);
-                    }
 
                     this.successPrompt = true;
                     this.setShowLogin(false);
@@ -424,6 +420,10 @@
                         // 初始化
                         this._initSome();
                     }, 500);
+
+                    if (this.getUserMessage.favorite.length) {
+
+                    }
                 }
                 else {
                     this.infoPrompt = true;
@@ -437,13 +437,6 @@
             // 监听用户是否注册成功
             getAddUser (data) {
                 if (data.code === 0) {
-                    // 如果有喜欢列表 或者 播放历史才会去同步
-                    if (this.getFavoriteList.length || this.getPlayHistory.length) {
-                        // 同步用户收藏歌曲和最近播放歌曲到数据库接口
-                        let setUserSongList = {'username': this.loginUsername, 'favorite': this.getFavoriteList, 'playHistory': this.getPlayHistory};
-                        this.setUserSongList(setUserSongList);
-                    }
-
                     this.successPrompt = true;
                     this.setShowLogin(false);
                     this.alertPromptTxt = '注册成功';

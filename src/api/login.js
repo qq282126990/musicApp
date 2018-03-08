@@ -18,9 +18,17 @@ export function getAddUser (param) {
     });
 }
 
-// 同步用户收藏歌曲和最近播放歌曲到数据库接口
-export function getUserSongList (param) {
-    const url = 'http://119.29.97.214:3001/serverApi/addUserSongList';
+// 同步用户收藏歌曲
+export function getAddFavorite (param) {
+    const url = 'http://119.29.97.214:3001/serverApi/addFavorite';
+
+    return axios.post(url, param).then((res) => {
+        return Promise.resolve(res.data);
+    });
+}
+// 同步用户最近播放歌曲到数据库接口
+export function getAddPlayHistory (param) {
+    const url = 'http://119.29.97.214:3001/serverApi/addPlayHistory';
 
     return axios.post(url, param).then((res) => {
         return Promise.resolve(res.data);

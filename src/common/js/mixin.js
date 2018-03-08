@@ -43,6 +43,13 @@ export const playerMixin = {
              * @type {Array}
              */
             getFavoriteList: 'favoriteList'
+        }),
+        ...mapGetters('asyncAjax', {
+            /**
+             * 获取用户信息
+             * @type {Array}
+             */
+            getUserMessage: 'userMessage',
         })
     },
     methods: {
@@ -131,7 +138,45 @@ export const playerMixin = {
              * @type {Array}
              */
             setDeleteFavoriteList: 'deleteFavoriteList'
+        }),
+        ...mapActions('asyncAjax', {
+            /**
+             * 同步用户收藏歌曲
+             * @type {Object}
+             */
+            setAddFavorite: 'getAddFavorite',
+            /**
+             * 同步用户最近播放歌曲
+             * @type {Object}
+             */
+            setAddPlayHistory: 'getAddPlayHistory'
         })
+    },
+    watch: {
+        // 监听收藏列表变化
+        getFavoriteList (newFavoriteList) {
+            // 喜欢列表变回会自动同步云数据库
+            if (newFavoriteList.length > 0 && this.getUserMessage.username) {
+                // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                let data = {
+                    'username': this.getUserMessage.username,
+                    'favorite': newFavoriteList
+                };
+                this.setAddFavorite(data);
+            }
+        },
+        // 监听播放历史变换
+        getPlayHistory (newPlayHistory) {
+            // 喜欢列表变回会自动同步云数据库
+            if (newPlayHistory.length > 0 && this.getUserMessage.username) {
+                // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                let data = {
+                    'username': this.getUserMessage.username,
+                    'playHistory': newPlayHistory
+                };
+                this.setAddPlayHistory(data);
+            }
+        }
     }
 };
 

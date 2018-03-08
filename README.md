@@ -1,13 +1,14 @@
-# QQ音乐破解版
+# PWA版本QQ音乐
 
-> 这是一个支持收听QQ音乐付费歌曲的APP
-> 该APP可以收听QQ音乐数字专辑里面所有付费歌曲
+> 这是一个采用PWA与百度开发的PWA框架Lava制作的webApp
+> 该APP引入了页面骨架屏与Service Worker离线缓存,让webApp接近了原生的体验
+> 当用户访问该网站第二次的时候还允许将站点添加至主屏幕，这个是 PWA 提供的一项重要功能。
+> 由于商业利益与职业道德关系已屏蔽部分接口，改项目仅供学习使用
 
 ## 安装
 
 手机APP安装点击一下链接获取安卓APK
 > https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1518104735085/lavas.app.music.apk
-
 
 手机扫码获取安卓APK
 > ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/androidAPK.png)

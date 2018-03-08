@@ -123,8 +123,8 @@ router.post('/selectUser', (req, res) => {
     })
 });
 
-// 同步用户歌曲和最近收听数据
-router.post('/addUserSongList', (req, res) => {
+// 同步用户收藏歌曲
+router.post('/addFavorite', (req, res) => {
     // 查找用户名
     const sql_name = sql.user.select_name;
     const params = req.body;
@@ -139,33 +139,36 @@ router.post('/addUserSongList', (req, res) => {
             }); // //查询不出username，data返回-1
         }
         else {
-            let favorite = JSON.stringify(params.favorite);
-            // 更新用户喜欢列表
-            conn.query(`update userData set favorite = '${favorite}' where username = '${params.username}'`);
+            if (params.favorite) {
+                let favorite = JSON.stringify(params.favorite);
+                // 更新用户喜欢列表
+                conn.query(`update userData set favorite = '${favorite}' where username = '${params.username}'`);
+            }
+        }
+    })
+});
 
-            let playHistory = JSON.stringify(params.playHistory);
-            // 更新用户最近收听列表
-            conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`);
+// 同步用户最近播放歌曲
+router.post('/addPlayHistory', (req, res) => {
+    // 查找用户名
+    const sql_name = sql.user.select_name;
+    const params = req.body;
 
-            // 更新用户完成查找该用户
-            conn.query(sql_name, params.username, function (err, result) {
-                console.log(JSON.parse(result[0].favorite));
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    res.send({
-                        code: 0,
-                        data: {
-                            username : result[0].username,
-                            password: result[0].password,
-                            uid: result[0].uid,
-                            favorite: result[0].favorite,
-                            playHistory: result[0].playHistory
-                        }
-                    });
-                }
-            });
+    conn.query(sql_name, params.username, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result[0] === undefined) {
+            res.send({
+                code: -1
+            }); // //查询不出username，data返回-1
+        }
+        else {
+            if (params.playHistory) {
+                let playHistory = JSON.stringify(params.playHistory);
+                // 更新用户最近收听列表
+                conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`);
+            }
         }
     })
 });

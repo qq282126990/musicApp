@@ -5,14 +5,7 @@
             <i class="iconfont icon-fanhui1-copy"></i>
         </div>
         <!--播放器-->
-        <div class="video-wrapper">
-            <video class="video"
-                   webkit-playsinline
-                   playsinline="true"
-                   preload="metadata"
-                   controls="controls"
-                   :src="mvPlayUrl"></video>
-        </div>
+        <video-base :mvPlayUrl="mvPlayUrl"></video-base>
         <!--mv标题-->
         <div class="mv-title-wrapper">
             <p class="mv-title">{{getMvMessage.name}}</p>
@@ -28,29 +21,31 @@
 
 <script>
     import {mapActions, mapState} from 'vuex';
+    // 播放器组件
+    import VideoBase from 'base/video/video';
 
     export default {
         name: 'mv',
         data () {
             return {
                 /*
-                * MV播放链接
-                * @type {String}
-                * */
+                 * MV播放链接
+                 * @type {String}
+                 * */
                 mvPlayUrl: ''
             }
         },
         computed: {
             ...mapState('asyncAjax', {
                 /*
-                * 获取对应MV的信息
-                * @type {Object}
-                * */
+                 * 获取对应MV的信息
+                 * @type {Object}
+                 * */
                 getMvMessage: 'mvMessage',
                 /*
-                * 获取MV播放地址
-                * @type {Object}
-                * */
+                 * 获取MV播放地址
+                 * @type {Object}
+                 * */
                 getMvPlayUrl: 'mvPlayUrl'
             })
         },
@@ -102,6 +97,9 @@
                 this.mvPlayUrl = `${newMvPlayUrl[3].url[0]}${newMvPlayUrl[3].cn}?vkey=${newMvPlayUrl[3].vkey}`
                 console.log(this.mvPlayUrl);
             }
+        },
+        components: {
+            VideoBase
         }
     };
 </script>
@@ -117,19 +115,9 @@
         z-index: 50;
         .icon-fanhui1-copy {
             display: block;
-            padding: px2rem(20px);
+            padding: px2rem(30px) 0 0 px2rem(20px);
             font-size: px2rem(44px);
             color: $icon-fanhui1-copy;
-        }
-    }
-
-    /*播放器*/
-    .video-wrapper {
-        width: 100%;
-        height: px2rem(422px);
-        .video{
-            width: 100%;
-            height: px2rem(422px);
         }
     }
 

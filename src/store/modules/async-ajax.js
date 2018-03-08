@@ -87,7 +87,8 @@ import {
 import {
     getSelectUser,
     getAddUser,
-    getUserSongList
+    getAddFavorite,
+    getAddPlayHistory
 } from 'api/login'
 // 获取最新MV列表 getNewMvList
 // 获取对应MV的信息接口 getMvMessage
@@ -584,14 +585,24 @@ let actions = {
         }
     },
     /**
-     * 同步用户收藏歌曲和最近播放歌曲到数据库接口
+     * 同步用户收藏歌曲
      * @param {Function} commit
      */
-    async getUserSongList ({commit}, param) {
-        let res = await getUserSongList(param);
+    async getAddFavorite ({commit}, param) {
+        let res = await getAddFavorite(param);
         if (res.code === ERR_OK) {
-            // 保存用户信息
-            commit(types.SET_USER_MESSAGE, saveUserMessage(res.data));
+        }
+        else {
+            // 错误提示
+        }
+    },
+    /**
+     * 同步用户最近播放歌曲
+     * @param {Function} commit
+     */
+    async getAddPlayHistory ({commit}, param) {
+        let res = await getAddPlayHistory(param);
+        if (res.code === ERR_OK) {
         }
         else {
             // 错误提示

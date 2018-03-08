@@ -102,7 +102,6 @@ export function createReplaceHomeRecomPlaylist(list) {
         ret.push(items);
     });
 
-
     return ret;
 }
 
