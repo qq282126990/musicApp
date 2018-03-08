@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b98f3e5e-6308-48c7-8a1b-8840550886e4" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/base/video/video.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/api/userApi.js" afterPath="$PROJECT_DIR$/server/api/userApi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/login.js" afterPath="$PROJECT_DIR$/src/api/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/loading/loading.vue" afterPath="$PROJECT_DIR$/src/base/loading/loading.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/home.js" afterPath="$PROJECT_DIR$/src/common/js/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/mixin.js" afterPath="$PROJECT_DIR$/src/common/js/mixin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/login/login.vue" afterPath="$PROJECT_DIR$/src/components/login/login.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Find.vue" afterPath="$PROJECT_DIR$/src/pages/home/Find.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/My.vue" afterPath="$PROJECT_DIR$/src/pages/home/My.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/mv/Mv.vue" afterPath="$PROJECT_DIR$/src/pages/mv/Mv.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/store/modules/async-ajax.js" afterPath="$PROJECT_DIR$/src/store/modules/async-ajax.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,74 +14,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file leaf-file-name="async-ajax.js" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="65">
-                    <caret line="591" column="38" lean-forward="false" selection-start-line="591" selection-start-column="24" selection-end-line="591" selection-end-column="38" />
-                    <folding>
-                      <element signature="e#0#43#0" expanded="true" />
-                      <element signature="e#304#445#0" expanded="true" />
-                      <element signature="e#608#754#0" expanded="true" />
-                      <element signature="e#993#1102#0" expanded="true" />
-                      <element signature="e#1475#1654#0" expanded="true" />
-                      <element signature="e#1720#1805#0" expanded="true" />
-                      <element signature="e#1880#1975#0" expanded="true" />
-                      <element signature="e#2089#2158#0" expanded="true" />
-                      <element signature="e#2215#2282#0" expanded="true" />
-                      <element signature="e#2371#2475#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="login.vue" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/components/login/login.vue">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2163">
-                    <caret line="416" column="38" lean-forward="false" selection-start-line="416" selection-start-column="38" selection-end-line="416" selection-end-column="38" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="userApi.js" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/server/api/userApi.js">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="330">
-                    <caret line="162" column="24" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="mixin.js" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="275">
-                    <caret line="146" column="3" lean-forward="false" selection-start-line="146" selection-start-column="3" selection-end-line="146" selection-end-column="3" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="music" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="video.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="video.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/base/video/video.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="518">
@@ -103,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <caret line="5" column="2" lean-forward="false" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -183,12 +110,12 @@
       <find>getAddPlayHistory</find>
       <find>addUserSongList</find>
       <find>getUserMessage</find>
-      <find>getUserSongList</find>
       <find>togglePlaying</find>
       <find>audioPlay</find>
-      <find>getAddFavorite</find>
       <find>ready</find>
       <find>video-wrapper</find>
+      <find>getUserSongList</find>
+      <find>getAddFavorite</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -255,8 +182,8 @@
         <option value="$PROJECT_DIR$/src/pages/home/My.vue" />
         <option value="$PROJECT_DIR$/src/pages/mv/Mv.vue" />
         <option value="$PROJECT_DIR$/src/base/loading/loading.vue" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/base/video/video.vue" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -782,12 +709,12 @@
       <workItem from="1520342642290" duration="5384000" />
       <workItem from="1520426467457" duration="10490000" />
       <workItem from="1520473571022" duration="28237000" />
-      <workItem from="1520512859146" duration="9924000" />
+      <workItem from="1520512859146" duration="10145000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="634071000" />
+    <option name="totallyTimeSpent" value="634292000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -1213,14 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/base/loading/loading.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1249,6 +1168,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="5" column="2" lean-forward="false" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
           <folding />
         </state>
       </provider>
