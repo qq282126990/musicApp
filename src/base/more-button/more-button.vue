@@ -40,11 +40,19 @@
 
 <script type="text/ecmascript-6">
     import {mapActions, mapGetters} from 'vuex';
+    // 设置歌曲信息总线程
+    import Bus from '../../event-bus';
     import {isPlayMode} from 'common/js/config';
     // 下载文件方法 downloadFile
     import {downloadFile} from 'common/js/util';
-    // 设置歌曲信息总线程
-    import Bus from '../../event-bus';
+    // 获取播放歌曲链接cookie
+    import {getCookie} from 'common/js/cookie';
+    // 获取歌曲播放链接 getSinglePlayingUrl
+    import {getSinglePlayingUrl} from 'api/songListPlayUrl';
+    import {ERR_OK} from 'api/config';
+
+    // 歌曲下载链接地址头部
+    const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
 
     export default {
         data () {
@@ -96,19 +104,60 @@
             selectItem (name) {
                 switch (name) {
                     case '下载': {
-                        try {
-                            // 下载文件方法
-                            downloadFile(this.getShowMore.currentSong.download, `${this.getShowMore.currentSong.name}.mp3`);
-                        }
-                        catch (e) {
-                            downloadFile(this.getShowMore.currentSong.downloadSpare, `${this.getShowMore.currentSong.name}.mp3`);
-                        }
+                        // 获取小时数
+                        let date = new Date();
+                        let hours = date.getHours();
 
+                        // 晚上用另一个下载接口
+                        if (hours > 17) {
+                            try {
+                                // 下载文件方法
+                                downloadFile(this.getShowMore.currentSong.download, `${this.getShowMore.currentSong.name}.mp3`);
+                            }
+                            catch (e) {
+                                downloadFile(this.getShowMore.currentSong.downloadSpare, `${this.getShowMore.currentSong.name}.mp3`);
+                            }
+                        }
+                        else {
+                            try {
+                                // 下载文件方法
+                                this.getSongDownloadUrl(this.getShowMore.currentSong.strMediaMid, null)
+                            }
+                            catch (e) {
+                                this.getSongDownloadUrl(null, this.getShowMore.currentSong.mid)
+                            }
+
+                        }
                     }
                         break;
                     case '下一首播放': {
                         this.nextSong();
                     }
+                }
+            },
+            // 普通链接下载方法
+            saveFile (blob, fileName) {
+//                let saveLink = document.createElement('a');
+//                saveLink.href = data;
+//                saveLink.download = fileName;
+//                saveLink.click();
+
+                if (window.navigator.msSaveOrOpenBlob) {
+                    navigator.msSaveBlob(blob, fileName);
+                }
+                else {
+                    const link = document.createElement('a');
+                    const body = document.querySelector('body');
+
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = fileName;
+                    link.style.display = 'none';
+                    body.appendChild(link);
+
+                    // 点击完后自动销毁链接
+                    link.click();
+                    body.removeChild(link);
+                    window.URL.revokeObjectURL(link.href);
                 }
             },
             // 播放下一首歌曲
@@ -151,7 +200,7 @@
                 });
             },
             // 重置当前播放歌曲
-            resetCurrentIndex(list) {
+            resetCurrentIndex (list) {
                 // 获取当前歌曲索引
                 let index = list.findIndex((item) => {
                     return item.id === this.getCurrentSong.id;
@@ -169,6 +218,41 @@
 
                 // 设置歌曲播放状态
                 this.setPlaying(true);
+            },
+            // 获取播放歌曲的下载链接
+            getSongDownloadUrl (strMediaMid, songmid) {
+                // 两种情况 如果请求找不到歌曲就执行以下个接口
+                // 默认播放器没有错误
+                if (strMediaMid) {
+                    getSinglePlayingUrl(strMediaMid).then((res) => {
+                        if (res.code === ERR_OK) {
+                            this.songmid = res.data.items[0].songmid;
+                            this.vkey = res.data.items[0].vkey;
+
+                            // 歌曲播放地址
+                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
+
+                            // 下载文件方法
+                            this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
+
+                        }
+                    });
+                }
+                else {
+                    // 备用接口
+                    getSinglePlayingUrl(songmid).then((res) => {
+                        if (res.code === ERR_OK) {
+                            this.filename = res.data.items[0].filename;
+                            this.vkey = res.data.items[0].vkey;
+
+                            // 歌曲播放地址
+                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
+
+                            // 下载文件方法
+                            this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
+                        }
+                    });
+                }
             },
             ...mapActions('appStore', {
                 /**

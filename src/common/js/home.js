@@ -105,3 +105,82 @@ export function createReplaceHomeRecomPlaylist(list) {
 
     return ret;
 }
+
+// 最新专辑数据
+class NewAlbum {
+    constructor({dissid, mid, title, singerName, publicTime, start}) {
+        this.dissid = dissid; // 专辑id
+        this.mid = mid; // 专辑mid
+        this.cover = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${mid}.jpg?max_age=2592000`;
+        this.title = title; // 专辑名称
+        this.singerName = singerName; // 歌手名,
+        this.publicTime = publicTime; // 发行时间
+        this.start = start;
+    }
+}
+
+/**
+ * 对最新专辑list数据做处理
+ * @type {Array}  list
+ */
+export function createHomeNewAlbumList(list) {
+    let ret = [];
+
+    let items = {};
+
+    list.forEach((item) => {
+        items = (new NewAlbum({
+            dissid: item.album.id,
+            mid: item.album.mid,
+            title: item.album.title,
+            singerName: filterSinger(item.author),
+            publicTime: item.album.time_public,
+            start: 'newAlbum'
+        }));
+
+        ret.push(items);
+    });
+
+    return ret;
+}
+
+
+
+// MV列表数据
+class MV {
+    constructor({vid, listen_num, cover,title, mvdesc, publicTime, start}) {
+        this.vid = vid; // vid
+        this.listen_num = listen_num; // 播放量
+        this.cover = cover; // 图片
+        this.title = title; // 专辑名称
+        this.mvdesc = mvdesc; // mvdesc,
+        this.publicTime = publicTime; // 发行时间
+        this.start = start;
+    }
+}
+
+/**
+ * 对MV列表数据做处理
+ * @type {Array}  list
+ */
+export function createHomeMVList(list) {
+    let ret = [];
+
+    let items = {};
+
+    list.forEach((item) => {
+        items = (new MV({
+            vid: item.vid,
+            listen_num: item.listennum,
+            cover: item.picurl,
+            title: item.mvtitle,
+            mvdesc: item.mvdesc,
+            publicTime: item.pub_date,
+            start: 'mv'
+        }));
+
+        ret.push(items);
+    });
+
+    return ret;
+}

@@ -141,6 +141,16 @@ export function saveFavorite (currentSong) {
     return songs;
 }
 
+// 覆盖收藏歌曲到本地
+export function coverUserMessage (list) {
+    if (list.length > 0) {
+        return storage.set(FAVORITE_KEY, list);
+    }
+    else {
+        return storage.set(FAVORITE_KEY, [list]);
+    }
+}
+
 // 删除收藏歌曲
 export function deleteFavorite (currentSong) {
     // 初始化数据
@@ -194,15 +204,26 @@ export function clearSearchHistory () {
 
 // 保存播放历史
 export function savePlayHistory (song) {
-    let songs = storage.get(PLAU_HISTORY_KEY, [])
+    let songs = storage.get(PLAU_HISTORY_KEY, []);
     // 删除重复的数据 插入新增数据
     insertArray(songs, song, (item) => {
         return item.id === song.id
-    }, PLAY_HISTORY_MAX_LENGTH)
+    }, PLAY_HISTORY_MAX_LENGTH);
     // 保存到本地
-    storage.set(PLAU_HISTORY_KEY, songs)
+    storage.set(PLAU_HISTORY_KEY, songs);
     return songs
 }
+
+// 覆盖播放历史
+export function coverPlayHistory (list) {
+    if (list.length > 0) {
+        return storage.set(PLAU_HISTORY_KEY, list);
+    }
+    else {
+        return storage.set(PLAU_HISTORY_KEY, [list]);
+    }
+}
+
 
 // 获取播放历史的本地记录
 export function loadPlayHistory () {

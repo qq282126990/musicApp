@@ -53,9 +53,10 @@
     /*图标*/
     .audiotrack {
         position: absolute;
+        top: px2rem(5px);
         left: 0;
         right: 0;
-        padding: px2rem(6px);
+        padding: px2rem(8px);
         font-size: px2rem(40px);
         color: $audiotrack-color;
         z-index: 1;

@@ -7,10 +7,23 @@ import {computedPlayNumber} from 'common/js/util';
 // 保存用户信息 saveUserMessage
 // 获取用户信息 loadUserMessage
 // 删除用户信息 clearUserMessage
-import {getSongSingle, saveInitNewSongList, saveUserMessage, loadUserMessage, clearUserMessage} from 'common/js/cache';
+import {
+    getSongSingle,
+    saveInitNewSongList,
+    saveUserMessage,
+    loadUserMessage,
+    clearUserMessage
+} from 'common/js/cache';
 // 自定义首页新歌速递导航数据 createHomeNewSongSpeed
 // 自定义主页歌单推荐刷新后的数据 createReplaceHomeRecomPlaylist
-import {createHomeNewSongSpeed, createReplaceHomeRecomPlaylist} from 'common/js/home';
+// 对最新专辑list数据做处理 createHomeNewAlbumList
+// 对MV列表数据做处理 createHomeMVList
+import {
+    createHomeNewSongSpeed,
+    createReplaceHomeRecomPlaylist,
+    createHomeNewAlbumList,
+    createHomeMVList
+} from 'common/js/home';
 // 对歌曲列表数据做处理 normalizeSongList
 import {normalizeSongList} from 'common/js/songList';
 // 自定义歌手数据
@@ -18,7 +31,11 @@ import {normalizeSinger} from 'common/js/singer';
 // 请求主页数据 getHomeMessage
 // 主页精选电台导航 getHomeFeaturedRadio
 // 主页歌单推荐数据 getHomeRecomPlaylist
-import {getHomeMessage, getHomeFeaturedRadio, getReplaceHomeRecomPlaylist} from 'api/homeAjax';
+import {
+    getHomeMessage,
+    getHomeFeaturedRadio,
+    getReplaceHomeRecomPlaylist
+} from 'api/homeAjax';
 // 获取歌单专辑信息 getSongAlbumMessage
 import {getSongAlbumMessage} from 'api/songAlbumMessage';
 // 获取歌曲列表播放MP4地址方法
@@ -40,22 +57,42 @@ import {
 
 // 获取分类歌单导航 getCategoryNavigation
 // 获取分类歌单数据接口 getSortSongData
-import {getCategoryNavigation, getSortSongData} from 'api/categorySongList'
+import {
+    getCategoryNavigation,
+    getSortSongData
+} from 'api/categorySongList'
 // 精选电台歌曲接口 getOrdinaryFeaturedRadio
 // 个性电台歌曲接口 getPersonalFeaturedRadio
-import {getOrdinaryFeaturedRadio, getPersonalFeaturedRadio} from 'api/featuredRadio';
+import {
+    getOrdinaryFeaturedRadio,
+    getPersonalFeaturedRadio
+} from 'api/featuredRadio';
 // 获取热门搜索
 import {getSearchHot} from 'api/search';
 // 获取排行榜数据接口 getRankingList
 // 获取排行榜歌曲数据接口 getRankingSongList
-import {getRankingList, getRankingSongList} from 'api/rank'
+import {
+    getRankingList,
+    getRankingSongList
+} from 'api/rank'
 // 获取歌手列表接口 getSingerList
 // 获取歌手歌曲列表请求 getSingerDetail
-import {getSingerList, getSingerDetail} from 'api/singer'
+import {
+    getSingerList,
+    getSingerDetail
+} from 'api/singer'
 // 获取用户登录请求 getSelectUser
 // 获取用户注册请求 getAddUser
 // 同步用户收藏歌曲和最近播放歌曲到数据库 getUserSongList
-import {getSelectUser, getAddUser, getUserSongList} from 'api/login'
+import {
+    getSelectUser,
+    getAddUser,
+    getUserSongList
+} from 'api/login'
+// 获取最新MV列表 getNewMvList
+// 获取对应MV的信息接口 getMvMessage
+// 获取MV播放地址 getMvPlayUrl
+import {getNewMvList, getMvMessage, getMvPlayUrl} from 'api/mvList'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -71,6 +108,11 @@ let state = {
      * @type {Array}
      * */
     homeRecommend: [],
+    /*
+     * 获取主页最新专辑
+     * @type {Array}
+     * */
+    homeAlbum: [],
     /*
      * 获取主页新歌导航
      * @type {Array}
@@ -175,7 +217,22 @@ let state = {
      * 用户信息
      * @type {String}
      * */
-    userMessage: loadUserMessage()
+    userMessage: loadUserMessage(),
+    /*
+     * 获取MV列表
+     * @type {Array}
+     * */
+    mvList: [],
+    /*
+     * 获取对应MV的信息接口
+     * @type {Object}
+     * */
+    mvMessage: {},
+    /*
+     * 获取MV播放地址
+     * @type {Object}
+     * */
+    mvPlayUrl: {}
 };
 
 let actions = {
@@ -190,6 +247,8 @@ let actions = {
             commit(types.SET_HOME_SLIDER, {homeSlider: res.focus.data.content});
             // 获取主页热门推荐导航
             commit(types.SET_HOME_RECOMMEND, {homeRecommend: res.recomPlaylist.data.v_hot || []});
+            // 获取主页最新专辑
+            commit(types.SET_HOME_ALBUM, {homeAlbum: createHomeNewAlbumList(res.new_album.data.album_list) || []});
             // 获取主页新歌导航
             commit(types.SET_HOME_NEW_SONG_SPEED, {homeNewSongSpeed: createHomeNewSongSpeed(res.new_song.data.song_list.slice(0, 1), res.new_album.data.album_list.slice(0, 1))});
             // 新歌速递 - 新歌模块数据
@@ -539,6 +598,57 @@ let actions = {
         }
     },
     /**
+     * 获取MV列表接口
+     * @param {Function} commit
+     */
+    async getNewMvList ({commit}, param) {
+        let res = await getNewMvList(param);
+        if (res.code === ERR_OK) {
+            // 保存用户信息
+            commit(types.SET_NEW_MV_LIST, createHomeMVList(res.data.mvlist));
+        }
+        else {
+            // 错误提示
+        }
+    },
+    /**
+     * 获取对应MV的信息接口
+     * @param {Function} commit
+     */
+    async getMvMessage ({commit}, param) {
+        let res = await getMvMessage(param);
+        if (res.code === ERR_OK) {
+            // 保存用户信息
+            commit(types.SET_MV_MESSAGE, res.getMvInfo.data.mvlist[0]);
+        }
+        else {
+            // 错误提示
+        }
+    },
+    /**
+     * 获取MV播放地址
+     * @param {Function} commit
+     */
+    async getMvPlayUrl ({commit}, param) {
+        let res = await getMvPlayUrl(param);
+        if (res.code === ERR_OK) {
+            let ret = res.getMvUrl.data.data;
+            ret = JSON.stringify(ret);
+
+            // 如果data是字符串就转换成对象
+            if (typeof ret === 'string') {
+                let reg = new RegExp(`{"${param}":`);
+                let matches = ret.replace(reg, '').slice(0, -1);
+
+                // 保存用户信息
+                commit(types.SET_MV_PLAY_URL, JSON.parse(matches));
+            }
+        }
+        else {
+            // 错误提示
+        }
+    },
+    /**
      * 获取歌曲列表播放地址
      * @param {Function} commit
      */
@@ -581,6 +691,13 @@ let mutations = {
      * */
     [types.SET_HOME_RECOMMEND] (state, {homeRecommend}) {
         state.homeRecommend = homeRecommend;
+    },
+    /*
+     * 获取主页最新专辑
+     * @param {Array}
+     * */
+    [types.SET_HOME_ALBUM] (state, {homeAlbum}) {
+        state.homeAlbum = homeAlbum;
     },
     /*
      * 获取主页热门推荐导航
@@ -659,45 +776,96 @@ let mutations = {
     [types.SET_SORT_SONG_DATA] (state, sortSongData) {
         state.sortSongData = sortSongData;
     },
-    // 获取个性电台歌曲列表
+    /*
+     * 获取个性电台歌曲列表
+     * @param {Array}
+     * */
     [types.SET_PERSONAL_FEATURED_RADIO_SONG_LIST] (state, {personalFeaturedRadio}) {
         state.personalFeaturedRadio = personalFeaturedRadio;
     },
-    // 普通个性电台歌曲列表
+    /*
+     * 普通个性电台歌曲列表
+     * @param {Array}
+     * */
     [types.SET_ORDINARY_FEATURED_RADIO_SONG_LIST] (state, {ordinaryFeaturedRadio}) {
         state.ordinaryFeaturedRadio = ordinaryFeaturedRadio;
     },
-    // 获取热门搜索数据
+    /*
+     * 获取热门搜索数据
+     * @param {Array}
+     * */
     [types.SET_SEARCH_HOT] (state, searchHot) {
         state.searchHot = searchHot;
     },
-    // 获取排行榜数据
+    /*
+     * 获取排行榜数据
+     * @param {Array}
+     * */
     [types.SET_RANKING_LIST] (state, rankingList) {
         state.rankingList = rankingList;
     },
-    // 获取排行榜歌曲数据接口
+    /*
+     * 获取排行榜歌曲数据接口
+     * @param {Array}
+     * */
     [types.SET_RANKING_SONG_LIST] (state, rankingSongList) {
         state.rankingSongList = rankingSongList;
     },
-    // 获取歌手列表接口
+    /*
+     * 获取歌手列表接口
+     * @param {Array}
+     * */
     [types.SET_SINGGER_LIST] (state, singerList) {
         state.singerList = singerList;
     },
-    // 获取歌手列表接口
+    /*
+     * 获取歌手列表接口
+     * @param {Array}
+     * */
     [types.SET_SINGGER_DETAIL] (state, singerDetail) {
         state.singerDetail = singerDetail;
     },
-    // 获取用户是否登录成功
+    /*
+     * 获取用户是否登录成功
+     * @param {Number}
+     * */
     [types.SET_SELECT_USER] (state, selectUser) {
         state.selectUser = selectUser;
     },
-    // 获取用户是否注册成功
+    /*
+     * 获取用户是否注册成功
+     * @param {Number}
+     * */
     [types.SET_ADD_USER] (state, addUser) {
         state.addUser = addUser;
     },
-    // 获取用户信息
+    /*
+     * 获取用户信息
+     * @param {Object}
+     * */
     [types.SET_USER_MESSAGE] (state, userMessage) {
         state.userMessage = userMessage;
+    },
+    /*
+     * 获取MV列表
+     * @param {Array}
+     * */
+    [types.SET_NEW_MV_LIST] (state, mvList) {
+        state.mvList = mvList;
+    },
+    /*
+     * 获取对应MV的信息接口
+     * @param {Object}
+     * */
+    [types.SET_MV_MESSAGE] (state, mvMessage) {
+        state.mvMessage = mvMessage;
+    },
+    /*
+    * 获取MV播放地址
+    * @param {Object}
+    * */
+    [types.SET_MV_PLAY_URL] (state, mvPlayUrl) {
+        state.mvPlayUrl = mvPlayUrl;
     }
 };
 

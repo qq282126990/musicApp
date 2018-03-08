@@ -1,4 +1,4 @@
-import Songsingle from '@/pages/songsingle/songsingle.vue';
+import Songsingle from '@/pages/songsingle/Songsingle.vue';
 
 export default {
     routes: [

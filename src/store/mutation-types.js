@@ -14,6 +14,8 @@ export const SAVE_SCROLLTOP = 'SAVE_SCROLLTOP';
 // 主页状态
 export const SET_HOME_SLIDER = 'SET_HOME_SLIDER'; // 获取主页轮播图
 export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND'; // 获取主页热门推荐导航
+export const SET_HOME_ALBUM = 'SET_HOME_ALBUM'; // 获取主页最新专辑
+export const SET_NEW_MV_LIST = 'SET_NEW_MV_LIST'; // 获取MV列表
 export const SET_HOME_NEW_SONG_SPEED = 'SET_HOME_NEW_SONG_SPEED'; // 获取主页热门推荐导航
 export const SET_HOME_FEATERED_RADIO = 'SET_HOME_FEATERED_RADIO'; // 获取主页精选电台导航
 export const SET_SONG_ALBUM_MESSAGE = 'SET_SONG_ALBUM_MESSAGE'; // 获取歌单专辑信息
@@ -81,3 +83,7 @@ export const SET_SHOW_LOGIN = 'SET_SHOW_LOGIN'; // 是否显示登录组件
 export const SET_SELECT_USER = 'SET_SELECT_USER'; // 获取用户是否登录成功
 export const SET_ADD_USER = 'SET_ADD_USER'; // 获取用户是否注册成功
 export const SET_USER_MESSAGE = 'SET_USER_MESSAGE'; // 获取用户信息
+
+// MV组件状态
+export const SET_MV_MESSAGE = 'SET_MV_MESSAGE'; // 获取对应MV的信息接口
+export const SET_MV_PLAY_URL = 'SET_MV_PLAY_URL'; // 获取MV播放地址

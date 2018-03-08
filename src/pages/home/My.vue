@@ -8,7 +8,7 @@
                         <!--头像-->
                         <img class="cove" src="../../../static/img/default_avater.png"/>
                         <!--用户名-->
-                        <h2 class="user-name" @click="showLogin">{{getUserMessage.username || '立即登录，资产云同步'}}</h2>
+                        <h2 class="user-name" @click="showLogin">{{getUserMessage.username || '立即登录，歌曲自动云同步'}}</h2>
                     </div>
                     <!--中心-->
                     <div class="center">
@@ -85,15 +85,28 @@
                             </div>
                             <!--创建歌单按钮-->
                             <div class="created-song-list">
-                                <h3 class="text-1">未创建歌单</h3>
+                                <!--歌单数量-->
+                                <h3 class="text-1">0个歌单</h3>
                                 <p>
+                                    <!--添加按钮-->
                                     <v-icon class="icon">add</v-icon>
+                                    <!--更多按钮-->
                                     <v-icon class="icon">format_list_bulleted</v-icon>
                                 </p>
                             </div>
                             <!--歌单-->
                             <div class="song-list">
-                                工程师努力开发中....
+                                <ul>
+                                    <!--没有歌单是显示-->
+                                    <li class="no-list-item">
+                                        <!--图标-->
+                                        <div class="no-song-list">
+                                            <v-icon class="noe-list-img-icon">add</v-icon>
+                                        </div>
+                                        <!--文字-->
+                                        <p class="no-song-list-txt">新建歌单</p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -198,6 +211,19 @@
                     path: '/my/playHistory'
                 });
             },
+            // 保存用户云歌曲
+            setUserCloudSongList () {
+                // 如果有喜欢列表 或者 播放历史才会去同步
+                if (this.getFavoriteList.length || this.getPlayHistory.length) {
+                    // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                    let setUserSongList = {
+                        'username': this.getUserMessage.username,
+                        'favorite': this.getFavoriteList,
+                        'playHistory': this.getPlayHistory
+                    };
+                    this.setUserSongList(setUserSongList);
+                }
+            },
             ...mapActions('appShell/appHeader', [
                 'setAppHeader'
             ]),
@@ -228,19 +254,30 @@
                  */
                 setShowLogin: 'showLogin',
                 /**
-                 * 收藏当前歌曲
+                 * 覆盖收藏歌曲到本地
                  * @type {Array}
                  */
-                setSaveFavoriteList: 'saveFavoriteList',
+                setCoverUserMessageList: 'coverUserMessageList',
                 /**
-                 * 保存播放历史
+                 * 覆盖播放历史
                  * @type {Array}
                  */
-                setSavePlayHistorys: 'savePlayHistorys'
+                setCoverPlayHistorys: 'coverPlayHistorys'
+            }),
+            ...mapActions('asyncAjax', {
+                /**
+                 * 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                 * @type {Object}
+                 */
+                setUserSongList: 'getUserSongList'
             })
         },
         // 组件激活
         activated () {
+            // 保存用户云歌曲
+            this.setUserCloudSongList();
+
+
             // 设置首页头部导航
             this.setAppHeader({
                 show: true
@@ -254,21 +291,21 @@
             // 监听用户数据变化
             getUserMessage (newUserMessage) {
                 if (!newUserMessage.username) {
-                  return;
+                    return;
                 }
 
-                if (newUserMessage.favorite) {
+                if (newUserMessage) {
                     // 设置该用户的收藏歌曲列表
-                    let getFavoriteList = newUserMessage.favorite;
-                    getFavoriteList = JSON.parse(getFavoriteList.replace(/\[/g, '').slice(0, -1));
-                    this.setSaveFavoriteList(getFavoriteList);
+                    let getFavoriteList = JSON.parse(newUserMessage.favorite);
+                    // 覆盖收藏收藏歌曲列表
+                    this.setCoverUserMessageList(getFavoriteList);
                 }
 
                 if (newUserMessage.playHistory) {
                     // 设置用户最近播放列表
-                    let getPlayHistory = newUserMessage.playHistory;
-                    getPlayHistory = JSON.parse(getPlayHistory.replace(/\[/g, '').slice(0, -1));
-                    this.setSavePlayHistorys(getPlayHistory);
+                    let getPlayHistory = JSON.parse(newUserMessage.playHistory);
+                    // 覆盖用户最近播放列表
+                    this.setCoverPlayHistorys(getPlayHistory);
                 }
             }
         },
@@ -308,7 +345,7 @@
         transition: all .2s;
         z-index: 2;
         &.active {
-            box-shadow: 0 px2rem(4px) px2rem(16px) #999;
+            box-shadow: 0 px2rem(2px) px2rem(3px) rgba(0, 0, 0, .1);
         }
         /*用户信息*/
         .user-message {
@@ -470,10 +507,11 @@
             display: flex;
             justify-content: center;
             .text-1 {
+                margin: 0;
                 position: relative;
                 padding-right: px2rem(30px);
                 font-weight: 400;
-                font-size: px2rem(32px);
+                font-size: px2rem(28px);
                 color: $customize-song-list-header;
             }
             .text-1:last-child {
@@ -510,8 +548,8 @@
                 margin: 0;
             }
             .icon {
-                font-size: px2rem(60px);
-                color: #999;
+                font-size: px2rem(50px);
+                color: $created-song-list-icon-color;
             }
             .icon:last-child {
                 padding-left: px2rem(40px);
@@ -519,9 +557,39 @@
         }
         /*歌单列表*/
         .song-list {
+            padding: 0 px2rem(20px);
             font-size: px2rem(32px);
             height: px2rem(300px);
             line-height: px2rem(300px);
+            .list-item, .no-list-item {
+                display: flex;
+                width: 100%;
+                height: px2rem(120px);
+            }
+            /*没有歌单列表时的歌单列表*/
+            .no-song-list {
+                position: relative;
+                flex: 0 0 px2rem(120px);
+                width: px2rem(120px);
+                height: px2rem(120px);
+                background: #f5f5f5;
+            }
+            /*没有歌单列表时的图片icon*/
+            .noe-list-img-icon {
+                position: absolute;
+                padding: px2rem(36px);
+                left: 0;
+                color: #a9a9a9;
+            }
+            /*没有歌单列表时的文字*/
+            .no-song-list-txt {
+                flex: 1;
+                margin: 0;
+                padding-left: px2rem(20px);
+                line-height: px2rem(120px);
+                text-align: left;
+                font-size: px2rem(28px);
+            }
         }
     }
 

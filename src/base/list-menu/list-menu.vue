@@ -6,7 +6,8 @@
                     <h1 class="name">{{listData.name}}</h1>
                     <i class="iconfont icon-prev_arrow-copy"></i>
                 </div>
-                <transition-group tag="ul" name="fade" class="list-data" v-if="listData.data">
+                <transition-group tag="ul" name="fade" class="list-data"
+                                  v-if="listData.data.length && listData.title !== 'newMV'">
                     <li class="data-li"
                         v-for="(data, index) in listData.data"
                         :key="index"
@@ -22,7 +23,7 @@
                         <!--播放量-->
                         <div class="play-number-wrapper">
                             <!--播放量数字-->
-                            <div class="play-number">
+                            <div class="play-number" v-show="data.listen_num">
                                 <i class="iconfont icon-erji"></i>
                                 <span class="number">{{computedPlayNumber(data.listen_num)}}</span>
                             </div>
@@ -34,10 +35,8 @@
                             <span class="title-span" v-html="data.title"></span>
                         </div>
                     </li>
-                </transition-group>
-                <!--加载图-->
-                <ul class="list-data" v-else>
-                    <li class="data-li" v-for="item in loadingImg">
+                    <!--加载图-->
+                    <li class="data-li" v-for="item in loadingImg" :key="item" v-show="!showLi">
                         <img class="data-cover"
                              alt="default"
                              src="../../../static/img/default.jpg"/>
@@ -46,21 +45,49 @@
                             <hr width="50%" align="left">
                         </div>
                     </li>
-                </ul>
+                </transition-group>
                 <!--换一批-->
-                <div class="replace-data" v-show="listMenu[0].listData[0].title === 'homeRecommend'">
+                <div class="replace-data" v-show="listData.title === 'homeRecommend'">
                     <div class="replace-button" @click="clickReplaceData">
                         <v-icon class="icon">cached</v-icon>
                         <p class="name">换一批</p>
                     </div>
                 </div>
+                <!--MV列表-->
+                <transition-group tag="ul"
+                                  name="fade"
+                                  class="list-data-li-mv"
+                                  v-if="listData.data.length && listData.title === 'newMV'">
+                    <li class="data-li"
+                        v-for="(data, index) in listData.data"
+                        :key="index"
+                        v-show="showLi"
+                        @click="selectSongSingle(data)">
+                        <img class="mv-cover"
+                             :alt="data.cover"
+                             v-lazy="data.cover"/>
+                        <!--播放量-->
+                        <div class="play-number-wrapper">
+                            <!--播放量数字-->
+                            <div class="play-number">
+                                <i class="iconfont icon-shipincopy"></i>
+                                <span class="number">{{computedPlayNumber(data.listen_num)}}</span>
+                            </div>
+                        </div>
+                        <!--歌单标题-->
+                        <div class="data-title">
+                            <span class="title-span" v-html="data.title"></span>
+                            <span class="title-span" v-html="data.mvdesc"></span>
+                        </div>
+                    </li>
+                </transition-group>
             </div>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import {mapState,mapActions} from 'vuex';
+    import {mapState, mapActions} from 'vuex';
 
     export default {
         props: {
@@ -69,13 +96,13 @@
                 default: null
             }
         },
-        data() {
+        data () {
             return {
                 /*
                 * 加载图数量
                 * @type {Number}
                 * */
-                loadingImg: [0, 1, 2, 3, 4, 5],
+                loadingImg: ['a', 'b', 'c', 'd', 'e', 'f'],
                 /*
                 * 设置是否显示列表
                 * @type {Boolean}
@@ -90,11 +117,11 @@
         },
         methods: {
             // 标题点击事件
-            clickListTitle(data) {
+            clickListTitle (data) {
                 this.$emit('clickListTitle', data);
             },
             // 计算播放量
-            computedPlayNumber(playNumber) {
+            computedPlayNumber (playNumber) {
                 // 如果当前播放量是1万才进行计算
                 if (playNumber > 1e4) {
                     playNumber = (playNumber / 1e4).toFixed(1) + '万';
@@ -102,13 +129,13 @@
                 return playNumber;
             },
             // 选择歌单派发点击事件
-            selectSongSingle(item) {
+            selectSongSingle (item) {
                 if (this.listMenu) {
                     this.$emit('selectSongSingle', item);
                 }
             },
             // 点击换一批按钮更换数据
-            clickReplaceData() {
+            clickReplaceData () {
                 // 设置随机数据
                 let random = Math.floor(Math.random() * 10);
 
@@ -141,7 +168,8 @@
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s;
     }
-    .fade-leave-to{
+
+    .fade-leave-to {
         opacity: 0;
     }
 
@@ -177,7 +205,7 @@
 
     /*歌单导航数据*/
     .list-data {
-        padding: 0 5px;
+        padding: 0 px2rem(10px);
         display: flex;
         flex-wrap: wrap;
         min-height: px2rem(330px);
@@ -189,6 +217,12 @@
         .data-li:nth-child(3n + 2) {
             margin: 0 px2rem(5px);
         }
+        /*歌单图片*/
+        .data-cover {
+            width: 100%;
+            min-width: px2rem(237px);
+            height: px2rem(244px);
+        }
         /*播放量*/
         .play-number-wrapper {
             position: relative;
@@ -197,6 +231,7 @@
             box-sizing: border-box;
             display: flex;
             align-items: flex-end;
+            justify-content: flex-end;
             width: 100%;
             height: px2rem(50px);
             color: $title-color;
@@ -206,14 +241,15 @@
             .play-number {
                 display: flex;
                 flex: 1;
-                padding: 0 px2rem(20px) px2rem(10px) 0;
+                padding: 0 0 px2rem(10px) 0;
                 /*title*/
                 .number {
                     flex: 1;
                     text-align: left;
-                    padding-left: px2rem(15px);
+                    padding-left: px2rem(10px);
                     font-size: px2rem(24px);
                     line-height: px2rem(32px);
+                    white-space: nowrap;
                 }
                 /*icon*/
                 .icon-erji {
@@ -227,39 +263,35 @@
             .play {
                 padding-bottom: px2rem(4px);
                 font-size: px2rem(48px);
+                opacity: .7;
             }
         }
-    }
-
-    /*最新*/
-    .data-mark {
-        position: absolute;
-        width: px2rem(80px);
-        border-radius: px2rem(10px) 0 0 0;
-    }
-
-    /*歌单图片*/
-    .data-cover {
-        width: 100%;
-        min-width: 118.5px;
-        height: px2rem(244px);
-    }
-
-    /*歌单标题*/
-    .data-title {
-        position: relative;
-        padding: px2rem(10px) px2rem(10px) 0 px2rem(10px);
-        text-align: left;
-        line-height: px2rem(32px);
-        font-size: px2rem(24px);
-        color: $list-title;
-        height: px2rem(80px);
-        -webkit-box-orient: vertical;
-        .title-span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
+        /*歌单标题*/
+        .data-title {
+            position: relative;
+            padding: px2rem(10px) px2rem(10px) 0 px2rem(10px);
+            text-align: left;
+            line-height: px2rem(32px);
+            font-size: px2rem(24px);
+            color: $list-title;
+            height: px2rem(80px);
+            -webkit-box-orient: vertical;
+            /*标题*/
+            .title-span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+            }
+            hr {
+                margin-left: px2rem(-10px);
+                height: px2rem(20px);
+                border: 0;
+                background: rgba(236, 236, 236, 0.95);
+                &:last-child {
+                    margin-top: px2rem(4px);
+                }
+            }
         }
         /*新歌速递标题*/
         .big-title {
@@ -276,15 +308,109 @@
             color: $list-data-title;
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
         }
-        hr {
-            margin-left: px2rem(-10px);
-            height: px2rem(20px);
-            border: 0;
-            background: rgba(236, 236, 236, 0.95);
-            &:last-child {
-                margin-top: px2rem(4px);
+    }
+
+    /*MV列表*/
+    .list-data-li-mv {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-height: px2rem(330px);
+        .data-li {
+            flex-basis: 50%;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-align: left;
+            /*歌单图片*/
+            .mv-cover {
+                padding-right: px2rem(2px);
+                width: 100%;
+                min-width: px2rem(237px);
+                height: px2rem(210px);
+            }
+            /*播放量*/
+            .play-number-wrapper {
+                position: relative;
+                margin: px2rem(-56px) px2rem(2px) 0 0;
+                padding-left: px2rem(10px);
+                box-sizing: border-box;
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+                height: px2rem(50px);
+                color: $title-color;
+                z-index: 2;
+            }
+            /*播放量数字*/
+            .play-number {
+                display: flex;
+                flex: 1;
+                padding: 0 0 px2rem(10px) 0;
+                opacity: .8;
+                /*title*/
+                .number {
+                    flex: 1;
+                    text-align: left;
+                    padding-left: px2rem(10px);
+                    font-size: px2rem(24px);
+                    line-height: px2rem(32px);
+                    white-space: nowrap;
+                }
+                /*icon*/
+                .icon-shipincopy {
+                    position: relative;
+                    top: px2rem(2px);
+                    flex: 0 0 px2rem(24px);
+                    font-size: px2rem(24px);
+                }
+            }
+            /*播放按钮*/
+            .play {
+                padding-bottom: px2rem(4px);
+                font-size: px2rem(48px);
+                opacity: .7;
             }
         }
+
+        .data-li:nth-child(2n + 2) {
+            /*歌单图片*/
+            .mv-cover {
+                padding-left: px2rem(2px);
+                padding-right: 0;
+            }
+            /*播放量*/
+            .play-number-wrapper {
+                margin: px2rem(-56px) 0 0 px2rem(2px);
+            }
+        }
+        /*歌单标题*/
+        .data-title {
+            position: relative;
+            padding: px2rem(10px);
+            text-align: left;
+            line-height: px2rem(32px);
+            font-size: px2rem(24px);
+            color: $list-title;
+            -webkit-box-orient: vertical;
+            /*标题*/
+            .title-span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+            }
+            .title-span:last-child{
+                color: #999;
+                line-height: px2rem(50px);
+            }
+        }
+    }
+
+    /*最新*/
+    .data-mark {
+        position: absolute;
+        width: px2rem(80px);
+        border-radius: px2rem(10px) 0 0 0;
     }
 
     /*换一批*/

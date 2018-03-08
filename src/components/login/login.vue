@@ -406,16 +406,16 @@
             // 监听用户是否登录成功
             getSelectUser (data) {
                 if (data.code === 0) {
-                    this.successPrompt = true;
-                    this.setShowLogin(false);
-                    this.alertPromptTxt = '登录成功';
-
                     // 如果有喜欢列表 或者 播放历史才会去同步
                     if (this.getFavoriteList.length || this.getPlayHistory.length) {
                         // 同步用户收藏歌曲和最近播放歌曲到数据库接口
                         let setUserSongList = {'username': this.loginUsername, 'favorite': this.getFavoriteList, 'playHistory': this.getPlayHistory};
                         this.setUserSongList(setUserSongList);
                     }
+
+                    this.successPrompt = true;
+                    this.setShowLogin(false);
+                    this.alertPromptTxt = '登录成功';
 
                     setTimeout(() => {
                         this.successPrompt = false;
@@ -437,6 +437,13 @@
             // 监听用户是否注册成功
             getAddUser (data) {
                 if (data.code === 0) {
+                    // 如果有喜欢列表 或者 播放历史才会去同步
+                    if (this.getFavoriteList.length || this.getPlayHistory.length) {
+                        // 同步用户收藏歌曲和最近播放歌曲到数据库接口
+                        let setUserSongList = {'username': this.loginUsername, 'favorite': this.getFavoriteList, 'playHistory': this.getPlayHistory};
+                        this.setUserSongList(setUserSongList);
+                    }
+
                     this.successPrompt = true;
                     this.setShowLogin(false);
                     this.alertPromptTxt = '注册成功';

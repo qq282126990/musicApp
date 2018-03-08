@@ -1,7 +1,7 @@
 <template>
     <div class="song-single-wrapper">
         <transition name="slide">
-            <music-list :collection="collection">
+            <music-list :collection="collection" v-if="show">
             </music-list>
         </transition>
     </div>
@@ -25,6 +25,11 @@
         },
         data() {
             return {
+                /*
+                * 设置显示歌单列表
+                * @type {Boolean}
+                * */
+                show: false,
                 /*
                  * 专辑收藏量
                  * @type {Number}
@@ -62,6 +67,9 @@
                     this.$router.back();
                 }
                 else {
+                    // 设置显示歌单列表
+                    this.show = true;
+
                     // 获取专辑收藏量接口
                     getCollection(this.getSongSingle.contentId || this.getSongSingle.dissid).then((res) => {
                         if (res.code === ERR_OK) {

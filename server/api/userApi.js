@@ -141,22 +141,15 @@ router.post('/addUserSongList', (req, res) => {
         else {
             let favorite = JSON.stringify(params.favorite);
             // 更新用户喜欢列表
-            conn.query(`update userData set favorite = '${favorite}' where username = '${params.username}'`, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            conn.query(`update userData set favorite = '${favorite}' where username = '${params.username}'`);
 
             let playHistory = JSON.stringify(params.playHistory);
             // 更新用户最近收听列表
-            conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`);
 
             // 更新用户完成查找该用户
             conn.query(sql_name, params.username, function (err, result) {
+                console.log(JSON.parse(result[0].favorite));
                 if (err) {
                     console.log(err);
                 }

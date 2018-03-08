@@ -113,6 +113,7 @@
             // 调用 vuex action，在异步操作完成之前有顶部进度条提示
             await store.dispatch('asyncAjax/getHomeMessage'); // 主页数据接口
             await store.dispatch('asyncAjax/getHomeFeaturedRadio'); // 主页精选电台导航接口
+            await store.dispatch('asyncAjax/getNewMvList', 'all'); // 获取MV列表接口
         },
         data() {
             return {
@@ -168,6 +169,16 @@
                             'name': '为你推荐歌单',
                             'title': 'homeRecommend',
                             'data': this.homeRecommend.slice(0, 6)
+                        },
+                        {
+                            'name': '最新专辑',
+                            'title': 'newSongSpeed',
+                            'data': this.homeAlbum.slice(0, 6)
+                        },
+                        {
+                            'name': '最新MV',
+                            'title': 'newMV',
+                            'data': this.mvList.slice(0, 6)
                         }]
                     }
                 ];
@@ -191,6 +202,11 @@
                  * */
                 'homeRecommend',
                 /*
+                 * 获取主页最新专辑
+                 * @typ {Array}
+                 * */
+                'homeAlbum',
+                /*
                  * 获取主页新歌导航
                  * @typ {Array}
                  * */
@@ -209,7 +225,12 @@
                  * 普通电台歌曲列表
                  * @typ {Array}
                  * */
-                'ordinaryFeaturedRadio'
+                'ordinaryFeaturedRadio',
+                /*
+                 * 获取MV列表
+                 * @typ {Array}
+                 * */
+                'mvList'
             ]),
             ...mapGetters('appStore', {
                 /**
@@ -302,12 +323,40 @@
                         path: `/songsingle/${singer.content_id}`
                     });
                 }
+
+                // 传入音乐列表数据  如果是歌单推荐就请求这个路由地址
+                if (singer.dissid) {
+                    // 把选中的专辑的数据存入 localStorage多页通讯
+                    saveSongSingle(createSongSingle(singer));
+
+                    // 跳转到专辑页面
+                    this.$router.push({
+                        path: `/songsingle/${singer.dissid}`
+                    });
+                }
+
+                // 如果点击的是MV就跳转到获取对应MV的信息页面
+                if (singer.start === 'mv') {
+                    // 跳转到MV页面
+                    this.$router.push({
+                        path: `/mv/${singer.vid}`
+                    });
+                }
             },
             // 点击歌单导航列表头部标题
             clickListTitle(data) {
-                this.$router.push({
-                    path: `/home/${data}`
-                });
+                if (data === 'newSongSpeed') {
+                    // 保存主页新歌模块跳转对应的模块的标题
+                    saveNewSongSpeedTitle('新碟');
+                    this.$router.push({
+                        path: '/home/newSongSpeed'
+                    });
+                }
+                else {
+                    this.$router.push({
+                        path: `/home/${data}`
+                    });
+                }
             },
             // 点击个性电台播放歌曲
             clickPersonalFeaturedRadio(id) {
@@ -611,7 +660,8 @@
                 right: 0;
                 left: 0;
                 padding: px2rem(100px);
-                color: #fff
+                color: #fff;
+                opacity: .8;
             }
         }
         /*推荐*/
@@ -638,7 +688,7 @@
                         margin: 0;
                     }
                     .name {
-                        font-size: px2rem(34px);
+                        font-size: px2rem(30px);
                         color: #000;
                     }
                     .txt {

@@ -14,6 +14,8 @@ import {shuffle} from 'common/js/util';
 // 删除搜索历史 deleteSearchHistory
 // 清除全部搜索历史 clearSearchHistory
 // 保存播放历史 savePlayHistory
+// 覆盖收藏歌曲到本地 coverUserMessage
+// 覆盖播放历史 coverPlayHistory
 import {
     saveFavorite,
     deleteFavorite,
@@ -24,7 +26,9 @@ import {
     saveSearchHistory,
     deleteSearchHistory,
     clearSearchHistory,
-    savePlayHistory
+    savePlayHistory,
+    coverUserMessage,
+    coverPlayHistory
 } from 'common/js/cache';
 
 // 找到随机列表中,对应点击选择列表的歌曲的索引
@@ -268,13 +272,29 @@ export const saveFavoriteList = function ({commit}, currentSong) {
     commit(types.SET_FAVORITE_LIST, saveFavorite(currentSong));
 };
 
+/**
+ * 覆盖收藏歌曲
+ * @type {Array}
+ */
+export const coverUserMessageList = function ({commit}, list) {
+    commit(types.SET_FAVORITE_LIST, coverUserMessage(list));
+};
+
 // 保存播放历史
 export const savePlayHistorys = function ({commit}, song) {
     if (!song.id) {
         return;
     }
     commit(types.SET_PLAY_HISTORY, savePlayHistory(song));
-}
+};
+
+/**
+ * 覆盖播放历史
+ * @type {Array}
+ */
+export const coverPlayHistorys = function ({commit}, list) {
+    commit(types.SET_PLAY_HISTORY, coverPlayHistory(list));
+};
 
 /**
  * 取消收藏歌曲

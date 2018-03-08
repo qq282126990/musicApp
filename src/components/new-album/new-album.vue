@@ -329,11 +329,11 @@
             /*歌单图片*/
             .li-avatar {
                 display: block;
-                padding-right: px2rem(10px);
-                border-top-left-radius: px2rem(15px);
-                border-bottom-left-radius: px2rem(15px);
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
+                padding-right: px2rem(5px);
+                /*border-top-left-radius: px2rem(15px);*/
+                /*border-bottom-left-radius: px2rem(15px);*/
+                /*border-top-right-radius: 0;*/
+                /*border-bottom-right-radius: 0;*/
                 width: 100%;
                 min-width: px2rem(375px);
                 min-height: px2rem(375px);
@@ -415,12 +415,12 @@
         .new-album-li:nth-child(2n + 2) {
             /*歌单图片*/
             .li-avatar {
-                padding-left: px2rem(10px);
+                padding-left: px2rem(5px);
                 padding-right: 0;
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-                border-top-right-radius: px2rem(15px);
-                border-bottom-right-radius: px2rem(15px);
+                /*border-top-left-radius: 0;*/
+                /*border-bottom-left-radius: 0;*/
+                /*border-top-right-radius: px2rem(15px);*/
+                /*border-bottom-right-radius: px2rem(15px);*/
             }
             /*播放量*/
             .play-number-wrapper {
