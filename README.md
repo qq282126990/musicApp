@@ -1,6 +1,6 @@
 # PWA版本QQ音乐
 
-  > 这是一个采用PWA与百度开发的PWA框架Lava制作的webApp
+  > 这是一个采用PWA与百度开发的PWA框架Lavas制作的webApp
   
   > 该APP引入了页面骨架屏与Service Worker离线缓存,让webApp接近了原生的体验
   
