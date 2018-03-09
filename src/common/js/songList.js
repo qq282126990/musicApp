@@ -35,14 +35,16 @@ export function createSongList (musicData) {
             duration: musicData.interval,
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.album.mid}.jpg?max_age=2592000`,
-            // 音乐链接         
-            url: ``,
+            // 音乐链接
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
             // 第4个备用接口
-            spare: ``,
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
             // 下载地址
-            download: ``,
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
             // 下载备用地址
-            downloadSpare: ``,
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
             // MV id
             vid: musicData.mv.vid,
             // 是否是独家
@@ -64,14 +66,16 @@ export function createSongList (musicData) {
             duration: musicData.interval,
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-            // 音乐链接       
-            url: ``,
+            // 音乐链接
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // 第4个备用接口
-            spare: ``,
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
             // 下载地址
-            download: ``,
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
             // 下载备用地址
-            downloadSpare: ``,
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
             // MV id
             vid: musicData.vid,
             // 是否是独家
@@ -94,13 +98,15 @@ export function createSongList (musicData) {
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
             // 音乐链接
-            url: ``,
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 第4个备用接口
-            spare: ``,
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 下载地址
-            download: ``,
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // 下载备用地址
-            downloadSpare: ``,
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // 是否是独家
             isonly: musicData.isonly
         });
@@ -124,13 +130,15 @@ export function createRankSongList (musicData) {
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
             // 音乐链接
-            url: ``,
+            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
+            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
+            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 第4个备用接口
-            spare: ``,
+            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
             // 下载地址
-            download: ``,
+            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // 下载备用地址
-            downloadSpare: ``,
+            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
             // MV id
             vid: musicData.vid,
             // 是否是独家
@@ -201,7 +209,7 @@ export function normalizeSingerSongList (list, playingUrl) {
     let ret = [];
 
     list.forEach((item, index) => {
-        let {musicData} = item
+        let {musicData} = item;
 
         // 数据中有id和名字才返回
         if (musicData.songid && musicData.albummid) {

@@ -3,15 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b98f3e5e-6308-48c7-8a1b-8840550886e4" name="默认的" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/sw-precache.js" afterPath="$PROJECT_DIR$/config/sw-precache.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/search.js" afterPath="$PROJECT_DIR$/src/api/search.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" afterPath="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/more-button/more-button.vue" afterPath="$PROJECT_DIR$/src/base/more-button/more-button.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/video/video.vue" afterPath="$PROJECT_DIR$/src/base/video/video.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Home.vue" afterPath="$PROJECT_DIR$/src/pages/home/Home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/My.vue" afterPath="$PROJECT_DIR$/src/pages/home/My.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/mv/Mv.vue" afterPath="$PROJECT_DIR$/src/pages/mv/Mv.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/songList.js" afterPath="$PROJECT_DIR$/src/common/js/songList.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,7 +31,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="video.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/base/video/video.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2394">
@@ -48,11 +41,51 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="homeAjax.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/homeAjax.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="async-ajax.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="226" column="13" lean-forward="false" selection-start-line="226" selection-start-column="6" selection-end-line="226" selection-end-column="13" />
+            <state relative-caret-position="390">
+              <caret line="230" column="6" lean-forward="true" selection-start-line="230" selection-start-column="6" selection-end-line="230" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songSingle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/songSingle.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="totalDigitalAlbum.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1923">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songList.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/songList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="211" column="31" lean-forward="false" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -61,43 +94,129 @@
       <file leaf-file-name="more-button.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2008">
-              <caret line="269" column="9" lean-forward="false" selection-start-line="269" selection-start-column="9" selection-end-line="269" selection-end-column="9" />
-              <folding>
-                <element signature="e#1977#2033#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="276">
+              <caret line="193" column="27" lean-forward="true" selection-start-line="193" selection-start-column="27" selection-end-line="193" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="42" column="3" lean-forward="true" selection-start-line="42" selection-start-column="3" selection-end-line="42" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="694">
+            <state relative-caret-position="-12711">
               <caret line="312" column="10" lean-forward="false" selection-start-line="282" selection-start-column="8" selection-end-line="312" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/store/actions.js">
+      <file leaf-file-name="icon.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/icon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="224" column="52" lean-forward="false" selection-start-line="224" selection-start-column="52" selection-end-line="224" selection-end-column="52" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mixin.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
+      <file leaf-file-name="songAlbumMessage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="119" column="36" lean-forward="false" selection-start-line="115" selection-start-column="11" selection-end-line="119" selection-end-column="36" />
-              <folding>
-                <marker date="1520559589118" expanded="true" signature="5187:5193" ph="{...}" />
-              </folding>
+            <state relative-caret-position="319">
+              <caret line="47" column="13" lean-forward="true" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="singer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/singer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songListPlayUrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-726">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="userApi.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/api/userApi.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="846">
+              <caret line="108" column="21" lean-forward="false" selection-start-line="108" selection-start-column="21" selection-end-line="108" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mvList.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/mvList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="8" column="38" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/search.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rank.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/rank.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newSongSpeed.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="88" column="7" lean-forward="true" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -165,7 +284,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/registered/registered.vue" />
         <option value="$PROJECT_DIR$/src/base/registered/registered.vue" />
         <option value="$PROJECT_DIR$/server/index.js" />
         <option value="$PROJECT_DIR$/src/store/mutations.js" />
@@ -214,8 +332,9 @@
         <option value="$PROJECT_DIR$/config/sw-precache.js" />
         <option value="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" />
         <option value="$PROJECT_DIR$/src/pages/home/Home.vue" />
-        <option value="$PROJECT_DIR$/src/base/more-button/more-button.vue" />
         <option value="$PROJECT_DIR$/src/base/video/video.vue" />
+        <option value="$PROJECT_DIR$/src/base/more-button/more-button.vue" />
+        <option value="$PROJECT_DIR$/src/common/js/songList.js" />
       </list>
     </option>
   </component>
@@ -238,8 +357,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
+    <option name="x" value="489" />
+    <option name="width" value="1438" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -638,7 +757,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="650382000" />
+    <option name="totallyTimeSpent" value="651039000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -650,9 +769,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="489" y="0" width="1438" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37653333" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18881626" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26115343" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
@@ -703,61 +823,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/common/js/dom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="48" column="14" lean-forward="false" selection-start-line="48" selection-start-column="14" selection-end-line="48" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/Home.skeleton.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="25" column="26" lean-forward="false" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-          <folding>
-            <element signature="n#src#0;n#img#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/js/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="90" column="22" lean-forward="false" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="22" />
-          <folding>
-            <marker date="1520559589113" expanded="true" signature="2084:2662" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="2689:3098" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="2760:3096" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="3100:3148" ph="/** 对最新专辑list数据做处理 ...*/" />
-            <marker date="1520559589113" expanded="true" signature="3194:3596" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="3263:3575" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="3295:3540" ph="{&quot;dissid&quot;: item.album.id...}" />
-            <marker date="1520559589113" expanded="true" signature="3619:3966" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="3696:3964" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="3968:4012" ph="/** 对MV列表数据做处理 ...*/" />
-            <marker date="1520559589113" expanded="true" signature="4052:4442" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="4121:4421" ph="{...}" />
-            <marker date="1520559589113" expanded="true" signature="4147:4386" ph="{&quot;vid&quot;: item.vid...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/base/loading/loading.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -784,14 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="1" column="15" lean-forward="false" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/api/userApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="108" column="21" lean-forward="false" selection-start-line="108" selection-start-column="21" selection-end-line="108" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -946,81 +1003,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/homeAjax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/mvList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-589">
-          <caret line="8" column="38" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-703">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/rank.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/singer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="41" column="9" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="41" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1036,14 +1023,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1989">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="334" column="5" lean-forward="false" selection-start-line="334" selection-start-column="5" selection-end-line="334" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1092,38 +1071,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="226" column="13" lean-forward="false" selection-start-line="226" selection-start-column="6" selection-end-line="226" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="312" column="10" lean-forward="false" selection-start-line="282" selection-start-column="8" selection-end-line="312" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="119" column="36" lean-forward="false" selection-start-line="115" selection-start-column="11" selection-end-line="119" selection-end-column="36" />
           <folding>
             <marker date="1520559589118" expanded="true" signature="5187:5193" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2008">
-          <caret line="269" column="9" lean-forward="false" selection-start-line="269" selection-start-column="9" selection-end-line="269" selection-end-column="9" />
-          <folding>
-            <element signature="e#1977#2033#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1140,6 +1093,150 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2394">
           <caret line="126" column="32" lean-forward="false" selection-start-line="126" selection-start-column="32" selection-end-line="126" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/homeAjax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/modules/async-ajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="230" column="6" lean-forward="true" selection-start-line="230" selection-start-column="6" selection-end-line="230" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="193" column="27" lean-forward="true" selection-start-line="193" selection-start-column="27" selection-end-line="193" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/icon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/api/userApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="108" column="21" lean-forward="false" selection-start-line="108" selection-start-column="21" selection-end-line="108" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-726">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="47" column="13" lean-forward="true" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/mvList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="8" column="38" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/singer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/rank.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="88" column="7" lean-forward="true" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/songList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="211" column="31" lean-forward="false" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1923">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/songSingle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="42" column="3" lean-forward="true" selection-start-line="42" selection-start-column="3" selection-end-line="42" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12711">
+          <caret line="312" column="10" lean-forward="false" selection-start-line="282" selection-start-column="8" selection-end-line="312" selection-end-column="10" />
           <folding />
         </state>
       </provider>
