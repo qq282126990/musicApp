@@ -170,7 +170,7 @@
                  * 获取用户信息
                  * @type {Array}
                  */
-                getUserMessage: 'userMessage',
+                getUserMessage: 'userMessage'
             })
         },
         methods: {
@@ -182,6 +182,7 @@
             showLogin () {
                 if (!this.getUserMessage.username) {
                     this.setShowLogin(true);
+
                 }
             },
             // 跳转到我的喜欢路由
@@ -344,7 +345,7 @@
     .scroll-wrapper {
         height: 100%;
         overflow: hidden;
-        background: $app-header-bgcolor;
+        background: linear-gradient($app-header-bgcolor 50%, #fff 50%);
     }
 
     /*用户信息*/
@@ -502,7 +503,10 @@
         }
         .number {
             margin: 0;
+            text-align: center;
             position: absolute;
+            left: 0;
+            right: 0;
             bottom: px2rem(8px);
             font-size: px2rem(24px);
             color: #999;
@@ -591,6 +595,7 @@
                 position: absolute;
                 padding: px2rem(36px);
                 left: 0;
+                font-size: px2rem(48px);
                 color: #a9a9a9;
             }
             /*没有歌单列表时的文字*/

@@ -267,12 +267,11 @@
                             // 设置限制时间
                             this.delayTime = this.delayTime * 2
                         }, this.delayTime);
-
-                        return;
                     }
-
-                    // 获取用户是否登录成功
-                    this.setSelectUser(loginUser);
+                    else {
+                        // 获取用户是否登录成功
+                        this.setSelectUser(loginUser);
+                    }
                 }
             },
             // 获取注册用户名
@@ -420,10 +419,6 @@
                         // 初始化
                         this._initSome();
                     }, 500);
-
-                    if (this.getUserMessage.favorite.length) {
-
-                    }
                 }
                 else {
                     this.infoPrompt = true;

@@ -5,7 +5,7 @@
             <i class="iconfont icon-fanhui1-copy"></i>
         </div>
         <!--播放器-->
-        <video-base :mvPlayUrl="mvPlayUrl"></video-base>
+        <video-base :coverPic="coverPic"></video-base>
         <!--mv标题-->
         <div class="mv-title-wrapper">
             <p class="mv-title">{{getMvMessage.name}}</p>
@@ -29,10 +29,10 @@
         data () {
             return {
                 /*
-                 * MV播放链接
-                 * @type {String}
-                 * */
-                mvPlayUrl: ''
+                * 视频图片
+                * @typ {String}
+                * */
+                coverPic: ''
             }
         },
         computed: {
@@ -89,13 +89,11 @@
         watch: {
             // 监听MV信息请求数据
             getMvMessage (mvMessage) {
+                // 视频图片
+                this.coverPic = mvMessage.cover_pic;
+
                 // 获取MV播放地址请求
                 this.setMvPlayUrl(mvMessage.fileid)
-            },
-            // 监听播放链接数据
-            getMvPlayUrl (newMvPlayUrl) {
-                this.mvPlayUrl = `${newMvPlayUrl[3].url[0]}${newMvPlayUrl[3].cn}?vkey=${newMvPlayUrl[3].vkey}`
-                console.log(this.mvPlayUrl);
             }
         },
         components: {
@@ -107,6 +105,11 @@
 <style lang="scss" scoped>
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
+
+    /*禁用 Lavas app 的下拉刷新*/
+    html {
+        touch-action: none !important;
+    }
 
     /*返回按钮*/
     .back {
@@ -123,6 +126,8 @@
 
     /*mv标题*/
     .mv-title-wrapper {
+        position: relative;
+        top: px2rem(422px);
         padding: px2rem(30px);
         width: 100%;
         .mv-title {

@@ -77,7 +77,7 @@
                 <!--图标-->
                 <v-icon class="icon-exit">exit_to_app</v-icon>
                 <!--名称-->
-                <span class="name" @click="exitUser">{{getUserMessage.username ? '退出登录/关闭' : '关闭'}}</span>
+                <span class="name" @click="exitUser">{{getUserMessage && getUserMessage.username ? '退出登录/关闭' : '关闭'}}</span>
             </div>
         </div>
         <!--loading-->
@@ -154,10 +154,10 @@
             exitUser () {
                 this.loadingShow = true;
                 setTimeout(() => {
-                    this.loadingShow = false
+                    this.loadingShow = false;
                     this.$emit('hide-sidebar');
                 }, 300);
-                if (!this.getUserMessage.username) {
+                if (!this.getUserMessage && !this.getUserMessage.username) {
                     return;
                 }
                 // 设置用户退出

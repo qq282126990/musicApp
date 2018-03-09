@@ -44,14 +44,18 @@ router.post('/addUser', (req, res) => {
                 else {
                     // 生成UID
                     let uid = uuid.v1();
-                    uid = uid.replace(/\-/g,'');
+                    uid = uid.replace(/\-/g, '');
+
+                    // 生成登录时间
+                    let date = new Date();
+                    // 生成当前时间
+                    let time = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 
                     // 添加uid
-                    conn.query(`update userData set uid = '${uid}' where username = '${params.username}'`, function (err, result) {
-                        if (err) {
-                            console.log(err);
-                        }
-                    });
+                    conn.query(`update userData set uid = '${uid}' where username = '${params.username}'`);
+
+                    // 更新登录时间
+                    conn.query(`update userData set loginTime = '${time}' where username = '${params.username}'`);
 
                     // 添加用户完成查找该用户
                     conn.query(sql_name, params.username, function (err, result) {
@@ -98,14 +102,18 @@ router.post('/selectUser', (req, res) => {
         else {
             // 生成UID
             let uid = uuid.v1();
-            uid = uid.replace(/\-/g,'');
+            uid = uid.replace(/\-/g, '');
+
+            // 生成登录时间
+            let date = new Date();
+            // 生成当前时间
+            let time = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 
             // 更新uid
-            conn.query(`update userData set uid = '${uid}' where username = '${params.username}'`, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            conn.query(`update userData set uid = '${uid}' where username = '${params.username}'`);
+
+            // 更新登录时间
+            conn.query(`update userData set loginTime = '${time}' where username = '${params.username}'`);
 
             // 用户登录
             conn.query(sql_password, params.password, function (err, result) {
@@ -169,6 +177,31 @@ router.post('/addPlayHistory', (req, res) => {
                 // 更新用户最近收听列表
                 conn.query(`update userData set playHistory = '${playHistory}' where username = '${params.username}'`);
             }
+        }
+    })
+});
+
+// 获取用户uid
+router.post('/getUserUid', (req, res) => {
+    // 查找用户名
+    const params = req.body;
+
+    conn.query(`select * from userData where username = '${params.username}'`, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result[0] === undefined) {
+            res.send({
+                code: -1
+            }); // //查询不出username，data返回-1
+        }
+        else {
+            res.send({
+                code: 0,
+                data: {
+                    uid: result[0].uid
+                }
+            });
         }
     })
 });

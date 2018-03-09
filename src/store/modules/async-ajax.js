@@ -84,16 +84,20 @@ import {
 // 获取用户登录请求 getSelectUser
 // 获取用户注册请求 getAddUser
 // 同步用户收藏歌曲和最近播放歌曲到数据库 getUserSongList
+// 获取该用户的uid判断是否在另一个地方登录 getUserUid
 import {
     getSelectUser,
     getAddUser,
     getAddFavorite,
-    getAddPlayHistory
+    getAddPlayHistory,
+    getUserUid
 } from 'api/login'
 // 获取最新MV列表 getNewMvList
 // 获取对应MV的信息接口 getMvMessage
 // 获取MV播放地址 getMvPlayUrl
-import {getNewMvList, getMvMessage, getMvPlayUrl} from 'api/mvList'
+import {getNewMvList,
+        getMvMessage,
+        getMvPlayUrl} from 'api/mvList'
 
 // 拼接歌单专辑歌曲列表
 let sliceSonglist = [];
@@ -219,6 +223,11 @@ let state = {
      * @type {String}
      * */
     userMessage: loadUserMessage(),
+    /*
+    * 获取用户uid
+    * @type {String}
+    * */
+    userUid: null,
     /*
      * 获取MV列表
      * @type {Array}
@@ -608,6 +617,22 @@ let actions = {
             // 错误提示
         }
     },
+
+    /**
+     * 获取该用户的uid判断是否在另一个地方登录
+     * @param {Function} commit
+     */
+    async getUserUid ({commit}, param) {
+        let res = await getUserUid(param);
+        if (res.code === ERR_OK) {
+            // 保存用户uid
+            commit(types.SET_USER_UID, res.data);
+        }
+        else {
+            // 错误提示
+        }
+    },
+
     /**
      * 获取MV列表接口
      * @param {Function} commit
@@ -856,6 +881,13 @@ let mutations = {
      * */
     [types.SET_USER_MESSAGE] (state, userMessage) {
         state.userMessage = userMessage;
+    },
+    /*
+     * 获取用户uid
+     * @param {Object}
+     * */
+    [types.SET_USER_UID] (state, userUid) {
+        state.userUid = userUid;
     },
     /*
      * 获取MV列表

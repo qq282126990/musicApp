@@ -84,6 +84,12 @@
                 </div>
             </div>
         </scroll>
+        <!--警告弹框-->
+        <transition name="alert-prompt">
+            <v-alert color="error" icon="warning" dismissible v-model="warningPrompt" v-show="warningPrompt" class="alert-Prompt">
+                {{warningPromptTxt}}
+            </v-alert>
+        </transition>
     </div>
 </template>
 
@@ -109,13 +115,13 @@
 
     export default {
         name: 'home',
-        async asyncData({store}) {
+        async asyncData ({store}) {
             // 调用 vuex action，在异步操作完成之前有顶部进度条提示
             await store.dispatch('asyncAjax/getHomeMessage'); // 主页数据接口
             await store.dispatch('asyncAjax/getHomeFeaturedRadio'); // 主页精选电台导航接口
             await store.dispatch('asyncAjax/getNewMvList', 'all'); // 获取MV列表接口
         },
-        data() {
+        data () {
             return {
                 /*
                  * 获取Y轴滚动距离
@@ -153,16 +159,26 @@
                         {'name': '电台', 'iconfont': 'icon-ziyuan', 'title': 'radio'},
                         {'name': '视频', 'iconfont': 'icon-shipincopy', 'title': 'video'}
                     ]
-                }]
+                }],
+                /*
+                * 警告弹框
+                * @type {Boolean}
+                * */
+                warningPrompt: false,
+                /*
+                * 警告提示框文字
+                * @type {String}
+                * */
+                warningPromptTxt: '您的用户已在别处登录,请重新登录'
             };
         },
-        mounted() {
+        mounted () {
             // 一些初始化操作
             this._initSome();
         },
         computed: {
             // 歌单导航模块数据
-            listMenu() {
+            listMenu () {
                 this.list = [
                     {
                         listData: [{
@@ -170,23 +186,23 @@
                             'title': 'homeRecommend',
                             'data': this.homeRecommend.slice(0, 6)
                         },
-                        {
-                            'name': '最新专辑',
-                            'title': 'newSongSpeed',
-                            'data': this.homeAlbum.slice(0, 6)
-                        },
-                        {
-                            'name': '最新MV',
-                            'title': 'newMV',
-                            'data': this.mvList.slice(0, 6)
-                        }]
+                            {
+                                'name': '最新专辑',
+                                'title': 'newSongSpeed',
+                                'data': this.homeAlbum.slice(0, 6)
+                            },
+                            {
+                                'name': '最新MV',
+                                'title': 'newMV',
+                                'data': this.mvList.slice(0, 6)
+                            }]
                     }
                 ];
 
                 return this.list;
             },
             // 获取歌曲播放的 guid !!!!!!!!!!!!!!!!!!!!!! 重要
-            guid() {
+            guid () {
                 let date = new Date();
                 return Math.round(2147483647 * Math.abs(Math.random() - 1) * date.getUTCMilliseconds() % 1e10);
             },
@@ -230,7 +246,12 @@
                  * 获取MV列表
                  * @typ {Array}
                  * */
-                'mvList'
+                'mvList',
+                /*
+                 * 获取用户uid
+                 * @typ {Array}
+                 * */
+                'userUid'
             ]),
             ...mapGetters('appStore', {
                 /**
@@ -253,11 +274,18 @@
                  * @type {Number}
                  */
                 getCurrentIndex: 'currentIndex'
+            }),
+            ...mapGetters('asyncAjax', {
+                /**
+                 * 获取用户信息
+                 * @type {Array}
+                 */
+                getUserMessage: 'userMessage'
             })
         },
         methods: {
             // 一些初始化操作
-            _initSome() {
+            _initSome () {
                 // 设置滚动组件滚动的状态
                 this.setProbeType(3);
                 // scroll组件开启滚动监听
@@ -272,9 +300,14 @@
 
                 // 把歌曲guid保存到cookie
                 this.setGuid();
+
+                // 获取该用户的uid判断是否在另一个地方登录接口
+                if (this.getUserMessage.username) {
+                    this.setUserUid({username: this.getUserMessage.username});
+                }
             },
             // 把歌曲guid保存到cookie !!!!!!!!!!!!!!!!!!!!!! 重要 每天设置一次
-            setGuid() {
+            setGuid () {
                 let d = new Date();
                 let n = d.getHours();
                 // 如果没有guid就设置guid
@@ -287,7 +320,7 @@
                 }
             },
             // 监听滚动
-            scroll(pos) {
+            scroll (pos) {
                 this.scrollY = pos.y;
             },
             // 标签导航
@@ -297,7 +330,7 @@
                 });
             },
             // 点击综合推荐
-            selectRecommend(item) {
+            selectRecommend (item) {
                 if (item.name === 'newSongSpeed') {
                     // 保存主页新歌模块跳转对应的模块的标题
                     saveNewSongSpeedTitle('新歌');
@@ -312,7 +345,7 @@
                 });
             },
             // 选择歌单导航列表内容跳转页面
-            selectSongSingle(singer) {
+            selectSongSingle (singer) {
                 //跳转到对应的歌单页面
                 if (singer.content_id) {
                     // 把选中的专辑的数据存入 localStorage多页通讯
@@ -344,7 +377,7 @@
                 }
             },
             // 点击歌单导航列表头部标题
-            clickListTitle(data) {
+            clickListTitle (data) {
                 if (data === 'newSongSpeed') {
                     // 保存主页新歌模块跳转对应的模块的标题
                     saveNewSongSpeedTitle('新碟');
@@ -359,7 +392,7 @@
                 }
             },
             // 点击个性电台播放歌曲
-            clickPersonalFeaturedRadio(id) {
+            clickPersonalFeaturedRadio (id) {
                 // 控制歌曲播放
                 this.setPlaying(!this.getPlaying);
 
@@ -380,7 +413,7 @@
                 this.setPersonalFeaturedRadio();
             },
             // 点击普通电台播放歌曲
-            clickOrdinaryFeaturedRadio(item) {
+            clickOrdinaryFeaturedRadio (item) {
                 // 控制歌曲播放
                 this.setPlaying(!this.getPlaying);
 
@@ -448,11 +481,20 @@
                 /**
                  * 普通电台歌曲接口
                  */
-                setOrdinaryFeaturedRadio: 'getOrdinaryFeaturedRadio'
+                setOrdinaryFeaturedRadio: 'getOrdinaryFeaturedRadio',
+                /**
+                 * 获取该用户的uid判断是否在另一个地方登录接口
+                 */
+                setUserUid: 'getUserUid',
+                /**
+                 * 设置用户退出
+                 * @type {Array}
+                 */
+                setExitUser: 'exitUser'
             })
         },
         // 组件激活
-        activated() {
+        activated () {
             // 设置首页头部导航
             this.setAppHeader({
                 show: true
@@ -466,10 +508,25 @@
             this.$refs.scroll.refresh();
             // 重置滚动位置
             this.$refs.scroll.scrollTo(0, 0);
+
+            // 获取该用户的uid判断是否在另一个地方登录接口
+            if (this.getUserMessage.username) {
+                this.setUserUid({username: this.getUserMessage.username});
+            }
         },
         watch: {
+            userUid (newUserUid) {
+                // 如果当前用户的uid发生了变化就把用户下线
+                if (newUserUid.uid !== this.getUserMessage.uid) {
+                    // 设置用户退出
+                    this.setExitUser();
+
+                    // 弹出警告框
+                    this.warningPrompt = true;
+                }
+            },
             // 监听滚动
-            scrollY(newScrollY) {
+            scrollY (newScrollY) {
                 if (newScrollY < 0 && newScrollY < -5) {
                     // 设置标题导航向上偏移的位置
                     this.translateY = 0;
@@ -484,11 +541,11 @@
                 }
             },
             // 监听主页轮播图数据
-            homeSlider(newHomeSlider) {
+            homeSlider (newHomeSlider) {
                 this.setScrollData(newHomeSlider);
             },
             // 监听点击的电台的id
-            featuredRadioId(item) {
+            featuredRadioId (item) {
                 // 控制歌曲播放
                 this.setPlaying(!this.getPlaying);
 
@@ -502,7 +559,7 @@
                 }
             },
             // 监听当前播放歌曲的index
-            getCurrentIndex(newIndex) {
+            getCurrentIndex (newIndex) {
                 // 如果没有点击电台就不执行下面逻辑
                 if (!this.featuredRadioId) {
                     return;
@@ -512,7 +569,6 @@
                 if (!this.getPlaying) {
                     return;
                 }
-
 
                 // 如果歌曲已经播放到最后一首就重新请求一次接口
                 if (newIndex === this.getPlayList.length - 1 && this.clickFeaturedRadio !== 99) {
@@ -531,7 +587,7 @@
                 }
             },
             // 监听精选电台接口返回的数据
-            ordinaryFeaturedRadio(newSongList) {
+            ordinaryFeaturedRadio (newSongList) {
                 // 拼接歌曲列表
                 this.featuredSongList = this.featuredSongList.concat(newSongList);
 
@@ -555,7 +611,7 @@
                 Bus.$emit('selectSong', this.getCurrentSong);
             },
             // 监听个性电台接口返回的数据
-            personalFeaturedRadio(newSongList) {
+            personalFeaturedRadio (newSongList) {
                 // 拼接歌曲列表
                 this.featuredSongList = this.featuredSongList.concat(newSongList);
 
@@ -592,10 +648,33 @@
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
 
-    // 滚动组件样式
+    /*弹出框动画*/
+    .alert-prompt-enter-active, .alert-prompt-leave-active {
+        transition: all .5s;
+    }
+
+    .alert-prompt-enter, .alert-prompt-leave-to {
+        opacity: 0;
+    }
+
+    /*滚动组件样式*/
     .scroll {
         height: 100%;
         overflow: hidden;
+    }
+
+    /*弹出提示框*/
+    .alert-Prompt {
+        position: absolute;
+        top: px2rem(30px);
+        left: 0;
+        right: 0;
+        margin: 0 px2rem(20px);
+        padding: px2rem(20px);
+        font-size: px2rem(30px);
+        z-index: 200;
+        border: none;
+        border-radius: px2rem(10px);
     }
 
     /*轮播图*/

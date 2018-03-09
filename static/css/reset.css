@@ -40,7 +40,7 @@ input, button:focus {
 
 /*禁用 Lavas app 的下拉刷新*/
 html {
-    touch-action: none;
+    touch-action: none !important;
 }
 
 /* HTML5 display-role reset for older browsers */

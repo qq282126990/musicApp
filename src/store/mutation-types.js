@@ -83,6 +83,7 @@ export const SET_SHOW_LOGIN = 'SET_SHOW_LOGIN'; // 是否显示登录组件
 export const SET_SELECT_USER = 'SET_SELECT_USER'; // 获取用户是否登录成功
 export const SET_ADD_USER = 'SET_ADD_USER'; // 获取用户是否注册成功
 export const SET_USER_MESSAGE = 'SET_USER_MESSAGE'; // 获取用户信息
+export const SET_USER_UID = 'SET_USER_UID'; // 获取该用户的uid判断是否在另一个地方登录
 
 // MV组件状态
 export const SET_MV_MESSAGE = 'SET_MV_MESSAGE'; // 获取对应MV的信息接口
