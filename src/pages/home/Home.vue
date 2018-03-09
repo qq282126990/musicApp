@@ -8,7 +8,7 @@
                         <home-slider>
                             <div v-for="item in homeSlider">
                                 <a>
-                                    <img :alt="item.pic_info.url" :src="item.pic_info.url">
+                                    <img :alt="item.pic_info.url" v-lazy="item.pic_info.url">
                                 </a>
                             </div>
                         </home-slider>
@@ -86,7 +86,8 @@
         </scroll>
         <!--警告弹框-->
         <transition name="alert-prompt">
-            <v-alert color="error" icon="warning" dismissible v-model="warningPrompt" v-show="warningPrompt" class="alert-Prompt">
+            <v-alert color="error" icon="warning" dismissible v-model="warningPrompt" v-show="warningPrompt"
+                     class="alert-Prompt">
                 {{warningPromptTxt}}
             </v-alert>
         </transition>
@@ -115,12 +116,12 @@
 
     export default {
         name: 'home',
-        async asyncData ({store}) {
-            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
-            await store.dispatch('asyncAjax/getHomeMessage'); // 主页数据接口
-            await store.dispatch('asyncAjax/getHomeFeaturedRadio'); // 主页精选电台导航接口
-            await store.dispatch('asyncAjax/getNewMvList', 'all'); // 获取MV列表接口
-        },
+//        async asyncData ({store}) {
+//            // 调用 vuex action，在异步操作完成之前有顶部进度条提示
+//            await store.dispatch('asyncAjax/getHomeMessage'); // 主页数据接口
+//            await store.dispatch('asyncAjax/getHomeFeaturedRadio'); // 主页精选电台导航接口
+//            await store.dispatch('asyncAjax/getNewMvList', 'all'); // 获取MV列表接口
+//        },
         data () {
             return {
                 /*
@@ -305,6 +306,13 @@
                 if (this.getUserMessage.username) {
                     this.setUserUid({username: this.getUserMessage.username});
                 }
+
+                // 主页数据接口
+                this.setHomeMessage();
+                // 主页精选电台导航接口
+                this.setHomeFeaturedRadio();
+                // 获取MV列表接口
+                this.setNewMvList('all');
             },
             // 把歌曲guid保存到cookie !!!!!!!!!!!!!!!!!!!!!! 重要 每天设置一次
             setGuid () {
@@ -490,7 +498,22 @@
                  * 设置用户退出
                  * @type {Array}
                  */
-                setExitUser: 'exitUser'
+                setExitUser: 'exitUser',
+                /**
+                 * 主页数据接口
+                 * @type {Array}
+                 */
+                setHomeMessage: 'getHomeMessage',
+                /**
+                 * 主页精选电台导航接口
+                 * @type {Array}
+                 */
+                setHomeFeaturedRadio: 'getHomeFeaturedRadio',
+                /**
+                 * 获取MV列表接口
+                 * @type {Array}
+                 */
+                setNewMvList: 'getNewMvList'
             })
         },
         // 组件激活

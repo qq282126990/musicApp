@@ -283,14 +283,14 @@
                     return;
                 }
 
-                if (newUserMessage.favorite.length) {
+                if (newUserMessage.favorite && newUserMessage.favorite.length) {
                     // 设置该用户的收藏歌曲列表
                     let getFavoriteList = JSON.parse(newUserMessage.favorite);
                     // 覆盖收藏收藏歌曲列表
                     this.setCoverUserMessageList(getFavoriteList);
                 }
 
-                if (newUserMessage.playHistory.length) {
+                if (newUserMessage.playHistory && newUserMessage.playHistory.length) {
                     // 设置用户最近播放列表
                     let getPlayHistory = JSON.parse(newUserMessage.playHistory);
                     // 覆盖用户最近播放列表

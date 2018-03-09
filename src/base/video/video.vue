@@ -12,10 +12,12 @@
                ref="video"
         >
         </video>
-        <!--播放按钮-->
-        <v-icon class="play-icon">
-            {{playing ? 'pause' : 'play_arrow'}}
-        </v-icon>
+        <transition name="fade">
+            <!--播放按钮-->
+            <v-icon class="play-icon" v-show="playIcon">
+                {{playing ? 'pause' : 'play_arrow'}}
+            </v-icon>
+        </transition>
     </div>
 </template>
 
@@ -51,7 +53,12 @@
                  * 设置播放准备状态
                  * @type {Boolean}
                  * */
-                videoReady: false
+                videoReady: false,
+                /*
+                 * 设置播放按钮显示状态
+                 * @type {Boolean}
+                 * */
+                playIcon: true
             }
         },
         created () {
@@ -74,6 +81,14 @@
             togglePlaying () {
                 // 设置播放切换
                 this.playing = !this.playing;
+
+                this.playIcon = true;
+
+                setTimeout(() => {
+                    this.playIcon = false
+                }, 500);
+
+                console.log(this.playIcon);
 
                 // 设置视频播放
                 const video = this.$refs.video;
@@ -105,6 +120,13 @@
 <style lang="scss" scoped>
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
 
     /*播放器*/
     .video-wrapper {

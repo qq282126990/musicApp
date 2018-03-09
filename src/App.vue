@@ -146,7 +146,7 @@
     .app-view-wrapper {
         flex: 1;
         position: relative;
-        overflow: hidden;
+        /*overflow: hidden;*/
         z-index: 10;
     }
 
@@ -156,8 +156,8 @@
         right: 0;
         bottom: 0;
         left: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
+        /*overflow-x: hidden;*/
+        /*overflow-y: auto;*/
         transition: transform 0.4s cubic-bezier(.55, 0, .1, 1);
         -webkit-overflow-scrolling: touch;
         // 隐藏掉scrollbar

@@ -106,11 +106,6 @@
     @import "../../assets/sass/remAdaptive";
     @import "../../assets/sass/variables";
 
-    /*禁用 Lavas app 的下拉刷新*/
-    html {
-        touch-action: none !important;
-    }
-
     /*返回按钮*/
     .back {
         position: absolute;

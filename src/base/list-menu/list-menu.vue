@@ -15,7 +15,7 @@
                         @click="selectSongSingle(data)">
                         <img class="data-mark"
                              :alt="data.edge_mark"
-                             :src="data.edge_mark"
+                             v-lazy="data.edge_mark"
                              v-show="data.edge_mark"/>
                         <img class="data-cover"
                              :alt="data.cover"
@@ -35,8 +35,10 @@
                             <span class="title-span" v-html="data.title"></span>
                         </div>
                     </li>
+                </transition-group>
+                <ul class="list-data" v-show="!showLi">
                     <!--加载图-->
-                    <li class="data-li" v-for="item in loadingImg" :key="item" v-show="!showLi">
+                    <li class="data-li" v-for="item in loadingImg" :key="item">
                         <img class="data-cover"
                              alt="default"
                              src="../../../static/img/default.jpg"/>
@@ -45,9 +47,9 @@
                             <hr width="50%" align="left">
                         </div>
                     </li>
-                </transition-group>
+                </ul>
                 <!--换一批-->
-                <div class="replace-data" v-show="listData.title === 'homeRecommend'">
+                <div class="replace-data" v-show="listData.title === 'homeRecommend' && listData.data.length">
                     <div class="replace-button" @click="clickReplaceData">
                         <v-icon class="icon">cached</v-icon>
                         <p class="name">换一批</p>
@@ -115,6 +117,9 @@
                 getHomeRecommend: 'homeRecommend'
             })
         },
+        mounted () {
+            this.showLi = false;
+        },
         methods: {
             // 标题点击事件
             clickListTitle (data) {
@@ -152,10 +157,7 @@
                 if (!newData) {
                     return;
                 }
-                this.showLi = false;
-                setTimeout(() => {
-                    this.showLi = true;
-                }, 500);
+                this.showLi = true;
             }
         }
     };
@@ -399,7 +401,7 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
             }
-            .title-span:last-child{
+            .title-span:last-child {
                 color: #999;
                 line-height: px2rem(50px);
             }

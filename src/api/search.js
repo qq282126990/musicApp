@@ -3,7 +3,7 @@ import {commonParams, options} from './config'
 
 // 获取热门搜索接口
 export function getSearchHot() {
-  const url = 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg'
+  const url = 'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg';
 
   const data = Object.assign({}, commonParams, {
     uin: 0,
@@ -16,7 +16,7 @@ export function getSearchHot() {
 
 // 搜索歌曲接口
 export function searchSong(query, page, zhida, perpage) {
-  const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp'
+  const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp';
 
   const data = Object.assign({}, commonParams, {
     w: query,

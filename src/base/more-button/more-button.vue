@@ -109,7 +109,7 @@
                         let hours = date.getHours();
 
                         // 晚上用另一个下载接口
-                        if (hours > 17) {
+                        if (hours > 19) {
                             try {
                                 // 下载文件方法
                                 downloadFile(this.getShowMore.currentSong.download, `${this.getShowMore.currentSong.name}.mp3`);
@@ -149,7 +149,7 @@
                     const link = document.createElement('a');
                     const body = document.querySelector('body');
 
-                    link.href = window.URL.createObjectURL(blob);
+                    link.href = blob;
                     link.download = fileName;
                     link.style.display = 'none';
                     body.appendChild(link);
@@ -271,10 +271,10 @@
                  */
                 setCurrentIndex: 'currentIndex',
                 /**
-                 * 设置是否显示更多按钮
-                 * @type {Object}
+                 * 设置播放列表数据
+                 * @type {Boolean}
                  */
-                setShowMore: 'showMore',
+                setPlayList: 'playList',
                 /**
                  * 控制歌曲播放模式
                  * @type {Boolean}

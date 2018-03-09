@@ -117,33 +117,26 @@ module.exports = {
                 handler: 'networkFirst'
             },
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
-                handler: 'networkFirst'
-            },
-            {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
-                handler: 'networkFirst'
-            },
-            {
                 urlPattern: /^https:\/\/c\.y\.qq\.com\/rcmusic2/,
                 handler: 'networkFirst'
             },
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/v8\/fcg-bin/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/v8/,
                 handler: 'networkFirst'
             },
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud\/fcgi-bin/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/splcloud/,
                 handler: 'networkFirst'
             },
             {
-                urlPattern: /^https:\/\/c\.y\.qq\.com\/soso\/fcgi-bin/,
+                urlPattern: /^https:\/\/c\.y\.qq\.com\/soso/,
                 handler: 'networkFirst'
             },
             {
-                urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin\/musicu\.fcg/,
+                urlPattern: /^https:\/\/u\.y\.qq\.com\/cgi-bin/,
                 handler: 'networkFirst'
             },
+
             {
                 urlPattern: /\/material-design-icon/,
                 // 五种：caheOnly cacheFirst fastest networkFirst networkOnly
