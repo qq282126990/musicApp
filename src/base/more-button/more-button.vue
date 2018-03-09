@@ -52,7 +52,7 @@
     import {ERR_OK} from 'api/config';
 
     // 歌曲下载链接地址头部
-    const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
+    const URL_HEAD = ``;
 
     export default {
         data () {
@@ -230,7 +230,7 @@
                             this.vkey = res.data.items[0].vkey;
 
                             // 歌曲播放地址
-                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
+                            this.downloadUrl = ``;
 
                             // 下载文件方法
                             this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
@@ -246,7 +246,7 @@
                             this.vkey = res.data.items[0].vkey;
 
                             // 歌曲播放地址
-                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
+                            this.downloadUrl = ``;
 
                             // 下载文件方法
                             this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
