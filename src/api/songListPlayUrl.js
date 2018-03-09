@@ -46,16 +46,6 @@ function crackedUrl (strMediaMid, songtype) {
     return {
         comm,
         'url_mid': {
-            'module': 'vkey.GetVkeyServer',
-            'method': 'CgiGetVkey',
-            'param': {
-                'guid': getCookie('guid'),
-                'songmid': strMediaMid,
-                'songtype': songtype,
-                'uin': '0',
-                'loginflag': 0,
-                'platform': '23'
-            }
         }
     };
 };
@@ -67,17 +57,6 @@ function crackedUrl (strMediaMid, songtype) {
 export function getSinglePlayingUrl (songmid) {
     const url = '/api/getSinglePlayingUrl';
     const data = Object.assign({}, commonParams, {
-        jsonpCallback: 'MusicJsonCallback7776788287808083',
-        callback: 'MusicJsonCallback7776788287808083',
-        format: 'json',
-        cid: 205361747,
-        platform: 'yqq',
-        hostUin: 0,
-        needNewCode: 0,
-        uin: 0,
-        songmid: songmid,
-        filename: `C400${songmid}.m4a`,
-        guid: getCookie('guid')
     });
     return axios.get(url, {
         params: data
