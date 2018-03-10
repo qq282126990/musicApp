@@ -34,17 +34,17 @@ export function createSongList (musicData) {
             // 播放时间
             duration: musicData.interval,
             // 专辑图片
-            image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.album.mid}.jpg?max_age=2592000`,
+            image: ``,
             // 音乐链接
             // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
             // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
-            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
+            url: ``,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.mid}.m4a`,
+            spare: ``,
             // 下载地址
-            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
+            download: ``,
             // 下载备用地址
-            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.mid}.mp3`,
+            downloadSpare: ``,
             // MV id
             vid: musicData.mv.vid,
             // 是否是独家
@@ -67,15 +67,13 @@ export function createSongList (musicData) {
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
             // 音乐链接
-            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
-            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
-            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
+            url: ``,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`,
+            spare: ``,
             // 下载地址
-            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
+            download: ``,
             // 下载备用地址
-            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.strMediaMid}.mp3`,
+            downloadSpare: ``,
             // MV id
             vid: musicData.vid,
             // 是否是独家
@@ -98,15 +96,13 @@ export function createSongList (musicData) {
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
             // 音乐链接
-            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
-            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
-            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            url: ``,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            spare: ``,
             // 下载地址
-            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            download: ``,
             // 下载备用地址
-            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            downloadSpare: ``,
             // 是否是独家
             isonly: musicData.isonly
         });
@@ -130,15 +126,13 @@ export function createRankSongList (musicData) {
             // 专辑图片
             image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
             // 音乐链接
-            // url: `http://dl.stream.qqmusic.qq.com/C100${musicData.strMediaMid}.m4a`
-            // url: `http://dl.stream.qqmusic.qq.com/${playingUrl.midurlinfo[index].purl}` || ''
-            url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            url: ``,
             // 第4个备用接口
-            spare: `http://dl.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a`,
+            spare:``,
             // 下载地址
-            download: `http://isure.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            download: ``,
             // 下载备用地址
-            downloadSpare: `http://dl.stream.qqmusic.qq.com/M500${musicData.songmid}.mp3`,
+            downloadSpare: ``,
             // MV id
             vid: musicData.vid,
             // 是否是独家
