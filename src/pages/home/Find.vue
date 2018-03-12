@@ -2,7 +2,7 @@
     <div>
         <transition name="fade" appear>
             <div class="find-wrapper">
-                <iframe src="https://y.qq.com/m/client/music_headline/magazine.html" height="100%" width="100%">
+                <iframe src="https://v.qq.com/" height="100%" width="100%">
                 </iframe>
             </div>
         </transition>
