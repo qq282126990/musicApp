@@ -9,7 +9,7 @@
             <div class="bg-image" ref="bgImage">
                 <img class="img" v-lazy="this.getSingerMessage.avatar">
                 <!--标题-->
-                <h1 class="bg-image-title">{{getSingerMessage.name}}</h1>
+                <h1 class="bg-image-title">{{getSingerMessage.name ? getSingerMessage.name : getSingerMessage.singername}}</h1>
                 <!--粉丝数-->
                 <p class="fans-number">{{computedPlayNumber(getSingerDetail.fans)}}粉丝</p>
             </div>
@@ -25,20 +25,20 @@
                 <div>
                     <!--内容-->
                     <!--<slider-switch :dotsTitle="dotsTitle"-->
-                                   <!--@pageIndex="pageIndex"-->
+                    <!--@pageIndex="pageIndex"-->
                     <!--&gt;-->
-                        <!--<div v-for="(item, index) in dotsTitle" :key="index" v-if="dotsTitle.length">-->
-                            <!--&lt;!&ndash;歌曲列表&ndash;&gt;-->
-                            <!--<div class="singer-content" v-if="index === 0">-->
-                                <!--<song-list-play-all></song-list-play-all>-->
-                                <!--<song-list :totalSongNum="getSingerDetail.total"-->
-                                           <!--@selectSong="selectSong"></song-list>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;详情&ndash;&gt;-->
-                            <!--<div class="singer-content" v-if="index === 1">-->
-                                <!--<p v-html="getSingerDetail.SingerDesc" class="text"></p>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--<div v-for="(item, index) in dotsTitle" :key="index" v-if="dotsTitle.length">-->
+                    <!--&lt;!&ndash;歌曲列表&ndash;&gt;-->
+                    <!--<div class="singer-content" v-if="index === 0">-->
+                    <!--<song-list-play-all></song-list-play-all>-->
+                    <!--<song-list :totalSongNum="getSingerDetail.total"-->
+                    <!--@selectSong="selectSong"></song-list>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;详情&ndash;&gt;-->
+                    <!--<div class="singer-content" v-if="index === 1">-->
+                    <!--<p v-html="getSingerDetail.SingerDesc" class="text"></p>-->
+                    <!--</div>-->
+                    <!--</div>-->
                     <!--</slider-switch>-->
                     <div class="singer-content">
                         <song-list-play-all></song-list-play-all>
@@ -48,7 +48,7 @@
                 </div>
             </scroll>
         </div>
-        <div class="loading-wrapper"  v-show="!getSongList.length">
+        <div class="loading-wrapper" v-show="!getSongList.length">
             <loading :loadingText="loadingText"></loading>
         </div>
     </div>
@@ -118,11 +118,6 @@
             }
         },
         mounted () {
-            // 如果没有数据就返回上一级
-            if (!this.getSingerMessage.id) {
-                this.$router.back();
-            }
-
             this.$nextTick(() => {
                 // 一些初始化操作
                 this._initSome();
@@ -186,7 +181,7 @@
                 this.scrollY = pos.y;
             },
             // 选择歌曲列表
-            selectSong(item, index) {
+            selectSong (item, index) {
                 this.setSelectPlay({
                     list: this.getSongList,
                     index
@@ -209,7 +204,7 @@
                 }
             },
             // 上拉加载更多数字专辑方法
-            pullingUp() {
+            pullingUp () {
                 // 如果当前歌曲数量等于歌曲总数就不执行下拉操作
                 if (this.getSingerDetail.total === this.getSongList.length) {
                     return;
@@ -218,14 +213,25 @@
                 // 页数每次+15
                 this.songBegin += 15;
 
-                // 获取歌手歌曲列表接口
-                this.setSingerDetail({
-                    singerid: this.getSingerMessage.id,
-                    num: this.songBegin
-                });
+
+                if (this.getSingerMessage.id) {
+                    // 获取歌手歌曲列表接口
+                    this.setSingerDetail({
+                        singerid: this.getSingerMessage.id,
+                        num: this.songBegin
+                    });
+                }
+                else {
+                    // 获取歌手歌曲列表接口
+                    this.setSingerDetail({
+                        singerid: this.getSingerMessage.singerid,
+                        num: this.songBegin
+                    });
+                }
+
             },
             // 上拉加载更多歌单列表完成后刷新数据方法
-            pullingUpRefresh() {
+            pullingUpRefresh () {
                 // 当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
                 this.$refs.contentScrollWrapper.finishPullUp();
                 // 数据更新时刷新滚动列表数据
@@ -242,6 +248,9 @@
                 }
                 return playNumber;
             },
+            ...mapActions('appShell/appHeader', [
+                'setAppHeader'
+            ]),
             ...mapActions('asyncAjax', {
                 /*
                  * 获取歌手歌曲列表接口
@@ -283,11 +292,27 @@
         },
         // 选择歌手
         activated () {
-            // 获取歌手歌曲列表接口
-            this.setSingerDetail({
-                singerid: this.getSingerMessage.id,
-                num: this.songBegin
+            // 设置首页头部导航
+            this.setAppHeader({
+                show: false
             });
+
+            console.log(this.getSingerMessage);
+
+            if (this.getSingerMessage.id) {
+                // 获取歌手歌曲列表接口
+                this.setSingerDetail({
+                    singerid: this.getSingerMessage.id,
+                    num: this.songBegin
+                });
+            }
+            else {
+                // 获取歌手歌曲列表接口
+                this.setSingerDetail({
+                    singerid: this.getSingerMessage.singerid,
+                    num: this.songBegin
+                });
+            }
         },
         watch: {
             // 监听歌手信息请求
@@ -321,7 +346,7 @@
                 }
             },
             // 监听歌曲列表变化
-            getSongList() {
+            getSongList () {
                 // 页数大于15才执行
                 if (this.songBegin > 0) {
                     // 上拉加载更多歌单列表完成后刷新数据方法

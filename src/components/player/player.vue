@@ -385,7 +385,7 @@
                 this.playErrorCounter = 0;
 
                 // 重置播放链接
-                this.playUrl = savePlayUrl('');
+                this.playUrl = '';
 
                 // 重置歌曲的播放时间
                 this.$refs.audio.currentTime = 0;

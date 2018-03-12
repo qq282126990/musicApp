@@ -30,7 +30,7 @@
                         </ul>
                     </div>
                     <div class="search">
-                        <i class="iconfont icon-sousuo2 search-icon"></i>
+                        <!--<i class="iconfont icon-sousuo2 search-icon"></i>-->
                     </div>
                 </header>
                 <!--搜索输入框-->

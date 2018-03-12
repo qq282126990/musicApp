@@ -69,6 +69,8 @@
     import {createDigitalAlbumSongListMessage} from 'common/js/totalDigitalAlbum';
     // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
     import {saveNewSongSpeedTitle} from 'common/js/cache';
+    // 保存当前播放歌曲链接 savePlayUrl
+    import {savePlayUrl} from 'common/js/cache';
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
     // 歌曲列表
@@ -134,6 +136,8 @@
             },
             // 选择要播放的歌曲
             selectSong(item, index) {
+                savePlayUrl('');
+
                 this.setSelectPlay({
                     list: this.getSongList,
                     index

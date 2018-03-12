@@ -111,6 +111,8 @@
     // 保存主页选择对应歌单的数据到本地 saveSongSingle
     // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
     import {saveSongSingle, saveNewSongSpeedTitle} from 'common/js/cache';
+    // 保存当前播放歌曲链接 savePlayUrl
+    import {savePlayUrl} from 'common/js/cache';
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
 
@@ -401,6 +403,7 @@
             },
             // 点击个性电台播放歌曲
             clickPersonalFeaturedRadio (id) {
+                savePlayUrl('');
                 // 控制歌曲播放
                 this.setPlaying(!this.getPlaying);
 
@@ -422,6 +425,8 @@
             },
             // 点击普通电台播放歌曲
             clickOrdinaryFeaturedRadio (item) {
+                savePlayUrl('');
+
                 // 控制歌曲播放
                 this.setPlaying(!this.getPlaying);
 

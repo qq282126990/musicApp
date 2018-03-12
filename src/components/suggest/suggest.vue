@@ -8,7 +8,7 @@
             <li class="suggest-item"
                 v-for="(item, index) in result"
                 :key="index"
-                @click="selectItem(item)">
+                @click.stop="selectItem(item)">
                 <!--图标-->
                 <v-icon class="item-icon">search</v-icon>
                 <!--名字-->
@@ -123,18 +123,21 @@
             selectItem(item) {
                 // 如果点击的是歌手就跳转到歌手页面
                 if (item.type === TYPE_SINGER) {
-//                    const singer = new Singer({
-//                        id: item.singermid,
-//                        name: item.singername
-//                    })
-//                    this.$router.push({
-//                        path: `/search/${singer.id}`
-//                    })
-//                    this.setSinger(singer)
+
+                    // 隐藏搜索框
+                    this.setShowSeach(false);
+
+                    // 跳转路由
+                    this.$router.push({
+                        path: `/home/singer/${item.singerid}`
+                    });
+
+                    // 设置歌手信息
+                    this.setSingerMessage(item);
                 }
                 else {
                     // 点击搜索页面的歌曲发送状态
-                    this.setInsertSong(item)
+                    this.setInsertSong(item);
 
                     // 如果不是重复点击就初始化oldSong
                     if (this.oldSong !== item.id) {
@@ -209,11 +212,13 @@
             _getResult(data) {
                 let ret = [];
                 if (data.zhida && data.zhida.singerid) {
-                    ret.push({...data.zhida, ...{type: TYPE_SINGER}});
+                    ret.push({...data.zhida, ...{type: TYPE_SINGER}, ...{avatar: `https://y.gtimg.cn/music/photo_new/T001R500x500M000${data.zhida.singermid}.jpg?max_age=2592000`}});
                 }
                 if (data.song) {
                     ret = ret.concat(normalizeSongList(data.song.list));
                 }
+                console.log(data);
+
                 return ret;
             },
             // 检查能否加载更多
@@ -260,8 +265,25 @@
                  * 点击搜索页面的歌曲发送状态
                  * @type {Array}
                  */
-                setInsertSong: 'insertSong'
-            })
+                setInsertSong: 'insertSong',
+                /**
+                 * 设置歌手信息
+                 * @type {Number}
+                 */
+                setSingerMessage: 'singerMessage',
+                /*
+                * 设置显示搜索框
+                * */
+                setShowSeach: 'showSearch'
+            }),
+            ...mapActions('asyncAjax', {
+                    /**
+                     * 设置歌曲列表
+                     * @param {Function} commit
+                     */
+                    setSongList: 'songList'
+                }
+            )
         },
         watch: {
             query(newQuery) {

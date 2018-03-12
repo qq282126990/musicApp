@@ -43,6 +43,8 @@
 
 <script type="text/ecmascript-6">
     import {mapState, mapGetters, mapActions} from 'vuex';
+    // 保存当前播放歌曲链接 savePlayUrl
+    import {savePlayUrl} from 'common/js/cache';
     // loading组件
     import Loading from 'base/loading/loading';
 
@@ -100,6 +102,8 @@
         methods: {
             // 选择歌曲播放
             selectSong (item, index) {
+                savePlayUrl('');
+
                 this.$emit('selectSong', item, index);
             },
             // 显示更多
