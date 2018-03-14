@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b98f3e5e-6308-48c7-8a1b-8840550886e4" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/songListPlayUrl.js" afterPath="$PROJECT_DIR$/src/api/songListPlayUrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/more-button/more-button.vue" afterPath="$PROJECT_DIR$/src/base/more-button/more-button.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/song-list/song-list.vue" afterPath="$PROJECT_DIR$/src/base/song-list/song-list.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/songList.js" afterPath="$PROJECT_DIR$/src/common/js/songList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/app-header/app-header.vue" afterPath="$PROJECT_DIR$/src/components/app-header/app-header.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" afterPath="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/player/player.vue" afterPath="$PROJECT_DIR$/src/components/player/player.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/singer-detail/singer-detail.vue" afterPath="$PROJECT_DIR$/src/components/singer-detail/singer-detail.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/suggest/suggest.vue" afterPath="$PROJECT_DIR$/src/components/suggest/suggest.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Home.vue" afterPath="$PROJECT_DIR$/src/pages/home/Home.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Find.vue" afterPath="$PROJECT_DIR$/src/pages/home/Find.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,28 +19,74 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="suggest.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/suggest/suggest.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1400">
-              <caret line="276" column="42" lean-forward="false" selection-start-line="276" selection-start-column="42" selection-end-line="276" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/home/Home.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="114" selection-end-column="48" />
+            <state relative-caret-position="632">
+              <caret line="697" column="0" lean-forward="false" selection-start-line="697" selection-start-column="0" selection-end-line="697" selection-end-column="0" />
+              <folding>
+                <element signature="n#scroll#0;n#transition#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="167" column="20" lean-forward="false" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
+              <folding>
+                <marker date="1521022262139" expanded="true" signature="2945:3059" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7026:7611" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7271:7561" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7343:7555" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7457:7518" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7576:7607" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7703:7915" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="7781:7847" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="8069:8357" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="8850:8879" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="8966:9149" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="9104:9129" ph="{...}" />
+                <marker date="1521022262139" expanded="true" signature="9214:9237" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songListPlayUrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1097">
+              <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+              <folding>
+                <marker date="1521022279285" expanded="true" signature="807:994" ph="{...}" />
+                <marker date="1521022279285" expanded="true" signature="1192:1198" ph="{&quot;jsonpCallback&quot;: 'MusicJsonCallback7776788287808083'...}" />
+                <marker date="1521022279285" expanded="true" signature="1192:1324" ph="{...}" />
+                <marker date="1521022279285" expanded="true" signature="1227:1255" ph="{&quot;params&quot;: data...}" />
+                <marker date="1521022279285" expanded="true" signature="1271:1320" ph="{...}" />
+                <marker date="1521022279285" expanded="true" signature="1326:1364" ph="/*...*/" />
+                <marker date="1521022279285" expanded="true" signature="1400:1797" ph="{...}" />
+                <marker date="1521022279285" expanded="true" signature="1482:1670" ph="{&quot;songmid&quot;: songmid...}" />
+                <marker date="1521022279285" expanded="true" signature="1700:1728" ph="{&quot;params&quot;: data...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="totalDigitalAlbum.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-285">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="new-album.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/new-album/new-album.vue">
+      <file leaf-file-name="util.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/util.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -60,34 +95,109 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="digital-album-music-list.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue">
+      <file leaf-file-name="singer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/singer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-header.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/app-header/app-header.vue">
+      <file leaf-file-name="newSongSpeed.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/newSongSpeed.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="36" column="75" lean-forward="false" selection-start-line="36" selection-start-column="75" selection-end-line="36" selection-end-column="75" />
+            <state relative-caret-position="-318">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songSingle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/js/songSingle.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songAlbumMessage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1140">
+              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newSongSpeed.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="589">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="songListPlayAll.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/songListPlayAll/songListPlayAll.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="My.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/home/My.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Find.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.skeleton.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/home/Home.skeleton.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="29" column="2" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="43" selection-end-column="5" />
               <folding>
-                <element signature="e#2330#2372#0" expanded="true" />
+                <element signature="n#div#0;n#template#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/search/search.vue">
+      <file leaf-file-name="more-button.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1247">
-              <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-              <folding />
+            <state relative-caret-position="575">
+              <caret line="248" column="50" lean-forward="false" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+              <folding>
+                <marker date="1521022279292" expanded="true" signature="8901:9073" ph="{...}" />
+                <marker date="1521022279292" expanded="true" signature="8901:9095" ph="{...}" />
+                <marker date="1521022279292" expanded="true" signature="8901:9115" ph="{...}" />
+                <marker date="1521022279292" expanded="true" signature="8901:9928" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,28 +205,8 @@
       <file leaf-file-name="search-box.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/base/search-box/search-box.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
+            <state relative-caret-position="855">
               <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="singer-detail.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/singer-detail/singer-detail.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="218" column="31" lean-forward="false" selection-start-line="218" selection-start-column="31" selection-end-line="218" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="singer.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/singer/singer.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3914">
-              <caret line="206" column="31" lean-forward="false" selection-start-line="206" selection-start-column="31" selection-end-line="206" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -125,38 +215,54 @@
       <file leaf-file-name="songList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/js/songList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="110" column="36" lean-forward="false" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+            <state relative-caret-position="95">
+              <caret line="102" column="25" lean-forward="false" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+              <folding>
+                <marker date="1521022299160" expanded="true" signature="652:1100" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="679:1100" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4070:4197" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4200:4267" ph="/*...*/" />
+                <marker date="1521022299160" expanded="true" signature="4306:4462" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4344:4370" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4564:4755" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4624:4734" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4649:4728" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4859:5162" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="4914:5141" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="5268:5540" ph="{...}" />
+                <marker date="1521022299160" expanded="true" signature="5323:5519" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search-list.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/search-list/search-list.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/player/player.vue">
+      <file leaf-file-name="list-menu.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/list-menu/list-menu.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="194" column="60" lean-forward="false" selection-start-line="192" selection-start-column="3" selection-end-line="194" selection-end-column="60" />
-              <folding />
+            <state relative-caret-position="401">
+              <caret line="479" column="35" lean-forward="false" selection-start-line="479" selection-start-column="35" selection-end-line="479" selection-end-column="35" />
+              <folding>
+                <element signature="n#transition-group#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="song-list.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/base/song-list/song-list.vue">
+      <file leaf-file-name="loading.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/loading/loading.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="46" column="48" lean-forward="false" selection-start-line="45" selection-start-column="4" selection-end-line="46" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="more-button.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="248" column="64" lean-forward="false" selection-start-line="248" selection-start-column="60" selection-end-line="248" selection-end-column="64" />
+            <state relative-caret-position="698">
+              <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -264,7 +370,6 @@
         <option value="$PROJECT_DIR$/src/base/loading/loading.vue" />
         <option value="$PROJECT_DIR$/src/base/video/video.vue" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/pages/home/Find.vue" />
         <option value="$PROJECT_DIR$/src/api/songListPlayUrl.js" />
         <option value="$PROJECT_DIR$/build/dev-server.js" />
         <option value="$PROJECT_DIR$/src/components/suggest/suggest.vue" />
@@ -276,6 +381,7 @@
         <option value="$PROJECT_DIR$/src/base/song-list/song-list.vue" />
         <option value="$PROJECT_DIR$/src/pages/home/Home.vue" />
         <option value="$PROJECT_DIR$/src/components/digital-album-music-list/digital-album-music-list.vue" />
+        <option value="$PROJECT_DIR$/src/pages/home/Find.vue" />
       </list>
     </option>
   </component>
@@ -320,7 +426,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -355,7 +460,28 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="list-menu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="loading" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
               <item name="more-button" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="progress-bar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -369,7 +495,21 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="search-list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
               <item name="song-list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="songListPlayAll" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -476,6 +616,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -641,7 +782,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="640318000" />
+    <option name="totallyTimeSpent" value="641089000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -656,7 +797,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21866667" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32053334" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26115343" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
@@ -664,19 +805,30 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33949944" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34167573" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17068528" sideWeight="0.504749" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26115343" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33949944" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21866667" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32861805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17068528" sideWeight="0.504749" order="3" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -699,11 +851,158 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/db.js">
+    <entry file="file://$PROJECT_DIR$/src/base/list-menu/list-menu.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="479" column="35" lean-forward="false" selection-start-line="479" selection-start-column="35" selection-end-line="479" selection-end-column="35" />
+          <folding>
+            <element signature="n#transition-group#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/Home.skeleton.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="29" column="2" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="43" selection-end-column="5" />
+          <folding>
+            <element signature="n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/Home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="632">
+          <caret line="697" column="0" lean-forward="false" selection-start-line="697" selection-start-column="0" selection-end-line="697" selection-end-column="0" />
+          <folding>
+            <element signature="n#scroll#0;n#transition#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="167" column="20" lean-forward="false" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
+          <folding>
+            <marker date="1521022262139" expanded="true" signature="2945:3059" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7026:7611" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7271:7561" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7343:7555" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7457:7518" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7576:7607" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7703:7915" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7781:7847" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8069:8357" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8850:8879" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8966:9149" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9104:9129" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9214:9237" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/songSingle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/songList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="106" column="36" lean-forward="false" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
+          <folding>
+            <marker date="1521022299160" expanded="true" signature="652:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="679:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4070:4197" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4200:4267" ph="/*...*/" />
+            <marker date="1521022299160" expanded="true" signature="4306:4462" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4344:4370" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4564:4755" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4624:4734" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4649:4728" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4859:5162" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4914:5141" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5268:5540" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5323:5519" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/singer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/js/newSongSpeed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-318">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1097">
+          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+          <folding>
+            <marker date="1521022279285" expanded="true" signature="807:994" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1198" ph="{&quot;jsonpCallback&quot;: 'MusicJsonCallback7776788287808083'...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1324" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1227:1255" ph="{&quot;params&quot;: data...}" />
+            <marker date="1521022279285" expanded="true" signature="1271:1320" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1326:1364" ph="/*...*/" />
+            <marker date="1521022279285" expanded="true" signature="1400:1797" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1482:1670" ph="{&quot;songmid&quot;: songmid...}" />
+            <marker date="1521022279285" expanded="true" signature="1700:1728" ph="{&quot;params&quot;: data...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -719,7 +1018,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
+          <folding>
+            <marker date="1521022279285" expanded="true" signature="807:994" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1198" ph="{&quot;jsonpCallback&quot;: 'MusicJsonCallback7776788287808083'...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1324" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1227:1255" ph="{&quot;params&quot;: data...}" />
+            <marker date="1521022279285" expanded="true" signature="1271:1320" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1326:1364" ph="/*...*/" />
+            <marker date="1521022279285" expanded="true" signature="1400:1797" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1482:1670" ph="{&quot;songmid&quot;: songmid...}" />
+            <marker date="1521022279285" expanded="true" signature="1700:1728" ph="{&quot;params&quot;: data...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -735,7 +1044,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1521022299160" expanded="true" signature="652:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="679:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4070:4197" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4200:4267" ph="/*...*/" />
+            <marker date="1521022299160" expanded="true" signature="4306:4462" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4344:4370" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4564:4755" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4624:4734" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4649:4728" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4859:5162" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4914:5141" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5268:5540" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5323:5519" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -743,7 +1066,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -752,7 +1074,19 @@
         <state relative-caret-position="2185">
           <caret line="117" column="29" lean-forward="false" selection-start-line="117" selection-start-column="20" selection-end-line="117" selection-end-column="29" />
           <folding>
-            <marker date="1520820300103" expanded="true" signature="7160:7745" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="2945:3059" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7026:7611" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7271:7561" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7343:7555" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7457:7518" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7576:7607" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7703:7915" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7781:7847" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8069:8357" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8850:8879" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8966:9149" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9104:9129" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9214:9237" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -761,7 +1095,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -777,15 +1110,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/My.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -793,7 +1117,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -801,21 +1124,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/js/totalDigitalAlbum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-285">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -823,8 +1137,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/js/songSingle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="323">
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -839,36 +1153,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/api/newSongSpeed.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="589">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="41" column="9" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="41" selection-end-column="9" />
+        <state relative-caret-position="1140">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-665">
+        <state relative-caret-position="-1097">
           <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
+          <folding>
+            <marker date="1521022279285" expanded="true" signature="807:994" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1198" ph="{&quot;jsonpCallback&quot;: 'MusicJsonCallback7776788287808083'...}" />
+            <marker date="1521022279285" expanded="true" signature="1192:1324" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1227:1255" ph="{&quot;params&quot;: data...}" />
+            <marker date="1521022279285" expanded="true" signature="1271:1320" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1326:1364" ph="/*...*/" />
+            <marker date="1521022279285" expanded="true" signature="1400:1797" ph="{...}" />
+            <marker date="1521022279285" expanded="true" signature="1482:1670" ph="{&quot;songmid&quot;: songmid...}" />
+            <marker date="1521022279285" expanded="true" signature="1700:1728" ph="{&quot;params&quot;: data...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build/dev-server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="117" column="29" lean-forward="false" selection-start-line="117" selection-start-column="20" selection-end-line="117" selection-end-column="29" />
+        <state relative-caret-position="323">
+          <caret line="167" column="20" lean-forward="false" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
           <folding>
-            <marker date="1520820300103" expanded="true" signature="7160:7745" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="2945:3059" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7026:7611" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7271:7561" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7343:7555" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7457:7518" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7576:7607" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7703:7915" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="7781:7847" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8069:8357" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8850:8879" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="8966:9149" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9104:9129" ph="{...}" />
+            <marker date="1521022262139" expanded="true" signature="9214:9237" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -885,7 +1219,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1247">
           <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -899,7 +1232,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/base/search-box/search-box.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
+        <state relative-caret-position="855">
           <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
@@ -910,16 +1243,21 @@
         <state relative-caret-position="342">
           <caret line="36" column="75" lean-forward="false" selection-start-line="36" selection-start-column="75" selection-end-line="36" selection-end-column="75" />
           <folding>
-            <element signature="e#2330#2372#0" expanded="true" />
+            <element signature="e#2330#2372#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="248" column="64" lean-forward="false" selection-start-line="248" selection-start-column="60" selection-end-line="248" selection-end-column="64" />
-          <folding />
+        <state relative-caret-position="575">
+          <caret line="248" column="50" lean-forward="false" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+          <folding>
+            <marker date="1521022279292" expanded="true" signature="8901:9073" ph="{...}" />
+            <marker date="1521022279292" expanded="true" signature="8901:9095" ph="{...}" />
+            <marker date="1521022279292" expanded="true" signature="8901:9115" ph="{...}" />
+            <marker date="1521022279292" expanded="true" signature="8901:9928" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -927,15 +1265,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
           <caret line="194" column="60" lean-forward="false" selection-start-line="192" selection-start-column="3" selection-end-line="194" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/js/songList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="110" column="36" lean-forward="false" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="95">
+          <caret line="102" column="25" lean-forward="false" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+          <folding>
+            <marker date="1521022299160" expanded="true" signature="652:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="679:1100" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4070:4197" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4200:4267" ph="/*...*/" />
+            <marker date="1521022299160" expanded="true" signature="4306:4462" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4344:4370" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4564:4755" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4624:4734" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4649:4728" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4859:5162" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="4914:5141" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5268:5540" ph="{...}" />
+            <marker date="1521022299160" expanded="true" signature="5323:5519" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -943,7 +1294,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3914">
           <caret line="206" column="31" lean-forward="false" selection-start-line="206" selection-start-column="31" selection-end-line="206" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,7 +1301,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="46" column="48" lean-forward="false" selection-start-line="45" selection-start-column="4" selection-end-line="46" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -965,9 +1314,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="114" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="632">
+          <caret line="697" column="0" lean-forward="false" selection-start-line="697" selection-start-column="0" selection-end-line="697" selection-end-column="0" />
+          <folding>
+            <element signature="n#scroll#0;n#transition#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -975,7 +1326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1400">
           <caret line="276" column="42" lean-forward="false" selection-start-line="276" selection-start-column="42" selection-end-line="276" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,6 +1333,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/base/songListPlayAll/songListPlayAll.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/homeAjax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/My.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="10" />
+          <folding>
+            <marker date="1521022279281" expanded="true" signature="1126:1240" ph="{...}" />
+            <marker date="1521022279281" expanded="true" signature="1178:1234" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding />
         </state>
       </provider>
