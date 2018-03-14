@@ -6,12 +6,13 @@
                     <h1 class="name">{{listData.name}}</h1>
                     <i class="iconfont icon-prev_arrow-copy"></i>
                 </div>
+                <!--为你推荐歌单-->
                 <transition-group tag="ul" name="fade" class="list-data"
-                                  v-if="listData.data.length && listData.title !== 'newMV'">
+                                  v-if="listData.data.length && listData.title === 'homeRecommend'">
                     <li class="data-li"
                         v-for="(data, index) in listData.data"
                         :key="index"
-                        v-show="showLi"
+                        v-if="showLi && showfade"
                         @click="selectSongSingle(data)">
                         <img class="data-mark"
                              :alt="data.edge_mark"
@@ -49,12 +50,44 @@
                     </li>
                 </ul>
                 <!--换一批-->
-                <div class="replace-data" v-show="listData.title === 'homeRecommend' && listData.data.length">
-                    <div class="replace-button" @click="clickReplaceData">
-                        <v-icon class="icon">cached</v-icon>
+                <div class="replace-data"
+                     v-show="listData.title === 'homeRecommend' && listData.data.length">
+                    <div class="replace-button"
+                         @click="clickReplaceData">
+                        <v-icon class="icon" :class="{active: !showfade}">cached</v-icon>
                         <p class="name">换一批</p>
                     </div>
                 </div>
+                <!--新歌专辑-->
+                <ul tag="ul" name="fade" class="list-data"
+                    v-if="listData.data.length && listData.title === 'newSongSpeed'">
+                    <li class="data-li"
+                        v-for="(data, index) in listData.data"
+                        :key="index"
+                        @click="selectSongSingle(data)">
+                        <img class="data-mark"
+                             :alt="data.edge_mark"
+                             v-lazy="data.edge_mark"
+                             v-show="data.edge_mark"/>
+                        <img class="data-cover"
+                             :alt="data.cover"
+                             v-lazy="data.cover"/>
+                        <!--播放量-->
+                        <div class="play-number-wrapper">
+                            <!--播放量数字-->
+                            <div class="play-number" v-show="data.listen_num">
+                                <i class="iconfont icon-erji"></i>
+                                <span class="number">{{computedPlayNumber(data.listen_num)}}</span>
+                            </div>
+                            <!--播放按钮-->
+                            <v-icon class="play">play_circle_outline</v-icon>
+                        </div>
+                        <!--歌单标题-->
+                        <div class="data-title">
+                            <span class="title-span" v-html="data.title"></span>
+                        </div>
+                    </li>
+                </ul>
                 <!--MV列表-->
                 <transition-group tag="ul"
                                   name="fade"
@@ -63,7 +96,6 @@
                     <li class="data-li"
                         v-for="(data, index) in listData.data"
                         :key="index"
-                        v-show="showLi"
                         @click="selectSongSingle(data)">
                         <img class="mv-cover"
                              :alt="data.cover"
@@ -109,7 +141,12 @@
                 * 设置是否显示列表
                 * @type {Boolean}
                 * */
-                showLi: true
+                showLi: true,
+                /*
+                 * 渐变显示
+                 * @type {Boolean}
+                 * */
+                showfade: true
             };
         },
         computed: {
@@ -119,6 +156,7 @@
         },
         mounted () {
             this.showLi = false;
+            this.fade = false;
         },
         methods: {
             // 标题点击事件
@@ -154,10 +192,14 @@
         },
         watch: {
             getHomeRecommend (newData) {
-                if (!newData) {
+                if (!newData.length) {
                     return;
                 }
                 this.showLi = true;
+                this.showfade = false;
+                setTimeout(() => {
+                    this.showfade = true;
+                }, 200)
             }
         }
     };
@@ -168,7 +210,7 @@
     @import "../../assets/sass/remAdaptive";
 
     .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s;
+        transition: opacity .3s;
     }
 
     .fade-leave-to {
@@ -437,6 +479,18 @@
             margin-bottom: 0;
             padding-left: px2rem(80px);
             font-size: px2rem(24px);
+        }
+        .active {
+            animation: rotate .5s;
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
         }
     }
 </style>
