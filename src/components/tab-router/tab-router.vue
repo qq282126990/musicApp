@@ -40,7 +40,6 @@
         box-sizing: border-box;
         height: px2rem(160px);
         background: $tab-router-bgcolor;
-        transition: all .2s;
     }
 
     /*标题列表*/

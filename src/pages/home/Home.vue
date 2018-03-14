@@ -18,12 +18,12 @@
                     <!--轮播图背景-->
                     <div class="silder-wrapper-bg" ref="silderWrapperBg" v-show="translateY !== 5"></div>
                     <!--主页导航-->
-                    <tab-router
-                        :tebLi="tebLi"
-                        :style="{transform: `translate3d(0, -${translateY}px, 0)`,
-                             boxShadow: `0px ${translateY === 0 ? 0 : translateY - 3}px ${translateY}px #999`}"
-                        @selectRouter="selectRouter"
-                        ref="tabRouter"></tab-router>
+                    <div class="tab-router-wrapper">
+                        <tab-router
+                            :tebLi="tebLi"
+                            @selectRouter="selectRouter"
+                            ref="tabRouter"></tab-router>
+                    </div>
                     <!--综合-->
                     <div class="complex-wrapper">
                         <!--个性电台-->
@@ -115,6 +115,8 @@
     import {setCookie, getCookie} from 'common/js/cookie';
     // 自定义歌单专辑数据
     import {createSongSingle} from 'common/js/songSingle';
+    // 样式兼容方法
+    import {prefixStyle} from 'common/js/dom';
     // 保存主页选择对应歌单的数据到本地 saveSongSingle
     // 保存主页新歌模块跳转对应的模块的标题 saveNewSongSpeedTitle
     import {saveSongSingle, saveNewSongSpeedTitle} from 'common/js/cache';
@@ -122,6 +124,9 @@
     import {savePlayUrl} from 'common/js/cache';
     // 设置歌曲信息总线程
     import Bus from '../../event-bus';
+
+    // transform 兼容
+    const transform = prefixStyle('transform');
 
     export default {
         name: 'home',
@@ -171,14 +176,14 @@
                     ]
                 }],
                 /*
-                * 警告弹框
-                * @type {Boolean}
-                * */
+                 * 警告弹框
+                 * @type {Boolean}
+                 * */
                 warningPrompt: false,
                 /*
-                * 警告提示框文字
-                * @type {String}
-                * */
+                 * 警告提示框文字
+                 * @type {String}
+                 * */
                 warningPromptTxt: '您的用户已在别处登录,请重新登录'
             };
         },
@@ -307,7 +312,8 @@
                 this.translateY = 5;
                 // 初始化轮播图背景样式
                 this.$refs.silderWrapperBg.style.opacity = 0;
-
+                this.$refs.tabRouter.$el.style[transform] = `translate3d(0, -${this.translateY}px, 0)`;
+                this.$refs.tabRouter.$el.style.boxShadow = `0px ${this.translateY === 0 ? 0 : this.translateY - 3}px ${this.translateY}px #999`;
                 // 把歌曲guid保存到cookie
                 this.setGuid();
 
@@ -539,6 +545,8 @@
             this.translateY = 5;
             // 初始化轮播图背景样式
             this.$refs.silderWrapperBg.style.opacity = 0;
+            this.$refs.tabRouter.$el.style[transform] = `translate3d(0, -${this.translateY}px, 0)`;
+            this.$refs.tabRouter.$el.style.boxShadow = `0px ${this.translateY === 0 ? 0 : this.translateY - 3}px ${this.translateY}px #999`;
             // 刷新滚动组件
             this.$refs.scroll.refresh();
             // 重置滚动位置
@@ -567,12 +575,17 @@
                     this.translateY = 0;
                     // 设置轮播图背景
                     this.$refs.silderWrapperBg.style.opacity = Math.abs(newScrollY / 100);
+                    this.$refs.tabRouter.$el.style[transform] = `translate3d(0, -${this.translateY}px, 0)`;
+                    this.$refs.tabRouter.$el.style.boxShadow = `0px ${this.translateY === 0 ? 0 : this.translateY - 3}px ${this.translateY}px #999`;
                 }
                 else {
                     // 设置标题导航向上偏移的位置
                     this.translateY = 5;
                     // 设置轮播图背景
                     this.$refs.silderWrapperBg.style.opacity = 0;
+
+                    this.$refs.tabRouter.$el.style[transform] = `translate3d(0, -${this.translateY}px, 0)`;
+                    this.$refs.tabRouter.$el.style.boxShadow = `0px ${this.translateY === 0 ? 0 : this.translateY - 3}px ${this.translateY}px #999`;
                 }
             },
             // 监听主页轮播图数据
@@ -722,16 +735,15 @@
 
     /*loading*/
     .loading-wrapper {
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
-        top: 0;
+        top: 40%;
         bottom: 0;
         text-align: center;
         z-index: 300;
         .loading {
             position: relative;
-            top: 40%;
             width: px2rem(200px);
             height: px2rem(200px);
         }
@@ -755,6 +767,14 @@
         opacity: 0;
         background: #000000;
         z-index: 100;
+    }
+
+    /*导航外层*/
+    .tab-router-wrapper{
+        margin: 0 .26667rem;
+        box-sizing: border-box;
+        height: 2.13333rem;
+        background: #fff;
     }
 
     /*综合*/
