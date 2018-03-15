@@ -92,7 +92,7 @@
             selectItem (item) {
                 this.$router.push({
                     path: `/home/ranking/${item.id}`
-                })
+                });
 
                 // 设置排行榜歌单id
                 this.setRankingId(item);

@@ -12,6 +12,7 @@
             </app-sidebar>
             <div class="app-view-wrapper">
                 <transition
+                    appear
                     :name="pageTransitionName"
                     @before-enter="handleBeforeEnter"
                     @after-enter="handleAfterEnter"
@@ -28,6 +29,7 @@
                 </transition>
                 <transition
                     :name="pageTransitionName"
+                    appear
                     @before-enter="handleBeforeEnter"
                     @after-enter="handleAfterEnter"
                     @before-leave="handleBeforeLeave">

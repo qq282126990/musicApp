@@ -21,7 +21,7 @@
                     <!--标题-->
                     <span class="category-title">热门分类</span>
                     <!--内容-->
-                    <div class="category-content">
+                    <div class="category-content" v-show="categoryNavigation.length">
                         <ul class="content-table">
                             <li>
                                 <p v-for="(item, index) in categoryNavigation.slice(0,3)"

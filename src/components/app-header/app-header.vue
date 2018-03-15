@@ -1,53 +1,51 @@
 <template>
-    <div>
-        <transition name="slide">
-            <div v-show="show">
-                <header class="app-header-wrapper">
-                    <div class="app-header-left">
-                        <!--右侧菜单-->
-                        <div v-if="showMenu"
-                             @click="handleClick('menu')" class="app-header-icon">
-                            <i class="iconfont icon-zhankai"></i>
-                        </div>
-                        <!--返回上一页-->
-                        <div v-if="showBack"
-                             @click="handleClick('back')" class="app-header-icon">
-                            <i class="iconfont icon-fanhui1-copy"></i>
-                        </div>
+    <transition name="slide" mode="out-in">
+        <div v-show="show">
+            <header class="app-header-wrapper">
+                <div class="app-header-left">
+                    <!--右侧菜单-->
+                    <div v-if="showMenu"
+                         @click="handleClick('menu')" class="app-header-icon">
+                        <i class="iconfont icon-zhankai"></i>
                     </div>
-                    <div class="app-header-middle" v-cloak>
-                        <!--没有title时显示-->
-                        <ul>
-                            <li class="header-li">
-                                <router-link to="/my" tag="span" class="myIndex">我的</router-link>
-                            </li>
-                            <router-link to="/home" tag="li" class="header-li">
-                                <span class="musician">音乐馆</span>
-                            </router-link>
-                            <li class="header-li">
-                                <router-link to="/find" tag="span" class="find">发现</router-link>
-                            </li>
-                        </ul>
+                    <!--返回上一页-->
+                    <div v-if="showBack"
+                         @click="handleClick('back')" class="app-header-icon">
+                        <i class="iconfont icon-fanhui1-copy"></i>
                     </div>
-                    <div class="search">
-                        <!--<i class="iconfont icon-sousuo2 search-icon"></i>-->
-                    </div>
-                </header>
-                <!--搜索输入框-->
-                <div class="search-input-wrapper" @click="clickShowSearch">
-                    <transition name="search-fade">
-                        <div class="search-content" v-show="!getShowSearch">
-                            <div class="search-input">
-                                <i class="iconfont icon-sousuo2 search-icon"></i>
-                                <span>搜索</span>
-                            </div>
-                        </div>
-                    </transition>
                 </div>
+                <div class="app-header-middle" v-cloak>
+                    <!--没有title时显示-->
+                    <ul>
+                        <li class="header-li">
+                            <router-link to="/my" tag="span" class="myIndex">我的</router-link>
+                        </li>
+                        <router-link to="/home" tag="li" class="header-li">
+                            <span class="musician">音乐馆</span>
+                        </router-link>
+                        <li class="header-li">
+                            <router-link to="/find" tag="span" class="find">发现</router-link>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <!--<i class="iconfont icon-sousuo2 search-icon"></i>-->
+                </div>
+            </header>
+            <!--搜索输入框-->
+            <div class="search-input-wrapper" @click="clickShowSearch">
+                <transition name="search-fade" mode="out-in">
+                    <div class="search-content" v-if="!getShowSearch">
+                        <div class="search-input">
+                            <i class="iconfont icon-sousuo2 search-icon"></i>
+                            <span>搜索</span>
+                        </div>
+                    </div>
+                </transition>
             </div>
-        </transition>
-        <search v-show="getShowSearch"></search>
-    </div>
+            <search v-show="getShowSearch"></search>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -58,7 +56,7 @@
 
     export default {
         name: 'appHeader',
-        data() {
+        data () {
             return {
                 /*
                 * 设置是否显示搜索框
@@ -88,7 +86,7 @@
              * @param {string} source 点击事件源名称 menu/logo/action
              * @param {Object} data 随点击事件附带的数据对象
              */
-            handleClick(source, {actionIdx, route} = {}) {
+            handleClick (source, {actionIdx, route} = {}) {
 
                 // 页面正在切换中，不允许操作，防止滑动效果进行中切换
                 if (this.isPageSwitching) {
@@ -115,7 +113,7 @@
             /*
             * 设置显示搜索框
             * */
-            clickShowSearch() {
+            clickShowSearch () {
                 this.setShowSeach(true);
             },
             ...mapActions('appStore', {
@@ -147,14 +145,6 @@
     .slide-leave-active {
         transform: translate3d(-100%, 0, 0);
         z-index: -1;
-    }
-
-    .search-fade-enter-active, .search-fade-leave-active {
-        transition: all .5s;
-    }
-
-    .search-fade-leave-to {
-        padding: 0 px2rem(40px) !important;
     }
 
     /*激活当前导航按钮*/
@@ -272,6 +262,10 @@
         .search-content {
             padding: 0 px2rem(10px);
             box-sizing: content-box;
+            transition: all .5s;
+            &.search-fade-leave-to {
+                padding: 0 px2rem(40px) !important;
+            }
         }
         .search-input {
             display: block;

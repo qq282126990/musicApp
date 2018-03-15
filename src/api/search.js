@@ -9,7 +9,7 @@ export function getSearchHot() {
     uin: 0,
     needNewCode: 1,
     platform: 'h5'
-  })
+  });
 
   return jsonp(url, data, options)
 }

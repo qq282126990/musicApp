@@ -9,7 +9,7 @@
                             <home-slider>
                                 <div v-for="item in homeSlider">
                                     <a>
-                                        <img :alt="item.pic_info.url" v-lazy="item.pic_info.url">
+                                        <img :alt="item.pic_info.url" :src="item.pic_info.url" v-show="item.pic_info.url">
                                     </a>
                                 </div>
                             </home-slider>

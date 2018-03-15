@@ -284,7 +284,7 @@
             width: px2rem(70px);
             z-index: 100;
             opacity: 0;
-            transition: opacity .3s;
+            /*transition: opacity .3s;*/
         }
         &.collapse {
             margin-top: 0 !important;

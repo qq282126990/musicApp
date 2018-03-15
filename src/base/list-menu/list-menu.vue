@@ -7,7 +7,10 @@
                     <i class="iconfont icon-prev_arrow-copy"></i>
                 </div>
                 <!--为你推荐歌单-->
-                <transition-group tag="ul" name="fade" class="list-data"
+                <transition-group tag="ul"
+                                  name="fade"
+                                  class="list-data"
+                                  appear
                                   v-if="listData.data.length && listData.title === 'homeRecommend'">
                     <li class="data-li"
                         v-for="(data, index) in listData.data"
@@ -92,6 +95,7 @@
                 <transition-group tag="ul"
                                   name="fade"
                                   class="list-data-li-mv"
+                                  appear
                                   v-if="listData.data.length && listData.title === 'newMV'">
                     <li class="data-li"
                         v-for="(data, index) in listData.data"

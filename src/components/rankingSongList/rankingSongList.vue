@@ -151,9 +151,9 @@
             // 一些初始化操作
             _initSome () {
                 // 如果没有id就返回上一页
-                if (!this.setRankingId.id) {
-                    this.$router.back();
-                }
+//                if (!this.setRankingId.id) {
+//                    this.$router.back();
+//                }
                 // 榜单标题
                 this.rankingTile = null;
                 // 榜单时间
@@ -162,6 +162,10 @@
                 this.rankingUpdate = null;
                 // 榜单歌曲列表
                 this.rankingSongList = [];
+
+
+                // 获取排行榜歌曲数据接口
+                this.setRankingSongList(this.setRankingId.id);
             },
             // 返回按钮
             back () {
@@ -228,8 +232,6 @@
         activated () {
             // 一些初始化操作
             this._initSome();
-            // 获取排行榜歌曲数据接口
-            this.setRankingSongList(this.setRankingId.id);
         },
         watch: {
             // 监听榜单歌曲列表数据变化

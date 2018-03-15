@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade">
+    <transition name="search-fade" mode="out-in" appear>
         <div class="search-box-wrapper">
             <!--头部-->
             <search-box ref="searchBox" @query="onQueryChange"></search-box>
@@ -29,9 +29,9 @@
                                 <!--清空历史按钮-->
                                 <span class="clear" @click="showConfirm">清空历史</span>
                             </h1>
-                           <search-list :searchHistory="getSearchHistory"
-                                        @selectHistory="addQuery"
-                                        @deleteHistory="setDeleteSearchHistory"></search-list>
+                            <search-list :searchHistory="getSearchHistory"
+                                         @selectHistory="addQuery"
+                                         @deleteHistory="setDeleteSearchHistory"></search-list>
                         </div>
                     </div>
                 </scroll>
@@ -47,7 +47,7 @@
             </div>
             <confirm text="是否清空所有搜索历史"
                      @end="setClearSearchHistory"
-                     ref="confirm" ></confirm>
+                     ref="confirm"></confirm>
         </div>
     </transition>
 </template>
@@ -66,12 +66,12 @@
     import Confirm from 'base/confirm/confirm';
 
     export default {
-        data() {
+        data () {
             return {
                 query: ''
             }
         },
-        mounted() {
+        mounted () {
             this.setRefreshDelay(120);
             // 获取热门搜索接口
             this.setSearchHot();
@@ -93,22 +93,22 @@
             })
         },
         methods: {
-            addQuery(query) {
+            addQuery (query) {
                 this.$refs.searchBox.setQuery(query)
             },
             // 取消键盘焦点
-            blurInput() {
+            blurInput () {
                 this.$refs.searchBox.blur();
             },
-            onQueryChange(query) {
+            onQueryChange (query) {
                 this.query = query
             },
             // 保存搜索结果
-            saveSearch() {
+            saveSearch () {
                 this.setSaveSearchHistory(this.query)
             },
             // 清空历史搜索弹出框
-            showConfirm() {
+            showConfirm () {
                 this.$refs.confirm.show()
             },
             ...mapActions('asyncAjax', {
@@ -147,8 +147,8 @@
         },
         watch: {
             getSearchHot (searchHot) {
-              // 滚动组件外部传入的数据
-              this.setScrollData(searchHot);
+                // 滚动组件外部传入的数据
+                this.setScrollData(searchHot);
             }
         },
         components: {
@@ -165,14 +165,6 @@
     @import "../../assets/sass/variables";
     @import "../../assets/sass/remAdaptive";
 
-    .fade-enter-active, .fade-leave-active {
-        transition: all .5s;
-    }
-
-    .fade-enter, .fade-leave-to {
-        opacity: 0;
-    }
-
     .fade-enter {
         padding-top: px2rem(88px);
     }
@@ -183,6 +175,13 @@
         bottom: 0;
         width: 100%;
         background: $search-box-wrapper-bgcolor;
+        &.search-fade-enter-active, &.search-fade-leave-active {
+            transition: opacity .4s;
+        }
+
+        &.search-fade-enter, &.search-fade-leave-to {
+            opacity: 0;
+        }
     }
 
     .shortcut-wrapper {
@@ -225,9 +224,9 @@
                 }
             }
             /*搜索历史*/
-            .search-history{
+            .search-history {
                 position: relative;
-                .history-title{
+                .history-title {
                     margin: 0;
                     padding: 0 px2rem(40px);
                     box-sizing: border-box;
@@ -237,10 +236,10 @@
                     font-size: px2rem(28px);
                     height: px2rem(80px);
                     line-height: px2rem(80px);
-                    .text{
+                    .text {
                         color: $hot-key-color;
                     }
-                    .clear{
+                    .clear {
                         color: #3ac481;
                     }
                 }
@@ -249,7 +248,7 @@
     }
 
     /*搜索结果*/
-    .search-result{
+    .search-result {
         position: fixed;
         width: 100%;
         top: px2rem(72px);
@@ -258,7 +257,7 @@
     }
 
     /*搜索提示*/
-    .search-prompt{
+    .search-prompt {
         padding: 0 px2rem(30px);
         text-align: left;
         font-size: px2rem(28px);
@@ -266,7 +265,7 @@
         line-height: px2rem(88px);
         color: $search-prompt-color;
         background: $search-prompt-bgcolor;
-        p{
+        p {
             margin: 0;
             white-space: nowrap;
             overflow: hidden;

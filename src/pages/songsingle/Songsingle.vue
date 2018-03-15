@@ -1,6 +1,7 @@
 <template>
     <div class="song-single-wrapper">
-        <transition name="slide">
+        <transition name="slide" mode="out-in"
+        >
             <music-list :collection="collection" v-if="show">
             </music-list>
         </transition>
@@ -86,6 +87,12 @@
             // 设置首页头部导航隐藏
             this.setAppHeader({
                 show: false
+            });
+        },
+        deactivated (){
+            // 设置首页头部导航隐藏
+            this.setAppHeader({
+                show: true
             });
         },
         components: {

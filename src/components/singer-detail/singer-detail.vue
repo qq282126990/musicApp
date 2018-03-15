@@ -24,22 +24,6 @@
                     ref="contentScrollWrapper">
                 <div>
                     <!--内容-->
-                    <!--<slider-switch :dotsTitle="dotsTitle"-->
-                    <!--@pageIndex="pageIndex"-->
-                    <!--&gt;-->
-                    <!--<div v-for="(item, index) in dotsTitle" :key="index" v-if="dotsTitle.length">-->
-                    <!--&lt;!&ndash;歌曲列表&ndash;&gt;-->
-                    <!--<div class="singer-content" v-if="index === 0">-->
-                    <!--<song-list-play-all></song-list-play-all>-->
-                    <!--<song-list :totalSongNum="getSingerDetail.total"-->
-                    <!--@selectSong="selectSong"></song-list>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;详情&ndash;&gt;-->
-                    <!--<div class="singer-content" v-if="index === 1">-->
-                    <!--<p v-html="getSingerDetail.SingerDesc" class="text"></p>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</slider-switch>-->
                     <div class="singer-content">
                         <song-list-play-all></song-list-play-all>
                         <song-list :totalSongNum="getSingerDetail.total"
@@ -290,14 +274,12 @@
                 setSelectPlay: 'selectPlay'
             })
         },
-        // 选择歌手
+        // 组件激活
         activated () {
             // 设置首页头部导航
             this.setAppHeader({
                 show: false
             });
-
-            console.log(this.getSingerMessage);
 
             if (this.getSingerMessage.id) {
                 // 获取歌手歌曲列表接口

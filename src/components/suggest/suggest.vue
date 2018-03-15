@@ -217,8 +217,6 @@
                 if (data.song) {
                     ret = ret.concat(normalizeSongList(data.song.list));
                 }
-                console.log(data);
-
                 return ret;
             },
             // 检查能否加载更多

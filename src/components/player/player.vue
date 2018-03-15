@@ -6,6 +6,8 @@
                     @after-enter="afterEnter"
                     @leave="leave"
                     @after-leave="afterleave"
+                    mode="out-in"
+                    appear
         >
             <div class="normal-player" v-show="getFullScreen">
                 <!--背景-->
@@ -129,7 +131,9 @@
             </div>
         </transition>
         <!--最小化样式-->
-        <transition name="mini">
+        <transition name="mini"
+                    mode="out-in"
+                    appear>
             <div class="mini-player" v-show="!getFullScreen" @click="open">
                 <!--有歌曲列表时显示-->
                 <transition name="playList">
@@ -947,7 +951,7 @@
                 if (newPlayError && this.getCurrentSong.strMediaMid) {
                     // 设置歌曲播放状态
 //                    this.$refs.audio.pause();
-                   // this.$refs.audio.play();
+                    // this.$refs.audio.play();
 
                     // 请求歌曲播放链接地址
                     this._getSinglePlayingUrl(this.getCurrentSong.strMediaMid, null);
@@ -1009,15 +1013,10 @@
     }
 
     /*播放器放大时的动画*/
-    .normal-enter-active{
+    .normal-enter, .normal-leave-active {
+        transition: all .4s cubic-bezier(0.86, 0.18, 0.82, 1.32);
         .header, .bottom {
-            transition: all 0.4s cubic-bezier(0.86, 0.18, 0.82, 1.32)
-        }
-    }
-    .normal-leave-active {
-        transition: all .4s;
-        .header, .bottom {
-            transition: all 0.4s cubic-bezier(0.86, 0.18, 0.82, 1.32)
+            transition: all .4s cubic-bezier(0.86, 0.18, 0.82, 1.32)
         }
     }
 
