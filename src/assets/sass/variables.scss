@@ -1,20 +1,20 @@
 // AppHeader.vue
 $btn-color: #fff; // 头部按钮颜色
 $app-header-height: 88px; // 头部导航的高度
-$app-header-bgcolor: rgba(49, 194, 124, 1); // 头部背景颜色  默认颜色 rgba(49, 194, 124, 0.95)
+$app-header-bgcolor: #c52d61; // 头部背景颜色  默认颜色 rgba(49, 194, 124, 0.95)
 $header-li-color: rgba(255, 255, 255, 0.8); // 头部文字颜色
 
 // search.vue
 $search-font-color: #fff; // 搜索框字体颜色
-$search-wrapper-bgcolor: rgba(49, 194, 124, 0.95); // 搜索框背景颜色 默认颜色  rgba(49, 194, 124, 0.95)
+$search-wrapper-bgcolor: #c52d61; // 搜索框背景颜色 默认颜色  rgba(49, 194, 124, 0.95)
 
 // homeSlider.vue
 $dotsBgColor: rgba(20, 23, 35, 0.95); // 轮播点背景颜色
-$dotActiveBgColor-color: rgba(54, 183, 120, 0.95); // 轮播点激活时的颜色
+$dotActiveBgColor-color: #c52d61; // 轮播点激活时的颜色
 
 // tab-router.vue
 $textColor: #000; // icon标题颜色
-$IconColor: rgba(49, 194, 124, 0.95); // icon 颜色
+$IconColor: #c52d61; // icon 颜色
 $tab-router-bgcolor: #fff; // 导航块背景颜色  默认颜色  rgba(20, 22, 34, 0.95)
 
 // home.vue
@@ -40,7 +40,7 @@ $play-number-bgcolor: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba
 
 // song-list.vue
 $total-number-color: grey; // 总歌曲数量的字体颜色
-$play-color: #31c27c; // 播放按钮颜色
+$play-color: #c52d61; // 播放按钮颜色
 $content-title-color: #000; // 内容标题颜色
 $content-text-color: grey; // 内容文字颜色
 $more-color: #b6b6b6; // 更多 icon颜色
@@ -49,24 +49,24 @@ $none-more: #fff; // 没有更多背景颜色
 // loading.vue
 $bg-color: rgba(246, 204, 23, 0.95); // 背景颜色
 $audiotrack-color: #31c27c; // 音乐图标颜色
-$green-color: #57b45a; // 旋转圆圈颜色
+$green-color: #31c27c; // 旋转圆圈颜色
 
 // player.vue
 $mini-player-color: #fff; //播放器最小化时的背景颜色 rgba(18, 21, 33, 0.95)
 $normal-player-bgcolor: #0e0d13; // 放大的播放器的背景颜色
 $text-name-color: #000; // 歌曲标题颜色
 $text-desc-color: #777; // 歌手颜色
-$play-color: #0dbb64; // 播放按钮图标颜色
-$playing-lyric-color: #31c27c; // 小歌词默认颜色
+$play-color: #c52d61; // 播放按钮图标颜色
+$playing-lyric-color: #c52d61; // 小歌词默认颜色
 $no-play-list-color: #000; // 没有歌曲列表时显示
 $sing-name-color: #fff; // 歌手名颜色
 $time-color: #fff; // 播放时间颜色
 $lyric-text-color: rgba(255, 255, 255, 0.5); // 歌词颜色
-$lyric-text-current-color: #31c27c; // 歌词行激活的颜色
+$lyric-text-current-color: #c52d61; // 歌词行激活的颜色
 $favorite_border: #9d9d9d; // 没有收藏按钮
 $favorite: #f06868; // 收藏按钮
-$kip-previous: #31c27c; // 回到上一个
-$skip-next: #31c27c; // 下一个
+$kip-previous: #c52d61; // 回到上一个
+$skip-next: #c52d61; // 下一个
 $mode-color: rgba(157, 157, 157, 1); // 切换播放模式按钮颜色
 
 // playlist.vue
@@ -81,33 +81,33 @@ $list-content-bgcolor: rgba(26, 31, 40, 0.9); // 列表内容背景颜色
 $list-close-bgcolor: rgba(26, 31, 40, 0.4); // 关闭按钮背景颜色
 $list-close-color: #fff; // 关闭按钮文字颜色
 $list-content-name-color: #fff; // 歌曲名字颜色
-$list-content-name-active-color: #16c975; // 当前正在播放的歌曲的文字颜色
+$list-content-name-active-color: #c52d61; // 当前正在播放的歌曲的文字颜色
 
 //progress-bar.vue
 $bar-inner-color: #898989; // 播放器进度条颜色
-$progress-color: #16c975; // 进度条进度颜色
+$progress-color: #c52d61; // 进度条进度颜色
 
 // category-song-list.vue
 $hot-recommend-bg-color: #fff; // 背景颜色 1e2326
 $title-color: #fff; // 标题颜色
 $hot-songs-title-color: #000; // hot-songs字体颜色
-$header-color: #30c27c; // 标题颜色 1b2023
-$look-more-color: #0dbb64; // 查看更多字体颜色
+$header-color: #c52d61; // 标题颜色 1b2023
+$look-more-color: #c52d61; // 查看更多字体颜色
 $content-name-color: #000; // 歌单标题
 $user-name-color: #999; // 发布人名字颜色
-$chosen-heade-select: #37c385; // 精选歌单头部选择颜色
+$chosen-heade-select: #c52d61; // 精选歌单头部选择颜色
 
 // homeSlider-switch.vue
 $slider-switch-dots-bg: #fff; // 滑动切换头部的背景 1b2023
 $slider-switch-name-color: #000; // 标题颜色
-$dots-bg: #0dbb64; // dots颜色
+$dots-bg: #c52d61; // dots颜色
 
 // new-song-speed.vue
-$song-speed-header-color: #0dbb64; // 歌单速递路由头部标题字体颜色
+$song-speed-header-color: #c52d61; // 歌单速递路由头部标题字体颜色
 $song-speed-header-router-link-active-color: #fff; // 歌单速递路由
 
 // new-song.vue
-$new-song-header-active-color: #31c27c; // 新歌头部导航激活颜色
+$new-song-header-active-color: #c52d61; // 新歌头部导航激活颜色
 
 // digital-album.vue
 $list-text2-color: #808080; // 专辑歌手名颜色
@@ -122,7 +122,7 @@ $digital-album-music-list-content-text: #fff; // 数字专辑歌曲列表文字�
 $digital-album-music-list-content-text-active: #ffce6b; // 数字专辑歌曲列表文字颜色
 
 // my.vue
-$router-nav-icon-color: #30c27c; // 我的页面导航icon颜色
+$router-nav-icon-color: #c52d61; // 我的页面导航icon颜色
 $customize-song-list-header: #999; // 用户歌单头部导航字体颜色
 $customize-text-color: #000; // 用户歌单字体颜色
 $created-song-list-icon-color: #4e4e4e; // 创建歌单按钮颜色
@@ -131,10 +131,10 @@ $categoryzone-header-color: rgba(0, 0, 0, .1);
 
 // search.vue
 $search-box-wrapper-bgcolor: #f3f3f3; // 搜索层背景颜色
-$search-box-header-bgcolor: #31c27c; // 搜索框背景颜色
+$search-box-header-bgcolor: #c52d61; // 搜索框背景颜色
 $search-result-bgcolor: #F4F4F4;// 搜索结果背景颜色
 $search-prompt-bgcolor: #fff;// 搜索提示背景颜色
-$search-prompt-color: #64D09C;// 搜索提示字体颜色
+$search-prompt-color: #c52d61;// 搜索提示字体颜色
 $hot-key-color: #999;// 热门搜索字体颜色
 
 // ranking.vue
@@ -147,5 +147,5 @@ $singer-list-title: #818181; // 歌手标题颜色
 $more-bottom-bgcolor: #e3e3e3; // 更多按钮背景颜色
 
 // login.vue
-$weChat-login-bgcolor: #19c37c; // 微信登录按钮背景颜色
+$weChat-login-bgcolor: #c52d61; // 微信登录按钮背景颜色
 $qq-login-bgcolor: #02a7e4; // qq登录按钮背景颜色

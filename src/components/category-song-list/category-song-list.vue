@@ -106,7 +106,12 @@
                  * 分类歌单专辑列表标题
                  * @type {String}
                  * */
-                chosenTitle: '精选歌单'
+                chosenTitle: '精选歌单',
+                /*
+                 * 是否可以滚动到对应位置
+                 * @type {Boolean}
+                 * */
+                scrollTo: 0
             };
         },
         mounted() {
@@ -131,6 +136,8 @@
         methods: {
             // 一些初始化操作
             _initSome() {
+                this.scrollTo = 0;
+
                 // 获取分类歌单导航请求
                 this.setCategoryNavigation();
             },
@@ -189,6 +196,8 @@
                 this.$refs.scroll.scrollTo(0, 0, 1000);
                 this.$refs.scroll.refresh();
             }
+
+            this.scrollTo = 0;
         },
         // 当组件停用时执行
         deactivated() {
@@ -202,7 +211,14 @@
             getCategoryNavigation(newCategoryNavigation) {
                 this.categoryNavigation = this._normalizeCategoryNavigation(newCategoryNavigation.slice(1, 6));
             },
+            sortId () {
+                this.scrollTo = 0
+            },
             getSortSongData () {
+                this.scrollTo++;
+                if (this.scrollTo > 1) {
+                    return;
+                }
                 this.$nextTick(() => {
                     if (/^(\/home\/homeRecommend)/.test(this.$route.path)) {
                         // 设置滚动位置

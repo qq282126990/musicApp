@@ -284,13 +284,13 @@
         /*设置图标*/
         .icon-set {
             font-size: px2rem(40px);
-            color: #1ad27c;
+            color: #c52d61;
         }
         /*退出图标*/
         .icon-exit {
             transform: rotateY(180deg);
             font-size: px2rem(40px);
-            color: #1ad27c;
+            color: #c52d61;
         }
     }
 </style>

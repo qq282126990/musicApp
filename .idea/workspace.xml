@@ -2,28 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b98f3e5e-6308-48c7-8a1b-8840550886e4" name="默认的" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/img/gexingdauntai.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/img/login-bg.jpg" afterPath="$PROJECT_DIR$/src/common/img/login-bg.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/search.js" afterPath="$PROJECT_DIR$/src/api/search.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/songAlbumMessage.js" afterPath="$PROJECT_DIR$/src/api/songAlbumMessage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/songListPlayUrl.js" afterPath="$PROJECT_DIR$/src/api/songListPlayUrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" afterPath="$PROJECT_DIR$/src/base/list-menu/list-menu.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/more-button/more-button.vue" afterPath="$PROJECT_DIR$/src/base/more-button/more-button.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/songList.js" afterPath="$PROJECT_DIR$/src/common/js/songList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/app-header/app-header.vue" afterPath="$PROJECT_DIR$/src/components/app-header/app-header.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/app-sidebar/Sidebar.vue" afterPath="$PROJECT_DIR$/src/components/app-sidebar/Sidebar.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/sass/variables.scss" afterPath="$PROJECT_DIR$/src/assets/sass/variables.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/loading/loading.vue" afterPath="$PROJECT_DIR$/src/base/loading/loading.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/song-list/song-list.vue" afterPath="$PROJECT_DIR$/src/base/song-list/song-list.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/js/mixin.js" afterPath="$PROJECT_DIR$/src/common/js/mixin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/app-sidebar/app-sidebar.vue" afterPath="$PROJECT_DIR$/src/components/app-sidebar/app-sidebar.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/category-song-list/category-song-list.vue" afterPath="$PROJECT_DIR$/src/components/category-song-list/category-song-list.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/player/player.vue" afterPath="$PROJECT_DIR$/src/components/player/player.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ranking/ranking.vue" afterPath="$PROJECT_DIR$/src/components/ranking/ranking.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/rankingSongList/rankingSongList.vue" afterPath="$PROJECT_DIR$/src/components/rankingSongList/rankingSongList.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/search/search.vue" afterPath="$PROJECT_DIR$/src/components/search/search.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/singer-detail/singer-detail.vue" afterPath="$PROJECT_DIR$/src/components/singer-detail/singer-detail.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/suggest/suggest.vue" afterPath="$PROJECT_DIR$/src/components/suggest/suggest.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/categoryzone/Categoryzone.skeleton.vue" afterPath="$PROJECT_DIR$/src/pages/categoryzone/Categoryzone.skeleton.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Find.vue" afterPath="$PROJECT_DIR$/src/pages/home/Find.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Home.skeleton.vue" afterPath="$PROJECT_DIR$/src/pages/home/Home.skeleton.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/Home.vue" afterPath="$PROJECT_DIR$/src/pages/home/Home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/songsingle/Songsingle.vue" afterPath="$PROJECT_DIR$/src/pages/songsingle/Songsingle.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/router.js" afterPath="$PROJECT_DIR$/src/pages/home/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/mv/Mv.skeleton.vue" afterPath="$PROJECT_DIR$/src/pages/mv/Mv.skeleton.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/songsingle/Songsingle.skeleton.vue" afterPath="$PROJECT_DIR$/src/pages/songsingle/Songsingle.skeleton.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,67 +35,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="songAlbumMessage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/songAlbumMessage.js">
+      <file leaf-file-name="Find.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="singer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/singer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/api/search.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="820">
-                <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="songListPlayUrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/songListPlayUrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build/dev-server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="62" column="78" lean-forward="false" selection-start-line="62" selection-start-column="15" selection-end-line="62" selection-end-column="78" />
+            <state relative-caret-position="-10961">
+              <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
               <folding>
-                <marker date="1520820300103" expanded="true" signature="2945:3059" ph="{...}" />
-                <marker date="1520820300103" expanded="true" signature="7160:7745" ph="{...}" />
+                <element signature="n#src#0;n#img#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chosen-song-list.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/chosen-song-list/chosen-song-list.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="44" lean-forward="false" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homeSlider.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/homeSlider/homeSlider.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="category-song-list.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/category-song-list/category-song-list.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1439">
+              <caret line="228" column="23" lean-forward="false" selection-start-line="228" selection-start-column="23" selection-end-line="228" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mixin.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/common/js/mixin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1980">
+              <caret line="333" column="17" lean-forward="false" selection-start-line="333" selection-start-column="17" selection-end-line="333" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/home/Home.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="538" column="17" lean-forward="false" selection-start-line="538" selection-start-column="8" selection-end-line="538" selection-end-column="17" />
+              <folding>
+                <marker date="1521192348229" expanded="true" signature="102302:102309" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="more-button.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="351" column="22" lean-forward="false" selection-start-line="351" selection-start-column="22" selection-end-line="351" selection-end-column="22" />
+              <folding>
+                <marker date="1521195211106" expanded="true" signature="11571:11727" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="11571:12841" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="11571:14119" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="11571:14127" ph="..." />
+                <marker date="1521195211106" expanded="true" signature="11777:12300" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="12343:12542" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="12589:12831" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="12879:13808" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="12962:13070" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="13089:13132" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="13159:13440" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="13459:13557" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="13576:13798" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="13840:14113" ph="{...}" />
+                <marker date="1521195211106" expanded="true" signature="14020:14103" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -242,8 +261,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="957" />
+    <option name="x" value="63" />
+    <option name="y" value="235" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -265,7 +285,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -277,6 +296,22 @@
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="loaders" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -293,7 +328,27 @@
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="sass" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="chosen-song-list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -321,6 +376,13 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="login-input" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
               <item name="more-button" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -329,6 +391,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
               <item name="progress-bar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="registered-input" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -369,6 +438,13 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -382,84 +458,7 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="app-header" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="category-song-list" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="digital-album-music-list" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="new-album" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="new-song-speed" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="ranking" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="rankingSongList" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="search" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="singer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="singer-detail" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="suggest" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="music" type="b2602c69:ProjectViewProjectNode" />
@@ -486,6 +485,13 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="mv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="songsingle" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -494,10 +500,28 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="store" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="music" type="b2602c69:ProjectViewProjectNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -510,19 +534,19 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\musicAPP\src\api" />
-      <recent name="D:\music\src\pages\mvmessage" />
-      <recent name="D:\music\src\common\img" />
-      <recent name="D:\music\images" />
-      <recent name="D:\music\src\api" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\music\src\base\registered-input" />
       <recent name="D:\music\src\base" />
       <recent name="D:\music\server\api" />
       <recent name="D:\musicAPP\src\components\app-sidebar" />
       <recent name="D:\musicAPP\src\components\app-header" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\musicAPP\src\api" />
+      <recent name="D:\music\src\pages\mvmessage" />
+      <recent name="D:\music\src\common\img" />
+      <recent name="D:\music\images" />
+      <recent name="D:\music\src\api" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -663,7 +687,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="654160000" />
+    <option name="totallyTimeSpent" value="654302000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -675,19 +699,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="957" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30580357" sideWeight="0.49525103" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22666667" sideWeight="0.49075082" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Weex Documents" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26043957" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26115343" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33949944" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17068528" sideWeight="0.504749" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33841133" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22666667" sideWeight="0.5092492" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971507" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -697,9 +720,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26115343" sideWeight="0.50186664" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297062" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33949944" sideWeight="0.49813333" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -708,8 +731,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17068528" sideWeight="0.504749" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -736,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -758,7 +780,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -766,7 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -800,7 +820,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1330">
           <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -816,7 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="849">
           <caret line="235" column="24" lean-forward="false" selection-start-line="235" selection-start-column="24" selection-end-line="235" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -846,9 +864,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home/Find.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="17" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="-10961">
+          <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <folding>
+            <element signature="n#src#0;n#img#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -856,7 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
           <caret line="28" column="19" lean-forward="false" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -878,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/category-song-list/category-song-list.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="44" column="59" lean-forward="false" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+        <state relative-caret-position="1439">
+          <caret line="228" column="23" lean-forward="false" selection-start-line="228" selection-start-column="23" selection-end-line="228" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -912,7 +931,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -928,7 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="129" column="13" lean-forward="false" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -936,9 +953,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="410" column="22" lean-forward="false" selection-start-line="410" selection-start-column="13" selection-end-line="410" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -952,20 +966,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/base/more-button/more-button.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="248" column="50" lean-forward="false" selection-start-line="248" selection-start-column="50" selection-end-line="248" selection-end-column="50" />
+        <state relative-caret-position="355">
+          <caret line="351" column="22" lean-forward="false" selection-start-line="351" selection-start-column="22" selection-end-line="351" selection-end-column="22" />
           <folding>
-            <marker date="1520829528915" expanded="true" signature="9125:9297" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="11571:11727" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="11571:12841" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="11571:14119" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="11571:14127" ph="..." />
+            <marker date="1521195211106" expanded="true" signature="11777:12300" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="12343:12542" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="12589:12831" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="12879:13808" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="12962:13070" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="13089:13132" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="13159:13440" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="13459:13557" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="13576:13798" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="13840:14113" ph="{...}" />
+            <marker date="1521195211106" expanded="true" signature="14020:14103" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="137" column="12" lean-forward="false" selection-start-line="132" selection-start-column="9" selection-end-line="137" selection-end-column="12" />
+        <state relative-caret-position="576">
+          <caret line="538" column="17" lean-forward="false" selection-start-line="538" selection-start-column="8" selection-end-line="538" selection-end-column="17" />
           <folding>
-            <marker date="1521083872710" expanded="true" signature="71155:71162" ph="{...}" />
+            <marker date="1521192348229" expanded="true" signature="102302:102309" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -974,7 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
           <caret line="114" column="18" lean-forward="false" selection-start-line="114" selection-start-column="18" selection-end-line="114" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -982,11 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
           <caret line="114" column="10" lean-forward="false" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
-          <folding>
-            <element signature="n#scroll#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#2661#3947#0" expanded="false" />
-            <element signature="e#3967#4943#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1013,7 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-425">
           <caret line="8" column="47" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1021,7 +1042,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-147">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,9 +1049,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1047,7 +1064,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1055,7 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="703">
           <caret line="38" column="4" lean-forward="false" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,9 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
           <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1092,7 +1104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1126,10 +1137,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="77">
           <caret line="62" column="78" lean-forward="false" selection-start-line="62" selection-start-column="15" selection-end-line="62" selection-end-column="78" />
-          <folding>
-            <marker date="1520820300103" expanded="true" signature="2945:3059" ph="{...}" />
-            <marker date="1520820300103" expanded="true" signature="7160:7745" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1138,7 +1146,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="820">
             <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-            <folding />
           </first_editor>
           <second_editor />
         </state>
@@ -1148,7 +1155,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1156,7 +1162,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1164,7 +1169,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1172,7 +1176,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>

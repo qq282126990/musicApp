@@ -218,8 +218,8 @@
                         margin: 0 px2rem(20px);
                     }
                     &.active {
-                        color: #37c37f;
-                        border: 1px solid #37c37f;
+                        color: #c52d61;
+                        border: 1px solid #c52d61;
                     }
                 }
             }
@@ -240,7 +240,7 @@
                         color: $hot-key-color;
                     }
                     .clear {
-                        color: #3ac481;
+                        color: #c52d61;
                     }
                 }
             }

@@ -335,6 +335,20 @@ export const chosenSongList = {
             setPullUpLoad: 'pullUpLoad'
         }),
     },
+    activated () {
+        this.sortId = 5;
+
+        // 获取分类歌单歌曲信息
+        this.setSortSongDataAjax({
+            categoryId: this.categoryId,
+            sortId: this.sortId,
+            sin: this.sin,
+            ein: this.ein
+        });
+
+        // 设置开启上拉加载
+        this.setPullUpLoad(true);
+    },
     watch: {
         // 监听分类歌单列表数据
         getSortSongData (newSortSongData) {

@@ -13,9 +13,9 @@
                         <h3 class="content-title" :class="setStyle">
                             <span>{{item.name}}</span>
                             <!--歌曲是否有MV-->
-                            <i class="icon-mv" v-show="item.vid" title="MV"></i>
+                            <!--<i class="icon-mv" v-show="item.vid" title="MV"></i>-->
                             <!--歌曲是否有独家-->
-                            <i class="icon-isonly" v-show="item.isonly === 1" title="isonly"></i>
+                            <!--<i class="icon-isonly" v-show="item.isonly === 1" title="isonly"></i>-->
                         </h3>
                         <!--歌手名称-->
                         <p class="text">
