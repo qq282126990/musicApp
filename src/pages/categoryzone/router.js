@@ -1,4 +1,5 @@
-import Categoryzone from '@/pages/categoryzone/Categoryzone.vue';
+// import Categoryzone from '@/pages/categoryzone/Categoryzone.vue';
+let Categoryzone = () => import('@/pages/categoryzone/Categoryzone.vue');
 
 export default {
     routes: [

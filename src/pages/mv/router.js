@@ -1,4 +1,5 @@
-import Mv from '@/pages/mv/Mv.vue';
+// import Mv from '@/pages/mv/Mv.vue';
+let Mv = () => import('@/pages/mv/Mv.vue');
 
 export default {
     routes: [

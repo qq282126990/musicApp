@@ -2,8 +2,8 @@
     <div>
         <transition name="fade" appear>
             <div class="find-wrapper" v-show="!showLoading">
-                <!--<iframe src="https://qq282126990.github.io/#blog" height="100%" width="100%">-->
-                <!--</iframe>-->
+                <iframe src="https://qq282126990.github.io/#blog" height="100%" width="100%">
+                </iframe>
             </div>
         </transition>
         <!--loading-->
