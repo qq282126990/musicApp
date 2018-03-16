@@ -11,7 +11,7 @@
 ## 安装
 
 手机APP安装点击一下链接获取安卓APK
-> https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1518104735085/lavas.app.music.apk
+> https://gss0.bdstatic.com/9rkZbzqaKgQUohGko9WTAnF6hhy/assets/pwa/projects/1521211644728/lavas.app.lavas.HuoyinMusic.apk
 
 手机扫码获取安卓APK
 > ![image](https://github.com/qq282126990/musicApp/blob/mpa/images/androidAPK.png)

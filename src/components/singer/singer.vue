@@ -23,7 +23,7 @@
                             v-for="item in list.items"
                             @click="selectSinger(item)">
                             <!--头像-->
-                            <img class="avatar" v-lazy="item.avatar">
+                            <img class="avatar" :alt="item.avatar" v-lazy="item.avatar">
                             <!--名称-->
                             <span class="name">{{item.name}}</span>
                         </li>

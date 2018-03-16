@@ -5,14 +5,14 @@
 
 // 定义切割点，异步加载路由组
 // 主页模块
-// let Home = () => import('@/pages/home/home.vue');
-// // 发现模块
-// let Find = () => import('./Find.vue');
-// // 我的模块
-// let My = () => import('./My.vue');
-import Home from '@/pages/home/home.vue';
-import Find from '@/pages/home/Find.vue';
-import My from '@/pages/home/My.vue';
+let Home = () => import('@/pages/home/home.vue');
+// 发现模块
+let Find = () => import('./Find.vue');
+// 我的模块
+let My = () => import('./My.vue');
+// import Home from '@/pages/home/home.vue';
+// import Find from '@/pages/home/Find.vue';
+// import My from '@/pages/home/My.vue';
 
 // 新歌速递模块
 import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';

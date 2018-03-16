@@ -7,7 +7,7 @@
             </div>
             <!--榜单图片-->
             <div class="bg-image" ref="bgImage">
-                <img class="img" v-lazy="this.getSingerMessage.avatar">
+                <img class="img" :alt="this.getSingerMessage.avatar" v-lazy="this.getSingerMessage.avatar">
                 <!--标题-->
                 <h1 class="bg-image-title">{{getSingerMessage.name ? getSingerMessage.name : getSingerMessage.singername}}</h1>
                 <!--粉丝数-->
@@ -15,7 +15,7 @@
             </div>
             <!--背景滤镜效果-->
             <div class="filter" :style="{opacity: filterOpacity}" ref="filter">
-                <img :src="this.getSingerMessage.avatar">
+                <img :alt="this.getSingerMessage.avatar" :src="this.getSingerMessage.avatar">
             </div>
             <!--滚动-->
             <scroll class="content-scroll-wrapper"
