@@ -1,4 +1,4 @@
-# PWA版本QQ音乐
+# PWA版本火影音乐
 
   > 这是一个采用PWA与百度开发的PWA框架Lavas制作的webApp
   
