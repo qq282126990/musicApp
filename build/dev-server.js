@@ -117,7 +117,7 @@ apiRoutes.post('/getSongListPlayingUrl', function (req, res) {
     // 获取请求的 body payload 转换成字符串
     var data = JSON.stringify(req.body).replace(/[\\]/g, '');
 
-    var url = '';
+    var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
 
     axios.post(url, data).then((response) => {
         var ret = response.data;
@@ -137,7 +137,7 @@ apiRoutes.post('/getSongListPlayingUrl', function (req, res) {
 // 获取歌曲列表的单个播放地址
 apiRoutes.get('/getSinglePlayingUrl', function (req, res) {
 
-    var url = '';
+    var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg';
 
     axios.get(url, {
         headers: {
@@ -272,7 +272,7 @@ apiRoutes.get('/sortSongData', function (req, res) {
 // 获取歌曲列表的单个播放地址
 apiRoutes.get('/getSongDownloadUrl', function (req, res) {
 
-    var url = '';
+    var url = 'http://isure.stream.qqmusic.qq.com/';
 
     axios.get(url, {
         responseType: 'blob',

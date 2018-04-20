@@ -6,49 +6,49 @@
 // 定义切割点，异步加载路由组
 // 主页模块
 // let Home = () => import('@/pages/home/home.vue');
-// // 发现模块
-// let Find = () => import('./Find.vue');
-// // 我的模块
-// let My = () => import('./My.vue');
+// 发现模块
+let Find = () => import('./Find.vue');
+// 我的模块
+let My = () => import('./My.vue');
 import Home from '@/pages/home/home.vue';
-import Find from '@/pages/home/Find.vue';
-import My from '@/pages/home/My.vue';
+// import Find from '@/pages/home/Find.vue';
+// import My from '@/pages/home/My.vue';
 
 // 新歌速递模块
-// import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';
-let NewSongSpeed = () => import('components/new-song-speed/new-song-speed.vue');
+import NewSongSpeed from 'components/new-song-speed/new-song-speed.vue';
+// let NewSongSpeed = () => import('components/new-song-speed/new-song-speed.vue');
 
 // 数字专辑音乐列表
-// import DigitalAlbumMusicList from 'components/digital-album-music-list/digital-album-music-list.vue';
-let DigitalAlbumMusicList = () => import('components/digital-album-music-list/digital-album-music-list.vue');
+import DigitalAlbumMusicList from 'components/digital-album-music-list/digital-album-music-list.vue';
+// let DigitalAlbumMusicList = () => import('components/digital-album-music-list/digital-album-music-list.vue');
 
 // 分类歌单
-// import CategorySongList from 'components/category-song-list/category-song-list.vue';
-let CategorySongList = () => import('components/category-song-list/category-song-list.vue');
+import CategorySongList from 'components/category-song-list/category-song-list.vue';
+// let CategorySongList = () => import('components/category-song-list/category-song-list.vue');
 
 // 我的喜欢组件
-// import UserFavoriteList from 'components/user-favorite-list/user-favorite-list.vue';
-let UserFavoriteList = () => import('components/user-favorite-list/user-favorite-list.vue');
+import UserFavoriteList from 'components/user-favorite-list/user-favorite-list.vue';
+// let UserFavoriteList = () => import('components/user-favorite-list/user-favorite-list.vue');
 
 // 最近播放组件
-// import RecentPlay from 'components/recent-play/recent-play.vue';
-let RecentPlay = () => import('components/recent-play/recent-play.vue');
+import RecentPlay from 'components/recent-play/recent-play.vue';
+// let RecentPlay = () => import('components/recent-play/recent-play.vue');
 
 // 排行榜组件
-// import Ranking from 'components/ranking/ranking.vue';
-let Ranking = () => import('components/ranking/ranking.vue');
+import Ranking from 'components/ranking/ranking.vue';
+// let Ranking = () => import('components/ranking/ranking.vue');
 
 // 排行榜歌曲列表组件
-// import RankingSongList from 'components/rankingSongList/rankingSongList.vue';
-let RankingSongList = () => import('components/rankingSongList/rankingSongList.vue');
+import RankingSongList from 'components/rankingSongList/rankingSongList.vue';
+// let RankingSongList = () => import('components/rankingSongList/rankingSongList.vue');
 
 // 歌手组件
-// import Singer from 'components/singer/singer.vue';
-let Singer = () => import('components/singer/singer.vue');
+import Singer from 'components/singer/singer.vue';
+// let Singer = () => import('components/singer/singer.vue');
 
 // 歌手专辑组件
-// import SingerDetail from 'components/singer-detail/singer-detail.vue';
-let SingerDetail = () => import('components/singer-detail/singer-detail.vue');
+import SingerDetail from 'components/singer-detail/singer-detail.vue';
+// let SingerDetail = () => import('components/singer-detail/singer-detail.vue');
 
 export default {
     routes: [

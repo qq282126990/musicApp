@@ -24,7 +24,7 @@ export function getSingerDetail (param) {
     const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
 
     const data = Object.assign({}, commonParams, {
-        uin: 0,
+        uin: 1020989782,
         platform: 'h5page',
         needNewCode: 1,
         order: 'listen',

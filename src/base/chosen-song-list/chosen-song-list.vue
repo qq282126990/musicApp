@@ -26,7 +26,7 @@
                         <!--播放量数字-->
                         <div class="play-number">
                             <i class="iconfont icon-erji"></i>
-                            <span class="number">{{computedPlayNumber(item.listennum)}}</span>
+                            <span class="number">{{computedPlayNumber (item.listennum)}}</span>
                         </div>
                         <!--播放按钮-->
                         <v-icon class="play">play_circle_outline</v-icon>
@@ -71,9 +71,9 @@
     export default {
         props: {
             /*
-                 * 分类歌单专辑列表标题
-                 * @type {String}
-                 * */
+             * 分类歌单专辑列表标题
+             * @type {String}
+             * */
             chosenTitle: {
                 type: String,
                 default: null
@@ -97,17 +97,17 @@
             }
         },
         data () {
-          return {
-              /*
-               * loading显示的文字
-               * @type {String}
-               * */
-              loadingText: '加载中...'
-          };
+            return {
+                /*
+                 * loading显示的文字
+                 * @type {String}
+                 * */
+                loadingText: '加载中...'
+            };
         },
         computed: {
             // 获取请求接口对应的数据
-            ...mapState('asyncAjax', {
+            ...mapState ('asyncAjax', {
                 /*
                  * 获取分类歌单歌曲信息
                  * @type {Array}
@@ -117,12 +117,12 @@
         },
         methods: {
             // 选择歌单导航
-            selectNavigation(sortId) {
-                this.$emit('selectNavigation', sortId);
+            selectNavigation (sortId) {
+                this.$emit ('selectNavigation', sortId);
             },
             // 点击选择歌单
-            selectSongList(singer) {
-                this.$emit('selectSongList', singer);
+            selectSongList (singer) {
+                this.$emit ('selectSongList', singer);
             },
             /**
              * 计算播放量
@@ -131,7 +131,7 @@
             computedPlayNumber (playNumber) {
                 // 如果当前播放量是1万才进行计算
                 if (playNumber > 1e4) {
-                    playNumber = (playNumber / 1e4).toFixed(1) + '万';
+                    playNumber = (playNumber / 1e4).toFixed (1) + '万';
                 }
                 return playNumber;
             }
@@ -145,7 +145,6 @@
 <style lang="scss" scoped>
     @import "../../assets/sass/variables";
     @import "../../assets/sass/remAdaptive";
-
 
     /*loading*/
     .loading-wrapper {

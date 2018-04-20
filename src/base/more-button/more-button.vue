@@ -52,7 +52,7 @@
     import {ERR_OK} from 'api/config';
 
     // 歌曲下载链接地址头部
-    const URL_HEAD = ``;
+    const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
 
     export default {
         data () {
@@ -109,7 +109,7 @@
                         let hours = date.getHours();
 
                         // 晚上用另一个下载接口
-                        if (hours > 19) {
+                        if (hours > 17) {
                             try {
                                 // 下载文件方法
                                 downloadFile(this.getShowMore.currentSong.download, `${this.getShowMore.currentSong.name}.mp3`);
@@ -149,7 +149,7 @@
                     const link = document.createElement('a');
                     const body = document.querySelector('body');
 
-                    link.href = blob;
+                    link.href = window.URL.createObjectURL(blob);
                     link.download = fileName;
                     link.style.display = 'none';
                     body.appendChild(link);
@@ -229,8 +229,12 @@
                             this.songmid = res.data.items[0].songmid;
                             this.vkey = res.data.items[0].vkey;
 
+                            const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
+
                             // 歌曲播放地址
-                            this.downloadUrl = ``;
+                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
+// 歌曲播放地址
+                            this.downloadUrl = `${URL_HEAD}/M500${this.songmid}.mp3?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=46`;
 
                             // 下载文件方法
                             this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
@@ -245,8 +249,7 @@
                             this.filename = res.data.items[0].filename;
                             this.vkey = res.data.items[0].vkey;
 
-                            // 歌曲播放地址
-                            this.downloadUrl = ``;
+
 
                             // 下载文件方法
                             this.saveFile(this.downloadUrl, `${this.getShowMore.currentSong.name}.mp3`);
@@ -271,10 +274,10 @@
                  */
                 setCurrentIndex: 'currentIndex',
                 /**
-                 * 设置播放列表数据
-                 * @type {Boolean}
+                 * 设置是否显示更多按钮
+                 * @type {Object}
                  */
-                setPlayList: 'playList',
+                setShowMore: 'showMore',
                 /**
                  * 控制歌曲播放模式
                  * @type {Boolean}

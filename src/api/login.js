@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 用户登录接口
 export function getSelectUser (param) {
-    const url = 'http://119.29.97.214:3001/serverApi/selectUser';
+    const url = 'https://linfengzhuiyi.cn:5000/serverApi/selectUser';
 
     return axios.post(url, param).then((res) => {
         return Promise.resolve(res.data);

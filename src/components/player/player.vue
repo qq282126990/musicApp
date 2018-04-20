@@ -226,7 +226,7 @@
     // transitionDuration 兼容
     const transitionDuration = prefixStyle('transitionDuration');
     // 歌曲链接地址头部
-    const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
+    const URL_HEAD = `https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg`;
 
     export default {
         mixins: [playerMixin],
@@ -290,6 +290,8 @@
 
             // 监听选择歌曲事件
             Bus.$on('selectSong', (data) => {
+                console.log(getPlayUrl());
+
                 if (!this.getCurrentSong.id) {
                     return;
                 }
@@ -880,8 +882,13 @@
                             this.filename = res.data.items[0].filename;
                             this.vkey = res.data.items[0].vkey;
 
+
+                            // 歌曲链接地址头部
+                            const URL_HEAD = `https://dl.stream.qqmusic.qq.com`;
                             // 歌曲播放地址
-                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=1468198185&fromtag=66`;
+                            // 歌曲播放地址
+                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=1468198185&fromtag=66`;
 
                             // 发送选择歌曲播放链接总线程
                             Bus.$emit('selectSong', this.playUrl);
@@ -895,8 +902,7 @@
                             this.filename = res.data.items[0].filename;
                             this.vkey = res.data.items[0].vkey;
 
-                            // 歌曲播放地址
-                            this.playUrl = `${URL_HEAD}/${this.filename}?vkey=${this.vkey}&guid=${getCookie('guid')}&uin=0&fromtag=66`;
+
                             // 发送选择歌曲播放链接总线程
                             Bus.$emit('selectSong', this.playUrl);
                         }
